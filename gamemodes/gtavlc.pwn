@@ -11,7 +11,7 @@
 
 /*
     cái shop mình để 3 cái trc đi ha, Base shop, Dice shop, Quest shop, hiện tại có skin thì ra thêm 2 cái nguyên liệu mới nữa để mua hộp mở skin trong Skin shop
-    à thêm cái trade skin trong /giaodich nha em
+    à thêm cái trade skin trong /giaodich nha em a
     Đổi các vật phẩm á, rob point, escapepoint, thẻ đổi tên, neon bla bla aa
 */
 #include <a_samp>
