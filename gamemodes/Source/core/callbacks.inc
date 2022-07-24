@@ -192,11 +192,11 @@ public OnGameModeInit() {
 	ShowPlayerMarkers(2);
 	ManualVehicleEngineAndLights();
 	
-	CauCaZoneZ[0] = GangZoneCreate(398, -2769.5, 545, -2636.5 );
-	CauCaZoneZ[1] = GangZoneCreate(639, -2958, 786, -2825);
+	//CauCaZoneZ[0] = GangZoneCreate(398, -2769.5, 545, -2636.5);
+	//CauCaZoneZ[1] = GangZoneCreate(639, -2958, 786, -2825);
 	//CauCaZoneZ[2] = GangZoneCreate(717, -2727.9921875, 864, -2594.9921875);
 	//CauCaZoneZ[3] = GangZoneCreate(959.98828125, -2888.484375, 1106.98828125, -2755.484375);
-	CauCaZoneZ[2] = GangZoneCreate(138.98828125, -2850.484375, 285.98828125, -2717.484375);
+	//CauCaZoneZ[2] = GangZoneCreate(138.98828125, -2850.484375, 285.98828125, -2717.484375);
 	// 24/7 Actor
 	Actor1 = CreateDynamicActor(224, -27.8746,-91.6354,1003.5469,6.7494);
 	// SetActorVirtualWorld(Actor1, 46);

@@ -129,7 +129,7 @@ enum pInfo {
 	pEscapeExit, // jail menu
 	pCasinoChip,
 	pHunger,
-	pGrowthPoints
+	pGrowthPoints,
 };
 new 
 	PlayerInfo[MAX_PLAYERS + 1][pInfo],

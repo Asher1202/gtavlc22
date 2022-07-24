@@ -753,7 +753,7 @@ CMD:startwork(playerid, params[]) {
 	gettime(hour,minn,sec);
 	#pragma unused sec
 	#pragma unused minn
-	if(ServerSystem[19] == 0 && hour > -1 && hour < 6 && (!CAC_GetStatus(playerid) && GetPVarInt(playerid, "NotAndroid") == 1)) return SendClientMessage(playerid, -1, "Ban can cai dat Anti-Cheat (sampcac) de lam viec trong khoang thoi gian tu 24h-6h sang. Hay xem huong dan cai dat tren trang chu.");  
+	//if(ServerSystem[19] == 0 && hour > -1 && hour < 6 && (!CAC_GetStatus(playerid) && GetPVarInt(playerid, "NotAndroid") == 1)) return SendClientMessage(playerid, -1, "Ban can cai dat Anti-Cheat (sampcac) de lam viec trong khoang thoi gian tu 24h-6h sang. Hay xem huong dan cai dat tren trang chu.");  
 	if(PlayerInfo[playerid][pJob] == 0) return SendClientMessage(playerid, COLOR_GREY, "Ban khong co mot cong viec, su dung /timvieclam de tim viec!");
 	if(JobWorking[playerid] == 1) return SendClientMessage(playerid, COLOR_WHITE, "Ban dang lam viec.");
     GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
@@ -1141,7 +1141,7 @@ SetTodayJob(jobid = 0){
 }
 
 
-CMD:thaluoi(playerid, params[])
+/*CMD:thaluoi(playerid, params[])
  {
     if(PlayerInfo[playerid][pJob] != 11) return SCM(playerid, COLOR_GREY, "Ban khong phai la FisherMan LS!");
 	if(GetPlayerSkill(playerid) < 4 ) return SCM(playerid, COLOR_GREY, "Job skill level cua ban chua du 4 nen khong the su dung!");
@@ -1170,3 +1170,4 @@ CMD:thaluoi(playerid, params[])
  	}
 	else return SCM(playerid, -1, "Ban can co mot chiec thuyen ca nhan hoac co mot chu thuyen {FF0000}/lamviecchung{FFFFFF} moi co the tha luoi");
 }
+*/

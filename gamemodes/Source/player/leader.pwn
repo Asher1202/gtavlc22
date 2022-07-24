@@ -16,6 +16,11 @@ CMD:fvrespawn(playerid, params[]) {
 	for(new v = 0; v < MAX_SVEHICLES; v++) {
 		if(ServerVehicles[v][vFaction] == PlayerInfo[playerid][pMember]) {
 			if(!IsVehicleOccupied(ServerVehicles[v][vSpawned])) SetVehicleToRespawn(ServerVehicles[v][vSpawned]), Gas[ServerVehicles[v][vSpawned]] = 100;
+			if(InWar[PlayerInfo[playerid][pMember]] == 1) {
+				for(new wi = 1; wi < turfsss;wi++) {
+					if(WarInfo[wi][wFaction] == PlayerInfo[playerid][pMember] || WarInfo[wi][wAttacker] == PlayerInfo[playerid][pMember]) SetVehicleVirtualWorld(ServerVehicles[v][vSpawned], wi);
+				}
+			}
 		}
 		if(ServerVehicles[v][vModel] == 596 && Copcar2(v)) {
 				SetVehicleHealth(v, 1650);
@@ -32,7 +37,8 @@ CMD:fvrespawn(playerid, params[]) {
 		}
 		if(ServerVehicles[v][vModel] == 427 && Copcar2(v)) {
 			SetVehicleHealth(v, 6500);
-		}			
+		}
+				
 	}
 	new string[180];
 	format(string, sizeof(string), "(i) %s da respawn tat ca cac phuong tien cua to chuc", GetName(playerid));
