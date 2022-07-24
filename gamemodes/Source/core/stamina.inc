@@ -111,7 +111,7 @@ Stamina_SetValue(playerid, num) {
 	{
 		case 0: {
 			SetPlayerHealth(playerid, Float:0.0);
-			PlayerInfo[playerid][pHunger] = 26;
+			PlayerInfo[playerid][pHunger] = 11;
 			Update(playerid, pHungerx);
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban bi chet vi qua doi");
 		}
@@ -119,14 +119,14 @@ Stamina_SetValue(playerid, num) {
 			new Float:health;
 			GetPlayerHealthEx(playerid, health);
 			LoopingAnim(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
-			SetPlayerHealthEx(playerid, health-1);
+			SetPlayerHealthEx(playerid, health-3);
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban qua doi, hay mo tui do de an mot chiec hamburger");
 		}
 		case 15..25: {
 			new Float:health;
 			GetPlayerHealthEx(playerid, health);
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban da qua doi, hay tim mot chut gi de de an [/tuido]");
-			SetPlayerHealthEx(playerid, health-1);
+			SetPlayerHealthEx(playerid, health-2);
 		}
 	}
 }

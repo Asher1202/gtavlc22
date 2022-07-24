@@ -12,7 +12,7 @@ new const NormalShopInfo[][e_SHOP_INFO] = {
 	{"Noi that house", 				150, 	TYPE_PREMIUM_POINTS},
 	//{"Premium cars", 				300, 	TYPE_PREMIUM_POINTS},
 	{"Xoa 10 FP", 					30, 	TYPE_PREMIUM_POINTS},
-	{"Doi ten", 					150, 	TYPE_PREMIUM_POINTS},
+	{"Doi ten", 					50, 	TYPE_PREMIUM_POINTS},
 	{"Vehicle hidden color", 		30, 	TYPE_PREMIUM_POINTS},
 	{"Them 1 slot xe", 				25, 	TYPE_PREMIUM_POINTS},
 	// {"Clear 1 warn", 				25, 	TYPE_PREMIUM_POINTS},
@@ -200,7 +200,6 @@ Dialog:DIALOG_CHANGENAME(playerid, response, listitem, inputtext[])
 	}
 
 	format(string, sizeof(string), "%s doi ten thanh %s voi gia 200 "#DIEMCAOCAP".", lastname, name);
-	//InsertLog(playerid, string, LOG_SHOP);
 	Log("logs/shop.log", string);
 	mysql_format(SQL, string, sizeof(string), "UPDATE `users` SET `Name`='%e' WHERE `ID`='%d'", name, PlayerInfo[playerid][pSQLID]);
 	mysql_pquery(SQL, string);
@@ -224,7 +223,6 @@ Dialog:DIALOG_BUYLICENSE(playerid, response, listitem, inputtext[])
 			GivePlayerCash(playerid, -1500000);
 			Update(playerid, pCashx);
 			format(string, sizeof(string), "%s da mua 1 giay phep sung voi gia $1,500,000.", GetName(playerid));
-			//InsertLog(playerid, string, LOG_SHOP);
 			Log("logs/shop.log", string);
 			finishAchievement(playerid, 7); //sung					
 		}
@@ -239,7 +237,6 @@ Dialog:DIALOG_BUYLICENSE(playerid, response, listitem, inputtext[])
 			GivePlayerCash(playerid, -1000000);
 			Update(playerid, pCashx);
 			format(string, sizeof(string), "%s da mua giay phep may bay voi gia $1,000,000.", GetName(playerid));
-			//InsertLog(playerid, string, LOG_SHOP);
 			finishAchievement(playerid, 9); //may bay
 		}
 		case 2: {
@@ -253,7 +250,6 @@ Dialog:DIALOG_BUYLICENSE(playerid, response, listitem, inputtext[])
 			GivePlayerCash(playerid, -1000000);
 			Update(playerid, pCashx);
 			format(string, sizeof(string), "%s da mua giay phep thuyen voi gia $1,000,000.", GetName(playerid));
-			//InsertLog(playerid, string, LOG_SHOP);
 			finishAchievement(playerid, 8); //thuyen			
 		}				
 	}	
@@ -378,7 +374,6 @@ Dialog:DIALOG_SHOP1(playerid, response, listitem, inputtext[])
 			Dialog_Show(playerid, DIALOG_CLAN, DIALOG_STYLE_INPUT, "Shop:", "Ban sap tao clan 20 slot.\nNhung gi ban phai lam bay gio la,\
 			 dat ten cho clan.\nTen clan phai tu 3 den 10 ky tu.", "Ok", "");
 			format(string, sizeof(string), "%s Ban da mua  1 Clan voi gia 300 "#DIEMCAOCAP".", GetName(playerid));
-			//InsertLog(playerid, string, LOG_SHOP);				   
 		}
 		case 1: {
 			return SendClientMessage(playerid, -1, "dang update");
@@ -393,7 +388,6 @@ Dialog:DIALOG_SHOP1(playerid, response, listitem, inputtext[])
 			if(PlayerInfo[playerid][pFpunish] < 0) PlayerInfo[playerid][pFpunish] = 0;
 			UpdateVar(playerid, "FPunish", 0);
 			format(string, sizeof(string), "%s da xoa 10 FP voi gia %d "#DIEMCAOCAP".", GetName(playerid), GetPVarInt(playerid, "PremiumPoints"));
-			//InsertLog(playerid, string, LOG_SHOP);		
 			Log("logs/shop.log", string);			
 		}
 		case 3: {
@@ -458,7 +452,6 @@ Dialog:DIALOG_SHOP1(playerid, response, listitem, inputtext[])
 			PlayerInfo[playerid][pPremiumPoints] -= 25;
 			SendClientMessage(playerid, COLOR_GOLD, "Ban da mua 1 slot xe voi gia 25 "#DIEMCAOCAP".");
 			format(string, sizeof(string), "%s da mua 1 slot phuong tien voi gia 25 "#DIEMCAOCAP".", GetName(playerid));
-			//InsertLog(playerid, string, LOG_SHOP);
 			Log("logs/shop.log", string);
 		}
 		// case 7: {

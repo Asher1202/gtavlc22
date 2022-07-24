@@ -204,8 +204,6 @@ FinishTrade(playerid) {
 	SendClientMessage(playerid, COLOR_GOLD, string);
 	
 	format(logg, sizeof(logg), "%s da chuyen [%s], cho %s (user:%d).", logg, items, GetName(id), PlayerInfo[id][pSQLID]);
-	//InsertLog(playerid, logg, LOG_TRADE);	
-	//InsertLog(id, logg, LOG_TRADE);
 	Log("logs/trade.log", logg);
 	
 	CancelSelectTextDraw(playerid);

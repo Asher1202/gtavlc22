@@ -941,7 +941,6 @@ Dialog:BUYTOYSLOT(playerid, response, listitem, inputtext[]) {
         UpdateVar(playerid, "ToySlot", PlayerInfo[playerid][pToySlot]);
         new string[200];
         format(string, sizeof(string), "%s da mua thanh cong mot slot toy.");
-        //InsertLog(playerid, string, LOG_SHOP);
         Log("logs/shop.log", string);
         SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua thanh cong mot slot toy. Hay su dung /toys de kiem tra.");
     }
@@ -1487,7 +1486,7 @@ CompleteToyTrade(playerid) {
 
     GivePlayerCash(playerid, -GetPVarInt(sellerid, "ttCost"));
     GivePlayerCash(sellerid, GetPVarInt(sellerid, "ttCost"));
-
+    PayTax(sellerid, GetPVarInt(sellerid, "ttCost"), e_SELL_TOY);
     for (new i = 0; i < icount; i++) {
         if(!PlayerToyInfo[playerid][i][ptModelID]) {
             PlayerToyInfo[playerid][i][ptModelID] = toyid;
@@ -1714,6 +1713,7 @@ CMD:selltoy(playerid, params[]) {
     if(!ProxDetectorS(5.0, playerid, targetid)) return SendClientMessage(playerid, COLOR_GREY, "Nguoi nay khong o gan ban.");
     if(InsideTradeToys[targetid] == 1) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi nay dang thuc hien giao dich, xin vui long thu lai sau.");
     if(cost < 1 || cost > 1000000000) return SendClientMessage(playerid, COLOR_GREY, "Ban khong the ban do choi it hon $1.");
+    if(PlayerInfo[playerid][pLevel] < 4) return SendClientMessage(playerid, -1, "Ban can dat level 4 de thuc hien lenh nay.");
     SetPVarInt(targetid, "ttSeller", playerid);
     SetPVarInt(playerid, "ttBuyer", targetid);
     SetPVarInt(playerid, "ttCost", cost);

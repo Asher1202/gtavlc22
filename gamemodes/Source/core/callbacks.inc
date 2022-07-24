@@ -309,7 +309,7 @@ public OnPlayerConnect(playerid) {
 	}*/
 	RemoveMaps(playerid);
 	PlayerTextdraws(playerid);
-
+	LoadGuong(playerid);
 	SetPlayerWorldBounds(playerid, 20000.0000, -20000.0000, 20000.0000, -20000.0000);  
 	TimerAtuPlayer[playerid] = repeat UpdatePlayer(playerid);
 	SetPlayerColor(playerid,COLOR_GRAD2);
@@ -353,7 +353,7 @@ public OnPlayerDisconnect(playerid, reason)
 			mysql_tquery(SQL, gQuery, "CheckClassIP", "i", last);
 		}
 	}
-
+	if(DaThueThuyen[playerid] != 0) DestroyVehicle(ThuyenSpawn[DaThueThuyen[playerid]]);
 	if(GetPVarType(playerid, "BoomboxObject")) {
 		DestroyDynamicObject(GetPVarInt(playerid, "BoomboxObject"));
 		DestroyDynamic3DTextLabel(Text3D:GetPVarInt(playerid, "BBLabel"));
@@ -2525,7 +2525,6 @@ public OnPlayerEnterCheckpoint(playerid)
 			CP[playerid] = 0;
 			new salar = 96*GetPlayerSkill(playerid);
 			format(string, sizeof(string), "%s da nhan duoc $%s cho cong viec %s.", GetName(playerid), FormatNumber(salar), JobInfo[PlayerInfo[playerid][pJob]][jName]);
-			////InsertLog(playerid, string, LOG_MONEY);
 			Log("logs/jobmoney.log", string);			
 			format(string, sizeof(string), "(+) Ban nhan duoc $%s cho cong viec do ban thuc hien.", FormatNumber(salar));
 			SendClientMessage(playerid, COLOR_MONEY, string);
@@ -2802,7 +2801,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			return 1;
 		}
 		if(GetPVarInt(playerid, "InLesson") != -1) return 1;
-
+		if(Iter_Contains(HelpersDuty, playerid)) return StopEnterCar(playerid);
 		if(IsABoat(vehicleid)) {
 			if(PlayerInfo[playerid][pBoatLic] < 1 && InDealer[playerid] == 0) {
 				if(PlayerInfo[playerid][pJob] == 11 && JobVehicle[playerid] != 0) {} else
@@ -3234,7 +3233,15 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 	// stop SpeedBoostTimer[playerid];
 	// SpeedBoostTimer[playerid] = Timer:0;
 	if(InEvent[playerid] == 1 && LastCar[playerid] == vehicleid) SpawnPlayer(playerid);
-
+	if(GetPVarInt(playerid, "SpawnXe") != 0) {
+		//DeletePVar(playerid, "SpawnXe");
+        DestroyVehicle(XeNewbie[GetPVarInt(playerid, "SpawnXe")]);
+		DeletePVar(playerid, "SpawnXe");
+    }
+	if(DaThueThuyen[playerid] != 0) {
+		DestroyVehicle(ThuyenSpawn[DaThueThuyen[playerid]]);
+		DaThueThuyen[playerid] = 0;
+    }
 	if(PlayerInfo[playerid][pEscape] != 0) {
 		if(IsValidDynamicPickup(PlayerInfo[playerid][pEscapeP])) DestroyDynamicPickup(PlayerInfo[playerid][pEscapeP]);
 		if(IsValidDynamic3DTextLabel(PlayerInfo[playerid][pEscapeT])) DestroyDynamic3DTextLabel(PlayerInfo[playerid][pEscapeT]);
@@ -3884,7 +3891,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					if(PlayerInfo[playerid][pGunLic] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "[ERROR] Ban khong co giay phep sung. Hay lien he voi giao vien de duoc cap."); 
 					Dialog_Show(playerid, DIALOG_BUYGUN, DIALOG_STYLE_LIST, "Shop vu khi", "Deagle ($500,000)\nM4 ($1,400,000)\nAK47 ($1,000,000)\nMicro SMG ($700,000)\nShotgun ($400,000)\nBaseball Bat ($50,000)", "Buy", "Exit"); 
 					return 1;
-				}			
+				}		
+				if(BizzInfo[playerid][bType] == 6) {
+							if(ThuySan[playerid] != 0) Dialog_Show(playerid, DIALOG_THUYSAN, DIALOG_STYLE_MSGBOX, "BAN THUY SAN:", "Ban co muon ban thuy san cua ban tai cua hang nay khong?", "Co", "Khong");
+				}	
 				if(BizzInfo[InBussines[playerid]][bType] == 6)
 				{
 					if(IsPlayerInRangeOfPoint(playerid,4.0,-27.5654,-89.9433,1003.5469) || IsPlayerInRangeOfPoint(playerid,4.0,-28.8578,-185.1236,1003.5469))
@@ -4193,7 +4203,7 @@ public OnVehicleSpawn(vehicleid) {
 	if(FindSpawnID(vehicleid) != 0) {
 		new carid = FindSpawnID(vehicleid);
 		SetTunning(carid);
-		CarInfo[carid][cTax] += 1500 + random(500);
+		CarInfo[carid][cTax] += 1500 + random(100);
 		new query[256];
 		format(query, sizeof(query), "UPDATE `cars` SET `Tax`='%d' WHERE `ID`='%d'", CarInfo[carid][cTax], carid);
 		mysql_query(SQL, query);		
@@ -4534,12 +4544,10 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
     return 1;
 }
 public OnPlayerStreamIn(playerid, forplayerid) {
-	if(GetPVarInt(playerid, "NotAndroid") == 0) {
+	if(!IsPCPlayer(playerid)) {
 		ShowPlayerNameTagForPlayer(playerid, forplayerid, 1);
 	}
-	if(GetPVarInt(playerid, "NotAndroid") == 1) {
-		ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
-	}
+	if(IsPCPlayer(playerid)) ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
 	SetHitStreamIn(playerid, forplayerid);
 
 	return 1;
@@ -4548,6 +4556,7 @@ public OnPlayerStreamIn(playerid, forplayerid) {
 forward SetHitStreamIn(playerid, forplayerid);
 public SetHitStreamIn(playerid, forplayerid) {
 	new iswar = 0, attackers, defenders;
+	if(IsPCPlayer(playerid)) ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
 	if(PlayerHit[playerid] != -1) ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
     for(new i = 1; i < turfsss && iswar == 0; i++) {
 		attackers = WarInfo[i][wAttacker];
@@ -4602,6 +4611,9 @@ public SetHitStreamOut(playerid, forplayerid) {
 public OnPlayerStreamOut(playerid, forplayerid) {
 	if(IsPCPlayer(playerid)) {
 		ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
+	}
+	if(!IsPCPlayer(playerid)) {
+		ShowPlayerNameTagForPlayer(playerid, forplayerid, 0);
 	}
 	SetHitStreamOut(playerid, forplayerid);	
 

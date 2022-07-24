@@ -18,9 +18,9 @@ hook OnPlayerConnect(playerid) {
     cuocxiu[playerid] = 0;
 }
 CMD:taixiu(playerid, params[]) {
-	if(!IsPlayerInRangeOfPoint(playerid, 30.0, 1949.3138, 1041.4014, 992.8594) 
+	if(!IsPlayerInRangeOfPoint(playerid, 30.0, 1116.1476,-1457.6807,13.8592) 
 	&& !IsPlayerInRangeOfPoint(playerid, 30.0, JobInfo[11][jPosX], JobInfo[11][jPosY], JobInfo[11][jPosZ])
-	) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o casino / truoc khu cau ca.");
+	) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o CNN / truoc khu cau ca.");
 	
 	if(CasinoOn==0) return SendClientMessage(playerid, COLOR_GREY, "INFO: {FFFFFF}Casino da dong, se mo tai cac khung gio 13h-16h va 18h-22h.");
 	Dialog_Show(playerid, DIALOG_TAIXIU, DIALOG_STYLE_LIST, "Tai xiu", "Thong tin\nCuoc tai\nCuoc xiu", "Chon", "Tro ve");

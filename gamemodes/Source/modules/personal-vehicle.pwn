@@ -647,7 +647,6 @@ GiveVehicle(playerid, modelid, bool:buyatDealership = false) {
 	
 	format(string, sizeof(string), "%s: %s vua mua mot chiec %s[%d].", buyatDealership ? "[DEALERSHIP]" : "[SHOP]", GetName(playerid), aVehicleNames[CarInfo[idd][cModel]-400], idd);
 	SendAdminMessage(COLOR_YELLOW, string, 1); 
-	//InsertLog(playerid, string, LOG_CAR);
 	Log("logs/car.log", string);
 		
 	VehicleOwned[CarInfo[idd][Spawned]] = CarInfo[idd][Spawned];
@@ -710,7 +709,6 @@ GiveVehicle2(playerid, modelid) {
 	
 	format(string, sizeof(string), "%s da nhan duoc mot %s[%d] - VIP.", GetName(playerid), aVehicleNames[CarInfo[idd][cModel]-400], idd);
 	SendAdminMessage(COLOR_YELLOW, string, 1); 
-	//InsertLog(playerid, string, LOG_CAR);
 	Log("logs/car.log", string);
 	
 	mysql_format(SQL, string, sizeof(string), "UPDATE cars SET Spawned='%d', `Text`='%s' WHERE ID=%d", CarInfo[idd][Spawned], GetName(playerid), idd);

@@ -899,6 +899,7 @@ CountIP(ip[]) {
     foreach(new i: Player) if(!strcmp(GetIP(i),ip)) c++;
     return c;
 }
+
 hook ResetVariables(playerid) {
     deathLabel[playerid] = Create3DTextLabel("", -1, 0.0, 0.0, 0.0, 10.0, 0, 0);
     // UseNewestClient{playerid} = 0;
@@ -909,7 +910,8 @@ hook ResetVariables(playerid) {
     DrivingTest[playerid] = 0, 
     PlayerInfo[playerid][c_DmvLastStage] = 1;
     SelectTD[playerid] = 0;
-    
+    LamViecChung[playerid] = 0;
+    DaThueThuyen[playerid] = 0;
     QuestDeelay[playerid] = 0;
     TradeID[playerid] = -1;    
     InsideTradeToys[playerid] = 0;
@@ -980,7 +982,7 @@ hook ResetVariables(playerid) {
     PlayerInfo[playerid][pEscape] = 0;
     PlayerInfo[playerid][pEscapeExit] = 0;
 
-    TradeTime[playerid] = 0;
+    TradeTime[playerid] = 0;               ThuySan[playerid] = 0;
     Times[playerid] = 0;
     PlayerInfo[playerid][pClan] = 0;
     EnableBoast[playerid] = 

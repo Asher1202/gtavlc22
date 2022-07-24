@@ -2194,14 +2194,13 @@ GiveJobSalary(playerid) {
 				SendAdminMessage(0xAA3333AA, bugInfo);				
 			}
 			//money = skill*1500 + 25000 + random(1000);
-			new totalmats = 200 + GetPlayerSkill(playerid) * (20+random(5));
+			new totalmats = 280 + GetPlayerSkill(playerid) * (20+random(5));
 			if(PlayerInfo[playerid][pJobBonus50] > 0) bonus += totalmats/2;
 			if(PlayerInfo[playerid][pJobBonus100] > 0) bonus += totalmats;
 			format(string, 90 ,"Ban nhan duoc %d vat lieu %s", totalmats+bonus, bonus > 0 ? "[da bao gom bonus]" : "");
 			if(TodayJob == 5) {
 				totalmats += totalmats/100*JobInfo[PlayerInfo[playerid][pJob]][jBonus];
 				format(string, sizeof(string), "%s va %d% vat lieu cong them [Job Ngày]. Tong cong: %d", string, JobInfo[PlayerInfo[playerid][pJob]][jBonus], totalmats+bonus);
-				//InsertLog(playerid, string, LOG_MONEY);
 				Log("logs/jobmoney.log", string);	
 			}
 			PlayerInfo[playerid][pMats] += totalmats+bonus;
@@ -2261,13 +2260,11 @@ GiveJobSalary(playerid) {
 		//UpdateJobGoal(money, MAXGOAL);
 		if(WorkingTime[playerid] < 35 && PlayerInfo[playerid][pJob] != 13) {
 			format(string, sizeof(string), "Giao hang it hon 35s, Job: %s, %s", JobInfo[PlayerInfo[playerid][pJob]][jName], FormatNumber(money));
-			//InsertLog(playerid, string, LOG_JOB_HACK);
 			Log("logs/jobmoney.log", string);	
 		}
 	}
 	format(string, sizeof(string), "{ffb3ba}%s {B6EEBD} -> {FDE6CC}$%s {FFFFFF}(%s).", GetName(playerid), FormatNumber(money+bonus), JobInfo[PlayerInfo[playerid][pJob]][jName]);
 	Log("logs/jobmoney.log", string);	
-	//InsertLog(playerid, string, LOG_MONEY);		
 	GuiDenAdminVaHelper(COLOR_YELLOW, string, 1); 
 	format(string, sizeof(string), "Tong thu nhap: $%s", FormatNumber(money+bonus));
 	SendClientMessage(playerid, COLOR_GRAD2, string);

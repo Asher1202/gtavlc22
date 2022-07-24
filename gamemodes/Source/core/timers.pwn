@@ -1141,6 +1141,13 @@ task DecreaseTimer[1000]() {
 					TogglePlayerControllable(i, true);
 				}
 			}
+			if(PlayerInfo[i][pJob] == 11 && GetPlayerSkill(i) >=4) GangZoneShowForPlayer(i, CauCaZoneZ[0], 0xFF00A250); //None
+			if(PlayerInfo[i][pJob] == 11 && GetPlayerSkill(i) >=4)  GangZoneShowForPlayer(i, CauCaZoneZ[1], 0xFF00A250); //None
+			if(PlayerInfo[i][pJob] == 11 && GetPlayerSkill(i) >=4)  GangZoneShowForPlayer(i, CauCaZoneZ[2], 0xFF00A250); //None
+			if(PlayerInfo[i][pJob] != 11) GangZoneHideForPlayer(i, CauCaZoneZ[0]); //None
+			if(PlayerInfo[i][pJob] != 11) GangZoneHideForPlayer(i, CauCaZoneZ[1]); //None
+			if(PlayerInfo[i][pJob] != 11) GangZoneHideForPlayer(i, CauCaZoneZ[2]); //None
+
 			if(GetPlayerState(i) != PLAYER_STATE_ONFOOT && Aduty[i] != 1) {
 				GivePlayerStamina(i, -1);
 			}
@@ -1324,7 +1331,1043 @@ task Timers[1000]() {
 					PlayerTextDrawHide(id, TradePTD[6]);					
 				}
 			}
-			
+			if(CrateTime[i] > 0 )
+			{
+				CrateTime[i] --;				
+				new amount;
+				if(CrateTime[i] == 0)
+				{
+					if(CrateModel[i] == 0) {
+					KillTimer(TimerCratesEx[i]);
+					CrateModel[i] = -1;
+					TatQuayGuong(i);
+					return 1;
+					}
+				}
+				switch(GetPVarInt(i, "VoucherType")) {
+				case 1: {
+					format(string, sizeof(string), "%s da mo crate Random Skin con lai %d.", GetName(i), PlayerInfo[i][pCrates][0]);
+					Log("logs/opencrate.log", string);
+					new rand = random(100);
+					switch(rand) {
+				    	case 0..100: {
+				    		LoadSkins(0, amount);
+				            format(string, 70, "Skin %d (%s).", amount, GetSkinRareCMD(amount));
+				            PlayerTextDrawSetPreviewModel(i, CratePTD[0], amount);
+				            PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+				            if(CrateTime[i] == 0) {
+						    	{
+				            		{
+				            			if(CrateModel[i] == 0) {
+											KillTimer(TimerCratesEx[i]);
+						                	CrateModel[i] = -1;
+						                	return 1;
+				            			}
+										format(string, 120,"(( Random Skin {A9C4E4}- %s mo hop va nhan duoc skin %d (%s). ))", GetName(i), amount, GetSkinRareCMD(amount));
+										SCMTA(COLOR_CLIENT, string);  
+										// new const success = Player_AddItem(i, ItemType:item_type_skin, amount, 100);
+										// if(success == -1) {
+										// 	PlayerInfo[i][pCrates][0] ++;
+										// 	save_crates(i);
+										// 	KillTimer(TimerCratesEx[i]);
+						                // 	CrateModel[i] = -1; TatQuayGuong(i);
+										// 	return SendClientMessagei,COLOR_LGREEN, "ERROR: Ban da het slot skin cho nen ban se duoc tra lai mot hom!");
+
+										// }
+										give_skin(i, amount);
+										save_crates(i);
+										KillTimer(TimerCratesEx[i]);
+						                CrateModel[i] = -1; TatQuayGuong(i);
+									}	
+				            	}
+				            }
+						}
+					}
+				}
+				case 3:{
+				new rand = random(100);
+				format(string, sizeof(string), "%s da mo crate Random Car Gold con lai %d.", GetName(i), PlayerInfo[i][pCrates][1]);
+				Log("logs/opencrate.log", string);
+				switch(rand) {
+						case 0..5: {
+							amount = RandomEx(30, 250);
+							format(string, 65, "Phoenix");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 603);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+							if(CrateTime[i] <= 0) {
+
+										KillTimer(TimerCratesEx[i]);
+										CrateModel[i] = -1; TatQuayGuong(i);
+										GiveVehicle(i, 603);
+									    format(string, 120, "(( {7556ff}Random Car Gold {A9C4E4}- %s mo hop va nhan duoc Phoenix ))", GetName(i));
+									    SCMTA(COLOR_CLIENT, string);
+								}
+							}
+				    	    case 6..33: {
+				    		    amount = random(20) + 20;
+				                format(string, 64, "Windsor");
+								PlayerTextDrawSetPreviewModel(i, CratePTD[0], 555);
+								PlayerTextDrawSetString(i, CratePTD[1], string);
+								PlayerTextDrawShow(i, CratePTD[0]);
+				                if(CrateTime[i] == 0) {
+										KillTimer(TimerCratesEx[i]);
+										CrateModel[i] = -1; TatQuayGuong(i);
+										GiveVehicle(i, 555);
+										TatQuayGuong(i);
+									    format(string, 120,"(( {7556ff}Random Car Gold {A9C4E4}- %s mo hop va nhan duoc Windsor. ))", GetName(i));
+									    SCMTA(COLOR_CLIENT,string);
+								}
+				            }
+				            case 34..40: {
+				                format(string, 65, "Broadway");
+				                PlayerTextDrawSetPreviewModel(i, CratePTD[0], 575);
+				                PlayerTextDrawSetString(i, CratePTD[1], string);
+								PlayerTextDrawShow(i, CratePTD[0]);
+				            	if(CrateTime[i] <= 0) {
+
+										KillTimer(TimerCratesEx[i]);
+										CrateModel[i] = -1; TatQuayGuong(i);
+										GiveVehicle(i, 575);
+									    format(string, 120,"(( {7556ff}Random Car Gold {A9C4E4}- %s mo hop va nhan duoc Broadway. ))", GetName(i));
+									    SCMTA(COLOR_CLIENT, string);
+								}
+				            }
+				           	case 41..46: {
+				                format(string, 65, "Uranus");
+				                PlayerTextDrawSetPreviewModel(i, CratePTD[0], 558);
+				                PlayerTextDrawSetString(i, CratePTD[1], string);
+								PlayerTextDrawShow(i, CratePTD[0]);
+				            	if(CrateTime[i] <= 0) {
+
+										KillTimer(TimerCratesEx[i]);
+										CrateModel[i] = -1; TatQuayGuong(i);
+										GiveVehicle(i, 558);
+									    format(string, 120,"(( {7556ff}Random Car Gold {A9C4E4}- %s mo hop va nhan duoc Uranus. ))", GetName(i));
+									    SCMTA(COLOR_CLIENT,string);
+								}
+				            }
+				           	case 47..53: {
+				                format(string, 65, "Sandking");
+								PlayerTextDrawSetPreviewModel(i, CratePTD[0], 495);
+								PlayerTextDrawSetString(i, CratePTD[1], string);
+								PlayerTextDrawShow(i, CratePTD[0]);
+				            	if(CrateTime[i] <= 0) {
+
+										KillTimer(TimerCratesEx[i]);
+										CrateModel[i] = -1; TatQuayGuong(i);
+										GiveVehicle(i, 495);
+									    format(string, 120,"(( {7556ff}Random Car Gold {A9C4E4}- %s mo hop va nhan duoc Sandking. ))", GetName(i));
+									    SCMTA(COLOR_CLIENT, string);
+								    
+								}
+				            }
+				           	case 54..66: {
+				                format(string, 65, "Jester");
+								PlayerTextDrawSetPreviewModel(i, CratePTD[0], 559);
+								PlayerTextDrawSetString(i, CratePTD[1], string);
+								PlayerTextDrawShow(i, CratePTD[0]);
+				            	if(CrateTime[i] <= 0) {
+
+										KillTimer(TimerCratesEx[i]);
+										CrateModel[i] = -1; TatQuayGuong(i);
+										GiveVehicle(i, 559);
+									    format(string, 120,"(( {7556ff}Random Car Gold {A9C4E4}- %s mo hop va nhan duoc Jester.))", GetName(i));
+									    SCMTA(COLOR_CLIENT, string);
+								}
+				            }
+				           	case 67..70: {
+				                format(string, 65, "Super GT");
+								PlayerTextDrawSetPreviewModel(i, CratePTD[0], 506);
+								PlayerTextDrawSetString(i, CratePTD[1], string);
+								PlayerTextDrawShow(i, CratePTD[0]);
+				            	if(CrateTime[i] <= 0) {
+
+										KillTimer(TimerCratesEx[i]);
+										CrateModel[i] = -1; TatQuayGuong(i);
+										GiveVehicle(i, 506);
+									    format(string, 120,"(( {7556ff}Random Car Gold {A9C4E4}- %s mo hop va nhan duoc Super GT.))", GetName(i));
+									    SCMTA(COLOR_CLIENT, string);
+								}
+				            }
+				            case 71..75: {
+				                format(string, 65, "ZR-350");
+								PlayerTextDrawSetPreviewModel(i, CratePTD[0], 477);
+								PlayerTextDrawSetString(i, CratePTD[1], string);
+								PlayerTextDrawShow(i, CratePTD[0]);
+				            	if(CrateTime[i] <= 0) {
+
+										KillTimer(TimerCratesEx[i]);
+										CrateModel[i] = -1; TatQuayGuong(i);
+										GiveVehicle(i, 477);
+									    format(string, 120,"(( {7556ff}Random Car Gold {A9C4E4}- %s mo hop va nhan duoc ZR-350.))", GetName(i));
+									    SCMTA(COLOR_CLIENT, string);
+								}
+				            }
+				            case 76..85: {
+				                format(string, 65, "Comet");
+								PlayerTextDrawSetPreviewModel(i, CratePTD[0], 480);
+								PlayerTextDrawSetString(i, CratePTD[1], string);
+								PlayerTextDrawShow(i, CratePTD[0]);
+				            	if(CrateTime[i] <= 0) {
+
+										KillTimer(TimerCratesEx[i]);
+										CrateModel[i] = -1; TatQuayGuong(i);
+										GiveVehicle(i, 480);
+									    format(string, 120,"(( {7556ff}Random Car Gold {A9C4E4}- %s mo hop va nhan duoc Comet.))", GetName(i));
+									    SCMTA(COLOR_CLIENT, string);
+								}
+				            }
+				           	case 86..90: {
+				                format(string, 65, "Elegy");
+								PlayerTextDrawSetPreviewModel(i, CratePTD[0], 562);
+								PlayerTextDrawSetString(i, CratePTD[1], string);
+								PlayerTextDrawShow(i, CratePTD[0]);
+				            	if(CrateTime[i] <= 0) {
+
+										KillTimer(TimerCratesEx[i]);
+										CrateModel[i] = -1; TatQuayGuong(i);
+										GiveVehicle(i, 562);
+									    format(string, 120,"(( {7556ff}Random Car Gold {A9C4E4}- %s mo hop va nhan duoc Elegy.))", GetName(i));
+									    SCMTA(COLOR_CLIENT, string);
+								}
+				            }
+				            case 91..95: {
+				                format(string, 65, "PCJ-600");
+								PlayerTextDrawSetPreviewModel(i, CratePTD[0], 461);
+								PlayerTextDrawSetString(i, CratePTD[1], string);
+								PlayerTextDrawShow(i, CratePTD[0]);
+				            	if(CrateTime[i] <= 0) {
+
+										KillTimer(TimerCratesEx[i]);
+										CrateModel[i] = -1; TatQuayGuong(i);
+										GiveVehicle(i, 461);
+									    format(string, 120,"(( {7556ff}Random Car Gold {A9C4E4}- %s mo hop va nhan duoc PCJ-600.))", GetName(i));
+									    SCMTA(COLOR_CLIENT, string);
+								}
+				            }
+				            case 96..97: {
+				                format(string, 65, "FCR-900");
+								PlayerTextDrawSetPreviewModel(i, CratePTD[0], 521);
+								PlayerTextDrawSetString(i, CratePTD[1], string);
+								PlayerTextDrawShow(i, CratePTD[0]);
+				            	if(CrateTime[i] <= 0) {
+
+										KillTimer(TimerCratesEx[i]);
+										CrateModel[i] = -1; TatQuayGuong(i);
+										GiveVehicle(i, 521);
+									    format(string, 120,"(( {7556ff}Random Car Gold {A9C4E4}- %s mo hop va nhan duoc FCR-900.))", GetName(i));
+									    SCMTA(COLOR_CLIENT, string);
+								}
+				            }
+				            case 98..100: {
+				                format(string, 65, "Sultan");
+								PlayerTextDrawSetPreviewModel(i, CratePTD[0], 540);
+								PlayerTextDrawSetString(i, CratePTD[1], string);
+								PlayerTextDrawShow(i, CratePTD[0]);
+				            	if(CrateTime[i] <= 0) {
+
+										KillTimer(TimerCratesEx[i]);
+										CrateModel[i] = -1; TatQuayGuong(i);
+										GiveVehicle(i, 540);
+									    format(string, 120,"(( {7556ff}Random Car Gold {A9C4E4}- %s mo hop va nhan duoc Sultan.))", GetName(i));
+									    SCMTA(COLOR_CLIENT, string);
+								}
+				            }
+						}
+					}
+			case 2:{
+				new rand = random(100);
+				format(string, sizeof(string), "%s da mo crate Random Car Silver con lai %d.", GetName(i), PlayerInfo[i][pCrates][2]);
+				Log("logs/opencrate.log", string);
+				switch(rand) {
+			   			case 0..10: {
+			    		    amount = RandomEx(30, 250);
+			                format(string, 65, "Intruder");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 546);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			                if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 546);
+								    format(string, 120, "(( {7556ff}Random Car Silver {A9C4E4}- %s mo hop va nhan duoc Intruder ))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+						}
+			    	    case 11..22: {
+			    		    amount = random(20) + 20;
+			                format(string, 64, "Hotknife");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 434);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			                if(CrateTime[i] == 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 434);
+								    format(string, 120,"(( {7556ff}Random Car Silver {A9C4E4}- %s mo hop va nhan duoc Hotknife. ))", GetName(i));
+								    SCMTA(COLOR_CLIENT,string);
+							}
+			            }
+			            case 23..34: {
+			                format(string, 65, "Savanna");
+			                PlayerTextDrawSetPreviewModel(i, CratePTD[0], 567);
+			                PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 567);
+								    format(string, 120,"(( {7556ff}Random Car Silver {A9C4E4}- %s mo hop va nhan duoc Savanna. ))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			           	case 35..40: {
+			                format(string, 65, "Stratum");
+			                PlayerTextDrawSetPreviewModel(i, CratePTD[0], 561);
+			                PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 561);
+								    format(string, 120,"(( {7556ff}Random Car Silver {A9C4E4}- %s mo hop va nhan duoc Statrum. ))", GetName(i));
+								    SCMTA(COLOR_CLIENT,string);
+							}
+			            }
+			           	case 41..50: {
+			                format(string, 65, "Phoenix");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 603);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 603);
+								    format(string, 120,"(( {7556ff}Random Car Silver {A9C4E4}- %s mo hop va nhan duoc Phoenix. ))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			           	case 51..60: {
+			                format(string, 65, "Jester");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 559);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 559);
+								    format(string, 120,"(( {7556ff}Random Car Silver {A9C4E4}- %s mo hop va nhan duoc Jester.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			           	case 61..70: {
+			                format(string, 65, "Super GT");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 506);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 506);
+								    format(string, 120,"(( {7556ff}Random Car Silver {A9C4E4}- %s mo hop va nhan duoc Super GT.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			            case 71..75: {
+			                format(string, 65, "Slamvan");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 535);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 535);
+								    format(string, 120,"(( {7556ff}Random Car Silver {A9C4E4}- %s mo hop va nhan duoc Slamvan.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			            case 76..85: {
+			                format(string, 65, "Alpha");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 602);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 602);
+								    format(string, 120,"(( {7556ff}Random Car Silver {A9C4E4}- %s mo hop va nhan duoc Alpha.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			           	case 86..90: {
+			                format(string, 65, "Remington");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 534);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 534);
+								    format(string, 120,"(( {7556ff}Random Car Silver {A9C4E4}- %s mo hop va nhan duoc Remington.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			            case 91..95: {
+			                format(string, 65, "Blista Compact");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 496);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 496);
+								    format(string, 120,"(( {7556ff}Random Car Silver {A9C4E4}- %s mo hop va nhan duoc Blista Compact.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			            case 96..98: {
+			                format(string, 65, "Sanchez");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 468);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 468);
+								    format(string, 120,"(( {7556ff}Random Car Silver {A9C4E4}- %s mo hop va nhan duoc Sanchez.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			            case 99..100: {
+			                format(string, 65, "BF Injection");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 424);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 424);
+								    format(string, 120,"(( {7556ff}Random Car Silver {A9C4E4}- %s mo hop va nhan duoc BF Injection.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+					}
+				}
+			case 4:{
+				new rand = random(100);
+				format(string, sizeof(string), "%s da mo crate Ticket Than Bi con lai %d.", GetName(i), PlayerInfo[i][pCrates][3]);
+				Log("logs/opencrate.log", string);
+				switch(rand) {
+			   			case 0..5: {
+			    		    amount = RandomEx(30, 250);
+			                format(string, 65, "Phoenix");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 603);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			                if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 603);
+								    format(string, 120, "(( {7556ff}Ticket Than Bi{A9C4E4}- %s mo hop va nhan duoc Phoenix ))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+						}
+			    	    case 6..33: {
+			    		    amount = random(20) + 20;
+			                format(string, 64, "Buffalo");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 402);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			                if(CrateTime[i] == 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 402);
+								    format(string, 120,"(( {7556ff}Ticket Than Bi {A9C4E4}- %s mo hop va nhan duoc Buffalo. ))", GetName(i));
+								    SCMTA(COLOR_CLIENT,string);
+							}
+			            }
+			            case 34..40: {
+			                format(string, 65, "Broadway");
+			                PlayerTextDrawSetPreviewModel(i, CratePTD[0], 575);
+			                PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 575);
+								    format(string, 120,"(( {7556ff}Ticket Than Bi {A9C4E4}- %s mo hop va nhan duoc Broadway. ))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			           	case 41..60: {
+				    		LoadSkins(0, amount);
+				            PlayerTextDrawSetPreviewModel(i, CratePTD[0], amount);
+				            PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+				            if(CrateTime[i] == 0) {
+						    	{
+				            			{
+				            			if(CrateModel[i] == 0) {
+											KillTimer(TimerCratesEx[i]);
+						                	CrateModel[i] = -1;
+						                	return 1;
+				            			}
+										format(string, 120,"(( Ticket Than Bi {A9C4E4}- %s mo hop va nhan duoc skin %d (%s). ))", GetName(i), amount, GetSkinRareCMD(amount));
+									    SCMTA(COLOR_CLIENT, string);  
+										// new const success = Player_AddItem(i, ItemType:item_type_skin, amount, 100);
+										// if(success == -1) {
+										// 	PlayerInfo[i][pCrates][0] ++;
+										// 	save_crates(i);
+										// 	KillTimer(TimerCratesEx[i]);
+						                // 	CrateModel[i] = -1; TatQuayGuong(i);
+										// 	return SendClientMessagei,COLOR_LGREEN, "ERROR: Ban da het slot skin cho nen ban se duoc tra lai mot hom!");
+
+										// }
+										give_skin(i, amount);
+										save_crates(i);
+										KillTimer(TimerCratesEx[i]);
+					                	CrateModel[i] = -1; TatQuayGuong(i);
+									}		
+				            	}
+				            }
+			            }
+			           	case 61..66: {
+			                format(string, 65, "Jester");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 559);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 559);
+								    format(string, 120,"(( {7556ff}Ticket Than Bi {A9C4E4}- %s mo hop va nhan duoc Jester.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			           	case 67..70: {
+			                format(string, 65, "Super GT");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 506);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 506);
+								    format(string, 120,"(( {7556ff}Ticket Than Bi {A9C4E4}- %s mo hop va nhan duoc Super GT.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			            case 71..75: {
+						    amount = random(10) * 20;
+				            format(string, 75, "~y~%s Vip Xu.", FormatNumber(amount), totalcrates(i));
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1275);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+				            if(CrateTime[i] == 0) {
+						        if(CrateModel[i] <= 0) {
+								    format(string, 120,"%s, Da mo hop free va duoc %d Vip Xu.", GetName(i),amount);
+								    SendClientMessage(i, COLOR_WHITE, string);
+								} else {
+									format(string, 120,"(( Ticket Than Bi {A9C4E4}- %s mo hop va nhan duoc %d xu. ))", GetName(i), amount);
+								    SCMTA(COLOR_CLIENT, string); 
+								    PlayerInfo[i][pPremiumPoints] += amount;
+								    Update(i, pPremiumPointsx);
+								}
+						        KillTimer(TimerCratesEx[i]);
+						        CrateModel[i] = -1; TatQuayGuong(i);
+						    }
+			            }
+			            case 76..85: {
+			                format(string, 65, "Turismo");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 451);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 451);
+								    format(string, 120,"(( {7556ff}Ticket Than Bi {A9C4E4}- %s mo hop va nhan duoc Turismo.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			           	case 86..90: {
+			                format(string, 65, "Elegy");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 562);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 562);
+								    format(string, 120,"(( {7556ff}Ticket Than Bi {A9C4E4}- %s mo hop va nhan duoc Elegy.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			            case 91..95: {
+			                format(string, 65, "PCJ-600");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 461);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 461);
+								    format(string, 120,"(( {7556ff}Ticket Than Bi {A9C4E4}- %s mo hop va nhan duoc PCJ-600.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			            case 96..98: {
+				          	amount = random(5) * 4;
+						    // new nxtlevel = PlayerInfo[i][pLevel];
+							// expamount = nxtlevel*levelexp;
+				            format(string, 75, "~y~%s Kinh Nghiem.", FormatNumber(amount), totalcrates(i));
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1275);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+				            if(CrateTime[i] == 0) {
+						        if(CrateModel[i] <= 0) {
+								    format(string, 120,"%s, Da mo hop free va duoc %d Kinh Nghiem.", GetName(i),amount);
+								    SendClientMessage(i, COLOR_WHITE, string);
+								} else {
+									format(string, 120,"(( Ticket Than Bi {A9C4E4}- %s mo hop va nhan duoc %d kinh nghiem. ))", GetName(i), amount);
+								    SCMTA(COLOR_CLIENT, string); 
+								    PlayerInfo[i][pExp] += amount;
+								    Update(i, pRP);
+								}
+						        KillTimer(TimerCratesEx[i]);
+						        CrateModel[i] = -1; TatQuayGuong(i);
+						    }
+			            }
+			            case 99..100: {
+			                format(string, 65, "Sultan");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 540);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 540);
+								    format(string, 120,"(( {7556ff}Ticket Than Bi {A9C4E4}- %s mo hop va nhan duoc Sultan.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+					}
+				}
+
+			case 5:
+			{
+			new rand = random(100);
+			format(string, sizeof(string), "%s da mo crate Voucher Cao Cap con lai %d.", GetName(i), PlayerInfo[i][pCrates][4]);
+			Log("logs/opencrate.log", string);
+			switch(rand) {
+			   			case 0..10: {
+			    		    amount = RandomEx(30, 250);
+			                format(string, 65, "Huntley");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 579);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			                if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 579);
+								    format(string, 120, "(( {7556ff}Voucher Cao Cap{A9C4E4}- %s mo hop va nhan duoc Huntley ))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+						}
+			            case 11..21: {
+			                format(string, 65, "Rancher");
+			                PlayerTextDrawSetPreviewModel(i, CratePTD[0], 489);
+			                PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 489);
+								    format(string, 120,"(( {7556ff}Voucher Cao Cap {A9C4E4}- %s mo hop va nhan duoc Rancher. ))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			           	case 22..30: {
+				    		LoadSkins(1, amount);				 
+				            PlayerTextDrawSetPreviewModel(i, CratePTD[0], amount);
+				            PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+				            if(CrateTime[i] == 0) {
+						    	{
+			            			{
+									if(CrateModel[i] == 0) {
+									KillTimer(TimerCratesEx[i]);
+						            CrateModel[i] = -1;
+						            return 1;
+				            		}
+									format(string, 120,"(( Voucher Cao Cap {A9C4E4}- %s mo hop va nhan duoc skin %d (%s). ))", GetName(i), amount, GetSkinRareCMD(amount));
+								    SCMTA(COLOR_CLIENT, string);  
+									// new const success = Player_AddItem(i, ItemType:item_type_skin, amount, 100);
+									save_crates(i);
+									// new const success = Player_AddItem(i, ItemType:item_type_skin, amount, 100);
+										// if(success == -1) {
+										// 	PlayerInfo[i][pCrates][0] ++;
+										// 	save_crates(i);
+										// 	KillTimer(TimerCratesEx[i]);
+						                // 	CrateModel[i] = -1; TatQuayGuong(i);
+										// 	return SendClientMessagei,COLOR_LGREEN, "ERROR: Ban da het slot skin cho nen ban se duoc tra lai mot hom!");
+
+										// }
+									give_skin(i, amount);
+									KillTimer(TimerCratesEx[i]);
+				                	CrateModel[i] = -1; TatQuayGuong(i);
+				                	// if(success == -1) {
+									// 	PlayerInfo[i][pCrates][4] ++;
+										
+									// 	save_crates(i);
+									// 	KillTimer(TimerCratesEx[i]);
+					                // 	CrateModel[i] = -1; TatQuayGuong(i);
+					                // 	return SendClientMessagei,COLOR_LGREEN, "ERROR: Ban da het slot skin cho nen ban se duoc tra lai mot hom!");
+									// }
+								}	
+				            	}
+				            }
+			            }
+			           	case 31..40: {
+			                format(string, 65, "Buffalo");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 402);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 402);
+								    format(string, 120,"(( {7556ff}Voucher Cao Cap {A9C4E4}- %s mo hop va nhan duoc Buffalo.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+						case 41..50: {
+				          	amount = random(30) * 4;
+						    // new nxtlevel = PlayerInfo[i][pLevel];
+							// expamount = nxtlevel*levelexp;
+				            format(string, 75, "~y~%s Kinh Nghiem.", FormatNumber(amount), totalcrates(i));
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1275);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+				            if(CrateTime[i] == 0) {
+						        if(CrateModel[i] <= 0) {
+								    format(string, 120,"%s, Da mo hop free va duoc %d Kinh Nghiem.", GetName(i),amount);
+								    SendClientMessage(i, COLOR_WHITE, string);
+								} else {
+									format(string, 120,"(( Voucher Cao Cap {A9C4E4}- %s mo hop va nhan duoc %d kinh nghiem. ))", GetName(i), amount);
+								    SCMTA(COLOR_CLIENT, string); 
+								    PlayerInfo[i][pExp] += amount;
+								    Update(i, pRP);
+								}
+						        KillTimer(TimerCratesEx[i]);
+						        CrateModel[i] = -1; TatQuayGuong(i);
+						    }
+			            }
+			            case 51..60: {
+						    amount = random(500) * 2;
+				            format(string, 75, "~y~%s Vip Xu.", FormatNumber(amount), totalcrates(i));
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1275);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+				            if(CrateTime[i] == 0) {
+						        if(CrateModel[i] <= 0) {
+								    format(string, 120,"%s, Da mo hop free va duoc %d Vip Xu.", GetName(i),amount);
+								    SendClientMessage(i, COLOR_WHITE, string);
+								} else {
+									format(string, 120,"(( Voucher Cao Cap {A9C4E4}- %s mo hop va nhan duoc %d xu. ))", GetName(i), amount);
+								    SCMTA(COLOR_CLIENT, string); 
+								    PlayerInfo[i][pPremiumPoints] += amount;
+								    Update(i, pPremiumPointsx);
+								}
+						        KillTimer(TimerCratesEx[i]);
+						        CrateModel[i] = -1; TatQuayGuong(i);
+						    }
+			            }
+			            case 61..70: {
+			                format(string, 65, "Cheetah");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 415);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 415);
+								    format(string, 120,"(( {7556ff}Voucher Cao Cap {A9C4E4}- %s mo hop va nhan duoc Cheetah.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			           	case 71..80: {
+			                format(string, 65, "Turismo");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 451);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 451);
+								    format(string, 120,"(( {7556ff}Voucher Cao Cap {A9C4E4}- %s mo hop va nhan duoc Turismo.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			            case 81..90: {
+			                format(string, 65, "Banshee");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 429);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 429);
+								    format(string, 120,"(( {7556ff}Voucher Cao Cap {A9C4E4}- %s mo hop va nhan duoc Banshee.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+						case 91..95: {
+			                format(string, 65, "Sultan");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 560);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 560);
+								    format(string, 120,"(( {7556ff}Voucher Cao Cap {A9C4E4}- %s mo hop va nhan duoc Sultan.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			            case 96..100: {
+			                format(string, 65, "FCR-900");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 521);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 521);
+								    format(string, 120,"(( {7556ff}Voucher Cao Cap {A9C4E4}- %s mo hop va nhan duoc FCR-900.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+								}
+				            }
+						}
+					}
+			case 6:
+				{
+					format(string, sizeof(string), "%s da mo crate Random Skin Huyen Thoai con lai %d.", GetName(i), PlayerInfo[i][pCrates][5]);
+					Log("logs/opencrate.log", string);
+					new rand = random(100);
+					switch(rand) {
+				    	case 0..100: {
+				    		LoadSkins(2, amount);
+				            format(string, 70, "Skin %d (%s).", amount, GetSkinRareCMD(amount));
+				            PlayerTextDrawSetPreviewModel(i, CratePTD[0], amount);
+				            PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+				            if(CrateTime[i] == 0) {
+						    	{
+				            		{
+				            			if(CrateModel[i] == 0) {
+											KillTimer(TimerCratesEx[i]);
+						                	CrateModel[i] = -1;
+						                	return 1;
+				            			}
+										format(string, 120,"(( Random Skin Huyen Thoai {A9C4E4}- %s mo hop va nhan duoc skin %d (%s). ))", GetName(i), amount, GetSkinRareCMD(amount));
+										SCMTA(COLOR_CLIENT, string);  
+										// new const success = Player_AddItem(i, ItemType:item_type_skin, amount, 100);
+										// if(success == -1) {
+										// 	PlayerInfo[i][pCrates][0] ++;
+										// 	save_crates(i);
+										// 	KillTimer(TimerCratesEx[i]);
+						                // 	CrateModel[i] = -1; TatQuayGuong(i);
+										// 	return SendClientMessagei,COLOR_LGREEN, "ERROR: Ban da het slot skin cho nen ban se duoc tra lai mot hom!");
+
+										// }
+										give_skin(i, amount);
+										save_crates(i);
+										KillTimer(TimerCratesEx[i]);
+						                CrateModel[i] = -1; TatQuayGuong(i);
+									}	
+				            	}
+				            }
+						}
+					}
+				}
+			case 7:
+			{
+			new rand = random(100);
+			format(string, sizeof(string), "%s da mo crate Car Cao Cap con lai %d.", GetName(i), PlayerInfo[i][pCrates][6]);
+			Log("logs/opencrate.log", string);
+			switch(rand) {
+			   			case 0..10: {
+			    		    amount = RandomEx(30, 250);
+			                format(string, 65, "Sultan");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 579);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			                if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 579);
+								    format(string, 120, "(( {7556ff}Car Cao Cap{A9C4E4}- %s mo hop va nhan duoc Sultan ))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+						}
+			    	    case 11..20: {
+			    		    amount = random(20) + 20;
+			                format(string, 64, "Turismo");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 587);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			                if(CrateTime[i] == 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 587);
+								    format(string, 120,"(( {7556ff}Car Cao Cap {A9C4E4}- %s mo hop va nhan duoc Turismo. ))", GetName(i));
+								    SCMTA(COLOR_CLIENT,string);
+							}
+			            }
+			            case 21..30: {
+			                format(string, 65, "Cheetah");
+			                PlayerTextDrawSetPreviewModel(i, CratePTD[0], 489);
+			                PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 489);
+								    format(string, 120,"(( {7556ff}Car Cao Cap {A9C4E4}- %s mo hop va nhan duoc Cheetah. ))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+						}
+					}
+			case 8:
+			{
+			new rand = random(23);
+			format(string, sizeof(string), "%s da mo crate Car Gioi Han con lai %d.", GetName(i), PlayerInfo[i][pCrates][7]);
+			Log("logs/opencrate.log", string);
+			switch(rand) {
+			   			case 0..5: {
+			    		    amount = RandomEx(30, 250);
+			                format(string, 65, "Hotring Racer A");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 502);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			                if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 502);
+								    format(string, 120, "(( {7556ff}Car Gioi Han{A9C4E4}- %s mo hop va nhan duoc Hotring Racer A ))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+						}
+			    	    case 6..11: {
+			    		    amount = random(20) + 20;
+			                format(string, 64, "Hotring Racer B");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 503);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			                if(CrateTime[i] == 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 503);
+								    format(string, 120,"(( {7556ff}Car Gioi Han {A9C4E4}- %s mo hop va nhan duoc Hotring Racer B. ))", GetName(i));
+								    SCMTA(COLOR_CLIENT,string);
+							}
+			            }
+			            case 12..17: {
+			                format(string, 65, "Monster A");
+			                PlayerTextDrawSetPreviewModel(i, CratePTD[0], 556);
+			                PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 556);
+								    format(string, 120,"(( {7556ff}Car Gioi Han {A9C4E4}- %s mo hop va nhan duoc Monster B. ))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+			           	case 18..23: {
+			                format(string, 65, "Monster A");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 557);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 557);
+								    format(string, 120,"(( {7556ff}Car Gioi Han {A9C4E4}- %s mo hop va nhan duoc Monster A.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+						case 24..29: {
+			                format(string, 65, "Maverick");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 487);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 487);
+								    format(string, 120,"(( {7556ff}Car Gioi Han {A9C4E4}- %s mo hop va nhan duoc Maverick.))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+				        }
+				    }
+			case 9:
+			{
+			new rand = random(30);
+			format(string, sizeof(string), "%s da mo crate Car Huyen Thoai con lai %d.", GetName(i), PlayerInfo[i][pCrates][7]);
+			Log("logs/opencrate.log", string);
+			switch(rand) {
+			   			case 0..10: {
+			    		    amount = RandomEx(30, 250);
+			                format(string, 65, "NRG-500");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 522);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			                if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 522);
+								    format(string, 120, "(( {7556ff}Car Huyen Thoai{A9C4E4}- %s mo hop va nhan duoc NRG-500 ))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+						}
+			    	    case 11..20: {
+			    		    amount = random(20) + 20;
+			                format(string, 64, "Bullet");
+							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 541);
+							PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			                if(CrateTime[i] == 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 541);
+								    format(string, 120,"(( {7556ff}Car Huyen Thoai {A9C4E4}- %s mo hop va nhan duoc Bullet. ))", GetName(i));
+								    SCMTA(COLOR_CLIENT,string);
+							}
+			            }
+			            case 21..30: {
+			                format(string, 65, "Infernus");
+			                PlayerTextDrawSetPreviewModel(i, CratePTD[0], 411);
+			                PlayerTextDrawSetString(i, CratePTD[1], string);
+							PlayerTextDrawShow(i, CratePTD[0]);
+			            	if(CrateTime[i] <= 0) {
+									KillTimer(TimerCratesEx[i]);
+									CrateModel[i] = -1; TatQuayGuong(i);
+									GiveVehicle(i, 411);
+								    format(string, 120,"(( {7556ff}Car Huyen Thoai {A9C4E4}- %s mo hop va nhan duoc Infernus. ))", GetName(i));
+								    SCMTA(COLOR_CLIENT, string);
+							}
+			            }
+				}
+			}
+		}
+	}
 			if(SafeRTime[i] > 0) {
 				SafeRTime[i] --;
 				if(SafeRTime[i] == 0) {
@@ -2346,13 +3389,15 @@ function ResetQuest() {
 
     foreach(new i: Player) {
 		if(IsPlayerConnected(i) && IsPlayerLogged[i] == 1) {
-			// PlayerInfo[i][pDailyMission][0] = random(20);
-			// PlayerInfo[i][pDailyMission][1] = 1+random(19);
-			// PlayerInfo[i][pDailyMission][2] = 2+random(18);
-			//if(PlayerInfo[i][pDailyMission][0] == PlayerInfo[i][pDailyMission][1]) PlayerInfo[i][pDailyMission][1] = 0;
+			PlayerInfo[i][pDailyMission][0] = random(20);
+			PlayerInfo[i][pDailyMission][1] = 1+random(19);
+			PlayerInfo[i][pDailyMission][2] = 2+random(18);
+			PlayerInfo[i][pDailyMission][3] = 3+random(17);
+			PlayerInfo[i][pDailyMission][4] = 4+random(16);
+			PlayerInfo[i][pDailyMission][5] = 5+random(15);
 			//update vip
-			for(new index; index < PlayerInfo[i][pVip] + 3; index++)
-				PlayerInfo[i][pDailyMission][index] = SetMissionID(i, index);
+			// for(new index; index < PlayerInfo[i][pVip] + 3; index++)
+			// 	PlayerInfo[i][pDailyMission][index] = SetMissionID(i, index);
 			Update(i, pDailyMissionx);
 			Update(i, pDailyMission2x);
 			Update(i, pDailyMission3x);

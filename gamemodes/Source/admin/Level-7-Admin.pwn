@@ -15,6 +15,7 @@ CMD:createcode(playerid, params[]) {
 	SendClientMessage(playerid, COLOR_PURPLE, query);
 	return 1;
 }
+
 // CMD:payday(playerid, params[])
 // {
 // 	if(PlayerInfo[playerid][pAdmin] >= 7) 

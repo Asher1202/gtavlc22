@@ -128,7 +128,7 @@ CMD:resetraports(playerid, params[]) {
 				SendClientMessage(i, COLOR_MONEY, string);
 				format(string, sizeof(string), "[TRA LUONG]{FFFFFF} %s dat %d diem hoat dong faction (nhan duoc $%s)", GetName(i), FormatNumber(money));
 				SendClientMessage(playerid, COLOR_GOLD, string);
-				//InsertLog(i, string, LOG_MONEY);
+				Log("logs/traluong.log", string);
 			}
 			PlayerInfo[i][pCommands][0] = 0;
 			membs++;

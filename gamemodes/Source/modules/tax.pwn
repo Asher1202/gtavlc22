@@ -19,6 +19,7 @@ enum E_TAX_TYPE {
         Bán nhà, căn hộ - Trừ 10% giá trị căn nhà bán ra
     */
     e_TRAO_DOI,
+    e_SELL_TOY,
     e_MUA_XE,
     e_DICE,
     e_TAI_XIU,
@@ -48,8 +49,8 @@ function PayTax(playerid, moneyAmount, E_TAX_TYPE:type) {
         //     tax = floatround(float(moneyAmount) * 0.05);
         // }
         case e_BAN_VAT_LIEU: {
-            tax = floatround(float(moneyAmount) * 0.1);
-            format(taxText, sizeof(taxText), "(Thue ban vat lieu: %02f%%)", 0.1);
+            tax = floatround(float(moneyAmount) * 0.15);
+            format(taxText, sizeof(taxText), "(Thue ban vat lieu: %02f%%)", 0.15);
         }
         case e_BAN_MA_TUY: {
             tax = floatround(float(moneyAmount) * 0.2);
@@ -62,6 +63,10 @@ function PayTax(playerid, moneyAmount, E_TAX_TYPE:type) {
         case e_DICE: {
             tax = floatround(float(moneyAmount) * 0.1);
             format(taxText, sizeof(taxText), "(Thue dice: %02f%%)", 0.1);
+        }
+        case e_SELL_TOY: {
+            tax = floatround(float(moneyAmount) * 0.2);
+            format(taxText, sizeof(taxText), "(Thue sell toy: %02f%%)", 0.2);
         }
         case e_TAI_XIU: {
             tax = floatround(float(moneyAmount) * 0.1);

@@ -950,8 +950,9 @@ CMD:attack(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 7) {
 		// if(strcmp(days,"Sunday",true) == 0 || strcmp(days,"Monday",true) == 0 || strcmp(days,"Wednesday",true) == 0 || strcmp(days,"Friday",true) == 0) {} else return SendClientMessage(playerid, COLOR_LIGHTRED, "Chi co the bat dau war vao cac ngay chan trong tuan (CN-2-4-6)!");
 		// else return SendClientMessage(playerid, COLOR_LIGHTRED, "Gio war se nam trong khoang thoi gian 18:00 - 22:00!");
-
-		if(!(18 < hour < 22)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chua den gio war (19-22h)");
+		// nếu giờ lớn hơn 19 và bé hơn 21
+		if(!(19 < hour < 21))
+			if(!(minute < 30)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chua den gio war (19-21h30)");
 		if(ServerSystem[20] == 1) {
 			if(!(strcmp(days,"Monday",true) == 0 || strcmp(days,"Sunday",true) == 0 || strcmp(days,"Wednesday",true) == 0 || strcmp(days,"Friday",true) == 0)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chi co the bat dau war vao cac ngay chan trong tuan (CN-2-4-6)!");			
 		}
@@ -3025,6 +3026,7 @@ CMD:accept(playerid, params[]) {
 		// printf("3 %d [ %d ] ( %d )",BurgerAmount[id], BurgerOffer[id], BurgerMoney[id]);
 		if(BurgerOffer[playerid] == -1) return SendClientMessage(playerid, -1, "Ban khong o trong mot cuoc giao dich!");
 		if(BurgerOffer[playerid] != id)	return SendClientMessage(playerid, -1, "Ban khong giao dich voi nguoi do!");
+		BurgerMoney[playerid] = PayTax(playerid, BurgerMoney[playerid], e_TRAO_DOI);
 		if(GetPlayerCash(playerid) < BurgerMoney[playerid]) return SendClientMessage(playerid, COLOR_YELLOW, "Bug nua ha ong noi");
 
 		Inventory_Add(playerid,"Burger", 2703, BurgerAmount[playerid], 1);
@@ -4492,9 +4494,9 @@ CMD:givelicense(playerid, params[]) {
 }
 CMD:capgiayphep(playerid, params[]) {
 	if(PlayerInfo[playerid][pLeader] != 1) return SendClientMessage(playerid, COLOR_YELLOW, "Chi leader LSPD moi co the dung lenh nay");
-	new id,x_nr[10],string[128], days, money, date;
-	if(sscanf(params, "us[10]i",id,x_nr,days)) {
-		SendClientMessage(playerid, COLOR_GREY, "Cu phap: {FFFFFF}/capgiayphep <playerid/name> <License> <thoi gian (1-3) 1 = 7 ngay, 2 = 15 ngay, 3 = 30 ngay>");
+	new id,string[128], days, money, date;
+	if(sscanf(params, "ui",id,days)) {
+		SendClientMessage(playerid, COLOR_GREY, "Cu phap: {FFFFFF}/capgiayphep <playerid/name> <thoi gian (1-3) 1 = 7 ngay, 2 = 15 ngay, 3 = 30 ngay>");
 		SendClientMessage(playerid, COLOR_WHITE, "Co san: gun.");
 		return 1;
 	}
@@ -4504,25 +4506,23 @@ CMD:capgiayphep(playerid, params[]) {
 	if(PlayerInfo[id][pLevel] < 3) return SendClientMessage(playerid, -1, "Ban khong the cap giay phep nay cho nguoi choi duoi Level 3.");
 	if(!ProxDetectorS(9.0, playerid, id)) return SendClientMessage(playerid, -1, "Ban khong o gan nguoi choi do!");
 
-	if(strcmp(x_nr,"gun",true) == 0) {
-		//new money = 500000;
-		switch(days)
-		{
-			case 1: money = 450000, date = 7;
-			case 2: money = 1000000, date = 15;
-			case 3: money = 2000000, date = 30;
-		}	
-		if(GetPlayerCash(id) < money) return SendClientMessage(playerid, -1, "Nguoi choi khong co du tien!");
-		if(PlayerInfo[id][pFlyLicS] != 0) return SendClientMessage(playerid, -1, "Nguoi choi dang bi dinh chi giay phep!");
-		if(PlayerInfo[id][pFlyLicT] >= 20) return SendClientMessage(playerid, -1, "Nguoi choi do da co giay phep nay!");
-		format(string, sizeof(string), "* Ban de nghi cap giay phep su dung sung cho %s voi gia $%s trong vong %d ngay.",GetName(id), FormatNumber(money), date);
-		SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
-		format(string, sizeof(string), "* Canh sat %s muon cap cho ban mot giay phep su dung sung voi gia $%s trong vong %d ngay. (/chapnhan gps %d)",GetName(playerid), FormatNumber(money), date, playerid);
-		SendClientMessage(id, COLOR_LIGHTBLUE, string);
-		License[id] = 3;
-		LicenseOffer[id] = playerid;
-		LicenseDays[id] = days;
-	}
+	//new money = 500000;
+	switch(days)
+	{
+		case 1: money = 450000, date = 7;
+		case 2: money = 1000000, date = 15;
+		case 3: money = 2000000, date = 30;
+	}	
+	if(GetPlayerCash(id) < money) return SendClientMessage(playerid, -1, "Nguoi choi khong co du tien!");
+	if(PlayerInfo[id][pFlyLicS] != 0) return SendClientMessage(playerid, -1, "Nguoi choi dang bi dinh chi giay phep!");
+	if(PlayerInfo[id][pFlyLicT] >= 20) return SendClientMessage(playerid, -1, "Nguoi choi do da co giay phep nay!");
+	format(string, sizeof(string), "* Ban de nghi cap giay phep su dung sung cho %s voi gia $%s trong vong %d ngay.",GetName(id), FormatNumber(money), date);
+	SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+	format(string, sizeof(string), "* Canh sat %s muon cap cho ban mot giay phep su dung sung voi gia $%s trong vong %d ngay. (/chapnhan gps %d)",GetName(playerid), FormatNumber(money), date, playerid);
+	SendClientMessage(id, COLOR_LIGHTBLUE, string);
+	License[id] = 1;
+	LicenseOffer[id] = playerid;
+	LicenseDays[id] = days;
     return 1;
 }
 CMD:stoplesson(playerid, params[]) {
@@ -5671,7 +5671,7 @@ CMD:selldrugs(playerid, params[]) {
 }
 CMD:sellmats(playerid, params[]) {
 	if(PlayerInfo[playerid][pJob] != 5) return SendClientMessage(playerid,COLOR_GREY, "ERROR: {FFFFFF}Ban khong phai la nguoi buon vat lieu.");
-	if(PlayerInfo[playerid][pLevel] < 5) return SendClientMessage(playerid, COLOR_GREY, "ERROR: {FFFFFF}Ban can phai dat cap 5.");
+	if(PlayerInfo[playerid][pLevel] < 4) return SendClientMessage(playerid, COLOR_GREY, "ERROR: {FFFFFF}Ban can phai dat cap 4.");
 	new id, mats, string[128], sendername[25], giveplayer[25], price;
 	if(sscanf(params, "uii",id,mats,price)) return SendClientMessage(playerid, COLOR_RED, "Cu phap: {FFFFFF}/sellmats <playerid/name> <Materials> <price>");
 	if(!IsPlayerConnected(id) || id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi khong ket noi.");
@@ -7747,8 +7747,13 @@ CMD:reloadstuffs(playerid, params[]) {
 }
 
 CMD:spawnxe(playerid, params[]) {	
-	SendClientMessage(playerid, COLOR_GREY, "He thong dang duoc update.");
-	
+	// SendClientMessage(playerid, COLOR_GREY, "He thong dang duoc update.");
+	if(GetPVarInt(playerid, "SpawnXe") != 0) return SendClientMessage(playerid, COLOR_GREY, "Ban da spawn mot chiec xe roi.");
+	new carid = CreateVehicleEx(510, 1796.6306,-1846.5983,13.5781, 0.0,  126, 1, 300);
+	XeNewbie[carid] = carid;
+	PutPlayerInVehicleEx(playerid, XeNewbie[carid], 0);
+	SetPVarInt(playerid, "SpawnXe", carid);
+	return 1;
 }
 
 // Commands

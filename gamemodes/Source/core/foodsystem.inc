@@ -236,24 +236,23 @@ CMD:traodoi(playerid, params[]) {
     if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessage(playerid, -1, "Ban can dat cap 3 de trao doi.");
 	//if(GetPVarInt(id, "InLesson") != playerid) return SendClientMessage(playerid, -1, "Nguoi choi nay khong o trong mot bai hoc.");
 	if(id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi da chon khong dang nhap.");
-    new moneyLeft = PayTax(playerid, money, e_TRAO_DOI);
     if(valoare < 0) return SendClientMessage(playerid, COLOR_GREY, "[ASHER] : Bug nua ha may ong noi");
-    if(moneyLeft < 0) return SendClientMessage(playerid, COLOR_GREY, "[ASHER] : Bug nua ha may ong noi");
+    if(money < 0) return SendClientMessage(playerid, COLOR_GREY, "[ASHER] : Bug nua ha may ong noi");
     if(Inventory_Count(id, "Burger", 1) >= 100) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi kia co nhieu hon 100 cai burger nen khong the trao doi");
 
     if(Inventory_Count(playerid, "Burger", 1) < valoare) return SCMf(playerid, COLOR_GREY, "Ban khong co du %d cai hamburger nen khong the ban", valoare);
 	if(!ProxDetectorS(9.0, playerid, id)) return SendClientMessage(playerid, -1, "Ban khong o gan nguoi choi do!");
-    if(GetPlayerCash(id) < moneyLeft) return SendClientMessage(playerid, COLOR_YELLOW, "Nguoi choi do khong du tien de thuc hien trao doi");
+    if(GetPlayerCash(id) < money) return SendClientMessage(playerid, COLOR_YELLOW, "Nguoi choi do khong du tien de thuc hien trao doi");
 	if(strcmp(item,"hamburger",true) == 0) {
         
         if(Inventory_Count(playerid, "Burger", 1) < valoare) return SCMf(playerid, -1, "Ban khong co du %d burger de dua cho nguoi khac.", valoare);
-		format(string, sizeof(string), "* Ban da de nghi trao doi burger voi %s so luong %d voi gia $%s.",GetName(id), valoare, FormatNumber(moneyLeft));
+		format(string, sizeof(string), "* Ban da de nghi trao doi burger voi %s so luong %d voi gia $%s.",GetName(id), valoare, FormatNumber(money));
 		SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
 		format(string, sizeof(string), "* Nguoi choi %s muon trao doi %d cai burger cho ban voi gia $%s (/chapnhan traodoi %d)",GetName(playerid),valoare, FormatNumber(money), playerid);
 		SendClientMessage(id, COLOR_LIGHTBLUE, string);
 		BurgerAmount[id] = valoare;
         BurgerOffer[id] = playerid;
-        BurgerMoney[id] = moneyLeft;
+        BurgerMoney[id] = money;
         //printf("1 %d [ %d ] ( %d )",BurgerAmount[id], BurgerOffer[id], BurgerMoney[id]);
 	}
     else {
@@ -283,7 +282,6 @@ CMD:nhapburger(playerid, params[]) {
 	
 	format(string, sizeof(string), "[CUA HANG BURGER SHOT] : Chung toi vua nhap them %d banh ve cua hang, hay den mua burger thoi nao", FormatNumber(money));
 	SendClientMessageToAll(COLOR_LIGHTBLUE, string);
-	////InsertLog(id, string, LOG_MONEY);
 	format(string, sizeof(string), "%s da nhap %s banh", GetName(playerid), FormatNumber(money));
 	Log("logs/burger.log", string);
 	return 1;

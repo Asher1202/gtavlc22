@@ -5231,7 +5231,6 @@ LoadMaps() {
 	CreateDynamicObject(19360,562.3400300,-1930.0899700,1.3500000,0.0000000,90.0000000,-90.0000000,-1, -1, -1, 200.00); //
 	CreateDynamicObject(19376,562.3400300,-1937.0799600,1.3500000,0.0000000,90.0000000,-90.0000000,-1, -1, -1, 200.00); //
 	CreateDynamicObject(19376,543.1799900,-1923.3100600,1.3500000,0.0000000,90.0000000,-90.0000000,-1, -1, -1, 200.00); //
-	//CreateDynamicObject(11503,581.5700100,-1958.3499800,2.0300000,0.0000000,0.0000000,180.0000000,-1, -1, -1, 200.00); //
 	CreateDynamicObject(19360,536.7700200,-1926.8199500,1.3500000,0.0000000,90.0000000,-90.0000000,-1, -1, -1, 200.00); //
 	CreateDynamicObject(19360,536.7800300,-1923.3299600,1.3500000,0.0000000,90.0000000,-90.0000000,-1, -1, -1, 200.00); //
 	CreateDynamicObject(19360,536.7800300,-1919.8299600,1.3500000,0.0000000,90.0000000,-90.0000000,-1, -1, -1, 200.00); //
@@ -7179,7 +7178,7 @@ LoadVehicles() {
 	CreateVehicleEx(519, 1286.6686, 1362.3014, 11.9768, -88.2000, -1, -1, 300);
 	CreateVehicleEx(577, 1579.6351, 1191.5293, 10.6668, 0.0000, -1, -1, 300);
 	CreateVehicleEx(511, 1508.2938, 1845.1360, 12.5783, -178.3199, -1, -1, 300);
-
+	
 	//
 	LCS[0] = CreateVehicleEx(556, -2017.9601, -150.0044, 35.6249, 91.1400, -1, -1, 300);
 	LCS[1] = CreateVehicleEx(556, -2017.9299, -157.4881, 35.6249, 91.1400, -1, -1, 300);
@@ -7243,9 +7242,9 @@ LoadVehicles() {
 
 	// RENT LAS VENTURAS
 	rentlv[1] = CreateVehicleEx(533, 2170.2217,1408.8442,10.7334,0.7270, -1, -1, 300);
-	rentlv[2] = CreateVehicleEx(426, 2148.6870,1408.4512,10.5342,359.6203, -1, -1, 300);
-	rentlv[3] = CreateVehicleEx(506, 2142.3250,1408.7910,10.5888,359.9987, -1, -1, 300);
-	rentlv[4] = CreateVehicleEx(480, 2135.8652,1408.4519,10.5247,0.0002, -1, -1, 300);
+	rentlv[2] = CreateVehicleEx(426, 570.1482,-1872.9556,3.5079,175.3210, -1, -1, 300);
+	rentlv[3] = CreateVehicleEx(506, 565.3564,-1873.2687,3.7133,176.5908, -1, -1, 300);
+	rentlv[4] = CreateVehicleEx(480, 565.3564,-1873.2687,3.7133,176.5908, -1, -1, 300);
 	rentlv[5] = CreateVehicleEx(500, 2129.5669,1408.2548,10.6258,0.0000, -1, -1, 300);
 	rentlv[6] = CreateVehicleEx(518, 2123.1011,1408.5699,10.9370,360.0000, -1, -1, 300);
 	rentlv[7] = CreateVehicleEx(546, 2116.7747,1408.3326,10.5383,359.9721, -1, -1, 300);
@@ -7342,6 +7341,7 @@ LoadPickups() {
 	CreateDynamic3DTextLabel("{0066FF}Asher{FFFFFF} Nguoi Giao Nhiem Vu",0xFFFFFFFF,1804.9772, -1847.8226, 13.5739,20.0);
 	CreateDynamic3DTextLabel("{32a852} Dia diem spawn xe newbie{FFFFFF}\n[/spawnxe]",0xFFFFFFFF,1796.6306,-1846.5983,13.5781,20.0);
 	CreateDynamic3DTextLabel("{0066FF}De kiem tra nhiem vu\n{FFFFFF}[bam 'Y'{FFFFFF}].",0xFFFFFFFF,1804.9772, -1847.8226, 13.0000,20.0);
+	CreateDynamic3DTextLabel("{34cceb}Khu vuc tai xiu\n{FFFFFF}[/taixiu].",0xFFFFFFFF,1116.1476,-1457.6807,13.8592,60.0);
 
 	for(new i; i < sizeof(dealershipPos); i++) {
 		CreateDynamicPickup(1277, 23, dealershipPos[i][0], dealershipPos[i][1], dealershipPos[i][2], -1, -1,-1, 100.0);
@@ -9669,6 +9669,401 @@ LoadTradeTD(playerid) {
 	PlayerTextDrawSetShadow(playerid, TradeIcon[9], 0);
 	PlayerTextDrawSetPreviewModel(playerid, TradeIcon[9], 19523);
 	PlayerTextDrawSetPreviewRot(playerid, TradeIcon[9], 0.000000, 0.000000, 348.000000, 0.849843);	
+}
+LoadGuong(playerid)
+{
+
+     
+    MoGuong[playerid][0] = CreatePlayerTextDraw(playerid, 152.666656, 42.170421, "LD_SPAC:white");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][0], 347.000000, 277.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][0], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][0], 883442304);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][0], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][0], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][0], 4);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][0], 0);
+
+    MoGuong[playerid][1] = CreatePlayerTextDraw(playerid, 618.333557, 3.333251, "Mo hom~n~By:~r~Asher");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][1], 0.251332, 0.799407);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][1], 0.000000, 76.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][1], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][1], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][1], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][1], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][1], 1);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][1], 1);
+
+    MoGuong[playerid][2] = CreatePlayerTextDraw(playerid, 153.999847, 43.155548, "box");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][2], -0.021999, -0.133332);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][2], 499.000000, 0.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][2], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][2], -1);
+    PlayerTextDrawUseBox(playerid, MoGuong[playerid][2], 1);
+    PlayerTextDrawBoxColor(playerid, MoGuong[playerid][2], 255);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][2], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][2], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][2], 1);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][2], 1);
+
+    MoGuong[playerid][3] = CreatePlayerTextDraw(playerid, 153.433334, 44.300037, "box");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][3], 0.000000, 30.473648);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][3], 0.000000, -1.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][3], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][3], -1);
+    PlayerTextDrawUseBox(playerid, MoGuong[playerid][3], 1);
+    PlayerTextDrawBoxColor(playerid, MoGuong[playerid][3], 255);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][3], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][3], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][3], 1);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][3], 1);
+
+    MoGuong[playerid][4] = CreatePlayerTextDraw(playerid, 326.000000, 319.836975, ".");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][4], -0.021999, -0.133332);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][4], 0.000000, 345.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][4], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][4], -1);
+    PlayerTextDrawUseBox(playerid, MoGuong[playerid][4], 1);
+    PlayerTextDrawBoxColor(playerid, MoGuong[playerid][4], 255);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][4], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][4], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][4], 2);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][4], 1);
+
+    MoGuong[playerid][5] = CreatePlayerTextDraw(playerid, 499.400085, 44.644432, "vien");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][5], 0.000000, 30.478631);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][5], 0.000000, -1.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][5], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][5], -1);
+    PlayerTextDrawUseBox(playerid, MoGuong[playerid][5], 1);
+    PlayerTextDrawBoxColor(playerid, MoGuong[playerid][5], 255);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][5], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][5], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][5], 1);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][5], 1);
+
+    MoGuong[playerid][6] = CreatePlayerTextDraw(playerid, 144.333297, 23.622232, "LD_GRAV:bee1");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][6], 17.000000, 20.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][6], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][6], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][6], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][6], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][6], 4);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][6], 0);
+
+    MoGuong[playerid][7] = CreatePlayerTextDraw(playerid, 261.666595, 45.622241, "~P~GUONG CA NHAN");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][7], 0.399666, 1.164443);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][7], 411.000000, 0.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][7], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][7], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][7], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][7], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][7], 2);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][7], 1);
+
+    MoGuong[playerid][8] = CreatePlayerTextDraw(playerid, 261.666595, 57.037036, "LD_SPAC:white");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][8], 130.000000, 1.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][8], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][8], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][8], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][8], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][8], 4);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][8], 0);
+
+    MoGuong[playerid][9] = CreatePlayerTextDraw(playerid, 489.666656, 25.037044, "LD_GRAV:bee1");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][9], 17.000000, 20.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][9], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][9], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][9], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][9], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][9], 4);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][9], 0);
+
+    MoGuong[playerid][10] = CreatePlayerTextDraw(playerid, 154.333312, 66.355484, "LD_SPAC:black");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][10], 345.000000, -2.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][10], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][10], 65535);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][10], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][10], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][10], 4);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][10], 0);
+
+    MoGuong[playerid][11] = CreatePlayerTextDraw(playerid, 152.999969, 84.518493, "");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][11], 67.000000, 67.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][11], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][11], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][11], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][11], -256);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][11], 5);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][11], 0);
+    PlayerTextDrawSetSelectable(playerid, MoGuong[playerid][11], true);
+    PlayerTextDrawSetPreviewModel(playerid, MoGuong[playerid][11], 19054);
+    PlayerTextDrawSetPreviewRot(playerid, MoGuong[playerid][11], -45.000000, 0.000000, 0.000000, 0.800000);
+
+    MoGuong[playerid][12] = CreatePlayerTextDraw(playerid, 224.333404, 84.103698, "");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][12], 67.000000, 67.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][12], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][12], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][12], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][12], -256);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][12], 5);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][12], 0);
+    PlayerTextDrawSetSelectable(playerid, MoGuong[playerid][12], true);
+    PlayerTextDrawSetPreviewModel(playerid, MoGuong[playerid][12], 19058);
+    PlayerTextDrawSetPreviewRot(playerid, MoGuong[playerid][12], -45.000000, 0.000000, 0.000000, 0.800000);
+
+    MoGuong[playerid][13] = CreatePlayerTextDraw(playerid, 296.666656, 83.274078, "");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][13], 67.000000, 67.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][13], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][13], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][13], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][13], -256);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][13], 5);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][13], 0);
+    PlayerTextDrawSetSelectable(playerid, MoGuong[playerid][13], true);
+    PlayerTextDrawSetPreviewModel(playerid, MoGuong[playerid][13], 19057);
+    PlayerTextDrawSetPreviewRot(playerid, MoGuong[playerid][13], -45.000000, 0.000000, 0.000000, 0.800000);
+
+    MoGuong[playerid][14] = CreatePlayerTextDraw(playerid, 364.666717, 82.859252, "");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][14], 67.000000, 67.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][14], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][14], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][14], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][14], -256);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][14], 5);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][14], 0);
+    PlayerTextDrawSetSelectable(playerid, MoGuong[playerid][14], true);
+    PlayerTextDrawSetPreviewModel(playerid, MoGuong[playerid][14], 19055);
+    PlayerTextDrawSetPreviewRot(playerid, MoGuong[playerid][14], -45.000000, 0.000000, 0.000000, 0.800000);
+
+    MoGuong[playerid][15] = CreatePlayerTextDraw(playerid, 432.999969, 81.859283, "");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][15], 67.000000, 67.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][15], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][15], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][15], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][15], -256);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][15], 5);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][15], 0);
+    PlayerTextDrawSetSelectable(playerid, MoGuong[playerid][15], true);
+    PlayerTextDrawSetPreviewModel(playerid, MoGuong[playerid][15], 19056);
+    PlayerTextDrawSetPreviewRot(playerid, MoGuong[playerid][15], -45.000000, 0.000000, 0.000000, 0.800000);
+
+    MoGuong[playerid][16] = CreatePlayerTextDraw(playerid, 221.966690, 65.455619, "LD_SPAC:black");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][16], 1.000000, 255.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][16], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][16], 65535);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][16], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][16], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][16], 4);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][16], 0);
+
+    MoGuong[playerid][17] = CreatePlayerTextDraw(playerid, 293.200042, 65.869377, "LD_SPAC:black");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][17], 1.000000, 254.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][17], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][17], 65535);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][17], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][17], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][17], 4);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][17], 0);
+
+    MoGuong[playerid][18] = CreatePlayerTextDraw(playerid, 364.166748, 65.111114, "LD_SPAC:black");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][18], 1.000000, 255.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][18], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][18], 65535);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][18], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][18], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][18], 4);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][18], 0);
+
+    MoGuong[playerid][19] = CreatePlayerTextDraw(playerid, 431.733489, 64.696281, "LD_SPAC:black");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][19], 1.000000, 254.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][19], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][19], 65535);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][19], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][19], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][19], 4);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][19], 0);
+
+    MoGuong[playerid][20] = CreatePlayerTextDraw(playerid, 187.500000, 156.500000, "~g~~h~RANDOM SKIN~N~So Huu : %d");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][20], 0.185000, 1.118814);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][20], 0.000000, 112.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][20], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][20], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][20], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][20], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][20], 2);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][20], 1);
+
+    MoGuong[playerid][21] = CreatePlayerTextDraw(playerid, 258.500000, 156.500000, "~g~~h~RANDOM SKIN~N~So Huu : %d");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][21], 0.185000, 1.118814);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][21], 0.000000, 112.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][21], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][21], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][21], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][21], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][21], 2);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][21], 1);
+
+    MoGuong[playerid][22] = CreatePlayerTextDraw(playerid, 330.666687, 156.514785, "~g~~h~RANDOM SKIN~N~So Huu : %d");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][22], 0.185000, 1.118814);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][22], 0.000000, 112.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][22], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][22], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][22], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][22], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][22], 2);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][22], 1);
+
+    MoGuong[playerid][23] = CreatePlayerTextDraw(playerid, 398.333404, 157.100082, "SKIN HUYEN THOAI~n~SO HUU : %d");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][23], 0.170999, 1.131259);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][23], 0.000000, 112.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][23], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][23], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][23], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][23], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][23], 2);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][23], 1);
+
+    MoGuong[playerid][24] = CreatePlayerTextDraw(playerid, 465.500000, 156.500000, "~g~~h~RANDOM SKIN~N~So Huu : %d");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][24], 0.185000, 1.118814);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][24], 0.000000, 112.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][24], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][24], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][24], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][24], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][24], 2);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][24], 1);
+
+    MoGuong[playerid][25] = CreatePlayerTextDraw(playerid, 534.666809, 201.044494, "LD_SHTR:kami");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][25], 43.000000, 32.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][25], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][25], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][25], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][25], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][25], 4);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][25], 0);
+
+    MoGuong[playerid][26] = CreatePlayerTextDraw(playerid, 90.000144, 194.407409, "LD_SHTR:ship");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][26], 43.000000, 32.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][26], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][26], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][26], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][26], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][26], 4);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][26], 0);
+
+    MoGuong[playerid][27] = CreatePlayerTextDraw(playerid, 467.666625, 50.696304, "LD_SHTR:hi_c");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][27], 28.000000, 8.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][27], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][27], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][27], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][27], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][27], 4);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][27], 0);
+    PlayerTextDrawSetSelectable(playerid, MoGuong[playerid][27], true);
+
+    MoGuong[playerid][28] = CreatePlayerTextDraw(playerid, 364.333221, 216.674118, "");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][28], 67.000000, 67.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][28], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][28], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][28], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][28], -256);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][28], 5);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][28], 0);
+    PlayerTextDrawSetSelectable(playerid, MoGuong[playerid][28], true);
+    PlayerTextDrawSetPreviewModel(playerid, MoGuong[playerid][28], 19059);
+    PlayerTextDrawSetPreviewRot(playerid, MoGuong[playerid][28], -45.000000, 0.000000, 0.000000, 0.800000);
+
+    MoGuong[playerid][29] = CreatePlayerTextDraw(playerid, 295.500000, 216.600006, "");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][29], 67.000000, 67.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][29], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][29], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][29], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][29], -256);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][29], 5);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][29], 0);
+    PlayerTextDrawSetSelectable(playerid, MoGuong[playerid][29], true);
+    PlayerTextDrawSetPreviewModel(playerid, MoGuong[playerid][29], 19060);
+    PlayerTextDrawSetPreviewRot(playerid, MoGuong[playerid][29], -45.000000, 0.000000, 0.000000, 0.800000);
+
+    MoGuong[playerid][30] = CreatePlayerTextDraw(playerid, 224.100006, 216.600006, "");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][30], 67.000000, 67.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][30], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][30], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][30], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][30], -256);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][30], 5);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][30], 0);
+    PlayerTextDrawSetSelectable(playerid, MoGuong[playerid][30], true);
+    PlayerTextDrawSetPreviewModel(playerid, MoGuong[playerid][30], 19061);
+    PlayerTextDrawSetPreviewRot(playerid, MoGuong[playerid][30], -45.000000, 0.000000, 0.000000, 0.800000);
+
+    MoGuong[playerid][31] = CreatePlayerTextDraw(playerid, 329.999877, 292.000030, "CAR CAO CAP~n~ SO HUU : %D");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][31], 0.170999, 1.131259);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][31], 0.000000, 112.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][31], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][31], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][31], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][31], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][31], 2);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][31], 1);
+
+    MoGuong[playerid][32] = CreatePlayerTextDraw(playerid, 256.900177, 292.000000, "~g~~h~RANDOM SKIN~N~So Huu : %d");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][32], 0.185000, 1.118814);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][32], 0.000000, 112.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][32], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][32], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][32], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][32], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][32], 2);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][32], 1);
+
+    MoGuong[playerid][33] = CreatePlayerTextDraw(playerid, 397.000000, 292.000000, "XE GIOI HAN~n~SO HUU : %d");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][33], 0.170999, 1.131259);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][33], 0.000000, 112.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][33], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][33], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][33], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][33], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][33], 2);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][33], 1);
+
+    MoGuong[playerid][34] = CreatePlayerTextDraw(playerid, 326.999938, 195.392456, ".");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][34], -0.021999, -0.133332);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][34], 0.000000, 345.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][34], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][34], -1);
+    PlayerTextDrawUseBox(playerid, MoGuong[playerid][34], 1);
+    PlayerTextDrawBoxColor(playerid, MoGuong[playerid][34], 255);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][34], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][34], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][34], 2);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][34], 1);
+
+
+
+    MoGuong[playerid][35] = CreatePlayerTextDraw(playerid, 152.433395, 216.185165, "");
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][35], 67.000000, 67.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][35], 1);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][35], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][35], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][35], -256);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][35], 5);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][35], 0);
+    PlayerTextDrawSetSelectable(playerid, MoGuong[playerid][35], true);
+    PlayerTextDrawSetPreviewModel(playerid, MoGuong[playerid][35], 19063);
+    PlayerTextDrawSetPreviewRot(playerid, MoGuong[playerid][35], -45.000000, 0.000000, 0.000000, 0.800000);
+
+    MoGuong[playerid][36] = CreatePlayerTextDraw(playerid, 187.000015, 291.170288, "XE GIOI HAN~n~SO HUU : %d");
+    PlayerTextDrawLetterSize(playerid, MoGuong[playerid][36], 0.170999, 1.131258);
+    PlayerTextDrawTextSize(playerid, MoGuong[playerid][36], 0.000000, 112.000000);
+    PlayerTextDrawAlignment(playerid, MoGuong[playerid][36], 2);
+    PlayerTextDrawColor(playerid, MoGuong[playerid][36], -1);
+    PlayerTextDrawSetShadow(playerid, MoGuong[playerid][36], 0);
+    PlayerTextDrawBackgroundColor(playerid, MoGuong[playerid][36], 255);
+    PlayerTextDrawFont(playerid, MoGuong[playerid][36], 2);
+    PlayerTextDrawSetProportional(playerid, MoGuong[playerid][36], 1);
+
+
 }
 enum SAZONE_MAIN {
 	SAZONE_NAME[28],

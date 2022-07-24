@@ -105,7 +105,6 @@ CMD:givemoney(playerid, params[]) {
 	SendClientMessage(id, COLOR_WHITE, string);
 	Update(id, pCashx);	
 	format(string, sizeof(string), "%s da nhan duoc $%s tu %s (/givemoney)", GetName(id), FormatNumber(money), GetName(playerid));
-	////InsertLog(id, string, LOG_MONEY);
 	Log("logs/money.log", string);
 	return 1;
 

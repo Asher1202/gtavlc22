@@ -90,7 +90,7 @@ enum invVariables { invExists, invID, invItem[32], invModel, invQuantity, invAtt
 new invData[MAX_PLAYERS][MAX_INVENTORY][invVariables]; // inventory
 // new Timer:SpeedBoostTimer[MAX_PLAYERS],
 // 	g_fSpeedCap[MAX_PLAYERS];
-
+new CauCaZoneZ[3];
 new RandomMSG[][] = {
 	"Neu ban can tro giup, dung ngan ngai su dung lenh (/n) va nguoi tro giup se giup ban trong thoi gian ngan nhat.",
 	"Ban thay mot nguoi choi su dung hack/cheat, su dung (/report) va mot quan tri vien se xu ly (hoac ban co the bandicam).",
@@ -533,9 +533,10 @@ new
 	wotime = 15, levelcost = 2000,			realchat = 1, 								levelexp = 3,
 	FactionChat[16], Questions, 			Tax, TaxValue, cell2,gatelspd,gateds[2],				gateng,lspdbar, 	
 	// Global	
+	LamViecChung[MAX_PLAYERS],				DaThueThuyen[MAX_PLAYERS],
 	NearPNS[MAX_PLAYERS],					pickups,									pizzamoney[MAX_PLAYERS],						
 	WarKills[MAX_PLAYERS],  				WarDeaths[MAX_PLAYERS],						Aduty[MAX_PLAYERS],
-	Exception[MAX_PLAYERS char],					
+	Exception[MAX_PLAYERS char],			ThuySan[MAX_PLAYERS],		
 	playerObject[MAX_PLAYERS],				playerObject2[MAX_PLAYERS],					PinText[MAX_PLAYERS][30],
 	TradeID[MAX_PLAYERS], 					TradeItems[MAX_PLAYERS], 					TradeReady[MAX_PLAYERS],
 	Escape[MAX_PLAYERS], 					Escape2[MAX_PLAYERS], 						EscapeProces[MAX_PLAYERS],
@@ -594,7 +595,7 @@ new
 	AcceptedTaxiService[MAX_PLAYERS],		Fare[MAX_PLAYERS],					  		TaxiDriver[MAX_PLAYERS], TaxiDuty[MAX_PLAYERS], TaxiMoney[MAX_PLAYERS],
 	Timer:TaxiTimer[MAX_PLAYERS],			RentPrice[MAX_PLAYERS],						SeifID[MAX_PLAYERS], SelectedPlayers[MAX_PLAYERS][50],
 	AcceptedReport[MAX_PLAYERS],			ServerSystem[MAX_SYSTEMS],
-	Weapons[MAX_PLAYERS][47], 				WeaponAmmo[MAX_PLAYERS][47],
+	Weapons[MAX_PLAYERS][47], 				WeaponAmmo[MAX_PLAYERS][47],				ThuyenSpawn[MAX_VEHICLES], XeNewbie[MAX_VEHICLES],
 	SondajVote[MAX_PLAYERS], 				EmailID[MAX_PLAYERS][10], 					KillP[MAX_PLAYERS],DeathP[MAX_PLAYERS], tuningenter[MAX_PLAYERS],
 	shotTime[MAX_PLAYERS], 					shot[MAX_PLAYERS], WantedName[MAX_PLAYERS][180], WantedReason[MAX_PLAYERS],
 	Timer:WantedTimer[MAX_PLAYERS], 				Wartimeon[MAX_PLAYERS], 					taxim[MAX_PLAYERS], towcarm[MAX_PLAYERS], toglc[MAX_PLAYERS], Carspawn[MAX_VEHICLES], togvip[MAX_PLAYERS],
@@ -673,9 +674,10 @@ new
 	Float: SpawnPos2[4] = {1791.6156,-1866.9568,13.5708,1.6267},
 	Float: SpawnPos3[4] = {1808.5251,-1866.6414,13.5821,353.1432},
 	TodayJob;
-	//CrateTime[MAX_PLAYERS char];
+	// CrateTime[MAX_PLAYERS char];
 	
 new gTeam[MAX_PLAYERS];	
+new PlayerText:MoGuong[MAX_PLAYERS][37];
 // ENUMS
 
 enum hInfo

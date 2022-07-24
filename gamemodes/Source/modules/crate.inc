@@ -1,13 +1,17 @@
 #include <YSI_Coding\y_hooks>
 
-#define MAX_CRATES 		5
-new IsCrates[MAX_PLAYERS], CrateModel[MAX_PLAYERS], PlayerText: CratePTD[2], Text: CrateTD[6], CrateTime[MAX_PLAYERS], AlegeCrates[MAX_PLAYERS], Text3D: LabelCrates;
-new CrateName[5][30] = {
-	{"Hop Qua Thuong"},
-	{"Hop Qua Hiem"}, 
-	{"Hop Qua Rat Hiem"}, 
-	{"Hop Qua GTAVLC"}, 
-	{"Sieu Xe"}
+#define MAX_CRATES 		9
+new IsCrates[MAX_PLAYERS], CrateModel[MAX_PLAYERS], CheckMoGuong[MAX_PLAYERS], PlayerText: CratePTD[2], Text: CrateTD[6], CrateTime[MAX_PLAYERS], AlegeCrates[MAX_PLAYERS], Text3D: LabelCrates;
+new CrateName[9][30] = {
+	{"Random Skin"},
+	{"Random Car Silver"}, 
+	{"Random Car Gold"}, 
+	{"Ticket Than Bi"}, 
+	{"Voucher Cao Cap"},
+    {"Random Skin Huyen Thoai"},
+    {"Random Xe Cao Cap"},
+    {"Random Xe Gioi Han"},
+    {"Random Xe Huyen Thoai"}
 };
 new CratePrice[][] = {
 	{5000000, 50},
@@ -17,22 +21,26 @@ new CratePrice[][] = {
 	{100000000, 1000}
 };
 
-new CrateColors[5][10] = {
+new CrateColors[9][10] = {
 	{"F09E05"}, 
 	{"F09E05"},
 	{"F09E05"},
 	{"e52222"},
-	{"7556ff"}
+	{"7556ff"},
+    {"f04aa3"},
+    {"ad7af0"},
+    {"EEE0C9"},
+    {"ff0000"}
 };
 
 new StockCarCrate;
 new TimerCratesEx[MAX_PLAYERS];
 
 hook OnGameModeInit() {
-	Create3DTextLabel("{e52222}Hop Qua GTAVLC{FFFFFF}\nSu Dung {e52222}/buycrate{FFFFFF} De Mua Crate\n{FFFFFF}Gia Hop Qua: {e52222}50.000.000  SAD {FFFFFF} / {e52222}500 VIP XU",0xFFFFFFFF,1986.7395,-2183.5996,13.5469,25.0, 0, 1);
-	Create3DTextLabel("{eeba24}Hop Qua Sieu Hiem{FFFFFF}\nSu Dung {eeba24}/buycrate{FFFFFF} De Mua Crate\n{FFFFFF}Gia Hop Qua: {eeba24}20.000.000  SAD {FFFFFF} / {eeba24}200 VIP XU",0xFFFFFFFF,1984.8501,-2181.1921,13.5469,25.0, 0, 1);
-	Create3DTextLabel("{610F7D}Hop Qua Hiem{FFFFFF}\nSu Dung {610F7D}/buycrate{FFFFFF} De Mua Crate\n{FFFFFF}Gia Hop Qua: {610F7D}10.000.000  SAD {FFFFFF} / {610F7D}100 VIP XU",0xFFFFFFFF,1980.0298,-2181.1948,13.5469,25.0, 0, 1);
-	Create3DTextLabel("{045AB6}Hop Qua Thuong{FFFFFF}\nSu Dung {045AB6}/buycrate{FFFFFF} De Mua Crate\n{FFFFFF}Gia Hop Qua: {045AB6}5.000.000  SAD {FFFFFF} / {045AB6}50 VIP XU",0xFFFFFFFF,1974.7478,-2181.4993,13.5469,25.0, 0, 1);    
+	// Create3DTextLabel("{e52222}Hop Qua GTAVLC{FFFFFF}\nSu Dung {e52222}/buycrate{FFFFFF} De Mua Crate\n{FFFFFF}Gia Hop Qua: {e52222}50.000.000  SAD {FFFFFF} / {e52222}500 VIP XU",0xFFFFFFFF,1986.7395,-2183.5996,13.5469,25.0, 0, 1);
+	// Create3DTextLabel("{eeba24}Hop Qua Sieu Hiem{FFFFFF}\nSu Dung {eeba24}/buycrate{FFFFFF} De Mua Crate\n{FFFFFF}Gia Hop Qua: {eeba24}20.000.000  SAD {FFFFFF} / {eeba24}200 VIP XU",0xFFFFFFFF,1984.8501,-2181.1921,13.5469,25.0, 0, 1);
+	// Create3DTextLabel("{610F7D}Hop Qua Hiem{FFFFFF}\nSu Dung {610F7D}/buycrate{FFFFFF} De Mua Crate\n{FFFFFF}Gia Hop Qua: {610F7D}10.000.000  SAD {FFFFFF} / {610F7D}100 VIP XU",0xFFFFFFFF,1980.0298,-2181.1948,13.5469,25.0, 0, 1);
+	// Create3DTextLabel("{045AB6}Hop Qua Thuong{FFFFFF}\nSu Dung {045AB6}/buycrate{FFFFFF} De Mua Crate\n{FFFFFF}Gia Hop Qua: {045AB6}5.000.000  SAD {FFFFFF} / {045AB6}50 VIP XU",0xFFFFFFFF,1974.7478,-2181.4993,13.5469,25.0, 0, 1);    
 
 	CrateTD[5] = TextDrawCreate(234.333313, 183.362961, "box");
 	TextDrawLetterSize(CrateTD[5], 0.000000, 13.533330);
@@ -150,17 +158,124 @@ hook OnPlayerConnect(playerid) {
 	PlayerTextDrawSetSelectable(playerid, CratePTD[1], 0);
 	return 1;
 }
-hook OnPlayerClickTextDraw(playerid, Text:clickedid) {
-	if(clickedid == CrateTD[2]) {
-		if(totalcrates(playerid) < 1) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co crate.");
-	    if(CrateModel[playerid] >= 0) return true;
-		for(new j = 0; j < 6; j++) TextDrawHideForPlayer(playerid, CrateTD[j]);
-		for(new j = 0; j < 2; j++) PlayerTextDrawHide(playerid, CratePTD[j]);
-		format(string, sizeof(string), "Crates Type\tAmount\n{FFFFFF}Hop Qua Thuong\t{FFFFFF}%d\n{FFFFFF}Hop qua Hiem \t{FFFFFF}%d\n{FFFFFF}Hop Qua Rat Hiem\t{eeba24}%d\nHop Qua GTAVLC\t{FFFFFF}%d\n{FFFFFF}Hop Qua Sieu Xe\t{20F5F1}%d", PlayerInfo[playerid][pCrates][0], PlayerInfo[playerid][pCrates][1], PlayerInfo[playerid][pCrates][2], PlayerInfo[playerid][pCrates][3], PlayerInfo[playerid][pCrates][4]);
-		Dialog_Show(playerid, DIALOG_CRATES, DIALOG_STYLE_TABLIST_HEADERS, "Crate Cua Ban", string, "Chon", "Huy Bo");
-		return ~0;
+hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
+{
+	if(playertextid == MoGuong[playerid][11])
+	{
+		if(PlayerInfo[playerid][pCrates][0] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co crate.");
+		SetPVarInt(playerid, "VoucherType", 1);
+		CrateTime[playerid] = 15;
+		CrateModel[playerid] = 1;
+		PlayerInfo[playerid][pCrates][0] -= 1;
+		startcrates(playerid);
 	}
-	else if(clickedid == CrateTD[1]) {
+	if(playertextid == MoGuong[playerid][12])
+	{
+		if(PlayerInfo[playerid][pCrates][1] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co crate.");
+		if(GetSlots(playerid) == GetVehicles(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong con slot xe trong de mo hom");
+		SetPVarInt(playerid, "VoucherType", 2);
+		CrateTime[playerid] = 15;
+		CrateModel[playerid] = 1;
+		PlayerInfo[playerid][pCrates][1] -= 1;
+		startcrates(playerid);
+	}
+	if(playertextid == MoGuong[playerid][13])
+	{
+		if(PlayerInfo[playerid][pCrates][2] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co crate.");
+		if(GetSlots(playerid) == GetVehicles(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong con slot xe trong de mo hom");
+		SetPVarInt(playerid, "VoucherType", 3);
+		CrateTime[playerid] = 15;
+		CrateModel[playerid] = 1;
+		PlayerInfo[playerid][pCrates][2] -= 1;
+		startcrates(playerid);
+	}
+	if(playertextid == MoGuong[playerid][14])
+	{
+		if(PlayerInfo[playerid][pCrates][3] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co crate.");
+		if(GetSlots(playerid) == GetVehicles(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong con slot xe trong de mo hom");
+		SetPVarInt(playerid, "VoucherType", 4);
+		CrateTime[playerid] = 15;
+		CrateModel[playerid] = 1;
+		PlayerInfo[playerid][pCrates][3] -= 1;
+		startcrates(playerid);
+	}
+	if(playertextid == MoGuong[playerid][15])
+	{
+		if(PlayerInfo[playerid][pCrates][4] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co crate.");
+		if(GetSlots(playerid) == GetVehicles(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong con slot xe trong de mo hom");
+		SetPVarInt(playerid, "VoucherType", 5);
+		CrateTime[playerid] = 15;
+		CrateModel[playerid] = 1;
+		PlayerInfo[playerid][pCrates][4] -= 1;
+		startcrates(playerid);
+	}
+    if(playertextid == MoGuong[playerid][15])
+    {
+        if(PlayerInfo[playerid][pCrates][4] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co crate.");
+        if(GetSlots(playerid) == GetVehicles(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong con slot xe trong de mo hom");
+        SetPVarInt(playerid, "VoucherType", 5);
+        CrateTime[playerid] = 15;
+        CrateModel[playerid] = 1;
+        PlayerInfo[playerid][pCrates][4] -= 1;
+        startcrates(playerid);
+    }
+    if(playertextid == MoGuong[playerid][15])
+    {
+        if(PlayerInfo[playerid][pCrates][4] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co crate.");
+        if(GetSlots(playerid) == GetVehicles(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong con slot xe trong de mo hom");
+        SetPVarInt(playerid, "VoucherType", 5);
+        CrateTime[playerid] = 15;
+        CrateModel[playerid] = 1;
+        PlayerInfo[playerid][pCrates][4] -= 1;
+        startcrates(playerid);
+    }
+    if(playertextid == MoGuong[playerid][28])
+    {
+        if(PlayerInfo[playerid][pCrates][7] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co crate.");
+        if(GetSlots(playerid) == GetVehicles(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong con slot xe trong de mo hom");
+        SetPVarInt(playerid, "VoucherType", 8);
+        CrateTime[playerid] = 15;
+        CrateModel[playerid] = 1;
+        PlayerInfo[playerid][pCrates][7] -= 1;
+        startcrates(playerid);
+    }
+    if(playertextid == MoGuong[playerid][29])
+    {
+        if(PlayerInfo[playerid][pCrates][6] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co crate.");
+        if(GetSlots(playerid) == GetVehicles(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong con slot xe trong de mo hom");
+        SetPVarInt(playerid, "VoucherType", 7);
+        CrateTime[playerid] = 15;
+        CrateModel[playerid] = 1;
+        PlayerInfo[playerid][pCrates][6] -= 1;
+        startcrates(playerid);
+    }
+    if(playertextid == MoGuong[playerid][35])
+    {
+        if(PlayerInfo[playerid][pCrates][8] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co crate.");
+        SetPVarInt(playerid, "VoucherType", 9);
+        CrateTime[playerid] = 15;
+        CrateModel[playerid] = 1;
+        PlayerInfo[playerid][pCrates][8] -= 1;
+        startcrates(playerid);
+    }
+    if(playertextid == MoGuong[playerid][30])
+    {
+        if(PlayerInfo[playerid][pCrates][5] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co crate.");
+        SetPVarInt(playerid, "VoucherType", 6);
+        CrateTime[playerid] = 15;
+        CrateModel[playerid] = 1;
+        PlayerInfo[playerid][pCrates][5] -= 1;
+        startcrates(playerid);
+    }
+	if(playertextid == MoGuong[playerid][27])
+	{
+		TatMoGuong(playerid);
+	}
+	return 1;
+}
+hook OnPlayerClickTextDraw(playerid, Text:clickedid) {
+
+	if(clickedid == CrateTD[1]) {
 	    if(CrateModel[playerid] >= 0) return true;
 		for(new j = 0; j < 6; j++) TextDrawHideForPlayer(playerid, CrateTD[j]);
 		for(new j = 0; j < 2; j++) PlayerTextDrawHide(playerid, CratePTD[j]);
@@ -187,7 +302,9 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid) {
 				return ~0;
 			}
 		}
-    }        
+		if(CheckMoGuong[playerid] == 1) TatMoGuong(playerid);
+    }  
+    return 1;      
 }
 hook LoadStuffs() {
     new Cache: test = mysql_query(SQL,"SELECT * FROM `stuff`");
@@ -199,67 +316,98 @@ hook ResetVariables(playerid) {
     CrateTime[playerid] = 0;
     IsCrates[playerid] = 0;
     AlegeCrates[playerid] = 0;
+    CheckMoGuong[playerid] = 0;
     CrateModel[playerid] = -1;    
+    // inSkinTrade[playerid] = -1;
+    DeletePVar(playerid, "VoucherType");
 }
-// CMD:crateforall(playerid, params[]) {
-// 	if(PlayerInfo[playerid][pAdmin] < 6)
-// 		return SendClientMessage(playerid, COLOR_LGREEN, AdminOnly);
+CMD:crateforall(playerid, params[]) {
+	if(PlayerInfo[playerid][pAdmin] < 6)
+		return SendClientMessage(playerid, COLOR_LGREEN, AdminOnly);
 
-// 	new type, value;
-// 	if(sscanf(params, "ii", type, value)) {
-// 		SendClientMessage(playerid, COLOR_GREY, "Syntax: {FFFFFF}/crateforall [crate type] [value]");
-// 		SendClientMessage(playerid, COLOR_WHITE, "Rare (0) | Epic (1) | Legendary (2) | Transcendent (3) | Vehicle (4)");
-// 		return true;
-// 	}
+	new type, value;
+	if(sscanf(params, "ii", type, value)) {
+		SendClientMessage(playerid, COLOR_GREY, "Syntax: {FFFFFF}/crateforall [crate type] [value]");
+		SendClientMessage(playerid, COLOR_WHITE, "Rare (0) | Epic (1) | Legendary (2) | Transcendent (3) | Vehicle (4)");
+		return true;
+	}
 
-// 	foreach(new i: Player) PlayerInfo[i][pCrates][type] += value, save_crates(i);
+	foreach(new i: Player) PlayerInfo[i][pCrates][type] += value, save_crates(i);
 
-// 	new string[500];
-// 	format(string, 75, "Admin %s a dat %d crate %s.", GetName(playerid), value, CrateName[type]);
-// 	SCMTA(COLOR_YELLOW, string);
-// 	return 1;
-// }
-// CMD:buycrate(playerid, params[]) {
-// 	new x;
-// 	if(PlayerToPoint(3, playerid, 1974.7478,-2181.4993,13.5469)) x = 0;
-// 	else if(PlayerToPoint(3, playerid, 1980.0298,-2181.1948,13.5469)) x = 1;
-// 	else if(PlayerToPoint(3, playerid, 1984.8501,-2181.1921,13.5469)) x = 2;
-// 	else if(PlayerToPoint(3, playerid, 1986.7395,-2183.5996,13.5469)) x = 3;
-// 	else if(PlayerToPoint(3, playerid, 1986.5114,-2187.9370,13.5469)) x = 4;
-// 	else return SendClientMessage(playerid, COLOR_ERROR, "You're not at the box stand");
-// 	AlegeCrates[playerid] = x;
-// 	new string[500];
-// 	format(string, sizeof(string), "{A0C4D3}Ban co chac chan muon mua %s?\nNo Co Gia La {1A79A2}(%d SAD / %d Vip Xu){A0C4D3}.", CrateName[x], CratePrice[x][0], CratePrice[x][1]);
-// 	Dialog_Show(playerid, DIALOG_BUYCRATES, DIALOG_STYLE_MSGBOX, "Buy Crate", string, "Co", "Khong");
-// 	return 1;
-// }
-// CMD:opencrate(playerid, params[]) {
-// 	if(IsCrates[playerid] == 1) return true;
-// 	if(CrateTime[playerid] > 0) return true;
-// 	ShowCrates(playerid);
-// 	return 1;
-// }
+	new string[500];
+	format(string, 75, "Admin %s da cho tat ca nguoi choi %d crate %s.", GetName(playerid), value, CrateName[type]);
+	SCMTA(COLOR_YELLOW, string);
+	return 1;
+}
+function ShowMoGuongTD(playerid) {
+	new gString[128];
+	format(gString, sizeof(gString), "~g~~h~RANDOM SKIN~N~So Huu : %d", PlayerInfo[playerid][pCrates][0]);
+	PlayerTextDrawSetString(playerid, MoGuong[playerid][20], gString);
+	format(gString, sizeof(gString), "~g~~h~CAR SILVER BOX~N~So Huu : %d", PlayerInfo[playerid][pCrates][1]);
+	PlayerTextDrawSetString(playerid, MoGuong[playerid][21], gString);
+	format(gString, sizeof(gString), "~g~~h~CAR GOLD BOX~N~So Huu : %d", PlayerInfo[playerid][pCrates][2]);
+	PlayerTextDrawSetString(playerid, MoGuong[playerid][22], gString);
+	format(gString, sizeof(gString), "~g~~h~TICKET THAN BI~N~So Huu : %d", PlayerInfo[playerid][pCrates][3]);
+	PlayerTextDrawSetString(playerid, MoGuong[playerid][23], gString);
+	format(gString, sizeof(gString), "~g~~h~VOUCHER~N~So Huu : %d", PlayerInfo[playerid][pCrates][4]);
+	PlayerTextDrawSetString(playerid, MoGuong[playerid][24], gString);
+    format(gString, sizeof(gString), "~g~~h~SKIN HUYEN THOAI~N~So Huu : %d", PlayerInfo[playerid][pCrates][5]);
+    PlayerTextDrawSetString(playerid, MoGuong[playerid][32], gString);
+    format(gString, sizeof(gString), "~g~~h~CAR CAO CAP~N~So Huu : %d", PlayerInfo[playerid][pCrates][6]);
+    PlayerTextDrawSetString(playerid, MoGuong[playerid][31], gString);
+    format(gString, sizeof(gString), "~g~~h~CAR GIOI HAN~N~So Huu : %d", PlayerInfo[playerid][pCrates][7]);
+    PlayerTextDrawSetString(playerid, MoGuong[playerid][33], gString);
+    format(gString, sizeof(gString), "~g~~h~CAR HUYEN THOAI~N~So Huu : %d", PlayerInfo[playerid][pCrates][8]);
+    PlayerTextDrawSetString(playerid, MoGuong[playerid][36], gString);
+	for(new i = 0; i < 37; i++) PlayerTextDrawShow(playerid, MoGuong[playerid][i]);
+	SelectTextDraw(playerid, 0xFF0000FF);
+	return 1;
+}	
+function TatMoGuong(playerid) {
+	for(new i = 0; i < 37; i++) PlayerTextDrawHide(playerid, MoGuong[playerid][i]);
+	CancelSelectTextDraw(playerid);
+	CheckMoGuong[playerid] = 0;
+	return 1;
+}	
+function TatQuayGuong(playerid) {
+	IsCrates[playerid] = 0;
+	for(new j = 0; j < 6; j++) TextDrawHideForPlayer(playerid, CrateTD[j]);
+	for(new j = 0; j < 2; j++) PlayerTextDrawHide(playerid, CratePTD[j]);
+	CancelSelectTextDraw(playerid);
+	CheckMoGuong[playerid] = 1;
+	ShowMoGuongTD(playerid);
+    DeletePVar(playerid, "VoucherType");
+	return 1;
+}	
 // CMD:crates(playerid ,params[]) {
-// 	new string[235];
+// 	new string[250];
 // 	if(CrateModel[playerid] >= 0) return true;
 // 	for(new j = 0; j < 6; j++) TextDrawHideForPlayer(playerid, CrateTD[j]);
 // 	for(new j = 0; j < 2; j++) PlayerTextDrawHide(playerid, CratePTD[j]);
-// 	format(string, sizeof(string), "Crates Type\tAmount\n{FFFFFF}Hop Qua Thuong\t{FFFFFF}%d\n{FFFFFF}Hop qua Hiem \t{FFFFFF}%d\n{FFFFFF}Hop Qua Rat Hiem\t{eeba24}%d\nHop Qua GTAVLC\t{FFFFFF}%d\n{FFFFFF}Hop Qua Sieu Xe\t{20F5F1}%d", PlayerInfo[playerid][pCrates][0], PlayerInfo[playerid][pCrates][1], PlayerInfo[playerid][pCrates][2], PlayerInfo[playerid][pCrates][3], PlayerInfo[playerid][pCrates][4]);
+// 	format(string, sizeof(string), "Loai Hop\tAmount\n{FFFFFF}Box Random Skin\t{FFFFFF}%d\n{FFFFFF}Random Car Gold \t{FFFFFF}%d\n{FFFFFF}Random Car Silver\t{eeba24}%d\nTicket Than Bi\t{FFFFFF}%d\n{FFFFFF}Voucher Cao Cap\t{20F5F1}%d", PlayerInfo[playerid][pCrates][0], PlayerInfo[playerid][pCrates][1], PlayerInfo[playerid][pCrates][2], PlayerInfo[playerid][pCrates][3], PlayerInfo[playerid][pCrates][4]);
 // 	Dialog_Show(playerid, DIALOG_CRATES, DIALOG_STYLE_TABLIST_HEADERS, "Crate Cua Ban", string, "Chon", "Huy Bo");
 // 	SelectTextDraw(playerid, 0xCA3ADBFF);
 // 	return 1;
 // }
-// CMD:givecrate(playerid, params[]) {
-// 	new id;
-// 	if(PlayerInfo[playerid][pAdmin] < 6) return SendClientMessage(playerid, COLOR_ERROR, "LOI: {FFFFFF}Ban khong co quyen su dung lenh nay.");
-// 	if(sscanf(params, "u", id)) return SendClientMessage(playerid, COLOR_ERROR, "Usage: {FFFFFF}/givecrate <playerid/name>");
-// 	if(!IsPlayerConnected(id)) return SendClientMessage(playerid, COLOR_WHITE, "KHONG HOP LE");
-// 	SetPVarInt(playerid, "id", id);
-// 	new string[128];
-// 	for(new i = 0; i < sizeof(CrateName); i++) format(string, sizeof(string), "%s{%s}%s crate\n", string, CrateColors[i], CrateName[i]);
-// 	Dialog_Show(playerid, DIALOG_GIVECRATES, DIALOG_STYLE_LIST, "Give crates", string, "Chon", "Huy Bo");
-// 	return 1;
-// }
+CMD:moruong(playerid ,params[]) {
+	if(CheckMoGuong[playerid] == 1) return SendClientMessage(playerid, COLOR_YELLOW, "Ban khong the mo guong");
+	if(total_skins(playerid) ==  10) return SendClientMessage(playerid, COLOR_GREY, "Ban da co max skin khong the mo hom nua hay xoa bot");
+    DeletePVar(playerid, "VoucherType");
+	ShowMoGuongTD(playerid);
+	CheckMoGuong[playerid] = 1;
+	return 1;
+}
+CMD:givecrate(playerid, params[]) {
+	new id;
+	if(PlayerInfo[playerid][pAdmin] < 7) return SendClientMessage(playerid, COLOR_ERROR, "LOI: {FFFFFF}Ban khong co quyen su dung lenh nay.");
+	if(sscanf(params, "u", id)) return SendClientMessage(playerid, COLOR_ERROR, "Usage: {FFFFFF}/givecrate <playerid/name>");
+	if(!IsPlayerConnected(id)) return SendClientMessage(playerid, COLOR_WHITE, "KHONG HOP LE");
+	SetPVarInt(playerid, "id", id);
+	new string[128];
+	for(new i = 0; i < sizeof(CrateName); i++) format(string, sizeof(string), "%s{%s}%s crate\n", string, CrateColors[i], CrateName[i]);
+	Dialog_Show(playerid, DIALOG_GIVECRATES, DIALOG_STYLE_LIST, "Give crates", string, "Chon", "Huy Bo");
+	return 1;
+}
 function totalcrates(playerid) {
 	new x; 
 	x = PlayerInfo[playerid][pCrates][0] + PlayerInfo[playerid][pCrates][1] + PlayerInfo[playerid][pCrates][2] + PlayerInfo[playerid][pCrates][3] + PlayerInfo[playerid][pCrates][4];
@@ -270,7 +418,7 @@ function ShowCrates(playerid) {
 	PlayerTextDrawSetPreviewModel(playerid, CratePTD[0], 18631);
 	format(string, sizeof(string), "Ban co %d hop qua.", totalcrates(playerid));
 	PlayerTextDrawSetString(playerid, CratePTD[1], string);
-	for(new i = 0; i < 6; i++) TextDrawShowForPlayer(playerid, CrateTD[i]);
+	for(new i = 0; i < 8; i++) TextDrawShowForPlayer(playerid, CrateTD[i]);
 	PlayerTextDrawShow(playerid, CratePTD[1]);
 	PlayerTextDrawShow(playerid, CratePTD[0]);
 	SelectTextDraw(playerid, 0xCA3ADBFF);
@@ -278,230 +426,137 @@ function ShowCrates(playerid) {
 	return true;
 }
 function startcrates(playerid) {
-	for(new l = 0; l < 6; l++) TextDrawShowForPlayer(playerid, CrateTD[l]);
-	opencrates(playerid);
+	TatMoGuong(playerid);
+	save_crates(playerid);
+	for(new l = 0; l < 7; l++) TextDrawShowForPlayer(playerid, CrateTD[l]);
+
+	// opencrates(playerid);
+	ShowCrates(playerid);
 	PlayerTextDrawShow(playerid, CratePTD[1]);
-	TimerCratesEx[playerid] = SetTimerEx("opencrates", 500, true, "d", playerid);
+	// TimerCratesEx[playerid] = SetTimerEx("opencrates", 500, true, "d", playerid);
 	return true;
 }
-function opencrates(i) {
-	new string[500];
-	CrateTime[i] --;
-	new amount, rand = random(100), x = !CrateModel[i] ? 0 : CrateModel[i]-1;
-	if(CrateModel[i] != 5) {
-		switch(rand) {
-	    	case 0..10: {
-	    		LoadSkins(x, amount);
-	            format(string, 70, "skin %d (%s)~n~~w~~h~Ban co %d crates.", amount, CrateName[x], totalcrates(i));
-	            PlayerTextDrawSetPreviewModel(i, CratePTD[0], amount);
-	            PlayerTextDrawSetString(i, CratePTD[1], string);
-				PlayerTextDrawShow(i, CratePTD[0]);
-	            if(CrateTime[i] == 0) {
-			    	if(CrateModel[i] <= 0) { 
-			    		format(string, 100,"%s, Mo hop kiem tra va duoc skin %d (%s).", GetName(i), amount, CrateName[x]);
-			    		SendClientMessage(i, COLOR_WHITE, string);
-	            	} else {
-	            		if(total_skins(i) == 10) {
-	            		    PlayerInfo[i][pCrates][x] ++;
-	            		    save_crates(i);
-	            		    SendClientMessage(i, COLOR_LGREEN, "Ban nhan duoc skin, Nhung ban da so huu qua 10 skins ban se duoc lay sau!");
-	            	    } else {
-							format(string, 120,"(( {%s}%s Crate {A9C4E4}- %s mo hop va nhan duoc skin %d [%s]. ))", CrateColors[x], CrateName[x], GetName(i), amount, CrateName[x]);
-						    SCMTA(COLOR_CLIENT, string);  
-						    give_skin(i, amount);
-						}	
-	            	}
-	            	KillTimer(TimerCratesEx[i]);
-	                CrateModel[i] = -1;
-	            }
-			}
-		    case 11..30: {
-			    amount = random(5) + x * 4;
-			    new nxtlevel = PlayerInfo[i][pLevel], expamount;
-				expamount = nxtlevel*levelexp;
-	            format(string, 75, "~y~%s Kinh Nghiem~n~~w~~h~Ban co %d crates.", FormatNumber(amount), totalcrates(i));
-				PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1275);
-				PlayerTextDrawSetString(i, CratePTD[1], string);
-				PlayerTextDrawShow(i, CratePTD[0]);
-	            if(CrateTime[i] == 0) {
-			        if(CrateModel[i] <= 0) {
-					    format(string, 120,"%s, Da mo hop free va duoc %d Kinh Nghiem.", GetName(i),amount);
-					    SendClientMessage(i, COLOR_WHITE, string);
-					} else {
-						format(string, 120,"(( {%s}%s Crate {A9C4E4}- %s mo hop va nhan duoc %d Kinh Nghiem. ))", CrateColors[x], CrateName[x], GetName(i),amount, CrateName[x]);
-					    SCMTA(COLOR_CLIENT, string); 
-					    PlayerInfo[i][pExp] += amount;
-					    Update(i, pRP);
-					}
-			        KillTimer(TimerCratesEx[i]);
-			        CrateModel[i] = -1;
-			    }
-	        }
-	       	case 31..40: {
-			    amount = random(10) + x * 20;
-	            format(string, 75, "~y~%s Vip Xu~n~~w~~h~Ban co %d crates.", FormatNumber(amount), totalcrates(i));
-				PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1275);
-				PlayerTextDrawSetString(i, CratePTD[1], string);
-				PlayerTextDrawShow(i, CratePTD[0]);
-	            if(CrateTime[i] == 0) {
-			        if(CrateModel[i] <= 0) {
-					    format(string, 120,"%s, Da mo hop free va duoc %d Vip Xu.", GetName(i),amount);
-					    SendClientMessage(i, COLOR_WHITE, string);
-					} else {
-						format(string, 120,"(( {%s}%s Crate {A9C4E4}- %s mo hop va nhan duoc %d Vip Xu. ))", CrateColors[x], CrateName[x], GetName(i),amount);
-					    SCMTA(COLOR_CLIENT, string); 
-					    PlayerInfo[i][pPremiumPoints] += amount;
-					    Update(i, pPremiumPointsx);
-					}
-			        KillTimer(TimerCratesEx[i]);
-			        CrateModel[i] = -1;
-			    }
-	        }
-	        default: {
-	            amount = random(2000000) + x * 2000000;
-	            format(string, 65, "~g~%s~n~~w~~h~Ban co %d crates.", FormatNumber(amount), totalcrates(i));
-				PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1274);
-				PlayerTextDrawSetString(i, CratePTD[1], string);
-				PlayerTextDrawShow(i, CratePTD[0]);
-	            if(CrateTime[i] == 0) {
-			        if(CrateModel[i] <= 0) {
-					    format(string, 120,"%s, Da mo hop free va duoc $%s.", GetName(i), FormatNumber(amount));
-					    SendClientMessage(i, COLOR_WHITE, string);
-					} else {
-						format(string, 120,"(( {%s}%s Crate {A9C4E4}- %s mo hop va nhan duoc {50DB6F}$%s{A9C4E4}. ))", CrateColors[x], CrateName[x], GetName(i), FormatNumber(amount));
-					    SCMTA(COLOR_CLIENT, string); 
-					    GivePlayerCash(i, amount);
-					}
-				    KillTimer(TimerCratesEx[i]);
-				    CrateModel[i] = -1;
-		        }
-	        }
-	    }
-	} else {
-		switch(rand) {
-   			case 0..5: {
-    		    amount = RandomEx(30, 250);
-                format(string, 65, "Super GT~n~~w~~h~Ban co %d crates.", totalcrates(i));
-				PlayerTextDrawSetPreviewModel(i, CratePTD[0], 506);
-				PlayerTextDrawSetString(i, CratePTD[1], string);
-				PlayerTextDrawShow(i, CratePTD[0]);
-                if(CrateTime[i] <= 0) {
-					if(GetSlots(i) == GetVehicles(i)) { PlayerInfo[i][pCrates][4] ++; save_crates(i); SendClientMessage(i, COLOR_LIGHTGREEN, "Ban khong con slot trong");  CrateModel[i] = -1; KillTimer(TimerCratesEx[i]); return 1; }
-					else {
-						KillTimer(TimerCratesEx[i]);
-						CrateModel[i] = -1;
-						GiveVehicle(i, 506);
-					    format(string, 120, "(( {7556ff}Vehicle Crate {A9C4E4}- %s mo hop va nhan duoc Super GT. ))", GetName(i));
-					    SCMTA(COLOR_CLIENT, string);
-				    }
-				}
-			}
-    	    case 6..33: {
-    		    amount = random(20) + 20;
-                format(string, 64, "Picador~n~~w~~h~Ban co %d crates.", totalcrates(i));
-				PlayerTextDrawSetPreviewModel(i, CratePTD[0], 600);
-				PlayerTextDrawSetString(i, CratePTD[1], string);
-				PlayerTextDrawShow(i, CratePTD[0]);
-                if(CrateTime[i] == 0) {
-					if(GetSlots(i) == GetVehicles(i)) { PlayerInfo[i][pCrates][4] ++; save_crates(i); SendClientMessage(i, COLOR_LIGHTGREEN, "Ban khong con slot trong");  CrateModel[i] = -1; KillTimer(TimerCratesEx[i]); return 1; }
-					else {
-						KillTimer(TimerCratesEx[i]);
-						CrateModel[i] = -1;
-						GiveVehicle(i, 600);
-					    format(string, 120,"(( {7556ff}Vehicle Crate {A9C4E4}- %s mo hop va nhan duoc Picador. ))", GetName(i));
-					    SCMTA(COLOR_CLIENT,string);
-				    }
-				}
+stock LoadSkins(crates, & skin) {
+    switch (crates) {
+        case 0:{
+            new rand = random(132);//skin hiem va sieu hiem
+            switch (rand) {
+                case 0..10:
+                    skin = 170;
+                case 11..20:
+                    skin = 188;
+                case 21..30:
+                    skin = 249;
+                case 31..40:
+                    skin = 159;
+                case 41..50:
+                    skin = 260;
+                case 51..60:
+                    skin = 248;
+                case 61..70:
+                    skin = 264;
+                case 71..80:
+                    skin = 185;
+                case 81..90:
+                    skin = 289;
+                case 91..100:
+                    skin = 249;
+                case 101..110:
+                    skin = 14;
+                case 111..120:
+                    skin = 32;
+                case 121..130:
+                    skin = 56;
+                case 131..132:
+                skin = 111;
             }
-            case 34..40: {
-                format(string, 65, "Freeway~n~~w~~h~Ban co %d crates.", totalcrates(i));
-                PlayerTextDrawSetPreviewModel(i, CratePTD[0], 463);
-                PlayerTextDrawSetString(i, CratePTD[1], string);
-				PlayerTextDrawShow(i, CratePTD[0]);
-            	if(CrateTime[i] <= 0) {
-					if(GetSlots(i) == GetVehicles(i)) { PlayerInfo[i][pCrates][4] ++; save_crates(i); SendClientMessage(i, COLOR_LIGHTGREEN, "Ban khong con slot trong");  CrateModel[i] = -1; KillTimer(TimerCratesEx[i]); return true; }
-					else {
-						KillTimer(TimerCratesEx[i]);
-						CrateModel[i] = -1;
-						GiveVehicle(i, 463);
-					    format(string, 120,"(( {7556ff}Vehicle Crate {A9C4E4}- %s mo hop va nhan duoc Freeway. ))", GetName(i));
-					    SCMTA(COLOR_CLIENT, string);
-				    }
-				}
+        }
+        case 1:{
+            new rand = random(6);
+            switch (rand) {
+                case 0:
+                    skin = 0;
+                case 1:
+                    skin = 164;
+                case 2:
+                    skin = 242;
+                case 3:
+                    skin = 241;
+                case 4:
+                    skin = 212;
+                case 5:
+                    skin = 83;
+                case 6:
+                    skin = 111;
             }
-           	case 41..46: {
-                format(string, 65, "Stallion (MUI TRAN)~n~~w~~h~Ban co %d crates.", totalcrates(i));
-                PlayerTextDrawSetPreviewModel(i, CratePTD[0], 439);
-                PlayerTextDrawSetString(i, CratePTD[1], string);
-				PlayerTextDrawShow(i, CratePTD[0]);
-            	if(CrateTime[i] <= 0) {
-					if(GetSlots(i) == GetVehicles(i)) { PlayerInfo[i][pCrates][4] ++; save_crates(i); SendClientMessage(i, COLOR_LIGHTGREEN, "Ban khong con slot trong");  CrateModel[i] = -1; KillTimer(TimerCratesEx[i]); return true; }
-					else {
-						KillTimer(TimerCratesEx[i]);
-						CrateModel[i] = -1;
-						GiveVehicle(i, 439);
-					    format(string, 120,"(( {7556ff}Vehicle Crate {A9C4E4}- %s mo hop va nhan duoc Stallion (MUI TRAN). ))", GetName(i));
-					    SCMTA(COLOR_CLIENT,string);
-				    }
-				}
+        }
+        case 2:{
+            new rand = random(45);//skin hiem va sieu hiem
+            switch (rand) {
+                case 0..10:
+                    skin = 0;
+                case 11..20:
+                    skin = 241;
+                case 21..30:
+                    skin = 242;
+                case 31..40:
+                    skin = 34;
+                case 41..45:
+                    skin = 212;
+
             }
-           	case 47..53: {
-                format(string, 65, "Solair~n~~w~~h~Ban co %d crates.", totalcrates(i));
-				PlayerTextDrawSetPreviewModel(i, CratePTD[0], 458);
-				PlayerTextDrawSetString(i, CratePTD[1], string);
-				PlayerTextDrawShow(i, CratePTD[0]);
-            	if(CrateTime[i] <= 0) {
-					if(GetSlots(i) == GetVehicles(i)) { PlayerInfo[i][pCrates][4] ++; save_crates(i); SendClientMessage(i, COLOR_LIGHTGREEN, "Ban khong con slot trong");  CrateModel[i] = -1; KillTimer(TimerCratesEx[i]); return true; }
-					else {
-						KillTimer(TimerCratesEx[i]);
-						CrateModel[i] = -1;
-						GiveVehicle(i, 458);
-					    format(string, 120,"(( {7556ff}Vehicle Crate {A9C4E4}- %s mo hop va nhan duoc Solair. ))", GetName(i));
-					    SCMTA(COLOR_CLIENT, string);
-				    }
-				}
-            }
-           	case 54..66: {
-                format(string, 65, "Faggio~n~~w~~h~Ban co %d crates.", totalcrates(i));
-				PlayerTextDrawSetPreviewModel(i, CratePTD[0], 462);
-				PlayerTextDrawSetString(i, CratePTD[1], string);
-				PlayerTextDrawShow(i, CratePTD[0]);
-            	if(CrateTime[i] <= 0) {
-					if(GetSlots(i) == GetVehicles(i)) { PlayerInfo[i][pCrates][4] ++; save_crates(i); SendClientMessage(i, COLOR_LIGHTGREEN, "Ban khong con slot trong");  CrateModel[i] = -1; KillTimer(TimerCratesEx[i]); return true; }
-					else {
-						KillTimer(TimerCratesEx[i]);
-						CrateModel[i] = -1;
-						GiveVehicle(i, 462);
-					    format(string, 120,"(( {7556ff}Vehicle Crate {A9C4E4}- %s mo hop va nhan duoc Faggio.))", GetName(i));
-					    SCMTA(COLOR_CLIENT, string);
-				    }
-				}
-            }
-            default: {
-                format(string, 65, "Savanna~n~~w~~h~Ban co %d crates.", totalcrates(i));
-				PlayerTextDrawSetPreviewModel(i, CratePTD[0], 567);
-				PlayerTextDrawSetString(i, CratePTD[1], string);
-				PlayerTextDrawShow(i, CratePTD[0]);
-            	if(CrateTime[i] <= 0) {
-					if(GetSlots(i) == GetVehicles(i)) { PlayerInfo[i][pCrates][4] ++; save_crates(i); SendClientMessage(i, COLOR_LIGHTGREEN, "Ban khong con slot trong");  CrateModel[i] = -1; KillTimer(TimerCratesEx[i]); return true; }
-					else {
-						KillTimer(TimerCratesEx[i]);
-						CrateModel[i] = -1;
-						GiveVehicle(i, 567);
-					    format(string, 120,"(( {7556ff}Vehicle Crate {A9C4E4}- %s mo hop va nhan duoc Savanna. ))", GetName(i));
-					    SCMTA(COLOR_CLIENT, string);
-				    }
-				}
-            }
-		}
+        }
+        // case 2:{
+        //     new rand = random(9);
+        //     switch (rand) {
+        //         case 0:
+        //             skin = 0;
+        //         case 1:
+        //             skin = 104;
+        //         case 2:
+        //             skin = 116;
+        //         case 3:
+        //             skin = 164;
+        //         case 4:
+        //             skin = 149;
+        //         case 5:
+        //             skin = 306;
+        //         case 6:
+        //             skin = 293;
+        //         case 7:
+        //             skin = 285;
+        //         case 8:
+        //             skin = 289;
+        //         case 9:
+        //             skin = 294;
+        //     }
+        // }
+        // case 3:{
+        //     new rand = random(5);
+        //     switch (rand) {
+        //         case 0:
+        //             skin = 93;
+        //         case 1:
+        //             skin = 108;
+        //         case 2:
+        //             skin = 171;
+        //         case 3:
+        //             skin = 177;
+        //         case 4:
+        //             skin = 217;
+        //         case 5:
+        //             skin = 271;
+        //     }
+        // }
     }
-	return 1;
+    return true;
 }
 save_crates(playerid) {
 	new query[128];
-	mysql_format(SQL, query, sizeof(query), "UPDATE `users` SET `Crates`='%d|%d|%d|%d|%d' WHERE `id`='%d'", PlayerInfo[playerid][pCrates][0],PlayerInfo[playerid][pCrates][1],PlayerInfo[playerid][pCrates][2],PlayerInfo[playerid][pCrates][3], PlayerInfo[playerid][pCrates][4], PlayerInfo[playerid][pSQLID]);
+	mysql_format(SQL, query, sizeof(query), "UPDATE `users` SET `Crates`='%d|%d|%d|%d|%d|%d|%d|%d|%d' WHERE `id`='%d'", PlayerInfo[playerid][pCrates][0],PlayerInfo[playerid][pCrates][1],PlayerInfo[playerid][pCrates][2],PlayerInfo[playerid][pCrates][3], PlayerInfo[playerid][pCrates][4], PlayerInfo[playerid][pCrates][5], PlayerInfo[playerid][pCrates][6], PlayerInfo[playerid][pCrates][7], PlayerInfo[playerid][pCrates][8], PlayerInfo[playerid][pSQLID]);
 	mysql_tquery(SQL, query,  "", "" );
 }
+
 CMD:addstock(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 7) return SendClientMessage(playerid, COLOR_LGREEN, AdminOnly);
 	new type, value;
@@ -533,31 +588,19 @@ Dialog:DIALOG_GIVECRATES(playerid, response, listitem, inputtext[]) {
     new id = GetPVarInt(playerid, "id");
     if(!IsPlayerConnected(id))
         return true;
-
+    new string[100];
     format(string, 100, "(/givecrate) {FFFFFF}%s Da dua cho %s %s crate.", GetName(playerid), GetName(id), CrateName[listitem]);
     SendAdminMessage(COLOR_RED, string, 6);
     format(string, 100, "Admin {FF0000}%s{FFFFFF} Da cho ban %s.", GetName(playerid), CrateName[listitem]);
     SendClientMessage(id, COLOR_WHITE, string);
-    PlayerInfo[id][pCrates][listitem] ++;
+    PlayerInfo[id][pCrates][listitem] += 1;
     save_crates(id);
-    return 1;
-}
-Dialog:DIALOG_CRATES(playerid, response, listitem, inputtext[]) {
-    if(!response) return ShowCrates(playerid);
-    if(PlayerInfo[playerid][pCrates][listitem] < 1) return SendClientMessage(playerid, COLOR_LGREEN, "Loi: Ban khong co hop qua nay!"), ShowCrates(playerid);
-    format(string, 75, "Ban dang mo hop qua {%s}%s{FFFFFF}! Hay doi...", CrateColors[listitem], CrateName[listitem]);
-    SendClientMessage(playerid, COLOR_WHITE, string);
-    PlayerInfo[playerid][pCrates][listitem] --;
-    save_crates(playerid);
-    CrateTime[playerid] = 20;
-    CrateModel[playerid] = listitem+1;
-    startcrates(playerid);
     return 1;
 }
 Dialog:DIALOG_BUYCRATES(playerid, response, listitem, inputtext[]) {
     if(!response) 
         return 1;
-
+    new string[120];
     format(string, sizeof(string), "Thanh Toan\tGia Tien\nMoney\t{E26AF2}%d\nVip Xu\t{EEEE3F}%d", CratePrice[AlegeCrates[playerid]][0], CratePrice[AlegeCrates[playerid]][1]);
     Dialog_Show(playerid, DIALOG_BUYCRATES1, DIALOG_STYLE_TABLIST_HEADERS, "Mua Crate", string, "Co", "Khong");
     return 1;
@@ -565,6 +608,7 @@ Dialog:DIALOG_BUYCRATES(playerid, response, listitem, inputtext[]) {
 Dialog:DIALOG_BUYCRATES1(playerid, response, listitem, inputtext[]) {
     if(!response) return true;
     new x = AlegeCrates[playerid];
+    new string[256];
     switch(listitem) {
         case 0: {
             if(GetPlayerCash(playerid) < CratePrice[x][0]) return SendClientMessage(playerid, -1, "Ban khong du Tien");

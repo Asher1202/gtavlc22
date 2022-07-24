@@ -5,7 +5,7 @@
 /* ** Definitions ** */
 #define PROGRESS_CHEBOT				1
 #define PROGRESS_STUFF				2
-
+#define PROGRESS_THALUOI			3
 
 /* ** Variables ** */
 static stock

@@ -27,6 +27,33 @@ Dialog:GO(playerid, response, listitem, inputtext[])
 	}
 	return 1;
 }
+Dialog:THUYSAN(playerid, response, listitem, inputtext[])
+{
+	if(!response) return 1;
+	// if(GetPVarInt(playerid, "tpDrugRunTimer") != 0) return TeleportHack(playerid);
+	new string[128];
+	GivePlayerCash(playerid, ThuySan[playerid]);
+	format(string, sizeof(string), "Ban da nhan duoc $%s vi ban thuy san cua ban cua ban!", FormatNumber(ThuySan[playerid]));
+	SendClientMessage(playerid, COLOR_MONEY, string);
+	format(string, sizeof(string), "%s nhan duoc $%s tien thuong cho cong viec %s.", GetName(playerid), FormatNumber(ThuySan[playerid]), JobInfo[PlayerInfo[playerid][pJob]][jName]);
+	Log("logs/jobmoney.log", string);
+	// InsertLog(playerid, string, LOG_MONEY);
+	// format(string2, sizeof(string2), "[JOB]: %s[%d] da ban thuy san voi gia tien $%s va nhan %d uy tin .", GetName(playerid),playerid, FormatNumber(ThuySan[playerid]),sv);
+	// GuiDenAdminVaHelper(COLOR_YELLOW, string2, 1);
+	ThuySan[playerid] = 0;
+	Update(playerid,pCashx);
+	PlayerInfo[playerid][pFishes] = 0;
+	// if(PlayerInfo[playerid][pLuoiBieng] <= 100) PlayerInfo[playerid][pLuoiBieng] += random(2);
+	if(PlayerInfo[playerid][pMember] == 0) {
+		for(new m; m < 2; m++) {
+			if(PlayerInfo[playerid][pDailyMission][m] == 15 || PlayerInfo[playerid][pDailyMission][m] == 16) CheckMission(playerid, m);
+		}
+	}
+	for(new m; m < 2; m++) {
+		if(PlayerInfo[playerid][pDailyMission][m] == 2) CheckMission(playerid, m);
+	}
+	return 1;
+}
 Dialog:GO1(playerid, response, listitem, inputtext[])
 {
 	if(response)
@@ -342,6 +369,7 @@ Dialog:DIALOG_CODE(playerid, response, listitem, inputtext[])
 	GivePlayerCash(playerid, money);
 	PlayerInfo[playerid][pPremiumPoints] += pp;
 	PlayerInfo[playerid][pExp] += rp;
+	
 	////InsertLog(playerid, sprintf("%s vua kich hoat %s", GetName(playerid), string), LOG_GIFTCODE);
 	Update(playerid, pPremiumPointsx);
 	Update(playerid, pRP);	
@@ -378,7 +406,6 @@ Dialog:DIALOG_GIVEPP(playerid, response, listitem, inputtext[])
 	mysql_query(SQL, query, false);	
 	
 	format(string, sizeof(string), "%s da nap %d euro va nhan duoc %s "#DIEMCAOCAP".", name, euro, FormatNumber(amount));
-	////InsertLog(playerid, string, LOG_SHOP);	
 	Log("logs/shop.log", string);	
 	return 1;
 }
@@ -1469,7 +1496,6 @@ Dialog:DIALOG_BMENU1(playerid, response, listitem, inputtext[])
 			mysql_query(SQL, string);
 			OnPropTextdrawUpdate(2,biz);
 			format(string, sizeof(string), "%s da dat gia biz (%d) $%s.", GetName(playerid), biz, FormatNumber(suma));
-			////InsertLog(playerid, string, LOG_SELL);
 			Log("logs/bizz.log", string);			
 		}
 	}	
@@ -1621,7 +1647,6 @@ Dialog:DIALOG_HMENU1(playerid, response, listitem, inputtext[])
 			mysql_query(SQL, query, false);
 			OnPropTextdrawUpdate(1,house);
 			format(string, sizeof(string), "%s set gia House (%d) la $%s.", GetName(playerid), house, FormatNumber(suma));
-			//InsertLog(playerid, string, LOG_SELL);	
 			Log("logs/housesafe.log", string);				
 		}
 	}	
@@ -1926,7 +1951,6 @@ Dialog:DIALOG_FDEPOSIT1(playerid, response, listitem, inputtext[])
 			GivePlayerCash(playerid, -strval(inputtext));
 			format(string, sizeof(string), "* %s da gui $%s vao ket an toan cua to chuc.", GetName(playerid), FormatNumber(strval(inputtext)));
 			SendFactionMessage(PlayerInfo[playerid][pMember], COLOR_LIGHTBLUE, string);	
-			//InsertLog(playerid, string, LOG_DEPOSIT);
 			Log("logs/facsafe.log", string);	
 		}
 		case 1: {
@@ -1936,7 +1960,6 @@ Dialog:DIALOG_FDEPOSIT1(playerid, response, listitem, inputtext[])
 			format(string, sizeof(string), "* %s da gui %s vat lieu vao ket an toan cua to chuc.", GetName(playerid), FormatNumber(strval(inputtext)));
 			SendFactionMessage(PlayerInfo[playerid][pMember], COLOR_LIGHTBLUE, string);	
 			UpdateVar(playerid, "Materials", PlayerInfo[playerid][pMats]);
-			//InsertLog(playerid, string, LOG_DEPOSIT);
 			Log("logs/facsafe.log", string);	
 		}
 		case 2: {
@@ -1991,7 +2014,6 @@ Dialog:DIALOG_FWITHDRAW1(playerid, response, listitem, inputtext[])
 			format(string, sizeof(string), "Ban lay tu ket sat to chuc $%s! So con lai ben trong la: $%s.", FormatNumber(strval(inputtext)), FormatNumber(SafeInfo[SeifID[playerid]][sMoney]));
 			SendClientMessage(playerid, COLOR_MONEY, string);
 			Update(playerid, pCashx);
-			//InsertLog(playerid, string, LOG_DEPOSIT);
 			Log("logs/facsafe.log", string);	
 		}
 		case 1: {
@@ -2059,7 +2081,6 @@ Dialog:DIALOG_SELLBIZ(playerid, response, listitem, inputtext[])
 		SendClientMessage(playerid, COLOR_MONEY, string);
 		
 		format(string, sizeof(string), "%s ban biz cua minh (%d) cho nha nuoc va nhan ve $150,000.", GetName(playerid), bouse);
-		//InsertLog(playerid, string, LOG_SELL);	
 		Log("logs/bizz.log", string);	
 	
 		PlayerInfo[playerid][pBizz] = 255;
@@ -2091,7 +2112,6 @@ Dialog:DIALOG_SELLHOUSE(playerid, response, listitem, inputtext[])
 	format(string, sizeof(string), "* Ban da ban' House cua minh cho nha nuoc voi gia $50,000.");
 	SendClientMessage(playerid, COLOR_MONEY, string);
 	format(string, sizeof(string), "%s ban house cua minh (%d) cho nha nuoc voi gia $50,000.", GetName(playerid), house);
-	//InsertLog(playerid, string, LOG_SELL);			
 	Log("logs/housesafe.log", string);	
 	PlayerInfo[playerid][pHouse] = 999;
 	PlayerInfo[playerid][pRented] = -1;
@@ -4533,7 +4553,6 @@ Dialog:DIALOG_TRANSFER(playerid, response, listitem, inputtext[])
 		SendAdminMessage(COLOR_YELLOW, string,1);
 	}
 	format(string, sizeof(string), "($) %s chuyen $%s cho %s.", GetName(playerid), FormatNumber(moneyLeft), GetName(TransferOffer[playerid]));
-	//InsertLog(playerid, string, LOG_TRADE);
 	Log("logs/trade.log", string);	
 	PlayerPlaySound(TransferOffer[playerid], 1052, 0.0, 0.0, 0.0);
 	Update(playerid, pBank);
@@ -4952,8 +4971,6 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 							new const totalCash = totalmony + bonus + FishPrice[playerid];
 							GivePlayerCash(playerid, totalCash);	
 							format(string, sizeof(string), "%s da nhan duoc $%s cho cong viec %s.", GetName(playerid), FormatNumber(totalCash), JobInfo[PlayerInfo[playerid][pJob]][jName]);
-							
-							//InsertLog(playerid, string, LOG_MONEY);
 							Log("logs/jobmoney.log", string);	
 							Update(playerid, pCashx);
 							FishPrice[playerid] = 0;
@@ -5093,8 +5110,6 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 							new const totalCash = totalmony + bonus + FishPrice[playerid];
 							GivePlayerCash(playerid, totalCash);	
 							format(string, sizeof(string), "%s da nhan duoc $%s cho cong viec %s.", GetName(playerid), FormatNumber(totalCash), JobInfo[PlayerInfo[playerid][pJob]][jName]);
-							
-							//InsertLog(playerid, string, LOG_MONEY);
 							Log("logs/jobmoney.log", string);	
 							Update(playerid, pCashx);
 							FishPrice[playerid] = 0;

@@ -429,97 +429,97 @@ give_skin(playerid, model) {
         }
     }
 }
-stock LoadSkins(crates, & skin) {
-    switch (crates) {
-        case 0:{
-            new rand = random(9);//skin hiem va sieu hiem
-            switch (rand) {
-                case 0:
-                    skin = 170;
-                case 1:
-                    skin = 188;
-                case 2:
-                    skin = 249;
-                case 3:
-                    skin = 159;
-                case 4:
-                    skin = 260;
-                case 5:
-                    skin = 248;
-                case 6:
-                    skin = 264;
-                case 7:
-                    skin = 185;
-                case 8:
-                    skin = 289;
-                case 9:
-                    skin = 249;
-            }
-        }
-        case 1:{
-            new rand = random(6);
-            switch (rand) {
-                case 0:
-                    skin = 0;
-                case 1:
-                    skin = 164;
-                case 2:
-                    skin = 242;
-                case 3:
-                    skin = 241;
-                case 4:
-                    skin = 212;
-                case 5:
-                    skin = 83;
-                case 6:
-                    skin = 111;
-            }
-        }
-        case 2:{
-            new rand = random(9);
-            switch (rand) {
-                case 0:
-                    skin = 0;
-                case 1:
-                    skin = 104;
-                case 2:
-                    skin = 116;
-                case 3:
-                    skin = 164;
-                case 4:
-                    skin = 149;
-                case 5:
-                    skin = 306;
-                case 6:
-                    skin = 293;
-                case 7:
-                    skin = 285;
-                case 8:
-                    skin = 289;
-                case 9:
-                    skin = 294;
-            }
-        }
-        case 3:{
-            new rand = random(5);
-            switch (rand) {
-                case 0:
-                    skin = 93;
-                case 1:
-                    skin = 108;
-                case 2:
-                    skin = 171;
-                case 3:
-                    skin = 177;
-                case 4:
-                    skin = 217;
-                case 5:
-                    skin = 271;
-            }
-        }
-    }
-    return true;
-}
+// stock LoadSkins(crates, & skin) {
+//     switch (crates) {
+//         case 0:{
+//             new rand = random(9);//skin hiem va sieu hiem
+//             switch (rand) {
+//                 case 0:
+//                     skin = 170;
+//                 case 1:
+//                     skin = 188;
+//                 case 2:
+//                     skin = 249;
+//                 case 3:
+//                     skin = 159;
+//                 case 4:
+//                     skin = 260;
+//                 case 5:
+//                     skin = 248;
+//                 case 6:
+//                     skin = 264;
+//                 case 7:
+//                     skin = 185;
+//                 case 8:
+//                     skin = 289;
+//                 case 9:
+//                     skin = 249;
+//             }
+//         }
+//         case 1:{
+//             new rand = random(6);
+//             switch (rand) {
+//                 case 0:
+//                     skin = 0;
+//                 case 1:
+//                     skin = 164;
+//                 case 2:
+//                     skin = 242;
+//                 case 3:
+//                     skin = 241;
+//                 case 4:
+//                     skin = 212;
+//                 case 5:
+//                     skin = 83;
+//                 case 6:
+//                     skin = 111;
+//             }
+//         }
+//         case 2:{
+//             new rand = random(9);
+//             switch (rand) {
+//                 case 0:
+//                     skin = 0;
+//                 case 1:
+//                     skin = 104;
+//                 case 2:
+//                     skin = 116;
+//                 case 3:
+//                     skin = 164;
+//                 case 4:
+//                     skin = 149;
+//                 case 5:
+//                     skin = 306;
+//                 case 6:
+//                     skin = 293;
+//                 case 7:
+//                     skin = 285;
+//                 case 8:
+//                     skin = 289;
+//                 case 9:
+//                     skin = 294;
+//             }
+//         }
+//         case 3:{
+//             new rand = random(5);
+//             switch (rand) {
+//                 case 0:
+//                     skin = 93;
+//                 case 1:
+//                     skin = 108;
+//                 case 2:
+//                     skin = 171;
+//                 case 3:
+//                     skin = 177;
+//                 case 4:
+//                     skin = 217;
+//                 case 5:
+//                     skin = 271;
+//             }
+//         }
+//     }
+//     return true;
+// }
 stock GetSkinType(skin) {
     new string[20];
     switch (skin) {
@@ -539,7 +539,7 @@ stock GetSkinType(skin) {
     return string;
 }
 CMD:skins(playerid, params[]) {
-	 if(PlayerInfo[playerid][pMember] !=0) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000} [HE THONG] {FFFFFF}: Ban khong the su dung lenh nay vi ban o trong mot to chuc!");
+	//  if(PlayerInfo[playerid][pMember] !=0) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000} [HE THONG] {FFFFFF}: Ban khong the su dung lenh nay vi ban o trong mot to chuc!");
 	 if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000} [HE THONG] {FFFFFF}: Ban khong the tiep tuc neu ban khong xuong xe");
      new szDialog[512], string[128];
      strcat(szDialog, "#\tSkin ID\tStatus\n");

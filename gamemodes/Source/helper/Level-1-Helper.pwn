@@ -148,7 +148,7 @@ CMD:nr(playerid, params[]) {
 		}
 	}
 	HaveHelp[playerid] = -1;
-	GivePlayerCash(playerid, 1000);
+	GivePlayerCash(playerid, 5000);
 	PlayerInfo[playerid][pHelpedPlayers] ++;
 	PlayerInfo[playerid][pHelpedPlayersToday] ++;
 	Iter_Remove(PlayerHelped, userID);

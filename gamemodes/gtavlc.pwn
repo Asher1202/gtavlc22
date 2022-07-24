@@ -88,6 +88,7 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 #include "Source/modules/progress.inc" //for jobs
 #include "Source/modules/update.pwn"
 // #include <battlepass>
+#include "Source/modules/crate.inc"
 #include <core/timers.pwn>
 #include "Source/modules/jail_escape"
 #include "Source/modules/tutorial.pwn"
@@ -95,6 +96,7 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 #include <cpn>
 #include <core/callbacks>
 #include <systems>
+#include "Source/modules/tax.pwn" // Thuế
 #include <toy>
 #include <weed>
 #include <newinventory/function_inventory>
@@ -114,7 +116,7 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 #include "Source/modules/bust_aim_helper.pwn"
 
 #include "Source/modules/nerfWeapon.pwn"
-#include "Source/modules/tax.pwn" // Thuế
+
 
 // #include "Source/modules/discord.pwn"
 

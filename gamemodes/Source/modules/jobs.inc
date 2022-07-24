@@ -1117,7 +1117,7 @@ isJobDisabled(jobId) {
 	return false;
 }
 
-//jobid == 0, mean job will be randomly chosen
+// //jobid == 0, mean job will be randomly chosen
 SetTodayJob(jobid = 0){
 	if(jobid == 0) {
 		new rand = disabledJobIds[random(sizeof(disabledJobIds))];
@@ -1132,10 +1132,10 @@ SetTodayJob(jobid = 0){
 		TodayJob = jobid;
 	}
     new string[100];
-    format(string, sizeof(string), "[BONUS JOB] Xin chao, cong viec cua ngay hom nay se la %s.", JobInfo[jobid][jName]);
-    SCMTA(COLOR_GOLD, string);
-    format(string, sizeof(string), "[BONUS JOB] Khi lam cong viec nay, ban se nhan them %d phan tram tien luong.", JobInfo[jobid][jBonus]);
-    SCMTA(COLOR_GOLD, string);
+    // format(string, sizeof(string), "[BONUS JOB] Xin chao, cong viec cua ngay hom nay se la %s.", JobInfo[jobid][jName]);
+    // SendClientMessageTA(COLOR_GOLD, string);
+    // format(string, sizeof(string), "[BONUS JOB] Khi lam cong viec nay, ban se nhan them %d phan tram tien luong.", JobInfo[jobid][jBonus]);
+    // SendClientMessageTA(COLOR_GOLD, string);
     format(string, sizeof(string), "UPDATE `stuff` SET `TodayJob` = '%d'", jobid);
     mysql_query(SQL, string, false);	
 }
@@ -1143,30 +1143,282 @@ SetTodayJob(jobid = 0){
 
 CMD:thaluoi(playerid, params[])
  {
-    if(PlayerInfo[playerid][pJob] != 11) return SCM(playerid, COLOR_GREY, "Ban khong phai la FisherMan LS!");
-	if(GetPlayerSkill(playerid) < 4 ) return SCM(playerid, COLOR_GREY, "Job skill level cua ban chua du 4 nen khong the su dung!");
-    if(!DiaDiemCauCaO(playerid)) return SCM(playerid, COLOR_GREY, "Ban khong o diem cau ca.");
-	if(IsPlayerInAnyVehicle(playerid)) return SCM(playerid, COLOR_LGREEN, "{FF0000}[HE THONG] {FFFFFF}: Ban khong the tiep tuc neu ban khong xuong xe");
-	if(ThuySan[playerid] != 0) return SCM(playerid, -1, "Ban da cau thuy san roi hay den 24/7 de ban no.");
+    if(PlayerInfo[playerid][pJob] != 11) return SendClientMessage(playerid, COLOR_GREY, "Ban khong phai la FisherMan LS!");
+	if(GetPlayerSkill(playerid) < 4 ) return SendClientMessage(playerid, COLOR_GREY, "Job skill level cua ban chua du 4 nen khong the su dung!");
+    if(!DiaDiemCauCaO(playerid)) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o diem cau ca.");
+	if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000}[HE THONG] {FFFFFF}: Ban khong the tiep tuc neu ban khong xuong xe");
+	if(ThuySan[playerid] != 0) return SendClientMessage(playerid, -1, "Ban da cau thuy san roi hay den 24/7 de ban no.");
 	if(StartFish[playerid] == 1) return 1;
-	if(PlayerInfo[playerid][pSoHuuThuyen] == 1 || LamViecChung[playerid] == 1)
+	new car = GetClosestVehicle(playerid);
+	if(DaThueThuyen[playerid] != 0 || LamViecChung[playerid] == 1)
 	{
-		new car = GetClosestVehicle(playerid);
 		if(IsPlayerNearVehicle(playerid, car, 30) && IsANguDanZ(car))
 		{
-			biencauca[playerid] =1;
-			CauCaBar[playerid] = CreatePlayerProgressBar(playerid,246.00, 376.00, 178.50, 3.20, 0x00FFFFFF, 500.0);
-			SetPlayerProgressBarMaxValue(playerid, CauCaBar[playerid], 500.0);
+			// biencauca[playerid] =1;
+			// CauCaBar[playerid] = CreatePlayerProgressBar(playerid,246.00, 376.00, 178.50, 3.20, 0x00FFFFFF, 500.0);
+			// SetPlayerProgressBarMaxValue(playerid, CauCaBar[playerid], 500.0);
 			//ShowPlayerProgressBar(playerid,CauCaBar[playerid]);
-		    SetPlayerProgressBarValue(playerid,CauCaBar[playerid], 10);
-		    ShowPlayerProgressBar(playerid, CauCaBar[playerid]);
-			ChauTimer[playerid] = SetTimerEx("CauCaOBien", 100, true, "i", playerid);
+			// SetPlayerProgressBarValue(playerid,CauCaBar[playerid], 10);
+			// ShowPlayerProgressBar(playerid, CauCaBar[playerid]);
+			// ChauTimer[playerid] = SetTimerEx("CauCaOBien", 100, true, "i", playerid);
 			TogglePlayerControllable(playerid, 0);
 			OnePlayAnim(playerid,"RIOT","RIOT_CHANT",4.0,1,1,1,1,0);
+			ShowProgressBar(playerid, "Dang Tha Luoi", PROGRESS_THALUOI, RandomMinMax(10000, 150000), 0xfcba03FF);
 			StartFish[playerid] = 1;
-		return 1;
+			return 1;
 		}
-		else return SCM(playerid, -1, "Ban khong o tren mot chiec thuyen danh ca {FF0000}Reefer{FFFFFF}");	
- 	}
-	else return SCM(playerid, -1, "Ban can co mot chiec thuyen ca nhan hoac co mot chu thuyen {FF0000}/lamviecchung{FFFFFF} moi co the tha luoi");
+		else return SendClientMessage(playerid, -1, "Ban khong o tren mot chiec thuyen danh ca {FF0000}Reefer{FFFFFF}");	
+	}
+	else return SendClientMessage(playerid, -1, "Ban can co mot chiec thuyen ca nhan hoac co mot chu thuyen {FF0000}/lamviecchung{FFFFFF} moi co the tha luoi");
+}
+
+CMD:thuethuyen(playerid, params[])
+ {
+	if(PlayerInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid, COLOR_YELLOW, "Lenh nay dang duoc test, chi admin moi duoc su dung");
+    if(PlayerInfo[playerid][pJob] != 11) return SendClientMessage(playerid, COLOR_GREY, "Ban khong phai la FisherMan LS!");
+	if(GetPlayerSkill(playerid) < 4 ) return SendClientMessage(playerid, COLOR_GREY, "Job skill level cua ban chua du 4 nen khong the su dung!");
+    if(!IsPlayerInRangeOfPoint(playerid, Float:5.0, 581.5700, -1958.3500, 2.0300)) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o diem thue thuyen.");
+	if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000}[HE THONG] {FFFFFF}: Ban khong the tiep tuc neu ban khong xuong xe");
+	if(GetPlayerCash(playerid) < 100000) return SendClientMessage(playerid, -1, "Ban khong du 100.000$ de thue thuyen.");
+	if(DaThueThuyen[playerid] != 0) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da thue mot chiec thuyen roi hay /huythuyen neu muon thue lai");
+	{
+		new carid = CreateVehicleEx(453, 593.1933, -1957.2242, -0.0212, -180.0,  126, 1, 300);
+		ThuyenSpawn[carid] = carid;
+		DaThueThuyen[playerid] = carid;
+		Gas[ThuyenSpawn[carid]] = 100;
+		// DaThueThuyen[playerid] = 1;
+		PutPlayerInVehicleEx(playerid, ThuyenSpawn[DaThueThuyen[playerid]], 0);
+	}
+	return 1;
+}
+CMD:huythuyen(playerid, params[])
+ {
+	if(DaThueThuyen[playerid] != 1) return SendClientMessage(playerid, COLOR_YELLOW, "Ban chua thue chiec thuyen nao het hay thue thuyen truoc nhe");
+	DestroyVehicle(ThuyenSpawn[DaThueThuyen[playerid]]);
+	SendClientMessage(playerid, COLOR_YELLOW, "Ban da thue thanh cong chiec thuyen cua ban bay gio ban da co the thue lai");
+	DaThueThuyen[playerid] = 0;
+	return 1;
+}
+hook OnProgressCompleted(playerid, progressid, params)
+{
+    if (progressid == PROGRESS_THALUOI)
+    {
+        if(ThuySan[playerid] == 0) {
+			new asher = RandomMinMax(1,9), rar = random(2000), string[300], x;
+			x = 50000+random(45000)+ asher*100;
+			
+			if(rar >= 1 && rar < 20) {
+				x = (42152 + random(44223) + asher*500);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG TOM{FFFFFF}, {FF0000}%sKG Sua{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} ban co the ban voi gia $%s ! ", FormatNumber(asher),FormatNumber(asher),FormatNumber(asher),FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG TOM{FFFFFF}, {FF0000}%sKG Sua{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} co gia tri $%s.", GetName(playerid),FormatNumber(asher),FormatNumber(asher),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+			}
+			else if(rar >= 20 && rar < 25) 
+			{
+				x = (32123 + random(35231) + asher*1000);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG CA DAU VUONG{FFFFFF}, {FF0000}%sKG CA XEM SAO{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} ban co the ban voi gia $%s ! ",FormatNumber(asher),FormatNumber(asher),FormatNumber(asher), FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG CA DAU VUONG{FFFFFF}, {FF0000}%sKG CA XEM SAO{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} co gia tri $%s.", GetName(playerid),FormatNumber(asher),FormatNumber(asher),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			if(rar >= 25 && rar < 28) {
+				x =  (45000 + random(19245) + asher*1500);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG TOM{FFFFFF}, {FF0000}%sKG Sua{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} ban co the ban voi gia $%s ! ", FormatNumber(asher),FormatNumber(asher),FormatNumber(asher),FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG TOM{FFFFFF}, {FF0000}%sKG Sua{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} co gia tri $%s.", GetName(playerid), FormatNumber(asher),FormatNumber(asher),FormatNumber(asher),FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+			}
+			else if(rar >= 28 && rar < 31 ) 
+			{
+				x = (21342 + random(56000) + asher*2000);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}1KG TOM{FFFFFF}, {FF0000}1KG Sua{FFFFFF} ban co the ban voi gia $%s ! ", FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}1KG TOM{FFFFFF}, {FF0000}1KG Sua{FFFFFF}  co gia tri $%s.", GetName(playerid),FormatNumber(asher),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			else if(rar >= 31 && rar < 36) 
+			{
+				x = (400000 + random(33000) + asher*2500);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG TOM{FFFFFF} ban co the ban voi gia $%s ! ", FormatNumber(asher),FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG TOM{FFFFFF} co gia tri $%s.", GetName(playerid),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			else if(rar >= 36 && rar < 41) 
+			{
+				x = (45000 + random(12000) + asher*3000);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG Sua{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} ban co the ban voi gia $%s ! ", FormatNumber(asher),FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG Sua{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} co gia tri $%s.", GetName(playerid), FormatNumber(asher),FormatNumber(asher),FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			else if(rar >= 41 && rar < 48) 
+			{
+				x = (55632 + random(5000) + asher*3500);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG MUC{FFFFFF} ban co the ban voi gia $%s ! ",FormatNumber(asher), FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG MUC{FFFFFF} co gia tri $%s.", GetName(playerid),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			else if(rar >= 48 && rar < 55) 
+			{
+				x = (63213 + random(23000) + asher*4000);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG CA LUONG SAU{FFFFFF}, {FF0000}%sKG CA ASHER{FFFFFF}, {FF0000}%sKG CA KIEM{FFFFFF} ban co the ban voi gia $%s ! ", FormatNumber(asher),FormatNumber(asher),FormatNumber(asher),FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG TOM{FFFFFF}, {FF0000}%sKG Sua{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} co gia tri $%s.", GetName(playerid),FormatNumber(asher),FormatNumber(asher),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			else if(rar >= 55 && rar < 62) 
+			{
+				x = (40000 + random(9000) + asher*4000);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG TOM{FFFFFF}, {FF0000}%sKG Sua{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} ban co the ban voi gia $%s ! ", FormatNumber(asher),FormatNumber(asher),FormatNumber(asher),FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG TOM{FFFFFF}, {FF0000}%sKG Sua{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} co gia tri $%s.", GetName(playerid),FormatNumber(asher),FormatNumber(asher),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			else if(rar >= 62 && rar < 69) 
+			{
+				x = (45000 + random(16000) + asher*5000);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG CA BOI 1 GAI{FFFFFF}, {FF0000}%sKG CA HO DAU RONG{FFFFFF}, {FF0000}%sKG CA DAU VUONG{FFFFFF} ban co the ban voi gia $%s ! ", FormatNumber(asher),FormatNumber(asher),FormatNumber(asher),FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG TOM{FFFFFF}, {FF0000}%sKG Sua{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} co gia tri $%s.", GetName(playerid),FormatNumber(asher),FormatNumber(asher),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			else if(rar >= 69 && rar < 75) {
+				x = (40000 + random(500000) + asher*5500);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG MUC ONG{FFFFFF}, {FF0000}%sKG CA BAN CHAN{FFFFFF}, {FF0000}%sKG CA MOI HOA{FFFFFF} ban co the ban voi gia $%s ! ", FormatNumber(asher),FormatNumber(asher),FormatNumber(asher),FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG MUC ONG{FFFFFF}, {FF0000}%sKG CA BAN CHAN{FFFFFF}, {FF0000}%sKG CA MOI HOA{FFFFFF} co gia tri $%s.", GetName(playerid),FormatNumber(asher),FormatNumber(asher),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+			}
+			else if(rar >= 75 && rar < 83) 
+			{
+				x = (48000 + random(55000) + asher*6000);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG CA HO DAU RONG{FFFFFF}, {FF0000}%sKG CA RO BIEN{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} ban co the ban voi gia $%s ! ", FormatNumber(asher),FormatNumber(asher),FormatNumber(asher),FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG CA HO DAU RONG{FFFFFF}, {FF0000}%sKG CA RO BIEN{FFFFFF}, {FF0000}%sKG MUC{FFFFFF} co gia tri $%s.", GetName(playerid), FormatNumber(asher),FormatNumber(asher),FormatNumber(asher),FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			else if(rar >= 93 && rar < 120) 
+			{
+				x = (50000 + random(12000) + asher*6000);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG CA MOI{FFFFFF}, {FF0000}%sKG CA CO XANH{FFFFFF}ban co the ban voi gia $%s ! ", FormatNumber(asher),FormatNumber(asher),FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG CA MOI{FFFFFF}, {FF0000}%sKG CA CO XANH{FFFFFF} co gia tri $%s.", GetName(playerid),FormatNumber(asher),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			else if(rar >= 120 && rar < 160) 
+			{
+				x = (45000 + random(37000) + asher*6000);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG CA NGU VAY VANG{FFFFFF}ban co the ban voi gia $%s ! ", FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG CA NGU VAY VANG{FFFFFF} co gia tri $%s.", GetName(playerid),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			else if(rar >= 160 && rar < 220) 
+			{
+				x = (43250 + random(14000) + asher*6000);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG CA NUC HEO{FFFFFF}, {FF0000}%sKG SUA{FFFFFF} ban co the ban voi gia $%s ! ", FormatNumber(asher),FormatNumber(asher),FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%SKG CA NUC HEO{FFFFFF}, {FF0000}%SKG SUA{FFFFFF} co gia tri $%s.", GetName(playerid),FormatNumber(asher),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			else if(rar >= 220 && rar < 300) 
+			{
+				x = (46000 + random(10000) + asher*6000);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG CA THU CHAM{FFFFFF}, {FF0000}%sKG CA GIA THU{FFFFFF}, {FF0000}%sKG CA CO LA{FFFFFF} ban co the ban voi gia $%s ! ",FormatNumber(asher),FormatNumber(asher),FormatNumber(asher), FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}%sKG CA THU CHAM{FFFFFF}, {FF0000}%sKG CA GIA THU{FFFFFF}, {FF0000}%sKG CA CO LA{FFFFFF} co gia tri $%s.", GetName(playerid),FormatNumber(asher),FormatNumber(asher),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			else if(rar >= 300 && rar < 301) 
+			{
+				x = 150000+random(550);
+				format(string, sizeof(string), "Ban da bat duoc {FF0000}CON CA MAP{FFFFFF} ban co the ban voi gia $%s ! ", FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc {FF0000}CON CA MAP{FFFFFF}  co gia tri $%s.", GetName(playerid), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+
+			}
+			else 
+			{
+				format(string, sizeof(string), "Ban da bat duoc %sKG thuy san gia tri $%s! ", FormatNumber(asher), FormatNumber(x));
+				SendClientMessage(playerid, COLOR_YELLOW, string);
+				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban thuy san!. (/gps)");
+				format(string, sizeof(string), "* %s da bat duoc %sKG thuy san co gia tri $%s .", GetName(playerid),FormatNumber(asher), FormatNumber(x));
+				NearMessage(playerid, COLOR_YELLOW, string);
+			}
+			ThuySan[playerid] = x+ (5000 * PlayerInfo[playerid][pVip]);
+            if(PlayerInfo[playerid][pVip] >= 1)
+            {
+                SCMf(playerid, COLOR_YELLOW, "Vi ban la nguoi choi vip nen duoc + tien job. {FF0000}Tong cong :{FFFF00}%d.", x+(5000 * PlayerInfo[playerid][pVip]));
+            }
+            StartFish[playerid] = 0;
+            ClearAnimations(playerid);
+            // DestroyPlayerProgressBar(playerid, CauCaBar[playerid]);
+            TogglePlayerControllable(playerid, 1);
+            Freezed[playerid] = 0;
+            for(new m; m < 2; m++)
+			{
+			if(PlayerInfo[playerid][pDailyMission][m] == 21) CheckMission(playerid, m);
+			}
+        }
+    }
+    return 1;
+}
+CMD:khonglamviecchung(playerid, params[]) {
+	if(LamViecChung[playerid] == 0) return SendClientMessage(playerid, -1, "Ban khong co dang lam viec chung");
+	LamViecChung[playerid] = 0;
+	SendClientMessage(playerid, COLOR_LIGHTBLUE, "Ban da khong lam viec chung voi ai nua!");
+	return 1;
+} 
+CMD:lamviecchung(playerid, params[]) {
+   
+    if(DaThueThuyen[playerid] == 0) return SendClientMessage(playerid, COLOR_GREY, "Ban can phai co 1 chiec thuyen ca nhan moi co the cho farm chung (/thuethuyen)!");
+	new id,string[128];
+
+	if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, -1, "Ban khong o trong chiec thuyen cua ban!");
+	if(LamViecChung[playerid] != 0) return SendClientMessage(playerid, COLOR_WHITE, "Nguoi choi do da lam viec chung voi nguoi khac!");
+	if(sscanf(params, "u", id)) return SendClientMessage(playerid, 0xFFFFFFFF,"USAGE: /lamviecchung <{FFFF00}ID/Ten{FFFFFF}>");
+	if(!ProxDetectorS(9.0, playerid, id)) return SendClientMessage(playerid, -1, "Ban khong o gan nguoi choi do!");
+	if(id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi khong ket noi.");
+    if(LamViecChung[playerid] == 1) return SendClientMessage(playerid, -1, "Nguoi choi nay da lam viec chung voi mot nguoi khac");
+	
+	format(string, sizeof(string), ">> Ban da cho %s farm chung.",GetName(id));
+	SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+	LamViecChung[id] = 1;
+	format(string, sizeof(string), ">> %s Da cho ban farm chung.",GetName(playerid));
+	SendClientMessage(id, COLOR_LIGHTBLUE, string);
+    return 1;
 }

@@ -190,7 +190,6 @@ timer PlayDice[1000](playerid, id) {
 
 			if(dice1 > dice2) {
 				format(string, sizeof(string), "%s do xuc sac %d. %s do xuc sac %d. %s thang %s chip.", GetName(playerid), dice1, GetName(id), dice2, GetName(playerid), FormatNumber(DiceMoney[playerid]));
-				//InsertLog(playerid, string, LOG_CASINO);	
 				Log("logs/dice.log", string);				
 				ProxDetector(30.0,playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);					
 				format(szMessage, 35,"(+) Ban nhan duoc %s chip.", FormatNumber(DiceMoney[playerid]));
@@ -205,7 +204,6 @@ timer PlayDice[1000](playerid, id) {
 			}
 			if(dice2 > dice1) {
 				format(string, sizeof(string), "%s do xuc sac %d. %s do xuc sac %d. %s thang %s chip.", GetName(id), dice2, GetName(playerid), dice1, GetName(id), FormatNumber(DiceMoney[playerid]));
-				//InsertLog(playerid, string, LOG_CASINO);	
 				Log("logs/dice.log", string);
 				ProxDetector(30.0,playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);				
 				format(szMessage, 35,"(+) Ban nhan duoc %s chip.", FormatNumber(DiceMoney[playerid]));

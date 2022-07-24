@@ -118,7 +118,7 @@ enum pInfo {
     pPoolIn,
     pDuel,
 
-	pCrates[5],
+	pCrates[9],
     psummerquest,
 	pSkins[10],
 	pEscapeP, // pickup
