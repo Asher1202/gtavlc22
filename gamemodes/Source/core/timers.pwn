@@ -1039,7 +1039,7 @@ task DecreaseTimer[1000]() {
 			SendTeamMessage(15, COLOR_DBLUE, string);			
 		}
 	}	
-	/*foreach(new i: PlayerGangster) {
+	foreach(new i: PlayerGangster) {
 		if(InWar[PlayerInfo[i][pMember]] == 1 && ServerSystem[13] == 1 && IsPlayerLogged[i] == 1) {
 			new faction = PlayerInfo[i][pMember];
 			for(new wi = 1; wi < turfsss;wi++) {
@@ -1090,13 +1090,13 @@ task DecreaseTimer[1000]() {
 					    SetPlayerPosEx(i, Pos[0], Pos[1], Pos[2]+1);
 					    SetVehicleToRespawn(ServerVehicles[vid][vSpawned]), Gas[ServerVehicles[vid][vSpawned]] = 100;
 					}
-					if(GetPlayerVirtualWorld(i) != 0 && UsingSampcac{i} == 0) {
+					/*if(GetPlayerVirtualWorld(i) != 0 && UsingSampcac{i} == 0) {
 						SetPlayerVirtualWorld(i, 0);
-					}
+					}*/
 				}
 			}
 		}
-	}*/
+	}
 	foreach(new i: Player) {
 		if(IsPlayerLogged[i] == 1) {
 			new Float: playerArmour; 
@@ -2712,7 +2712,8 @@ task Timers[1000]() {
 			}
 			if(IsAMember(i)) {
 			//	if(UsingSampcac{i} == 0 || ServerSystem[13] == 0) return SendClientMessage(i, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");
-				if(InWar[PlayerInfo[i][pMember]] == 1 && (UsingSampcac{i} == 1 || ServerSystem[13] == 1) && IsPlayerLogged[i] == 1) {
+				//if(InWar[PlayerInfo[i][pMember]] == 1 && (UsingSampcac{i} == 1 || ServerSystem[13] == 1) && IsPlayerLogged[i] == 1) {
+				if(InWar[PlayerInfo[i][pMember]] == 1 && IsPlayerLogged[i] == 1) {
 					new faction = PlayerInfo[i][pMember];
 					for(new wi = 1; wi < turfsss;wi++) {
 						if(WarInfo[wi][wFaction] == faction || WarInfo[wi][wAttacker] == faction) {
@@ -2728,13 +2729,16 @@ task Timers[1000]() {
 							defscore = WarScoreF[defenders][wi];						
 					
 							if(playerDeath[i] == 0 && PlayerInfo[i][pWantedLevel] == 0 && PlayerInfo[i][pJailTime] == 0 && GetPlayerInterior(i) == 0 && GetPlayerVirtualWorld(i) == 0) {
-								if(CAC_GetStatus(i) || GetPVarInt(i, "NotAndroid") == 0) 
+								/*if(CAC_GetStatus(i) || GetPVarInt(i, "NotAndroid") == 0) 
 								{
 									SetPlayerVirtualWorld(i, wi);
 									format(string, sizeof(string), "Ban da duoc dich chuyen den virtual world %d (the gioi ao) vi mafia cua ban dang bao ve hoac tranh gianh dia ban.", wi);
 									SendClientMessage(i, COLOR_YELLOW, string);
 								}
-								else if(ServerSystem[13] == 0) SendClientMessage(i, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");
+								else if(ServerSystem[13] == 0) SendClientMessage(i, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");*/
+								SetPlayerVirtualWorld(i, wi);
+								format(string, sizeof(string), "Ban da duoc dich chuyen den virtual world %d (the gioi ao) vi mafia cua ban dang bao ve hoac tranh gianh dia ban.", wi);
+								SendClientMessage(i, COLOR_YELLOW, string);
 							}
 
 

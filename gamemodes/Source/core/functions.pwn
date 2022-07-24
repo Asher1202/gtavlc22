@@ -1025,7 +1025,7 @@ GiveHouse(id, house) {
 }
 SetVehicle(fid, turf) {
 	for(new i; i < MAX_SVEHICLES; i++) {
-		if(ServerVehicles[i][vFaction] == fid) SetVehicleVirtualWorld(i, turf);
+		if(ServerVehicles[i][vFaction] == fid) SetVehicleVirtualWorld(ServerVehicles[i][vSpawned], turf);
 	}
 	return 1;
 }
@@ -4851,12 +4851,12 @@ OnPlayerLoginEx(playerid, const password[]) {
 		if(IsAMember(playerid)) {
 			
 			Iter_Add(PlayerGangster, playerid);
-			if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0)
+			/*if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0)
 			{
 			 	UsingSampcac{playerid} = 1;
 				SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
 			}
-			else SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");
+			else SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");*/
 		}
 	}
 	return 1;

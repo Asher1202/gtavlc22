@@ -74,7 +74,7 @@ new Text3D:adminLabel[MAX_PLAYERS];
 #include <fly>
 #include <progress2>
 #include <AutoAFK>
-#include <sampcac>
+//#include <sampcac>
 #include <EVF> //for vehiclespeedcap and stufsf
 // #include <td-streamer-player> 
 DEFINE_HOOK_REPLACEMENT(KeyState, KState);

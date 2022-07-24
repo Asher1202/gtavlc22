@@ -753,7 +753,7 @@ CMD:startwork(playerid, params[]) {
 	gettime(hour,minn,sec);
 	#pragma unused sec
 	#pragma unused minn
-	if(ServerSystem[19] == 0 && hour > -1 && hour < 6 && (!CAC_GetStatus(playerid) && GetPVarInt(playerid, "NotAndroid") == 1)) return SendClientMessage(playerid, -1, "Ban can cai dat Anti-Cheat (sampcac) de lam viec trong khoang thoi gian tu 24h-6h sang. Hay xem huong dan cai dat tren trang chu.");  
+	//if(ServerSystem[19] == 0 && hour > -1 && hour < 6 && (!CAC_GetStatus(playerid) && GetPVarInt(playerid, "NotAndroid") == 1)) return SendClientMessage(playerid, -1, "Ban can cai dat Anti-Cheat (sampcac) de lam viec trong khoang thoi gian tu 24h-6h sang. Hay xem huong dan cai dat tren trang chu.");  
 	if(PlayerInfo[playerid][pJob] == 0) return SendClientMessage(playerid, COLOR_GREY, "Ban khong co mot cong viec, su dung /timvieclam de tim viec!");
 	if(JobWorking[playerid] == 1) return SendClientMessage(playerid, COLOR_WHITE, "Ban dang lam viec.");
     GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
