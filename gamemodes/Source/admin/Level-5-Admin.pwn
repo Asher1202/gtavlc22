@@ -6,7 +6,7 @@ CMD:setfpo(playerid, params[]) {
 	if(cont == 0) return SendClientMessage(playerid,-1, "[ERROR] Nguoi choi khong co trong co so du lieu!");
 	new query[128];
 	format(query,sizeof(query),"UPDATE users SET `FPunish`='%d' WHERE `name`='%s'",fp,id);
-	mysql_query(SQL,query,false);
+	mysql_query(SQL,query,false);//
 	return 1;
 }
 CMD:daugia(playerid, params[]) {
