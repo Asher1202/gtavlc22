@@ -3314,6 +3314,37 @@ Dialog:DIALOG_CLAN_MEMBERS(playerid, response, listitem, inputtext[])
 	Dialog_Show(playerid, DIALOG_CLAN_MANAGE2, DIALOG_STYLE_LIST, "Thiet lap:", "Uninvite\nGive rank\nClan warn\nUn Clan warn", "Ok" ,"Back");
 	return 1;
 }
+Dialog:DIALOG_THUYSAN(playerid, response, listitem, inputtext[]) 
+{
+	if(!response) return 1;
+	if(TimpMateriale[playerid] == 1) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Ban ca", "ERROR: Ban khong the ban mot con ca qua nhanh, hay tro lai sau!", "Ok", "Cancel");
+	new string2[180], string[128];
+	GivePlayerCash(playerid, ThuySan[playerid]);
+	format(string, sizeof(string), "Ban da nhan duoc $%s vi ban thuy san cua ban cua ban!", FormatNumber(ThuySan[playerid]));
+	SendClientMessage(playerid, COLOR_MONEY, string);
+	format(string, sizeof(string), "%s nhan duoc $%s tien thuong cho cong viec %s.", GetName(playerid), FormatNumber(ThuySan[playerid]), JobInfo[PlayerInfo[playerid][pJob]][jName]);
+	
+	// sv = GetPlayerSkill(playerid) + randomEx(1,4);
+	// PlayerInfo[playerid][pDiemUyTin] += sv;
+	// SCMf(playerid, COLOR_YELLOW,"Ban duoc {FF0000}+%d{FFFF00} diem uy tin vi hoan thanh cong viec", sv);
+	// Update(playerid,pDiemUyTinx);
+	format(string2, sizeof(string2), "[JOB]: %s[%d] da ban thuy san voi gia tien $%s va nhan %d .", GetName(playerid),playerid, FormatNumber(ThuySan[playerid]));
+	GuiDenAdminVaHelper(COLOR_YELLOW, string2, 1);
+	Log("logs/jobmoney.log", string2);
+	ThuySan[playerid] = 0;
+	Update(playerid,pCashx);
+	PlayerInfo[playerid][pFishes] = 0;
+	// if(PlayerInfo[playerid][pLuoiBieng] <= 100) PlayerInfo[playerid][pLuoiBieng] += random(2);
+	if(PlayerInfo[playerid][pMember] == 0) {
+		for(new m; m < 2; m++) {
+			if(PlayerInfo[playerid][pDailyMission][m] == 15 || PlayerInfo[playerid][pDailyMission][m] == 16) CheckMission(playerid, m);
+		}
+	}
+	for(new m; m < 2; m++) {
+		if(PlayerInfo[playerid][pDailyMission][m] == 2) CheckMission(playerid, m);
+	}
+	return 1;
+}
 Dialog:DIALOG_CLAN_MANAGE2(playerid, response, listitem, inputtext[]) 
 {
 	if(!response) {

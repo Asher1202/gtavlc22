@@ -1186,7 +1186,9 @@ CMD:thuethuyen(playerid, params[])
 		ThuyenSpawn[carid] = carid;
 		DaThueThuyen[playerid] = carid;
 		Gas[ThuyenSpawn[carid]] = 100;
+		SendClientMessage(playerid, COLOR_YELLOW, "Ban da thue thuyen va mat 100.000$, chiec thuyen xe mat khi ban (/q) hoac /huythuyen");
 		// DaThueThuyen[playerid] = 1;
+		GivePlayerCash(playerid, -100000);
 		PutPlayerInVehicleEx(playerid, ThuyenSpawn[DaThueThuyen[playerid]], 0);
 	}
 	return 1;
@@ -1420,5 +1422,6 @@ CMD:lamviecchung(playerid, params[]) {
 	LamViecChung[id] = 1;
 	format(string, sizeof(string), ">> %s Da cho ban farm chung.",GetName(playerid));
 	SendClientMessage(id, COLOR_LIGHTBLUE, string);
+	defer telecauca(playerid);
     return 1;
 }

