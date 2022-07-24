@@ -7,12 +7,12 @@
 // TODO: make anti faction vehicle-driving
 // TODO: remake old /newb
 // TODO: add /giveall robpoint/escape point/escape point
-// #define MYSQL_PREPARE_DEBUG (true)aa
+// #define MYSQL_PREPARE_DEBUG (true)
 
 /*
     cái shop mình để 3 cái trc đi ha, Base shop, Dice shop, Quest shop, hiện tại có skin thì ra thêm 2 cái nguyên liệu mới nữa để mua hộp mở skin trong Skin shop
-    à thêm cái trade skin trong /giaodich nha em a
-    Đổi các vật phẩm á, rob point, escapepoint, thẻ đổi tên, neon bla bla aa
+    à thêm cái trade skin trong /giaodich nha em
+    Đổi các vật phẩm á, rob point, escapepoint, thẻ đổi tên, neon bla bla
 */
 #include <a_samp>
 
