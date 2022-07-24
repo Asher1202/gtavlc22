@@ -1,0 +1,3 @@
+sampctl package build
+
+pause

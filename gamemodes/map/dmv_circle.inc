@@ -1,0 +1,12 @@
+			PlayerInfo[ playerid ][ c_DmvObjs ][ 0 ] =CreateDynamicObject(1238, -2048.627197, -145.244003, 34.652900, 0.00000, 0.00000, 0.00000, .playerid = playerid);
+			PlayerInfo[ playerid ][ c_DmvObjs ][ 1 ] =CreateDynamicObject(1238, -2045.127197, -146.181823, 34.652900, 0.00000, 0.00000, 0.00000, .playerid = playerid);
+			PlayerInfo[ playerid ][ c_DmvObjs ][ 2 ] =CreateDynamicObject(1238, -2042.565063, -148.744003, 34.652900, 0.00000, 0.00000, 0.00000, .playerid = playerid);
+			PlayerInfo[ playerid ][ c_DmvObjs ][ 3 ] =CreateDynamicObject(1238, -2041.627197, -152.244003, 34.652900, 0.00000, 0.00000, 0.00000, .playerid = playerid);
+			PlayerInfo[ playerid ][ c_DmvObjs ][ 4 ] =CreateDynamicObject(1238, -2042.565063, -155.744003, 34.652900, 0.00000, 0.00000, 0.00000, .playerid = playerid);
+			PlayerInfo[ playerid ][ c_DmvObjs ][ 5 ] =CreateDynamicObject(1238, -2045.127197, -158.306182, 34.652900, 0.00000, 0.00000, 0.00000, .playerid = playerid);
+			PlayerInfo[ playerid ][ c_DmvObjs ][ 6 ] =CreateDynamicObject(1238, -2048.627197, -159.244003, 34.652900, 0.00000, 0.00000, 0.00000, .playerid = playerid);
+			PlayerInfo[ playerid ][ c_DmvObjs ][ 7 ] =CreateDynamicObject(1238, -2052.127197, -158.306182, 34.652900, 0.00000, 0.00000, 0.00000, .playerid = playerid);
+			PlayerInfo[ playerid ][ c_DmvObjs ][ 8 ] =CreateDynamicObject(1238, -2054.689453, -155.744003, 34.652900, 0.00000, 0.00000, 0.00000, .playerid = playerid);
+			PlayerInfo[ playerid ][ c_DmvObjs ][ 9 ] =CreateDynamicObject(1238, -2055.627197, -152.244003, 34.652900, 0.00000, 0.00000, 0.00000, .playerid = playerid);
+			PlayerInfo[ playerid ][ c_DmvObjs ][ 10 ] =CreateDynamicObject(1238, -2054.689453, -148.744003, 34.652900, 0.00000, 0.00000, 0.00000, .playerid = playerid);
+			PlayerInfo[ playerid ][ c_DmvObjs ][ 11 ] =CreateDynamicObject(1238, -2052.127197, -146.181823, 34.652900, 0.00000, 0.00000, 0.00000, .playerid = playerid);

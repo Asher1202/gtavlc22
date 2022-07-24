@@ -1,0 +1,62 @@
+//Global TextDraws: 
+
+
+new Text:TDEditor_TD[2];
+
+TDEditor_TD[0] = TextDrawCreate(539.253845, 51.166744, "hour job: fisherman");
+TextDrawLetterSize(TDEditor_TD[0], 0.172297, 0.841665);
+TextDrawAlignment(TDEditor_TD[0], 1);
+TextDrawColor(TDEditor_TD[0], -1);
+TextDrawSetShadow(TDEditor_TD[0], 0);
+TextDrawSetOutline(TDEditor_TD[0], 1);
+TextDrawBackgroundColor(TDEditor_TD[0], 255);
+TextDrawFont(TDEditor_TD[0], 2);
+TextDrawSetProportional(TDEditor_TD[0], 1);
+TextDrawSetShadow(TDEditor_TD[0], 0);
+
+TDEditor_TD[1] = TextDrawCreate(577.536682, 38.250003, "28 AUG 2018");
+TextDrawLetterSize(TDEditor_TD[1], 0.266939, 1.104166);
+TextDrawAlignment(TDEditor_TD[1], 2);
+TextDrawColor(TDEditor_TD[1], -1);
+TextDrawSetShadow(TDEditor_TD[1], 0);
+TextDrawSetOutline(TDEditor_TD[1], 1);
+TextDrawBackgroundColor(TDEditor_TD[1], 255);
+TextDrawFont(TDEditor_TD[1], 2);
+TextDrawSetProportional(TDEditor_TD[1], 1);
+TextDrawSetShadow(TDEditor_TD[1], 0);
+
+
+
+//Player TextDraws: 
+
+
+new PlayerText:TDEditor_PTD[MAX_PLAYERS][2];
+
+TDEditor_PTD[playerid][0] = CreatePlayerTextDraw(playerid, 723.545043, 421.347045, "NEXT PAYDAY IN: 19:~g~59");
+PlayerTextDrawLetterSize(playerid, TDEditor_PTD[playerid][0], 0.190568, 1.057499);
+PlayerTextDrawAlignment(playerid, TDEditor_PTD[playerid][0], 3);
+PlayerTextDrawColor(playerid, TDEditor_PTD[playerid][0], -1);
+PlayerTextDrawSetShadow(playerid, TDEditor_PTD[playerid][0], 0);
+PlayerTextDrawSetOutline(playerid, TDEditor_PTD[playerid][0], -1);
+PlayerTextDrawBackgroundColor(playerid, TDEditor_PTD[playerid][0], 255);
+PlayerTextDrawFont(playerid, TDEditor_PTD[playerid][0], 2);
+PlayerTextDrawSetProportional(playerid, TDEditor_PTD[playerid][0], 1);
+PlayerTextDrawSetShadow(playerid, TDEditor_PTD[playerid][0], 0);
+PlayerTextDrawSetSelectable(playerid, TDEditor_PTD[playerid][0], true);
+
+TDEditor_PTD[playerid][1] = CreatePlayerTextDraw(playerid, 76.354370, 432.083496, "TIN (id: 0)");
+PlayerTextDrawLetterSize(playerid, TDEditor_PTD[playerid][1], 0.243982, 1.354997);
+PlayerTextDrawAlignment(playerid, TDEditor_PTD[playerid][1], 1);
+PlayerTextDrawColor(playerid, TDEditor_PTD[playerid][1], -1);
+PlayerTextDrawSetShadow(playerid, TDEditor_PTD[playerid][1], 0);
+PlayerTextDrawSetOutline(playerid, TDEditor_PTD[playerid][1], 1);
+PlayerTextDrawBackgroundColor(playerid, TDEditor_PTD[playerid][1], 255);
+PlayerTextDrawFont(playerid, TDEditor_PTD[playerid][1], 2);
+PlayerTextDrawSetProportional(playerid, TDEditor_PTD[playerid][1], 1);
+PlayerTextDrawSetShadow(playerid, TDEditor_PTD[playerid][1], 0);
+
+
+
+
+//Total textdraws exported: 4 (2 global textdraws / 2 player textdraws) ~ 28/8/2018 ~ 22:51:36
+TDEditor V1.17 BY ADRI1
