@@ -174,7 +174,7 @@ Inventory_Add(playerid, const item[], model, quantity, type) { // đây là add
 		format(string, sizeof(string), "UPDATE `inventory` SET `invQuantity` = `invQuantity` + %d WHERE `invOwnerID` = '%d' AND `invID` = '%d'", quantity,PlayerInfo[playerid][pSQLID], invData[playerid][itemid][invID]);
 		mysql_tquery(SQL, string);
 		invData[playerid][itemid][invQuantity] += quantity;
-		mysql_tquery(SQL, query, "OnQuerySaveFood", "ii", playerid, itemid);// cái này có thể xoá cũng được
+		// mysql_tquery(SQL, query, "OnQuerySaveFood", "ii", playerid, itemid);// cái này có thể xoá cũng được
 		if(isInInven[playerid] != 0) {
 			if(type == 2) Inventory_Update(playerid, itemid-12, invData[playerid][itemid][invModel], invData[playerid][itemid][invQuantity], 1);
 			else if(type == 3) Inventory_Update(playerid, itemid-24, invData[playerid][itemid][invModel], invData[playerid][itemid][invQuantity], 1);
