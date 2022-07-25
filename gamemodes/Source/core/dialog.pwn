@@ -3393,11 +3393,11 @@ Dialog:DIALOG_CLAN_MANAGE2(playerid, response, listitem, inputtext[])
 				PlayerInfo[userID][pClanDays] = 0;
 				PlayerInfo[userID][pClanWarn] = 0;
 				SetPlayerName(userID, PlayerInfo[userID][pUsername]);
-				ClanInfo[clanid][clPoints]-=PlayerInfo[playerid][pPoints];
-				format(string, sizeof(string), "{%s}[CLAN] %s da truc xuat %s khoi clan (-%d diem hoat dong).", ClanInfo[clanid][clColor], GetName(playerid), pName[playerid], PlayerInfo[playerid][pPoints]);
+				ClanInfo[clanid][clPoints]-=PlayerInfo[userID][pPoints];
+				format(string, sizeof(string), "{%s}[CLAN] %s da truc xuat %s khoi clan (-%d diem hoat dong).", ClanInfo[clanid][clColor], GetName(playerid), pName[playerid], PlayerInfo[userID][pPoints]);
 			}
 			else {
-			    format(sql, sizeof(sql), "SELECT ActivePoints FROM users WHERE `name`='%s'",pName[playerid]);
+			    format(sql, sizeof(sql), "SELECT ActivePoints FROM users WHERE `name`='%s'",pName[userID]);
 			    new Cache: x = mysql_query(SQL, sql);
 			    cache_get_value_int(0, "ActivePoints", points);
 			    ClanInfo[clanid][clPoints]-=points;

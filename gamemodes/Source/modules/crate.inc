@@ -321,14 +321,14 @@ hook ResetVariables(playerid) {
     // inSkinTrade[playerid] = -1;
     DeletePVar(playerid, "VoucherType");
 }
-CMD:crateforall(playerid, params[]) {
+CMD:giveallcrate(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 6)
 		return SendClientMessage(playerid, COLOR_LGREEN, AdminOnly);
 
 	new type, value;
 	if(sscanf(params, "ii", type, value)) {
 		SendClientMessage(playerid, COLOR_GREY, "Syntax: {FFFFFF}/crateforall [crate type] [value]");
-		SendClientMessage(playerid, COLOR_WHITE, "Rare (0) | Epic (1) | Legendary (2) | Transcendent (3) | Vehicle (4)");
+		SendClientMessage(playerid, COLOR_WHITE, "Random Skin (0) | Random Car Silver (1) | Random Car Gold (2) | Ticket Than Bi (3) | Voucher Cao Cap (4)");
 		return true;
 	}
 

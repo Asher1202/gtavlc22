@@ -1195,7 +1195,7 @@ CMD:thuethuyen(playerid, params[])
 }
 CMD:huythuyen(playerid, params[])
  {
-	if(DaThueThuyen[playerid] != 1) return SendClientMessage(playerid, COLOR_YELLOW, "Ban chua thue chiec thuyen nao het hay thue thuyen truoc nhe");
+	if(DaThueThuyen[playerid] != 0) return SendClientMessage(playerid, COLOR_YELLOW, "Ban chua thue chiec thuyen nao het hay thue thuyen truoc nhe");
 	DestroyVehicle(ThuyenSpawn[DaThueThuyen[playerid]]);
 	SendClientMessage(playerid, COLOR_YELLOW, "Ban da thue thanh cong chiec thuyen cua ban bay gio ban da co the thue lai");
 	DaThueThuyen[playerid] = 0;

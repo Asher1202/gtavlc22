@@ -1141,9 +1141,9 @@ task DecreaseTimer[1000]() {
 					TogglePlayerControllable(i, true);
 				}
 			}
-			if(PlayerInfo[i][pJob] == 11 && GetPlayerSkill(i) >=4) GangZoneShowForPlayer(i, CauCaZoneZ[0], 0xFF00A250); //None
-			if(PlayerInfo[i][pJob] == 11 && GetPlayerSkill(i) >=4)  GangZoneShowForPlayer(i, CauCaZoneZ[1], 0xFF00A250); //None
-			if(PlayerInfo[i][pJob] == 11 && GetPlayerSkill(i) >=4)  GangZoneShowForPlayer(i, CauCaZoneZ[2], 0xFF00A250); //None
+			if(PlayerInfo[i][pJob] == 11) GangZoneShowForPlayer(i, CauCaZoneZ[0], 0xFF00A250); //None
+			if(PlayerInfo[i][pJob] == 11)  GangZoneShowForPlayer(i, CauCaZoneZ[1], 0xFF00A250); //None
+			if(PlayerInfo[i][pJob] == 11)  GangZoneShowForPlayer(i, CauCaZoneZ[2], 0xFF00A250); //None
 			if(PlayerInfo[i][pJob] != 11) GangZoneHideForPlayer(i, CauCaZoneZ[0]); //None
 			if(PlayerInfo[i][pJob] != 11) GangZoneHideForPlayer(i, CauCaZoneZ[1]); //None
 			if(PlayerInfo[i][pJob] != 11) GangZoneHideForPlayer(i, CauCaZoneZ[2]); //None

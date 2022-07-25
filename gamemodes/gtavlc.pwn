@@ -163,6 +163,8 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 #include <map/exterior9>
 #include <map/interior8>
 #include <map/interior10>
+ #include <map/hq.inc>
+
 // #include <map/yellow>
 #include <map/islandevent>
 // #include <map/grays2s>

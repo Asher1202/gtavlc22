@@ -233,6 +233,7 @@ CMD:traodoi(playerid, params[]) {
 		SendClientMessage(playerid, COLOR_WHITE, "Lenh kha dung : hamburger.");
 		return 1;
 	}	
+    if(id == playerid) return SendClientMessage(playerid,-1, "Ban khong tu trao doi cho chinh ban.");
     if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessage(playerid, -1, "Ban can dat cap 3 de trao doi.");
 	//if(GetPVarInt(id, "InLesson") != playerid) return SendClientMessage(playerid, -1, "Nguoi choi nay khong o trong mot bai hoc.");
 	if(id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi da chon khong dang nhap.");

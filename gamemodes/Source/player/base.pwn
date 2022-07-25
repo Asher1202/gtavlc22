@@ -8028,7 +8028,6 @@ CMD:restartmissions(playerid, params[]) {
 	ResetQuest();
 	return 1;
 }
-
 CMD:vcar(playerid, params[])
 {
 	new string[128];
@@ -8041,7 +8040,8 @@ CMD:vcar(playerid, params[])
 	if(lastVCarSpawn[playerid] != -1)
 	{
 		DestroyVehicle(lastVCarSpawn[playerid]);
-		Carspawn[lastVCarSpawn[playerid]] = 0;
+		Carspawn[lastVCarSpawn[playerid]] = -1;
+		lastVCarSpawn[playerid] = -1;
 	}
 	new
 		Float:x,
@@ -8068,6 +8068,7 @@ CMD:vcar(playerid, params[])
 	}
 	Gas[carid] = 100;
 	Carspawn[carid] = carid;
+	lastVCarSpawn[playerid] = carid;
 
 	if(GetPlayerInterior(playerid) != 0)
 		LinkVehicleToInterior(carid, GetPlayerInterior(playerid));
@@ -8077,6 +8078,7 @@ CMD:vcar(playerid, params[])
 	timeVCarSpawn[playerid] = 5;
 	return 1;
 }
+
 
 
 CMD:setjobcuangay(playerid, params[]) {
