@@ -33,7 +33,7 @@
 #define MAX_SVEHICLES	500
 #define MAX_COBJECTS	50
 #define MAX_SYSTEMS 	23
-#define MAX_SAFEZONES   30
+#define MAX_SAFEZONES   50
 #define MAX_CLANZONES   20
 #define GasMax 			100
 #define RunOutTime 		40000

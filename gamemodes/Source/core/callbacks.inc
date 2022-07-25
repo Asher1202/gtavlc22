@@ -1505,12 +1505,12 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 					SetPlayerHealthEx(damagedid, 0);
 					playerDeath[damagedid] = 1;
 					OnPlayerDeathEx(damagedid, playerid, weaponid);
-					if(SFID[playerid] != 0 && !IsACop(playerid) && InWar[PlayerInfo[playerid][pMember]] == 0) {
+					/*if(SFID[playerid] != 0 && !IsACop(playerid) && InWar[PlayerInfo[playerid][pMember]] == 0) {
 						if(PlayerInfo[playerid][pWantedLevel]+2 > 6) PlayerInfo[playerid][pWantedLevel] = 6;
 						else PlayerInfo[playerid][pWantedLevel] += 2;
 						SetPlayerCriminal(playerid, 255, "Giet nguoi trong SafeZone");
 						ShowWanted[playerid] = 1;
-					}
+					}*/
 				}
 				else SetPlayerHealthEx(damagedid, remainHP);
 			}
@@ -1522,12 +1522,12 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 					SetPlayerHealthEx(damagedid, 0);
 					playerDeath[damagedid] = 1;
 					OnPlayerDeathEx(damagedid, playerid, weaponid);
-					if(SFID[playerid] != 0 && !IsACop(playerid) && InWar[PlayerInfo[playerid][pMember]] == 0) {
+					/*if(SFID[playerid] != 0 && !IsACop(playerid) && InWar[PlayerInfo[playerid][pMember]] == 0) {
 						if(PlayerInfo[playerid][pWantedLevel]+2 > 6) PlayerInfo[playerid][pWantedLevel] = 6;
 						else PlayerInfo[playerid][pWantedLevel] += 2;
 						SetPlayerCriminal(playerid, 255, "Giet nguoi trong SafeZone");
 						ShowWanted[playerid] = 1;						
-					}
+					}*/
 				}
 				else SetPlayerHealthEx(damagedid, remainHP);
 			}
@@ -1738,7 +1738,7 @@ public OnPlayerDeathEx(playerid, killerid, reason) {
 		if(PaintType[killerid] == 0 && PaintType[playerid] == 0 && InEvent[playerid] == 0 && InEvent[killerid] == 0) {
 			if(OnDuty[playerid] == 1 && IsACop(playerid) && !IsACop(killerid) && killerid != INVALID_PLAYER_ID && GetPVarInt(playerid, "Undercover") == 0) {
 				new wantedlevel = PlayerInfo[killerid][pWantedLevel];
-				if(wantedlevel < 7)
+				if(wantedlevel < 6)
 				{
 					finishAchievement(killerid, 14);
 					SetPlayerWantedLevel(killerid, wantedlevel+2);
@@ -1756,7 +1756,27 @@ public OnPlayerDeathEx(playerid, killerid, reason) {
 					SendFactionMessage(3, COLOR_LIGHTBLUE, string);
 					SendFactionMessage(15, COLOR_LIGHTBLUE, string);		
 				}
-
+			}
+			if(PlayerInfo[killerid][pWantedLevel] < 6) {
+				for(new sf = 0; sf < MAX_SAFEZONES; sf++) {
+					if(!IsPlayerInAnyVehicle(killerid) && !IsACop(killerid) && PaintType[killerid] == 0 && InWar[PlayerInfo[killerid][pMember]] == 0) {
+						if(IsPlayerInRangeOfPoint(killerid, SafeZone[sf][szRange], SafeZone[sf][szX], SafeZone[sf][szY], SafeZone[sf][szZ]) && SafeZone[sf][szRange] > 15) {
+							SetPlayerWantedLevel(killerid, PlayerInfo[killerid][pWantedLevel]+3);
+							PlayerInfo[killerid][pWantedLevel] += 3;
+							SetPlayerCriminal(killerid, 255, "Giet nguoi trong khu an toan");
+							WantedTime[killerid] = 0;
+							ShowWanted[killerid] = 1;
+							Update(killerid, pWantedLevelx);
+						}
+					}
+				}
+			}
+			else {
+				format(string, sizeof(string), "%s (%d) Da tro thanh ke thong tri khu an toan o canh gioi cao nhat.", GetName(killerid), killerid);
+				SendFactionMessage(1, COLOR_LIGHTBLUE, string);
+				SendFactionMessage(2, COLOR_LIGHTBLUE, string);
+				SendFactionMessage(3, COLOR_LIGHTBLUE, string);
+				SendFactionMessage(15, COLOR_LIGHTBLUE, string);		
 			}
 		}
 		if(PlayerInfo[killerid][pJailTime] != 0 && PlayerInfo[playerid][pJailTime] != 0) {
