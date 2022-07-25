@@ -4836,7 +4836,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 			if(strcmp(playerIP, "127.0.0.1", true) == 0 || strcmp(GetName(playerid), "TIN", true) == 0 || strcmp(GetName(playerid), "Asher", true) == 0) {}
 			else {			
 				Dialog_Show(playerid, DIALOG_ADMINPASSWORD, DIALOG_STYLE_PASSWORD, "XAC NHAN", "Nhap mat khau cap 2, lien he Admin cap cao de nhan mat khau:", "Gui", "");
-				logina[playerid] = defer LoginAdmin[30000](playerid);
+				// logina[playerid] = defer LoginAdmin[30000](playerid);
 			}
 		}
 		//(playerid, MAXGOAL);

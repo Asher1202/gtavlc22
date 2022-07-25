@@ -3819,11 +3819,11 @@ task OneTimer[300]() {
 }
 
 
-timer LoginAdmin[30000](playerid) {
-	SendClientMessage(playerid, -1, "Het thoi gian");
-	Kick(playerid);
-	return 1;
-}
+// timer LoginAdmin[30000](playerid) {
+// 	SendClientMessage(playerid, -1, "Het thoi gian");
+// 	Kick(playerid);
+// 	return 1;
+// }
 timer HideFriendTD[3000](playerid) {
 	PlayerTextDrawHide(playerid, FriendTD);
 	return 1;

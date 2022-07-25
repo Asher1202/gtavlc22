@@ -141,7 +141,7 @@ new
 	//Iterator:iFlame<MAX_FIRES>,
 	//PlayerFireTimer[MAX_PLAYERS][3], // Burn, StopBurn, Extinguish a fire
 	//Float:PlayerOnFireHP[MAX_PLAYERS],
-	Timer:logina[MAX_PLAYERS],
+	// Timer:logina[MAX_PLAYERS],
 	SpamTimes[MAX_PLAYERS],
 	PlayerText: HPAlert,
 	togjob[MAX_PLAYERS],

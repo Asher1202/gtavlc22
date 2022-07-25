@@ -944,7 +944,7 @@ hook ResetVariables(playerid) {
     #endif
     stop TimerRainCar[playerid];
     stop TimeOut[playerid];
-    stop logina[playerid];
+    // stop logina[playerid];
     stop drug[playerid];
     stop FishTimer[playerid];
     stop DiceTimer[playerid];
@@ -952,7 +952,7 @@ hook ResetVariables(playerid) {
     
     TimerRainCar[playerid] = Timer:0;
     TimeOut[playerid] = Timer:0;
-    logina[playerid] = Timer:0;
+    // logina[playerid] = Timer:0;
     drug[playerid] = Timer:0;
     FishTimer[playerid] = Timer:0;
     DiceTimer[playerid] = Timer:0;
