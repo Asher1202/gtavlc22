@@ -7,7 +7,7 @@
  	mysql_tquery(SQL, string, "loadInventory", "i", playerid);
 }*/
 /* ** Functions ** */
-stock Inventory_Update(playerid, td, id, amount, type) {
+stock Inventory_Update(playerid, td, id, amount, type) { // đây là hàm để thay đổi preview textdraw, bao gồm số lượng thức ăn, hiển thị thức ăn
 	if(type == 1) {
 		switch(id) {
 			case 0: PlayerTextDrawSetPreviewRot(playerid, invTD[playerid][td+7], 0.0, 0.0, 0.0, 100);
@@ -29,7 +29,7 @@ stock Inventory_Update(playerid, td, id, amount, type) {
 		else playerTextDrawSetString(playerid, invTD[playerid][td + 22], "");
 		PlayerTextDrawShow(playerid, invTD[playerid][td + 22]);
 	}
-	if(type == 2) {
+	if(type == 2) {// type 1 là các món đồ bình thường, type 2 là súng. Được sử dụng với showPlayerInventory(playerid, type);
 		switch(id) {
 			case 0: PlayerTextDrawSetPreviewRot(playerid, invTD[playerid][td+26], 0.0, 0.0, 0.0, 100);
 			case 19421..19424: PlayerTextDrawSetPreviewRot(playerid, invTD[playerid][td+26], 150.0, 0.0, 0.0, 1);
@@ -41,7 +41,7 @@ stock Inventory_Update(playerid, td, id, amount, type) {
 	return 1;
 }
 
-stock Inventory_UpdateSpec(playerid, userid, td, id, amount, type) {
+stock Inventory_UpdateSpec(playerid, userid, td, id, amount, type) { //đây là hàm để /checktui nó sẽ fetch inventory của userid
 	if(type == 1) {
 		switch(id) {
 			case 0: PlayerTextDrawSetPreviewRot(playerid, invTD[userid][td+7], 0.0, 0.0, 0.0, 100);
@@ -138,8 +138,8 @@ stock Inventory_GetFreeID(playerid, type = 1) {
 	return -1; 
 }
 
-Inventory_Add(playerid, const item[], model, quantity, type) {
-	new itemid = Inventory_GetItemID(playerid, item, 1, quantity), string[256];
+Inventory_Add(playerid, const item[], model, quantity, type) { // đây là add 
+	new itemid = Inventory_GetItemID(playerid, item, 1, quantity), string[256]; // itemid sẽ bắt đầu từ id 0. Ví dụ burger id 0 thì cá sẽ auto là id 1 và cá hiếm sẽ là 2, đây là để không trùng
 	if (itemid == -1) {
 	    itemid = Inventory_GetFreeID(playerid, type);
 	    if (itemid != -1) {
@@ -148,7 +148,7 @@ Inventory_Add(playerid, const item[], model, quantity, type) {
 	        invData[playerid][itemid][invQuantity] = quantity;
 	        invData[playerid][itemid][invAttachSlot] = 0;
 	        invData[playerid][itemid][invAttached] = 0;
-			if(isInInven[playerid] != 0) {
+			if(isInInven[playerid] != 0) { // biến này check xem người chơi có đang mở inventory không
 		    	if(type == 2) Inventory_Update(playerid, itemid-12, invData[playerid][itemid][invModel], invData[playerid][itemid][invQuantity], 1);
 		    	else if(type == 3) Inventory_Update(playerid, itemid-24, invData[playerid][itemid][invModel], invData[playerid][itemid][invQuantity], 1);
 		    	else Inventory_Update(playerid, itemid, invData[playerid][itemid][invModel], invData[playerid][itemid][invQuantity], 1);
@@ -157,31 +157,63 @@ Inventory_Add(playerid, const item[], model, quantity, type) {
 			
 			new query[400];
 			format(query, sizeof(query), "INSERT INTO `inventory` (`invOwnerID`,`invOwnerName`, `invItem`, `invModel`, `invQuantity`, `invType`) VALUES('%d', '%s','%s', '%d', '%d', '%d')",PlayerInfo[playerid][pSQLID], GetName(playerid),item, model, quantity, type);
-			new Cache:x = mysql_query(SQL, query);
+			mysql_tquery(SQL, query, "OnQuerySaveFood", "ii", playerid, itemid);// trước kia thì anh dùng mysql_query nhưng có vẻ nó bi lỗi nên anh chuyển sang như này
+			// new Cache:x = mysql_query(SQL, query);
 				
-			invData[playerid][itemid][invID] = cache_insert_id();
-			format(string, sizeof(string), "SQLID : %d, So Huu : %s, Item : %s, So Luong %d, invID : %d", PlayerInfo[playerid][pSQLID], GetName(playerid),item, quantity, invData[playerid][itemid][invID]);
-			SendClientMessage(playerid, COLOR_PURPLE, "Neu SQLID hoac So Huu khong phai la cua ban vui long chup lai va gui cho Asher nhe!");
-			SendClientMessage(playerid, COLOR_PURPLE, string);
+			// invData[playerid][itemid][invID] = cache_insert_id();
+			// format(string, sizeof(string), "SQLID : %d, So Huu : %s, Item : %s, So Luong %d, invID : %d", PlayerInfo[playerid][pSQLID], GetName(playerid),item, quantity, invData[playerid][itemid][invID]);
+			// SendClientMessage(playerid, COLOR_PURPLE, "Neu SQLID hoac So Huu khong phai la cua ban vui long chup lai va gui cho Asher nhe!");
+			// SendClientMessage(playerid, COLOR_PURPLE, string);
 
-			cache_delete(x);
-	        return itemid;
+			// cache_delete(x);
+	        // return itemid;
 		}
 		return -1;
 	}
 	else {
-	    format(string, sizeof(string), "UPDATE `inventory` SET `invQuantity` = `invQuantity` + %d WHERE `invOwnerID` = '%d' AND `invID` = '%d'", quantity,PlayerInfo[playerid][pSQLID], invData[playerid][itemid][invID]);
-	    mysql_tquery(SQL, string);
-	    invData[playerid][itemid][invQuantity] += quantity;
-	    if(isInInven[playerid] != 0) {
-	    	if(type == 2) Inventory_Update(playerid, itemid-12, invData[playerid][itemid][invModel], invData[playerid][itemid][invQuantity], 1);
-	    	else if(type == 3) Inventory_Update(playerid, itemid-24, invData[playerid][itemid][invModel], invData[playerid][itemid][invQuantity], 1);
-	    	else Inventory_Update(playerid, itemid, invData[playerid][itemid][invModel], invData[playerid][itemid][invQuantity], 1);
-	    }
+		format(string, sizeof(string), "UPDATE `inventory` SET `invQuantity` = `invQuantity` + %d WHERE `invOwnerID` = '%d' AND `invID` = '%d'", quantity,PlayerInfo[playerid][pSQLID], invData[playerid][itemid][invID]);
+		mysql_tquery(SQL, string);
+		invData[playerid][itemid][invQuantity] += quantity;
+		mysql_tquery(SQL, query, "OnQuerySaveFood", "ii", playerid, itemid);// cái này có thể xoá cũng được
+		if(isInInven[playerid] != 0) {
+			if(type == 2) Inventory_Update(playerid, itemid-12, invData[playerid][itemid][invModel], invData[playerid][itemid][invQuantity], 1);
+			else if(type == 3) Inventory_Update(playerid, itemid-24, invData[playerid][itemid][invModel], invData[playerid][itemid][invQuantity], 1);
+			else Inventory_Update(playerid, itemid, invData[playerid][itemid][invModel], invData[playerid][itemid][invQuantity], 1);
+		}
 	}
 	return itemid;
 }
+function OnQuerySaveFood(playerid, itemid) {
+    invData[playerid][itemid][invID] = cache_insert_id();
 
+    new szQuery[128];
+    format(szQuery, sizeof(szQuery), "UPDATE `inventory` SET `invQuantity` = '%d' WHERE `invID` = '%d'", invData[playerid][itemid][invQuantity], invData[playerid][itemid][invID]);
+
+    mysql_tquery(SQL, szQuery, "SaveFood", "ii", playerid, itemid);
+}
+function SaveFood(playerid, itemid) {
+    new szQuery[500];
+
+    if(invData[playerid][itemid][invQuantity] >= 1) // Making sure the player actually has a burger so we won't save a empty row
+    {// Khi thay đổi số lượng hay bất cứ gì đó trong inventory ở database thì trong game không cập nhật dẫn đến nó sẽ không check được. Ví dụ em delete 10 cái burger trong inventory -> trong game không cập nhật -> vẫn còn 1 cái và nó sẽ không gọi hàm này mà nó sẽ gọi UPDATE. UPDATE giá trị rỗng -> mất burger
+        format(szQuery, sizeof(szQuery), "UPDATE `inventory` SET `invOwnerID` = '%d',`invOwnerName` = '%s', `invItem` = '%s', `invModel` = '%d', `invQuantity` = '%d', `invType` = '%d' WHERE `invID` = '%d'",
+		PlayerInfo[playerid][pSQLID], 
+		GetName(playerid),
+		invData[playerid][itemid][invItem],
+		invData[playerid][itemid][invModel], 
+		invData[playerid][itemid][invQuantity], 
+		invData[playerid][itemid][invExists],
+		invData[playerid][itemid][invID]);
+        mysql_query(SQL, szQuery, false);
+		// printf("%s (%i) saving food %i | SQL : %d | Name : %s | Item : %s | Model : %d | Quantity : %d | Type : %d | InvID : %d", 
+		// GetName(playerid), playerid, itemid, PlayerInfo[playerid][pSQLID],GetName(playerid),invData[playerid][itemid][invItem],
+		// invData[playerid][itemid][invModel], 
+		// invData[playerid][itemid][invQuantity], 
+		// invData[playerid][itemid][invExists],
+		// invData[playerid][itemid][invID] );
+    }
+	//else {if invQuantity < 1 -> INSERT INTO?}
+}
 Inventory_Remove(playerid, const item[], type, quantity = 1) {
 	new itemid = Inventory_GetItemID(playerid, item, 1), string[128];
 	if (itemid != -1) {
@@ -233,11 +265,7 @@ stock Inventory_Set(playerid, const item[], type, quantity) {
 }
 
 alias:openinventory("tuido")
-CMD:openinventory(playerid, params[]) {
-
-	inventoryTextDraws(playerid, false);
-	
-	
+CMD:openinventory(playerid, params[]) {	
 	inventoryTextDraws(playerid, true);
 	showPlayerInventory(playerid, 1);
 	return 1; 

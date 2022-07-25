@@ -384,7 +384,9 @@ public OnPlayerDisconnect(playerid, reason)
 	if(playerObject2[playerid] != 0) DestroyObject(playerObject2[playerid]), playerObject2[playerid] = 0;
 	
 	new string[180], query[400];
-	
+	for(new i = 0 ; i < sizeof(invTD[]); i++) {
+            PlayerTextDrawDestroy(playerid, invTD[playerid][i]);
+    }
 	DMV_DestroyMap(playerid);
 	if(lastVCarSpawn[playerid] != -1)
 	{

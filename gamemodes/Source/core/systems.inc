@@ -7330,7 +7330,7 @@ LoadPickups() {
 	Create3DTextLabel("Ice cream stand\nNhap {B30707}/icecream{FFFFFF} de an kem.",0xFFFFFFFF,-1952.21069, -2441.74463, 30.63670,20.0, 0, 1);
 	CreateDynamic3DTextLabel("Nha tho\n(/kethon)", -1, 940.7791,-1085.5411,24.2962,5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
 	CreateDynamicPickup(371, 23,-2231.2058,-1736.1578,480.8620,-1,-1,-1,100.0); // parachute
-	CreateDynamic3DTextLabel("Dia diem thue thuyen\n(/thuethuyen) de thue thuyen", -1, 581.3998, -1961.9004, 2.4865,5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
+	CreateDynamic3DTextLabel("Dia diem thue thuyen\n(/thuethuyen) de thue thuyen", -1, 581.3998, -1961.9004, 2.4865,10.0);
 	CreateDynamicPickup(1314, 23, 940.7791,-1085.5411,24.2962, -1);
 	CreateDynamic3DTextLabel("City Hall\n(/lyhon)", -1, 362.4495,173.6609,1008.3828,5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
 	CreateDynamicPickup(1314, 23, 362.4495,173.6609,1008.3828, -1);

@@ -488,8 +488,14 @@ LoadInventory(playerid) {
 		cache_get_value_name_int(i , "invModel", invData[playerid][i][invModel]);
 		//cache_get_value_name_int(i , "invQuantity", invData[playerid][i][invQuantity]);
 		cache_get_value_name_int(i , "invType", invData[playerid][i][invExists]);
-
+		if(invData[playerid][i][invQuantity] != 0){
+			new szQuery[128];
+			format(szQuery, sizeof(szQuery), "DELETE FROM `inventory` WHERE `invID` = '%d'", invData[playerid][i][invID]);
+			mysql_query(SQL, szQuery, false);
+			printf("Delete food slot %d for Player %s (%i)", invData[playerid][i][invID], GetNameEx(playerid), PlayerInfo[playerid][pSQLID]);
+		}
 	}
+	
     cache_delete(db);
 	return 1;
 }
