@@ -1,8 +1,8 @@
 enum pInfo {
-	// Float: pPosX,
-	// Float: pPosY,
-	// Float: pPosZ,
-	// Float: pFacingAngle,
+	Float: pPosX,
+	Float: pPosY,
+	Float: pPosZ,
+	Float: pFacingAngle,
 	pNewbieStep,
 	//pCrates,
 
@@ -31,7 +31,7 @@ enum pInfo {
 	pAge, 			pMuted,
 	pMuteTime, 		pExp,
 	pCash, 			pBanned,
-	pAccount,
+	pAccount,		pKC,
 	pModel,
 	pHouse, 		pBizz,
 	pCarLicS, 		pFlyLicS,

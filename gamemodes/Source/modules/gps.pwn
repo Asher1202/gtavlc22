@@ -3,7 +3,7 @@ CMD:locations(playerid, params[])
 	if(CP[playerid] != 0) return Dialog_Show(playerid, DIALOG_CHECKPOINT, DIALOG_STYLE_MSGBOX, "Checkpoint", "Mot cham do dang hoat dong.\nBan co muon xoa no khong? Neu muon, hay chon 'Ok'.", "Ok", "Exit");
 	if(Iter_Contains(PlayerInRace, playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong the su dung lenh nay trong truong dua xe!");
 
-	Dialog_Show(playerid, DIALOG_LOCATIONS, DIALOG_STYLE_LIST, "SERVER: Server Locations", "Driving School(DMV)\nLos Santos\nLas Venturas\nFaction HQS\nPaintball + Truong dua \nCua hang xe\nCity Hall", "Select", "Close");
+	Dialog_Show(playerid, DIALOG_LOCATIONS, DIALOG_STYLE_LIST, "SERVER: Server Locations", "Driving School(DMV)\nLos Santos\nLas Venturas\nFaction HQS\nPaintball + Truong dua \nCua hang xe\nCity Hall\nBida\nThue Xe\nShop Gun", "Select", "Close");
 	return 1;
 }
 Dialog:DIALOG_LOCATIONS(playerid, response, listitem, inputtext[]) 
@@ -54,6 +54,16 @@ Dialog:DIALOG_LOCATIONS(playerid, response, listitem, inputtext[])
 		// }
 		case 6: { // city hall
 			SetPlayerCheckpointEx(playerid, 1481.1591,-1794.6198,18.7957, 3.0);
+			CP[playerid] = 53;
+			SendClientMessage(playerid, COLOR_YELLOW, "Theo checkpoint de den dia diem do!");
+		}
+		case 7: { // bida
+			SetPlayerCheckpointEx(playerid, 1326.18,-1741.3,13.5469, 3.0);
+			CP[playerid] = 53;
+			SendClientMessage(playerid, COLOR_YELLOW, "Theo checkpoint de den dia diem do!");
+		}
+		case 8: { // Shop gun
+			SetPlayerCheckpointEx(playerid, 1367.99,-1279.75,13.5469, 3.0);
 			CP[playerid] = 53;
 			SendClientMessage(playerid, COLOR_YELLOW, "Theo checkpoint de den dia diem do!");
 		}

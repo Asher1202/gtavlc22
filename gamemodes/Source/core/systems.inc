@@ -7339,7 +7339,7 @@ LoadPickups() {
 	CreateDynamic3DTextLabel("Yard", COLOR_LIGHTBLUE, 1918.2250,-1619.8477,1770.74690,5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
 	CreateDynamicPickup(1318, 23, 1918.2250,-1619.8477,1770.74690, -1);
 	CreateDynamic3DTextLabel("{0066FF}Asher{FFFFFF} Nguoi Giao Nhiem Vu",0xFFFFFFFF,1804.9772, -1847.8226, 13.5739,20.0);
-	CreateDynamic3DTextLabel("{32a852} Dia diem spawn xe newbie{FFFFFF}\n[/spawnxe]",0xFFFFFFFF,1796.6306,-1846.5983,13.5781,20.0);
+	// CreateDynamic3DTextLabel("{32a852} Dia diem spawn xe newbie{FFFFFF}\n[/spawnxe]",0xFFFFFFFF,1796.6306,-1846.5983,13.5781,20.0);
 	CreateDynamic3DTextLabel("{0066FF}De kiem tra nhiem vu\n{FFFFFF}[bam 'Y'{FFFFFF}].",0xFFFFFFFF,1804.9772, -1847.8226, 13.0000,20.0);
 	CreateDynamic3DTextLabel("{34cceb}Khu vuc tai xiu\n{FFFFFF}[/taixiu].",0xFFFFFFFF,1116.1476,-1457.6807,13.8592,60.0);
 
@@ -10566,6 +10566,7 @@ Update(playerid, type) {
 			case pProgress5x: format(var, sizeof(var), "UPDATE users SET `Progress5`='%d' WHERE ID=%i",PlayerInfo[playerid][pProgress][4], PlayerInfo[playerid][pSQLID]);
 			case pDailyMission6x: format(var, sizeof(var), "UPDATE users SET `DailyMission6`='%d' WHERE ID=%i",PlayerInfo[playerid][pDailyMission][5], PlayerInfo[playerid][pSQLID]);
 			case pProgress6x: format(var, sizeof(var), "UPDATE users SET `Progress6`='%d' WHERE ID=%i",PlayerInfo[playerid][pProgress][5], PlayerInfo[playerid][pSQLID]);
+			case pKCx: format(var, sizeof(var), "UPDATE users SET `KC`='%d' WHERE ID=%i",PlayerInfo[playerid][pKC], PlayerInfo[playerid][pSQLID]);
 
 			default: return SendClientMessage(playerid, -1, sprintf("Loi: %d, F8 cai nay lai va bao cho Admin cap cao.", type)), printf("[002] Update(playerid, %d)",type);
 		}

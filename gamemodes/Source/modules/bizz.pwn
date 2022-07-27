@@ -8,7 +8,9 @@ EnterBizz(playerid, i) {
         case 3: SendClientMessage(playerid, COLOR_WHITE, "Cac lenh co san: /drink.");
         case 6: {
             SendClientMessage(playerid, -1, "Chao mung den voi cua hang! Hay den truoc NPC va an Y de mua hang.");
-            if(FishPrice[playerid] != 0) Dialog_Show(playerid, DIALOG_FISH, DIALOG_STYLE_MSGBOX, "Ban ca:", "Ban co muon' ban' con ca' ma minh vua cau cho cua hang?", "Yes", "No");
+            // if(FishPrice[playerid] != 0) Dialog_Show(playerid, DIALOG_FISH, DIALOG_STYLE_MSGBOX, "Ban ca:", "Ban co muon' ban' con ca' ma minh vua cau cho cua hang?", "Yes", "No");
+            if(ThuySan[playerid] != 0) Dialog_Show(playerid, DIALOG_THUYSAN, DIALOG_STYLE_MSGBOX, "BAN THUY SAN:", "Ban co muon ban thuy san cua ban tai cua hang nay khong?", "Co", "Khong");
+
         }
         case 1:{
             SendClientMessage(playerid, COLOR_WHITE, "Cac lenh co san: /ruttien, /chuyentien, /guitien.");

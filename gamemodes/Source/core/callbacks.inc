@@ -393,10 +393,10 @@ public OnPlayerDisconnect(playerid, reason)
 		DestroyVehicle(lastVCarSpawn[playerid]);
 		Carspawn[lastVCarSpawn[playerid]] = 0;
 	}
-	// new Float:X,Float:Y,Float:Z;
+	// new Float:X,Float:Y,Float:Z, Float:R;
+	// GetPlayerFacingAngle(playerid, R);
 	// GetPlayerPos(playerid,X,Y,Z);
-	// mysql_format(SQL, query, sizeof(query), "UPDATE `users` SET `FacingAngle` = '%f',`Inter`='%d',`Local`='%d',`PosX`='%f',`PosY`='%f',`PosZ`='%f'", PlayerInfo[playerid][pFacingAngle], PlayerInfo[playerid][pInt], PlayerInfo[playerid][pLocal], X, Y, Z);
-	// mysql_query(SQL, query, false);	
+	// mysql_format(SQL, query, sizeof(query), "UPDATE `users` SET `FacingAngle` = '%f',`Inter`='%d',`Local`='%d',`PosX`='%f',`PosY`='%f',`PosZ`='%f' WHERE `id` = '%d'", R, GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid) , X, Y, Z, PlayerInfo[playerid][pSQLID]);
 	if(TradeID[playerid] != -1) {
 		new id = TradeID[playerid];
 		format(string, 66, "* %s da roi game. Giao dich da bi huy bo!", GetName(playerid));
@@ -668,10 +668,12 @@ public OnPlayerDisconnect(playerid, reason)
 		case 0: {
 			if(PaintType[playerid] == 0 && !Iter_Contains(PlayerInRace, playerid) && InEvent[playerid] == 0 && GetPlayerInterior(playerid) == 0) {
 				format(string, sizeof(string), "%s da roi game (Crash).",GetNameEx(playerid));
-				// new Float: Pos[3];
-				// GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
-				// format(query, sizeof(query), "UPDATE `users` SET `PosX`='%f', `PosY`='%f', `PosZ`='%f' WHERE `ID`='%d'", Pos[0], Pos[1], Pos[2], PlayerInfo[playerid][pSQLID]);
-				// mysql_query(SQL, query);
+				// // new Float:X,Float:Y,Float:Z, Float:R;
+				// GetPlayerFacingAngle(playerid, R);
+				// SavePlayerPosData(playerid, X,Y,Z,R);
+				// GetPlayerPos(playerid,X,Y,Z);
+				// mysql_format(SQL, query, sizeof(query), "UPDATE `users` SET `FacingAngle` = '%f',`Inter`='%d',`Local`='%d',`PosX`='%f',`PosY`='%f',`PosZ`='%f' WHERE `id` = '%d'", R, GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid) , X, Y, Z, PlayerInfo[playerid][pSQLID]);
+				// mysql_query(SQL, query);	
 				// UpdateVar(playerid, "Crash", 1);
 				ProxDetector(20.0, playerid, string, COLOR_CLIENT,COLOR_CLIENT,COLOR_CLIENT,COLOR_CLIENT,COLOR_CLIENT);
 			}	
@@ -679,6 +681,12 @@ public OnPlayerDisconnect(playerid, reason)
 		case 1: {
 			format(string, sizeof(string), "%s da roi game (Quit).",GetNameEx(playerid));
 			ProxDetector(20.0, playerid, string, COLOR_CLIENT,COLOR_CLIENT,COLOR_CLIENT,COLOR_CLIENT,COLOR_CLIENT);
+			// // new Float:X,Float:Y,Float:Z, Float:R;
+			// GetPlayerFacingAngle(playerid, R);
+			// SavePlayerPosData(playerid, X,Y,Z,R);
+			// GetPlayerPos(playerid,X,Y,Z);
+			// mysql_format(SQL, query, sizeof(query), "UPDATE `users` SET `FacingAngle` = '%f',`Inter`='%d',`Local`='%d',`PosX`='%f',`PosY`='%f',`PosZ`='%f' WHERE `id` = '%d'", R, GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid) , X, Y, Z, PlayerInfo[playerid][pSQLID]);
+			// mysql_query(SQL, query);	
 		}	 
 		case 2: {
 			format(string, sizeof(string), "%s da roi game (Kicked/Banned).",GetNameEx(playerid));
@@ -692,10 +700,21 @@ public OnPlayerDisconnect(playerid, reason)
 	gettime(h,mi);
 	format(query, sizeof(query), "UPDATE users SET `lastOn`='%02d.%02d.%d %02d:%02d' WHERE `ID`='%d'",d,m,y,h,mi, PlayerInfo[playerid][pSQLID]);
 	mysql_pquery(SQL, query);
-
+	// GetPlayerFacingAngle(playerid, R);
+	// SavePlayerPosData(playerid, X,Y,Z,R);
+	// GetPlayerPos(playerid,X,Y,Z);
+	// mysql_format(SQL, query, sizeof(query), "UPDATE `users` SET `FacingAngle` = '%f',`Inter`='%d',`Local`='%d',`PosX`='%f',`PosY`='%f',`PosZ`='%f' WHERE `id` = '%d'", R, GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid) , X, Y, Z, PlayerInfo[playerid][pSQLID]);
+	// mysql_query(SQL, query);	
 	stop TimerAtuPlayer[playerid];
 	stop login[playerid];
 	defer resetAntiCheatStatus(playerid);
+	for (new i = 0; i < MAX_INVENTORY; i ++) {
+	    invData[playerid][i][invExists] = false;
+	    invData[playerid][i][invModel] = 0;
+	    invData[playerid][i][invQuantity] = 0;
+		invData[playerid][i][invAttachSlot] = 0;
+	    invData[playerid][i][invAttached] = 0;
+	}
 
 	CallLocalFunction("ResetVariables", "i", playerid);
     return 1;
@@ -1606,7 +1625,6 @@ public OnPlayerDeathEx(playerid, killerid, reason) {
 	Update3DTextLabelText(deathLabel[playerid], COLOR_LIGHTRED, "[dead]");
 	Attach3DTextLabelToPlayer(deathLabel[playerid], playerid, 0.0, 0.0, 0.3);
 	if(InRob[playerid] == 1) FailRob(playerid, "Ban da chet");
-	
 	SetPlayerWorldBounds(playerid, 20000.0000, -20000.0000, 20000.0000, -20000.0000);
 	//if(GetPVarInt(playerid, "IsOnFire")) TogglePlayerBurning(playerid, false);
 
@@ -1634,13 +1652,14 @@ public OnPlayerDeathEx(playerid, killerid, reason) {
 		foreach(new i: Player) {
 			if(OnDuty[i] == 1 && IsACop(i) && CrimInRange(75.0, playerid,i)) {
 				count = 1;
+				// SavePlayerPosData(playerid, 264.5794, 82.0395, 1001.2639);
 				format(string, sizeof(string), "phan thuong anh hung!");
 				GameTextForPlayer(i, string, 3000, 1);
 				ConsumingMoney[i] = 1;
 				GivePlayerCash(i, PlayerInfo[playerid][pWantedLevel] * 2000);
 				Update(i, pCashx);
 				UpdateFactionRaport(i, 0);			
-
+				SpawnPlayer(playerid);
 				format(string, sizeof(string), "Ban nhan duoc $%d tien thuong vi da bat duoc %s.", PlayerInfo[playerid][pWantedLevel] * 2000, GetName(playerid));
 				SendClientMessage(i, COLOR_DBLUE, string);
 				format(names, 256, "%s %s", names, GetName(i));
@@ -3915,9 +3934,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					Dialog_Show(playerid, DIALOG_BUYGUN, DIALOG_STYLE_LIST, "Shop vu khi", "Deagle ($500,000)\nM4 ($1,400,000)\nAK47 ($1,000,000)\nMicro SMG ($700,000)\nShotgun ($400,000)\nBaseball Bat ($50,000)", "Buy", "Exit"); 
 					return 1;
 				}		
-				if(BizzInfo[playerid][bType] == 6) {
-							if(ThuySan[playerid] != 0) Dialog_Show(playerid, DIALOG_THUYSAN, DIALOG_STYLE_MSGBOX, "BAN THUY SAN:", "Ban co muon ban thuy san cua ban tai cua hang nay khong?", "Co", "Khong");
-				}	
+
 				if(BizzInfo[InBussines[playerid]][bType] == 6)
 				{
 					if(IsPlayerInRangeOfPoint(playerid,4.0,-27.5654,-89.9433,1003.5469) || IsPlayerInRangeOfPoint(playerid,4.0,-28.8578,-185.1236,1003.5469))
@@ -4570,7 +4587,7 @@ public OnPlayerStreamIn(playerid, forplayerid) {
 	if(!IsPCPlayer(playerid)) {
 		ShowPlayerNameTagForPlayer(playerid, forplayerid, 1);
 	}
-	if(IsPCPlayer(playerid)) ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
+	if(IsPCPlayer(playerid)) ShowPlayerNameTagForPlayer(playerid, forplayerid, 0);
 	SetHitStreamIn(playerid, forplayerid);
 
 	return 1;

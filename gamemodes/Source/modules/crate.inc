@@ -343,15 +343,15 @@ function ShowMoGuongTD(playerid) {
 	new gString[128];
 	format(gString, sizeof(gString), "~g~~h~RANDOM SKIN~N~So Huu : %d", PlayerInfo[playerid][pCrates][0]);
 	PlayerTextDrawSetString(playerid, MoGuong[playerid][20], gString);
-	format(gString, sizeof(gString), "~g~~h~CAR SILVER BOX~N~So Huu : %d", PlayerInfo[playerid][pCrates][1]);
+	format(gString, sizeof(gString), "~g~~h~RANDOM~N~So Huu : %d", PlayerInfo[playerid][pCrates][1]);
 	PlayerTextDrawSetString(playerid, MoGuong[playerid][21], gString);
-	format(gString, sizeof(gString), "~g~~h~CAR GOLD BOX~N~So Huu : %d", PlayerInfo[playerid][pCrates][2]);
+	format(gString, sizeof(gString), "~g~~h~RANDOM CAR RARE~N~So Huu : %d", PlayerInfo[playerid][pCrates][2]);
 	PlayerTextDrawSetString(playerid, MoGuong[playerid][22], gString);
-	format(gString, sizeof(gString), "~g~~h~TICKET THAN BI~N~So Huu : %d", PlayerInfo[playerid][pCrates][3]);
+	format(gString, sizeof(gString), "~g~~h~RANDOM CAR EPIC~N~So Huu : %d", PlayerInfo[playerid][pCrates][3]);
 	PlayerTextDrawSetString(playerid, MoGuong[playerid][23], gString);
-	format(gString, sizeof(gString), "~g~~h~VOUCHER~N~So Huu : %d", PlayerInfo[playerid][pCrates][4]);
+	format(gString, sizeof(gString), "~g~~h~RANDOM CAR LEGEND : %d", PlayerInfo[playerid][pCrates][4]);
 	PlayerTextDrawSetString(playerid, MoGuong[playerid][24], gString);
-    format(gString, sizeof(gString), "~g~~h~SKIN HUYEN THOAI~N~So Huu : %d", PlayerInfo[playerid][pCrates][5]);
+    format(gString, sizeof(gString), "~g~~h~RANDOM CAR MYTHICAL~N~So Huu : %d", PlayerInfo[playerid][pCrates][5]);
     PlayerTextDrawSetString(playerid, MoGuong[playerid][32], gString);
     format(gString, sizeof(gString), "~g~~h~CAR CAO CAP~N~So Huu : %d", PlayerInfo[playerid][pCrates][6]);
     PlayerTextDrawSetString(playerid, MoGuong[playerid][31], gString);
@@ -439,55 +439,33 @@ function startcrates(playerid) {
 stock LoadSkins(crates, & skin) {
     switch (crates) {
         case 0:{
-            new rand = random(132);//skin hiem va sieu hiem
+            new rand = random(82);//skin hiem va sieu hiem
             switch (rand) {
                 case 0..10:
-                    skin = 170;
+                    skin = 0;
                 case 11..20:
-                    skin = 188;
+                    skin = 83;
                 case 21..30:
-                    skin = 249;
+                    skin = 124;
                 case 31..40:
-                    skin = 159;
-                case 41..50:
-                    skin = 260;
-                case 51..60:
-                    skin = 248;
-                case 61..70:
-                    skin = 264;
-                case 71..80:
-                    skin = 185;
-                case 81..90:
-                    skin = 289;
-                case 91..100:
                     skin = 249;
-                case 101..110:
-                    skin = 14;
-                case 111..120:
-                    skin = 32;
-                case 121..130:
-                    skin = 56;
-                case 131..132:
-                skin = 111;
+                case 41..50:
+                    skin = 247;
+                case 51..60:
+                    skin = 287;
+                case 61..80:
+                    skin = 285;
+                case 81..82:
+                    skin = 294;
             }
         }
         case 1:{
-            new rand = random(6);
+            new rand = random(1);
             switch (rand) {
                 case 0:
-                    skin = 0;
+                    skin = 167;
                 case 1:
-                    skin = 164;
-                case 2:
-                    skin = 242;
-                case 3:
-                    skin = 241;
-                case 4:
-                    skin = 212;
-                case 5:
-                    skin = 83;
-                case 6:
-                    skin = 111;
+                    skin = 230;
             }
         }
         case 2:{

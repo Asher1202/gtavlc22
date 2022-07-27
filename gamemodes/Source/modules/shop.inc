@@ -1,5 +1,6 @@
 enum SHOP_TRANSCATION_UNIT {
 	TYPE_PREMIUM_POINTS,
+	TYPE_KC,
 	TYPE_MONEY
 }
 enum e_SHOP_INFO {
@@ -27,6 +28,14 @@ new const NormalShopInfo[][e_SHOP_INFO] = {
 	// {"Bonus +50% Job (1 gio)", 	70, 	TYPE_PREMIUM_POINTS},
 	// {"Bonus +100% Job (1 gio)", 	135, 	TYPE_PREMIUM_POINTS}
 };
+new const KimCuongShop[][e_SHOP_INFO] = {
+	{"Crate Random", 				30, 	TYPE_KC},
+	{"Crate Skin", 				45, 	TYPE_KC},
+	{"Crate Car Rare", 					60, 	TYPE_KC},
+	{"Crate Car Epic", 					125, 	TYPE_KC},
+	{"Crate Car Legend", 		250, 	TYPE_KC},
+	{"Crate Car Mythical", 				500, 	TYPE_KC}
+};
 
 CMD:shop(playerid, params[]) {
 	if(strlen(PlayerInfo[playerid][pPin]) != 0 && PlayerInfo[playerid][pPinLogged] == 0) {
@@ -39,7 +48,7 @@ CMD:shop(playerid, params[]) {
 		"Shop Type\tItem\n\
 		{FFEA3B}[+] Shop Info{FFFFFF}\n\
 		Normal Shop\t16 items\n\
-		Vip Cars\t0 items\n\
+		Crate\t6 items\n\
 		Extra Packs\t0 items", "Select", "Cancel"
 	);
 	return 1;
@@ -49,6 +58,9 @@ Dialog:DIALOG_SHOPMENU(playerid, response, listitem, inputtext[]) {
 	switch(listitem) {
 		case 1: {
 			ShowNormalShop(playerid);
+		}
+		case 2: {
+			ShowKCShop(playerid);
 		}
 		default: {
 			Dialog_Show(playerid, DIALOG_SHOPBACK, DIALOG_STYLE_MSGBOX, "GTAVLC System", "Dang cap nhat...", "Dong", "");
@@ -133,6 +145,48 @@ ShowNormalShop(playerid) {
 	Dialog_Show(playerid, DIALOG_SHOP, DIALOG_STYLE_TABLIST_HEADERS, title, szDialog, "Select", "Close");
 	return 1;
 }
+ShowKCShop(playerid) {
+	new
+		kc = PlayerInfo[playerid][pKC],
+		string[80], szDialog[2500];
+
+	strcat(szDialog, "Num\tInfo\n{FFE100}(!) HUONG DAN NAP TIEN (MOMO/CHUYEN KHOAN){FFFFFF}\n");
+	
+	for(new i; i < sizeof(KimCuongShop); i++) {
+		if(KimCuongShop[i][SHOP_ITEM_UNIT] == TYPE_PREMIUM_POINTS) {
+			format(string, sizeof(string), "%s - %s%s "#DIEMCAOCAP"\n", KimCuongShop[i][SHOP_ITEM_NAME], kc >= 45 ? "{1ECC14}" : "{FF0000}", FormatNumber(KimCuongShop[i][SHOP_ITEM_PRICE]));
+			strcat(szDialog, string);	
+		}
+		else if(KimCuongShop[i][SHOP_ITEM_UNIT] == TYPE_MONEY) {
+			format(string, sizeof(string), "%s\n", KimCuongShop[i][SHOP_ITEM_NAME]);
+			strcat(szDialog, string);
+		}
+	}
+	if(kc >= 30) format(string, sizeof(string), "Crate Random - {1ECC14}30 "#DIEMCAOCAP"\n");
+	else format(string, sizeof(string), "Crate Random - {FF0000}30 "#DIEMCAOCAP"\n");
+	strcat(szDialog, string);	
+	if(kc >= 45) format(string, sizeof(string), "Crate Skin - {1ECC14}45 "#DIEMCAOCAP"\n");
+	else format(string, sizeof(string), "Noi that trong nha - {FF0000}45 "#DIEMCAOCAP"\n");
+	strcat(szDialog, string);	
+	if(kc >= 60) format(string, sizeof(string), "Crate Car Rare - {1ECC14}60 xu\n");
+	else format(string, sizeof(string), "Crate Car Rare - {FF0000}60 xu\n");
+	strcat(szDialog, string);
+	if(kc >= 125) format(string, sizeof(string), "Crate Car Epic - {1ECC14}125 "#DIEMCAOCAP"\n");
+	else format(string, sizeof(string), "Crate Car Epic - {FF0000}125 "#DIEMCAOCAP"\n");
+	strcat(szDialog, string);
+	if(kc >= 250) format(string, sizeof(string), "Crate Car Legend - {1ECC14}250 "#DIEMCAOCAP"\n");
+	else format(string, sizeof(string), "Crate Car Legend - {FF0000}250 "#DIEMCAOCAP"\n");
+	strcat(szDialog, string);	
+	if(kc >= 500) format(string, sizeof(string), "Crate Car Mythical - {1ECC14}500 "#DIEMCAOCAP"\n");
+	else format(string, sizeof(string), "Crate Car Mythical - {FF0000}500 "#DIEMCAOCAP"\n");
+	strcat(szDialog, string);	
+	
+	new title[50];
+	format(title, 50, "Shop: [Ban co %d kim cuong]", kc);
+	Dialog_Show(playerid, DIALOG_SHOP, DIALOG_STYLE_TABLIST_HEADERS, title, szDialog, "Select", "Close");
+	return 1;
+}
+
 Dialog:DIALOG_SHOPBACK(playerid, response, listitem, inputtext[]) {
 	if(!response) return callcmd::shop(playerid, "");
 
@@ -522,6 +576,87 @@ Dialog:DIALOG_SHOP1(playerid, response, listitem, inputtext[])
 		// }	
 	}
 	Update(playerid, pPremiumPointsx);
+	return 1;
+}
+Dialog:DIALOG_SHOPKC(playerid, response, listitem, inputtext[]) 
+{
+	new szDialog[1100];
+	if(!response) { InShop[playerid] = 0; return 1; }
+	listitem --;
+	switch(listitem) {
+		case -1: {		
+			strcat(szDialog, "Voi card dien thoai, ban chi nhan duoc 60-70% so tien, vi vay chung toi khuyen khich ban nen nap Momo/Chuyen khoan\nDe nap tien, hay gui tin nhan cho facebook cua Thanh Toan de duoc tu van: http://bit.do/NapTheGTAVLC.\n");
+		}
+		case 0: {
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Random\nDe mua no, ban can phai tra 30 "#DIEMCAOCAP".\n\n\
+			Vat pham\n- 400.000 - 500.000 sad\n- 5 - 7 RP\n- 15 - 20 xu\n-5.000 - 10.999 mats\n- Skin 167 (35%)\n- Skin 230 (35%)\n-Xe Freeway (15%)\n- Xe Elegy (1%)");
+			SetPVarInt(playerid, "KC", 30);
+		}
+		case 1: {
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Skin\nDe mua no, ban can phai tra 45 "#DIEMCAOCAP".\n\n\
+			Vat pham\n- 2.000.000 sad\n- 60 xu\n-Skin 0 (< 10%)\n- Skin 83\n- Skin 124\n- Skin 249\n- Skin 247\n- Skin 287 (< 10%)\n- Skin 285 (20%)\n- Skin 294 (1%)\n- 300 xu (2%)\n- 200 kim cuong (1%)");
+			SetPVarInt(playerid, "KC", 45);
+		}			
+		case 2: {
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Car Rare\nDe mua no, ban can phai tra 60 "#DIEMCAOCAP".\n\n\
+			Vat pham\n- 5.000.000 sad\n- 120 xu\n- PCJ-600\n- Uranus\n- Sanchez\n- ZE-350\n- Sandking\n- Super GT\n- Huntley (ít)\n- Jester (cuc ít)\n- Elegy (cuc ít)\n- Sultan (1%)");
+			SetPVarInt(playerid, "KC", 60);
+		}			
+		case 3: {
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Car Epic\nDe mua no, ban can phai tra 125 "#DIEMCAOCAP".\n\n\
+			Vat pham\n- 15.000.000 sad\n- 200 xu\n- 50.000 mats\n- Uranus\n- Elegy\n- PCJ-600\n- Jester\n- Buffalo\n- Euros\n- Banshee (cuc ít)\n- Cheetah (cuc ít)\n- Sultan (cuc it)");
+			SetPVarInt(playerid, "KC", 125);
+		}			
+		case 4: {
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Car Legend\nDe mua no, ban can phai tra 250 "#DIEMCAOCAP".\n\n\
+			Vat pham\n- 50.000.000 sad\n- 450 xu\n- 120.000 mats\n- FCR-900\n- Banshee\n- Rancher\n- Cheetah\n- Sultan\n- Turismo (ít)\n- Bullet  (cuc ít)\n- 1.000 xu (1%)\n- Infernus (1%)\n- NRG-500 (1%");
+			SetPVarInt(playerid, "KC", 250);
+		}					
+		case 5: {
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Car Mythical\nDe mua no, ban can phai tra 500 "#DIEMCAOCAP".\n\n\
+			Vat pham\n- 100.000.000 sad\n- 650 xu\n- 300.000 mats\n- FCR-900\n- Sultan\n- Turismo\n- Bullet\n- NRG-500(it)\n- Infernus (ít)\n- Maverick  (cuc ít)\n- Hotring Racer A (Cuc it)\n- Monster B (cuc it)\n- 1.099 xu  (2%");
+			SetPVarInt(playerid, "KC", 500);
+		}					
+	}
+	SelectedItem[playerid] = listitem;
+	Dialog_Show(playerid, DIALOG_SHOPKC1, DIALOG_STYLE_MSGBOX, "Shop:", szDialog, "Ok", "Back");
+	return 1;
+}
+Dialog:DIALOG_SHOPKC1(playerid, response, listitem, inputtext[]) 
+{
+	if(!response) { InShop[playerid] = 0; ShowKCShop(playerid); return 1; }
+	new gold = GetPVarInt(playerid, "KC"), string[200];
+	if(PlayerInfo[playerid][pKC] < gold && SelectedItem[playerid] != 4) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Shop", "Ban khong co du "#DIEMCAOCAP" de mua san pham nay.", "Ok", "");
+	switch(SelectedItem[playerid]) {
+		case 0: {
+			PlayerInfo[playerid][pCrates][0] += 1;
+			format(string, sizeof(string), "%s Ban da mua mot Crate Random Skin "#DIEMCAOCAP".", GetName(playerid));
+		}
+		case 1: {
+			PlayerInfo[playerid][pCrates][1] += 1;
+			format(string, sizeof(string), "%s Ban da mua mot Crate Random "#DIEMCAOCAP".", GetName(playerid));
+		}	
+		// case 2: {
+		// 	Dialog_Show(playerid, DIALOG_SHOPCAR, DIALOG_STYLE_LIST, "Mua xe (500 xu/xe)", "Cheetah\nTurismo\nBuffalo\nSultan\nElegy\nFCR-900", "Mua ngay", "Khong mua");
+		// }
+		case 2: {
+			PlayerInfo[playerid][pCrates][2] += 1;
+			format(string, sizeof(string), "%s Ban da mua mot Crate Car Rare "#DIEMCAOCAP".", GetName(playerid));	
+		}
+		case 3: {
+			PlayerInfo[playerid][pCrates][3] += 1;
+			format(string, sizeof(string), "%s Ban da mua mot Crate Car Epic "#DIEMCAOCAP".", GetName(playerid));
+		}
+		case 4: {
+			PlayerInfo[playerid][pCrates][4] += 1;
+			format(string, sizeof(string), "%s Ban da mua mot Crate Car Legend "#DIEMCAOCAP".", GetName(playerid));
+		}
+		case 5: {
+			PlayerInfo[playerid][pCrates][5] += 1;
+			format(string, sizeof(string), "%s Ban da mua mot Crate Car Mythical "#DIEMCAOCAP".", GetName(playerid));
+		}
+	}
+	Update(playerid, pKCx);
 	return 1;
 }
 Dialog:DIALOG_SHOPCAR(playerid, response, listitem, inputtext[]) 

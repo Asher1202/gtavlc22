@@ -3152,12 +3152,12 @@ CMD:accept(playerid, params[]) {
 
 		if(IsAMember(playerid)) {
 			Iter_Add(PlayerGangster, playerid);
-			/*if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0) 
+			if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0) 
 			{
 				SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
 				UsingSampcac{playerid} = 1;
 			}
-			else SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");*/
+			else SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");
 		}
 	}
 	else if(strcmp(x_job,"cinvite",true) == 0) {
@@ -3572,7 +3572,7 @@ CMD:balance(playerid, params[]) {
 	SendClientMessage(playerid, COLOR_WHITE, string);
 	return 1;
 }
-/*CMD:kiemtrasampcac(playerid, params[]) {
+CMD:kiemtrasampcac(playerid, params[]) {
 	if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0) 
 	{
 	 	SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
@@ -3580,7 +3580,7 @@ CMD:balance(playerid, params[]) {
 	}
 	else SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");
 	return 1;
-}*/
+}
 CMD:transfer(playerid, params[]) {
 	if(strlen(PlayerInfo[playerid][pPin]) != 0 && PlayerInfo[playerid][pPinLogged] == 0) {
 		 SendClientMessage(playerid, COLOR_GREY, "Ban khong the su dung lenh nay vi ban chua dang nhap PIN.");
@@ -4654,7 +4654,6 @@ CMD:arrest(playerid, params[])  {
 		Update(id,pJailTimex);
 		Update(playerid,pCashx);
 		Update(id,pCashx);
-		
 		PutPlayerInJail(id);
 		if(PlayerCuffed2[id] == 1) {
 			PlayerCuffed2[id] = 0;
@@ -7746,15 +7745,15 @@ CMD:reloadstuffs(playerid, params[]) {
 	return 1;
 }
 
-CMD:spawnxe(playerid, params[]) {	
-	if(!IsPlayerInRangeOfPoint(playerid, 5.0, 1796.6306,-1846.5983,13.5781)) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o dia diem spawn xe.");
-	if(GetPVarInt(playerid, "SpawnXe") != 0) return SendClientMessage(playerid, COLOR_GREY, "Ban da spawn mot chiec xe roi.");
-	new carid = CreateVehicleEx(510, 1796.6306,-1846.5983,13.5781, 0.0,  126, 1, 300);
-	XeNewbie[carid] = carid;
-	PutPlayerInVehicleEx(playerid, XeNewbie[carid], 0);
-	SetPVarInt(playerid, "SpawnXe", carid);
-	return 1;
-}
+// CMD:spawnxe(playerid, params[]) {	
+// 	if(!IsPlayerInRangeOfPoint(playerid, 5.0, 1796.6306,-1846.5983,13.5781)) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o dia diem spawn xe.");
+// 	if(GetPVarInt(playerid, "SpawnXe") != 0) return SendClientMessage(playerid, COLOR_GREY, "Ban da spawn mot chiec xe roi.");
+// 	new carid = CreateVehicleEx(510, 1796.6306,-1846.5983,13.5781, 0.0,  126, 1, 300);
+// 	XeNewbie[carid] = carid;
+// 	PutPlayerInVehicleEx(playerid, XeNewbie[carid], 0);
+// 	SetPVarInt(playerid, "SpawnXe", carid);
+// 	return 1;
+// }
 
 // Commands
 CMD:gotoap(playerid, params[]) {

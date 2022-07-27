@@ -1132,10 +1132,10 @@ SetTodayJob(jobid = 0){
 		TodayJob = jobid;
 	}
     new string[100];
-    // format(string, sizeof(string), "[BONUS JOB] Xin chao, cong viec cua ngay hom nay se la %s.", JobInfo[jobid][jName]);
-    // SendClientMessageTA(COLOR_GOLD, string);
-    // format(string, sizeof(string), "[BONUS JOB] Khi lam cong viec nay, ban se nhan them %d phan tram tien luong.", JobInfo[jobid][jBonus]);
-    // SendClientMessageTA(COLOR_GOLD, string);
+    format(string, sizeof(string), "[BONUS JOB] Xin chao, cong viec cua ngay hom nay se la %s.", JobInfo[jobid][jName]);
+    SCMTA(COLOR_GOLD, string);
+    format(string, sizeof(string), "[BONUS JOB] Khi lam cong viec nay, ban se nhan them %d phan tram tien luong.", JobInfo[jobid][jBonus]);
+    SCMTA(COLOR_GOLD, string);
     format(string, sizeof(string), "UPDATE `stuff` SET `TodayJob` = '%d'", jobid);
     mysql_query(SQL, string, false);	
 }
@@ -1150,26 +1150,32 @@ CMD:thaluoi(playerid, params[])
 	if(ThuySan[playerid] != 0) return SendClientMessage(playerid, -1, "Ban da cau thuy san roi hay den 24/7 de ban no.");
 	if(StartFish[playerid] == 1) return 1;
 	new car = GetClosestVehicle(playerid);
-	if(DaThueThuyen[playerid] != 0 || LamViecChung[playerid] == 1)
+	if(DiaDiemCauCaO(playerid)) 
 	{
-		if(IsPlayerNearVehicle(playerid, car, 30) && IsANguDanZ(car))
+		if(DaThueThuyen[playerid] != 0 || LamViecChung[playerid] == 1)
 		{
-			// biencauca[playerid] =1;
-			// CauCaBar[playerid] = CreatePlayerProgressBar(playerid,246.00, 376.00, 178.50, 3.20, 0x00FFFFFF, 500.0);
-			// SetPlayerProgressBarMaxValue(playerid, CauCaBar[playerid], 500.0);
-			//ShowPlayerProgressBar(playerid,CauCaBar[playerid]);
-			// SetPlayerProgressBarValue(playerid,CauCaBar[playerid], 10);
-			// ShowPlayerProgressBar(playerid, CauCaBar[playerid]);
-			// ChauTimer[playerid] = SetTimerEx("CauCaOBien", 100, true, "i", playerid);
-			TogglePlayerControllable(playerid, 0);
-			OnePlayAnim(playerid,"RIOT","RIOT_CHANT",4.0,1,1,1,1,0);
-			ShowProgressBar(playerid, "Dang Tha Luoi", PROGRESS_THALUOI, RandomMinMax(10000, 150000), 0xfcba03FF);
-			StartFish[playerid] = 1;
-			return 1;
+			if(IsPlayerNearVehicle(playerid, car, 30) && IsANguDanZ(car))
+			{
+				// biencauca[playerid] =1;
+				
+				// CauCaBar[playerid] = CreatePlayerProgressBar(playerid,246.00, 376.00, 178.50, 3.20, 0x00FFFFFF, 500.0);
+				// SetPlayerProgressBarMaxValue(playerid, CauCaBar[playerid], 500.0);
+				//ShowPlayerProgressBar(playerid,CauCaBar[playerid]);
+				// SetPlayerProgressBarValue(playerid,CauCaBar[playerid], 10);
+				// ShowPlayerProgressBar(playerid, CauCaBar[playerid]);
+				// else return PlayerInfo[playerid][pCP] = 1, SendClientMessage(playerid, -1,""RED"[ERROR]: "WHITE"Ban khong o noi ban co the bat dau cong viec. Hay den "RED"checkpoint"WHITE" tren ban do."), SetPlayerCheckpoint(playerid, -1080.3639,-1195.3372,129.6956, 5.0);
+				// ChauTimer[playerid] = SetTimerEx("CauCaOBien", 100, true, "i", playerid);
+				TogglePlayerControllable(playerid, 0);
+				OnePlayAnim(playerid,"RIOT","RIOT_CHANT",4.0,1,1,1,1,0);
+				ShowProgressBar(playerid, "Dang Tha Luoi", PROGRESS_THALUOI, RandomMinMax(10000, 150000), 0xfcba03FF);
+				StartFish[playerid] = 1;
+				return 1;
+			}
+			else return SendClientMessage(playerid, -1, "Ban khong o tren mot chiec thuyen danh ca {FF0000}Reefer{FFFFFF}");	
 		}
-		else return SendClientMessage(playerid, -1, "Ban khong o tren mot chiec thuyen danh ca {FF0000}Reefer{FFFFFF}");	
+		else return SendClientMessage(playerid, -1, "Ban can co mot chiec thuyen ca nhan hoac co mot chu thuyen {FF0000}/lamviecchung{FFFFFF} moi co the tha luoi");
 	}
-	else return SendClientMessage(playerid, -1, "Ban can co mot chiec thuyen ca nhan hoac co mot chu thuyen {FF0000}/lamviecchung{FFFFFF} moi co the tha luoi");
+	else return CP[playerid] = 1, SendClientMessage(playerid, -1,""RED"[ERROR]: "WHITE"Ban khong o noi ban co the bat dau cong viec. Hay den "RED"checkpoint"WHITE" tren ban do."), SetPlayerCheckpointEx(playerid, 472.8250,-2710.4888,0.1202, 50.0);
 }
 
 CMD:thuethuyen(playerid, params[])
@@ -1195,7 +1201,7 @@ CMD:thuethuyen(playerid, params[])
 }
 CMD:huythuyen(playerid, params[])
  {
-	if(DaThueThuyen[playerid] != 0) return SendClientMessage(playerid, COLOR_YELLOW, "Ban chua thue chiec thuyen nao het hay thue thuyen truoc nhe");
+	if(DaThueThuyen[playerid] == 0) return SendClientMessage(playerid, COLOR_YELLOW, "Ban chua thue chiec thuyen nao het hay thue thuyen truoc nhe");
 	DestroyVehicle(ThuyenSpawn[DaThueThuyen[playerid]]);
 	SendClientMessage(playerid, COLOR_YELLOW, "Ban da thue thanh cong chiec thuyen cua ban bay gio ban da co the thue lai");
 	DaThueThuyen[playerid] = 0;

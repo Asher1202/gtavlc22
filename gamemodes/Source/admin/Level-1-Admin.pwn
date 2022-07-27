@@ -478,6 +478,19 @@ CMD:despawncars(playerid, params[]) {
 	if(GetPVarInt(playerid, "Cover") == 0) SendAdminMessage(-1, string, 2);		
 	return 1;
 }
+CMD:xoaxenewb(playerid, params[]) {
+	if(PlayerInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);	
+	for(new i = 1; i < MAX_VEHICLES; i++) {
+		if(XeNewbie[i] != 0) {
+			DestroyVehicle(XeNewbie[i]);
+			XeNewbie[i] = 0;
+		}
+	}	
+	new string[256];
+	format(string, sizeof(string), "[{B81616}AdmWarning{FFFFFF}]: %s vua despawned tat ca cac phuong tien newbie.",GetName(playerid));
+	if(GetPVarInt(playerid, "Cover") == 0) SendAdminMessage(-1, string, 2);		
+	return 1;
+}
 CMD:alicenses(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid,COLOR_WHITE,AdminOnly);
 	new id;

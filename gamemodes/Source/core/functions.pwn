@@ -481,14 +481,14 @@ LoadInventory(playerid) {
     new Cache:db = mysql_query(SQL, query);
 	if(!cache_num_rows()) return 1;
 	for(new i = 0; i < (cache_num_rows()) && i < MAX_INVENTORY; i++) {
-		cache_get_value_name_int(i , "invQuantity", invData[playerid][i][invQuantity]);
+		//cache_get_value_name_int(i , "invQuantity", invData[playerid][i][invQuantity]);
 		cache_get_value_name_int(i ,"invID", invData[playerid][i][invID]);
 		cache_get_value_name(i ,"invOwnerName", invData[playerid][i][invOwnerName]);
 		cache_get_value_name(i ,"invItem", gQuery), format(invData[playerid][i][invItem], 32, gQuery);
 		cache_get_value_name_int(i , "invModel", invData[playerid][i][invModel]);
-		//cache_get_value_name_int(i , "invQuantity", invData[playerid][i][invQuantity]);
+		cache_get_value_name_int(i , "invQuantity", invData[playerid][i][invQuantity]);
 		cache_get_value_name_int(i , "invType", invData[playerid][i][invExists]);
-		if(invData[playerid][i][invQuantity] != 0){
+		if(invData[playerid][i][invQuantity] <= 0){
 			new szQuery[128];
 			format(szQuery, sizeof(szQuery), "DELETE FROM `inventory` WHERE `invID` = '%d'", invData[playerid][i][invID]);
 			mysql_query(SQL, szQuery, false);
@@ -2242,9 +2242,9 @@ GiveJobSalary(playerid) {
 	if(PlayerInfo[playerid][pJobBonus50] > 0) bonus += money/2;
 	if(PlayerInfo[playerid][pJobBonus100] > 0) bonus += money;
 	new vipbonus;
-	if(PlayerInfo[playerid][pVip] == 1) vipbonus += float(money/100) * 15;
-    else if(PlayerInfo[playerid][pVip] == 2) vipbonus += float(money/100) * 25;
-    else if(PlayerInfo[playerid][pVip] == 3) vipbonus += float(money/100) * 40;
+	if(PlayerInfo[playerid][pVip] == 1) vipbonus += (money/100) * 15;
+    else if(PlayerInfo[playerid][pVip] == 2) vipbonus += (money/100) * 25;
+    else if(PlayerInfo[playerid][pVip] == 3) vipbonus += (money/100) * 40;
 
 	// info
 	JobDeelay[playerid][PlayerInfo[playerid][pJob]] = 45;
@@ -2874,12 +2874,13 @@ SetPlayerSpawn(playerid) {
 		return 1;
 	}	
 	// #if defined SAVE_POS
-	// 	SetPlayerPosEx(playerid, PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ]);
-	// 	SetPlayerFacingAngle(playerid, PlayerInfo[playerid][pFacingAngle]);
+		
 	// #else
 	// 	SetPlayerPosEx(playerid, 1798.3303,-1863.4901,13.5975); // Civil spawn
 	// 	SetPlayerFacingAngle(playerid, 6.9127);	
-	// #endif
+	// // #endif
+	// SetPlayerPosEx(playerid, PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ]);
+	// SetPlayerFacingAngle(playerid, PlayerInfo[playerid][pFacingAngle]);
 	// SetPlayerInterior(playerid, PlayerInfo[playerid][pInt]);
 	// SetPlayerVirtualWorld(playerid, PlayerInfo[playerid][pLocal]);
 	new house = PlayerInfo[playerid][pHouse];
@@ -2905,34 +2906,83 @@ SetPlayerSpawn(playerid) {
 	FactionsSpawns(playerid);		
 	TogglePlayerControllable(playerid, false);
 	defer UnFreezeStation[1500](playerid);	
+	
 	return 1;
 }
 // SavePlayerPosData(playerid, Float:x, Float:y, Float:z, Float:angle = 0.0, int = 0, local = 0) {
+// 	new query[256];
 // 	PlayerInfo[playerid][pPosX] = x;
 // 	PlayerInfo[playerid][pPosY] = y;
 // 	PlayerInfo[playerid][pPosZ] = z;		
 // 	PlayerInfo[playerid][pFacingAngle] = angle;		
 // 	PlayerInfo[playerid][pInt] = int;	
 // 	PlayerInfo[playerid][pLocal] = local;
+// 	mysql_format(SQL, query, sizeof(query), "UPDATE `users` SET `FacingAngle` = '%f',`Inter`='%d',`Local`='%d',`PosX`='%f',`PosY`='%f',`PosZ`='%f' WHERE `id` = '%d'", angle, GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid) , x, y, z, PlayerInfo[playerid][pSQLID]);
+// 	mysql_query(SQL, query);	
 // }
 // SetPlayerSpawnPos(playerid) {
 // 	new fid = PlayerInfo[playerid][pMember], house = PlayerInfo[playerid][pHouse];
+	
 // 	if(house != 999) {
 // 		if(SpawnChange[playerid] == 1) {
-// 			SavePlayerPosData(playerid, HouseInfo[house][hExitx], HouseInfo[house][hExity],HouseInfo[house][hExitz], 0, HouseInfo[house][hInterior], PlayerInfo[playerid][pLocal]);
+// 			SavePlayerPosData(playerid, HouseInfo[house][hExitx], HouseInfo[house][hExity],HouseInfo[house][hExitz], 0, HouseInfo[house][hInterior], HouseInfo[house][hVirtual]);
+// 			SetPlayerPosEx(playerid, HouseInfo[house][hExitx], HouseInfo[house][hExity],HouseInfo[house][hExitz]);
+// 			SetPlayerFacingAngle(playerid, 0.0);
+// 			SetPlayerInterior(playerid, HouseInfo[house][hInterior]);
+// 			SetPlayerVirtualWorld(playerid, HouseInfo[house][hVirtual]);
+// 			InHouse[playerid] = HouseInfo[house][hVirtual]-1;
 // 		}
 // 	}
-// 	if(fid == 0) {
-// 		SavePlayerPosData(playerid, SpawnPos[0],SpawnPos[1],SpawnPos[2],90.0);
+// 	else if(PlayerInfo[playerid][pJailed] == 1) {
+// 		SetPlayerInterior(playerid, 6);
+// 		new randp = random(sizeof(JailPos));
+// 		SavePlayerPosData(playerid, JailPos[randp][0],JailPos[randp][1],JailPos[randp][2]+2);
+// 		SetPlayerPosEx(playerid, JailPos[randp][0], JailPos[randp][1], JailPos[randp][2]);
+// 		TogglePlayerControllable(playerid, false);
+// 		defer UnFreezeStation[1000](playerid);
+// 		SendClientMessage(playerid, COLOR_WHITE, "{ffc301}Ban dang xam hoi o trong tu. De xem cac tuy chon, hay go lenh: /jailmenu");
+// 		SetPlayerVirtualWorld(playerid, 0);
+// 		ResetPlayerWeapons(playerid);
+// 		return 1;
+// 	}
+// 	else if(PlayerInfo[playerid][pJailed] == 2) {
+// 		SetPlayerPosEx(playerid, -13.0627,2530.0303,17.1090);
+// 		TogglePlayerControllable(playerid, false);
+// 		defer UnFreezeStation[1000](playerid);
+// 		SetPlayerInterior(playerid, 0); SetPlayerVirtualWorld(playerid, VW_JAIL);
+// 		ResetPlayerWeapons(playerid);
+// 		SendClientMessage(playerid, COLOR_WHITE, "{C10000}[INFO]: {FFFFFF}Ban dang bi biet giam, hay quay tro lai. (che do tu do)");
+// 		return 1;
+// 	}
+// 	else if(PlayerInfo[playerid][pJailed] == 3) {
+// 		SetPlayerInterior(playerid, 10);
+// 		new randx = random(sizeof(gRandomAJailSpawns));
+// 		SavePlayerPosData(playerid, gRandomAJailSpawns[randx][0],gRandomAJailSpawns[randx][1],gRandomAJailSpawns[randx][2]);
+// 		SetPlayerPosEx(playerid,gRandomAJailSpawns[randx][0],gRandomAJailSpawns[randx][1],gRandomAJailSpawns[randx][2]);
+// 		SetPlayerVirtualWorld(playerid, 0);
+// 		ResetPlayerWeapons(playerid);
+// 	}	
+// 	else if(fid == 0) {
+// 		SetPlayerPosEx(playerid, PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ]);
+// 		SetPlayerFacingAngle(playerid, PlayerInfo[playerid][pFacingAngle]);
+// 		SetPlayerInterior(playerid, PlayerInfo[playerid][pInt]);
+// 		SetPlayerVirtualWorld(playerid, PlayerInfo[playerid][pLocal]);
+// 		SavePlayerPosData(playerid, 1798.3303,-1863.4901,13.5975,360);
 // 		InHQ[playerid] = -1;
 // 	} else {
 // 		SavePlayerPosData(playerid, DynamicFactions[fid][fcX], DynamicFactions[fid][fcY], DynamicFactions[fid][fcZ], 0, 
-// 			DynamicFactions[fid][fInterior], DynamicFactions[fid][fVW]);
+// 		DynamicFactions[fid][fInterior], DynamicFactions[fid][fVW]);
+// 		SetPlayerPosEx(playerid, DynamicFactions[fid][fcX], DynamicFactions[fid][fcY], DynamicFactions[fid][fcZ]);
+// 		SetPlayerFacingAngle(playerid,0);
+// 		SetPlayerInterior(playerid, DynamicFactions[fid][fInterior]);
+// 		SetPlayerVirtualWorld(playerid, DynamicFactions[fid][fVW]);	
 // 		InHQ[playerid] = fid;
 // 	}
-// 	new string[256];
-// 	FORMAT:string("UPDATE `users` SET `FacingAngle` = '%f', `PosX` = '%f', `PosY` = '%f', `PosZ` = '%f', `Inter` = '%d', `Local` = '%d'", PlayerInfo[playerid][pFacingAngle], PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ], PlayerInfo[playerid][pInt], PlayerInfo[playerid][pLocal]);
-// 	mysql_query(SQL, string, false);
+// 	// printf("%f %f %f %f %f %f",  PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ], PlayerInfo[playerid][pFacingAngle], PlayerInfo[playerid][pInt], PlayerInfo[playerid][pLocal]);
+// 	// new string[256];
+// 	// FORMAT:string("UPDATE `users` SET `FacingAngle` = '%f', `PosX` = '%f', `PosY` = '%f', `PosZ` = '%f', `Inter` = '%d', `Local` = '%d'", PlayerInfo[playerid][pFacingAngle], PlayerInfo[playerid][pPosX], PlayerInfo[playerid][pPosY], PlayerInfo[playerid][pPosZ], PlayerInfo[playerid][pInt], PlayerInfo[playerid][pLocal]);
+// 	// mysql_query(SQL, string, false);
+// 	return 1;
 // }
 FactionsSpawns(playerid) {
 	new fid = PlayerInfo[playerid][pMember];
@@ -3546,7 +3596,7 @@ SetPlayerToTeamColor(playerid) {
 			case 1: SetPlayerColor(playerid, 0x112ef2FF); 
 			case 2: SetPlayerColor(playerid, 0x2b45f5FF); 
 			case 3: SetPlayerColor(playerid, 0x80FF00FF); 
-			case 4: SetPlayerColor(playerid, 0xFF99CCFF); 
+			case 4: SetPlayerColor(playerid, 0x0CFF00FF); 
 			case 5: SetPlayerColor(playerid, 0x11F2F2FF);
 			case 6: SetPlayerColor(playerid, 0xFFAE00FF);
 			case 7: SetPlayerColor(playerid, 0x00FF80FF); 
@@ -3556,7 +3606,7 @@ SetPlayerToTeamColor(playerid) {
 			case 11: SetPlayerColor(playerid, 0x7E3937FF); 
 			case 12: SetPlayerColor(playerid, COLOR_YELLOW); 
 			case 13: SetPlayerColor(playerid, 0xf86448FF); 	
-			case 14: SetPlayerColor(playerid, 0x39d62bFF);
+			case 14: SetPlayerColor(playerid, 0x1B1B1BFF);
 			case 15: SetPlayerColor(playerid, 0x425CF4FF);
 			default: SetPlayerColor(playerid, COLOR_WHITE);			
 		}	
@@ -4268,10 +4318,10 @@ OnPlayerLoginEx(playerid, const password[]) {
 		cache_get_value_name_int(0, "Helper", 	PlayerInfo[playerid][pHelper]);
 		cache_get_value_name_int(0, "Newbie", 	PlayerInfo[playerid][pNewbieStep]);
 		cache_get_value_name_float(0, "ConnectedTime", PlayerInfo[playerid][pConnectTime]);
-		// cache_get_value_name_float(0, "PosX", PlayerInfo[playerid][pPosX]);
-		// cache_get_value_name_float(0, "PosY", PlayerInfo[playerid][pPosY]);
-		// cache_get_value_name_float(0, "PosZ", PlayerInfo[playerid][pPosZ]);
-		// cache_get_value_name_float(0, "FacingAngle", PlayerInfo[playerid][pFacingAngle]);
+		cache_get_value_name_float(0, "PosX", PlayerInfo[playerid][pPosX]);
+		cache_get_value_name_float(0, "PosY", PlayerInfo[playerid][pPosY]);
+		cache_get_value_name_float(0, "PosZ", PlayerInfo[playerid][pPosZ]);
+		cache_get_value_name_float(0, "FacingAngle", PlayerInfo[playerid][pFacingAngle]);
 		cache_get_value_name_int(0, "Registered", 	PlayerInfo[playerid][pReg]);
 		cache_get_value_name_int(0, "Sex", 	PlayerInfo[playerid][pSex]);
 		cache_get_value_name_int(0, "Age", 	PlayerInfo[playerid][pAge]);
@@ -4279,6 +4329,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 		cache_get_value_name_int(0, "MuteTime", 	PlayerInfo[playerid][pMuteTime]);
 		cache_get_value_name_int(0, "Respect", 	PlayerInfo[playerid][pExp]);
 		cache_get_value_name_int(0, "Money", 	PlayerInfo[playerid][pCash]);
+		cache_get_value_name_int(0, "KC", 	PlayerInfo[playerid][pKC]);
 		cache_get_value_name_int(0, "Bank", 	PlayerInfo[playerid][pAccount]);
 		cache_get_value_name_int(0, "Crimes", 	PlayerInfo[playerid][pCrimes]);
 		cache_get_value_name_int(0, "Kills", 	PlayerInfo[playerid][pKills]);
@@ -4486,7 +4537,8 @@ OnPlayerLoginEx(playerid, const password[]) {
 		cache_get_value_name_int(0, "SpawnChange", SpawnChange[playerid]);
 		cache_get_value_name_float(0, "Seconds", 	PlayerInfo[playerid][pSeconds]);
 		cache_get_value_name_int(0, "Used", 	PlayerInfo[playerid][pUsed]);
-	
+
+		
 		cache_get_value_name_int(0, "RacePlace1", 	PlayerInfo[playerid][pRacePlace][0]);
 		cache_get_value_name_int(0, "RacePlace2", 	PlayerInfo[playerid][pRacePlace][1]);
 		cache_get_value_name_int(0, "RacePlace3", 	PlayerInfo[playerid][pRacePlace][2]);
@@ -4857,12 +4909,12 @@ OnPlayerLoginEx(playerid, const password[]) {
 		if(IsAMember(playerid)) {
 			
 			Iter_Add(PlayerGangster, playerid);
-			/*if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0)
+			if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0)
 			{
 			 	UsingSampcac{playerid} = 1;
 				SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
 			}
-			else SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");*/
+			else SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");
 		}
 	}
 	return 1;
