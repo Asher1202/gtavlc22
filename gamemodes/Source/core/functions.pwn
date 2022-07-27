@@ -481,14 +481,14 @@ LoadInventory(playerid) {
     new Cache:db = mysql_query(SQL, query);
 	if(!cache_num_rows()) return 1;
 	for(new i = 0; i < (cache_num_rows()) && i < MAX_INVENTORY; i++) {
-		cache_get_value_name_int(i , "invQuantity", invData[playerid][i][invQuantity]);
+		//cache_get_value_name_int(i , "invQuantity", invData[playerid][i][invQuantity]);
 		cache_get_value_name_int(i ,"invID", invData[playerid][i][invID]);
 		cache_get_value_name(i ,"invOwnerName", invData[playerid][i][invOwnerName]);
 		cache_get_value_name(i ,"invItem", gQuery), format(invData[playerid][i][invItem], 32, gQuery);
 		cache_get_value_name_int(i , "invModel", invData[playerid][i][invModel]);
-		//cache_get_value_name_int(i , "invQuantity", invData[playerid][i][invQuantity]);
+		cache_get_value_name_int(i , "invQuantity", invData[playerid][i][invQuantity]);
 		cache_get_value_name_int(i , "invType", invData[playerid][i][invExists]);
-		if(invData[playerid][i][invQuantity] != 0){
+		if(invData[playerid][i][invQuantity] <= 0){
 			new szQuery[128];
 			format(szQuery, sizeof(szQuery), "DELETE FROM `inventory` WHERE `invID` = '%d'", invData[playerid][i][invID]);
 			mysql_query(SQL, szQuery, false);
