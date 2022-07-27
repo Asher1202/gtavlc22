@@ -716,6 +716,14 @@ public OnPlayerDisconnect(playerid, reason)
 	    invData[playerid][i][invAttached] = 0;
 	}
 
+	for (new i = 0; i < MAX_INVENTORY; i ++) {
+	    invData[playerid][i][invExists] = false;
+	    invData[playerid][i][invModel] = 0;
+	    invData[playerid][i][invQuantity] = 0;
+		invData[playerid][i][invAttachSlot] = 0;
+	    invData[playerid][i][invAttached] = 0;
+	}
+
 	CallLocalFunction("ResetVariables", "i", playerid);
     return 1;
 }
