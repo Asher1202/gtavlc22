@@ -29,7 +29,7 @@
 // Toggleable systems:
 // #define DISABLE_LICENSE_SHOP                         // Disable buy license via /shop
 // #define BOXING_MAP                                   // Enable boxing event
-#define SAVE_POS                                     // Save player pos like RP
+// #define SAVE_POS                                     // Save player pos like RP
 #define GIFTCODE_GTAVLC "denbubaotri"      // Enable newbie giftcode
 
 #define FISHING_LS_JOB_ID 11

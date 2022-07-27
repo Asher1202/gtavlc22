@@ -183,7 +183,7 @@ ShowKCShop(playerid) {
 	
 	new title[50];
 	format(title, 50, "Shop: [Ban co %d kim cuong]", kc);
-	Dialog_Show(playerid, DIALOG_SHOP, DIALOG_STYLE_TABLIST_HEADERS, title, szDialog, "Select", "Close");
+	Dialog_Show(playerid, DIALOG_SHOPKC, DIALOG_STYLE_TABLIST_HEADERS, title, szDialog, "Select", "Close");
 	return 1;
 }
 

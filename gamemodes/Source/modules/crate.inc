@@ -328,7 +328,7 @@ CMD:giveallcrate(playerid, params[]) {
 	new type, value;
 	if(sscanf(params, "ii", type, value)) {
 		SendClientMessage(playerid, COLOR_GREY, "Syntax: {FFFFFF}/crateforall [crate type] [value]");
-		SendClientMessage(playerid, COLOR_WHITE, "Random Skin (0) | Random Car Silver (1) | Random Car Gold (2) | Ticket Than Bi (3) | Voucher Cao Cap (4)");
+		SendClientMessage(playerid, COLOR_WHITE, "Random Skin (0) | Random (1) | Random Car Rare (2) | Random Car Epic (3) | Random Car Legend (4)");
 		return true;
 	}
 

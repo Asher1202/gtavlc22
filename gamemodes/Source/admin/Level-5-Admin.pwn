@@ -88,6 +88,27 @@ CMD:money(playerid, params[]) {
 	return 1;
 }
 
+CMD:givemoney(playerid, params[]) {
+	if(PlayerInfo[playerid][pAdmin] < 6) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
+	new money,id,string[120],sendername[25],giveplayer[25];
+	if(sscanf(params, "ui",id,money)) return SendClientMessage(playerid,COLOR_GREY, "Cu phap: {FFFFFF}/givemoney <playerid/name> <So tien>");
+	if(!IsPlayerConnected(id) || id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi da chon khong dang nhap.");
+	GivePlayerCash(id, money);
+	GetPlayerName(id, giveplayer, sizeof(giveplayer));
+	GetPlayerName(playerid, sendername, sizeof(sendername));
+	format(string, sizeof(string), "AdmCmd: %s da gui %s$ cho %s.", sendername,FormatNumber(money),giveplayer);
+	if(GetPVarInt(playerid, "Cover") == 0) SendAdminMessage(COLOR_LOGS, string,5);
+	format(string, sizeof(string), "Ban da gui %s(%d) so tien $%s.", GetName(id), id, FormatNumber(money));
+	SendClientMessage(playerid, COLOR_WHITE, string);
+	format(string, sizeof(string), "Admin %s da gui cho ban $%s.", GetName(playerid), FormatNumber(money));
+	SendClientMessage(id, COLOR_WHITE, string);
+	Update(id, pCashx);	
+	format(string, sizeof(string), "%s da nhan duoc $%s tu %s (/givemoney)", GetName(id), FormatNumber(money), GetName(playerid));
+	Log("logs/money.log", string);
+	return 1;
+
+}
+
 CMD:givekc(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 7) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
 	new money,id,string[120],sendername[25],giveplayer[25];
@@ -112,7 +133,7 @@ CMD:givekc(playerid, params[]) {
 }
 
 CMD:giveburger(playerid, params[]) {
-	if(PlayerInfo[playerid][pAdmin] < 2) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
+	if(PlayerInfo[playerid][pAdmin] < 6) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
 	new money,id,string[120],sendername[25],giveplayer[25];
 	if(sscanf(params, "ui",id,money)) return SendClientMessage(playerid,COLOR_GREY, "Cu phap: {FFFFFF}/setburger <playerid/name> <so banh>");
 	if(!IsPlayerConnected(id) || id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi da chon khong dang nhap.");
