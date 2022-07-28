@@ -474,7 +474,6 @@ CarPriceValid(model) {
 	// return 0;	
 	return D_Vehicles[D_Model[model-400]][dPrice];
 }
-
 LoadInventory(playerid) {
     new query[500];
     format(query, sizeof(query), "SELECT * FROM `inventory` WHERE `invOwnerID` = '%d'", PlayerInfo[playerid][pSQLID]);
@@ -488,12 +487,21 @@ LoadInventory(playerid) {
 		cache_get_value_name_int(i , "invModel", invData[playerid][i][invModel]);
 		cache_get_value_name_int(i , "invQuantity", invData[playerid][i][invQuantity]);
 		cache_get_value_name_int(i , "invType", invData[playerid][i][invExists]);
-		if(invData[playerid][i][invQuantity] <= 0){
+		/*if(invData[playerid][i][invQuantity] <= 0){
 			new szQuery[128];
 			format(szQuery, sizeof(szQuery), "DELETE FROM `inventory` WHERE `invID` = '%d'", invData[playerid][i][invID]);
 			mysql_query(SQL, szQuery, false);
 			printf("Delete food slot %d for Player %s (%i)", invData[playerid][i][invID], GetNameEx(playerid), PlayerInfo[playerid][pSQLID]);
-		}
+		}*/
+		/*if(invData[playerid][i][invExists] > 1) {
+			new itemid = Inventory_GetFreeID(playerid, 1);
+			if(itemid == -1) invData[playerid][itemid][invExists] = 2;
+			else invData[playerid][itemid][invExists] = 1;
+			new string [200];
+			format(string, sizeof(string), "UPDATE `inventory` SET `invType` = %d WHERE `invOwnerID` = '%d' AND `invID` = '%d'", invData[playerid][itemid][invExists],PlayerInfo[playerid][pSQLID], invData[playerid][itemid][invID]);
+			mysql_tquery(SQL, string);
+			printf("Change type id %d to %d for Player %s (%i) .", invData[playerid][itemid][invID],invData[playerid][itemid][invExists], GetNameEx(playerid), PlayerInfo[playerid][pSQLID]);
+		}*/
 	}
 	
     cache_delete(db);
@@ -1332,7 +1340,6 @@ function showPlayerInventory(playerid, idd) {
 	return 1;
 }
 function showSpecPlayerInventory(playerid, idd, userid) {
-	isInInven[playerid] = idd;
 	new items[MAX_INVENTORY], amounts[MAX_INVENTORY];
 	switch(idd) {
 		case 1: {

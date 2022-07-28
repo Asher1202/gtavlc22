@@ -200,10 +200,11 @@ CMD:bonus(playerid, params[]) {
 	return 1;
 }*/
 CMD:fish(playerid, params[]) {
-	if(Inventory_Count(playerid, "Ca Thuong", 1) + Inventory_Count(playerid, "Ca Hiem", 1) + Inventory_Count(playerid, "Ca Vang", 1) + Inventory_Count(playerid, "Ca Map", 1) >= 1) return SendClientMessage(playerid, COLOR_GREY, "Ban da co 1 con ca trong tui roi, hay ban no tai 24/7 nhe");
+	if(Inventory_Count(playerid, "Ca Thuong") + Inventory_Count(playerid, "Ca Hiem") + Inventory_Count(playerid, "Ca Vang") + Inventory_Count(playerid, "Ca Map") >= 1) return SendClientMessage(playerid, COLOR_GREY, "Ban da co 1 con ca trong tui roi, hay ban no tai 24/7 nhe");
 	if(JobInfo[PlayerInfo[playerid][pJob]][jAttemptPerHour] <= 0) {
 		return SendFailMessage(playerid, "Ho da het ca");
 	}
+	if(checkslotinv(playerid) == 24) return SendClientMessage(playerid, -1, "Tui do cua ban da day.");
 	if(pFishing[playerid] != 0) return SendClientMessage(playerid, COLOR_YELLOW, "Ban dang cau ca roi, hay ban con ca trong balo cua minh truoc");
 	TextDrawShowForPlayer(playerid, GUI_Box1);
 	TextDrawShowForPlayer(playerid, GUI_LBox);
@@ -3028,9 +3029,11 @@ CMD:accept(playerid, params[]) {
 		if(BurgerOffer[playerid] != id)	return SendClientMessage(playerid, -1, "Ban khong giao dich voi nguoi do!");
 		BurgerMoney[playerid] = PayTax(playerid, BurgerMoney[playerid], e_TRAO_DOI);
 		if(GetPlayerCash(playerid) < BurgerMoney[playerid]) return SendClientMessage(playerid, COLOR_YELLOW, "Bug nua ha ong noi");
+		if(isInInven[playerid] != 0) return SendClientMessage(playerid, COLOR_YELLOW, "Vui long tat tui do de thuc hien lenh nay");
 
-		Inventory_Add(playerid,"Burger", 2703, BurgerAmount[playerid], 1);
-		Inventory_Remove(BurgerOffer[playerid], "Burger", 1, BurgerAmount[playerid]);
+		if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Burger", 2703, BurgerAmount[playerid], 2);
+		else Inventory_Add(playerid,"Burger", 2703, BurgerAmount[playerid], 1);
+		Inventory_Remove(BurgerOffer[playerid], "Burger", BurgerAmount[playerid]);
 		GivePlayerCash(playerid, -BurgerMoney[playerid]);
 		GivePlayerCash(id, BurgerMoney[playerid]);
 		Update(playerid, pCashx);
@@ -7470,6 +7473,7 @@ CMD:news(playerid, params[]) {
 }
 CMD:clothes(playerid, params[]) {
     if(!IsAtClothShop(playerid)) return SendClientMessage(playerid,COLOR_GREY, "Ban khong o trong Binco.");
+	if(checkslotskin(playerid) == 10) return SendClientMessage(playerid, -1, "Ban da full slot skin.");
 	if(Escape[playerid] == 1) {
 		if(PlayerInfo[playerid][pChar] > 0) SetPlayerSkinEx(playerid, PlayerInfo[playerid][pChar]);
 		else SetPlayerSkinEx(playerid, PlayerInfo[playerid][pModel]);

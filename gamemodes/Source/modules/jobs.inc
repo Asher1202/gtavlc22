@@ -764,7 +764,7 @@ CMD:startwork(playerid, params[]) {
 		case 1: {
 			if(IsPlayerInRangeOfPoint(playerid, 7.0, -372.6979, -1456.3641, 26.4046)) {
 				if(PlayerInfo[playerid][pCarLic] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Ban khong co giay phep lai xe de nhan cong viec nay!");
-				if(Inventory_Count(playerid, "Burger", 1) >= 60) return SendClientMessage(playerid, COLOR_RED,"Ban da co 60 cai burger nen khong the lam viec them, vui long su dung bot.");
+				if(Inventory_Count(playerid, "Burger") >= 60) return SendClientMessage(playerid, COLOR_RED,"Ban da co 60 cai burger nen khong the lam viec them, vui long su dung bot.");
 				JobSeconds[playerid] = 80;
 				CarAngle = -184.0199;
 				DisablePlayerCheckpointEx(playerid);

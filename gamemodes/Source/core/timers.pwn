@@ -240,7 +240,8 @@ timer Fish[15000](playerid) {
 		NearMessage(playerid, COLOR_YELLOW, strings);	
 		//money = 15000 + random(20000);
 		//FishPrice[playerid] = x;
-		Inventory_Add(playerid,"Ca Thuong", 19630, 1, 1);
+		if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Ca Thuong", 19630, 1, 2);
+		else Inventory_Add(playerid,"Ca Thuong", 19630, 1, 1);
 		//format(strings,sizeof(strings),"* %s bat duoc mot con ca BINH THUONG, co gia khoang $%s.", GetName(playerid), FormatNumber(money));
 		//NearMessage(playerid, COLOR_YELLOW, strings);
 		//pFishess[playerid] = 1;     	
@@ -251,7 +252,8 @@ timer Fish[15000](playerid) {
 		SendClientMessage(playerid, COLOR_WHITE, "{FFFFFF}-------------------------------------------");	
 		format(strings, sizeof(strings), "{FF0000}>>{FFFFFF} %s (%d) Da Cau Duoc {0011FF}Ca Hiem{FFFFFF}.", GetName(playerid), playerid);
 		NearMessage(playerid, COLOR_YELLOW, strings);	
-		Inventory_Add(playerid,"Ca Hiem", 1600, 1, 1);
+		if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Ca Hiem", 1600, 1, 2);
+		else Inventory_Add(playerid,"Ca Hiem", 1600, 1, 1);
 		//pFishess[playerid] = 1;
     } else {
 		new k = random(4);
@@ -260,15 +262,17 @@ timer Fish[15000](playerid) {
 			NearMessage(playerid, COLOR_PURPLE, strings);
 			SetPlayerHealthEx(playerid, 0.0);
 			SendClientMessage(playerid, -1, "{FF0000}>> {FFFFFF}Ca da duoc cho vao tui do cua ban [/tuido].");
-
-			Inventory_Add(playerid,"Ca Map", 1608, 1, 1);
+			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Ca Map", 1608, 1, 2);
+			else Inventory_Add(playerid,"Ca Map", 1608, 1, 1);
 		}
 		else {
 			format(strings, sizeof(strings), "{FF0000}>>{FFFFFF} %s (%d) Da Cau Duoc {0011FF}CA VANG{FFFFFF}.", GetName(playerid), playerid);
 			NearMessage(playerid, COLOR_YELLOW, strings);
 			SendClientMessage(playerid, -1, "{FF0000}>> {FFFFFF}Ca da duoc cho vao tui do cua ban [/tuido].");
 
-			Inventory_Add(playerid,"Ca Vang", 1604, 1, 1);
+			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Ca Vang", 1604, 1, 2);
+			else Inventory_Add(playerid,"Ca Vang", 1604, 1, 1);
+
 		}
     }
 	ClearAnimations(playerid);

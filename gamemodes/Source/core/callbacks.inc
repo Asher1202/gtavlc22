@@ -714,15 +714,11 @@ public OnPlayerDisconnect(playerid, reason)
 	    invData[playerid][i][invQuantity] = 0;
 		invData[playerid][i][invAttachSlot] = 0;
 	    invData[playerid][i][invAttached] = 0;
+		invData[playerid][i][invItem] = 0;
 	}
-
-	for (new i = 0; i < MAX_INVENTORY; i ++) {
-	    invData[playerid][i][invExists] = false;
-	    invData[playerid][i][invModel] = 0;
-	    invData[playerid][i][invQuantity] = 0;
-		invData[playerid][i][invAttachSlot] = 0;
-	    invData[playerid][i][invAttached] = 0;
-	}
+	isInInven[playerid] = 0;
+	SetPVarInt(playerid, "checkinv", 0);
+	SetPVarInt(playerid, "checkinvid", 0);
 
 	CallLocalFunction("ResetVariables", "i", playerid);
     return 1;
@@ -802,6 +798,13 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
 		inventoryTextDraws(playerid, false);
 		isInInven[playerid] = 0;
 		CancelSelectTextDraw(playerid);
+	}
+	else if(GetPVarInt(playerid, "checkinv") != 0) {
+		inventoryTextDraws(playerid, false);
+		isInInven[playerid] = 0;
+		CancelSelectTextDraw(playerid);
+		SetPVarInt(playerid, "checkinv", 0);
+		SetPVarInt(playerid, "checkinvid", 0);
 	}
 	if(GetPVarInt(playerid, "PlayMine") == 1 && GetPVarInt(playerid, "Loser") == 0) {
 		if(clickedid == CasinoTD[4]) {
@@ -964,6 +967,12 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
 			// Inventory_InitData(playerid);
 			//Player_ShowInventoryTextraw(playerid);
 		}
+		if(GetPVarInt(playerid, "checkinv") != 0) {
+			inventoryTextDraws(playerid, false);
+			CancelSelectTextDraw(playerid);
+			SetPVarInt(playerid, "checkinv", 0);
+			SetPVarInt(playerid, "checkinvid", 0);
+		}
 		if(TradeID[playerid] != -1) {
 			new id = TradeID[playerid];
 			format(str, sizeof(str), "* %s da huy giao dich!", GetName(playerid));
@@ -1038,11 +1047,12 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid) {
 		if(playertextid != invTD[playerid][i]) continue;
 		new id; 
 
-		if(isInInven[playerid] == 1) id = i-7;
+		if(isInInven[playerid] == 1)id = i-7;
 		else if(isInInven[playerid] == 2) id = i+5;
 		else if(isInInven[playerid] == 3) id = i+16;
 		// printf("%d, %s", id,invData[playerid][id][invItemID] );
 		if (invData[playerid][id][invExists] == isInInven[playerid]) {
+			if(GetPVarInt(playerid, "checkinv") != 0) return SendClientMessage(playerid, COLOR_YELLOW, "Khong the thao tac");
 			new name[64];
 			format(name, sizeof name, "Vat Pham: %s", invData[playerid][id][invItem]);
 			Dialog_Show(playerid, DIALOG_INVENTORY, DIALOG_STYLE_LIST, name, "Su dung\nVut Bo", "Chon", "Cancel");
@@ -1271,13 +1281,24 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid) {
 		inventoryTextDraws(playerid, false);
 		isInInven[playerid] = 0;
 		CancelSelectTextDraw(playerid);
+		if(GetPVarInt(playerid, "checkinv") != 0) {
+			SetPVarInt(playerid, "checkinv", 0);
+			SetPVarInt(playerid, "checkinvid", 0);
+		}
 	}
-	else if(playertextid == invTD[playerid][20]) showPlayerInventory(playerid, 2);
+	else if(playertextid == invTD[playerid][20]) {
+		if(GetPVarInt(playerid, "checkinv") == 1) {
+			showSpecPlayerInventory(playerid, 2, GetPVarInt(playerid, "checkinvid"));
+			SetPVarInt(playerid, "checkinv", 2);
+		}
+		else if(isInInven[playerid] == 1) showPlayerInventory(playerid, 2);
+	}
 	else if(playertextid == invTD[playerid][21]) {
-		inventoryTextDraws(playerid, false);
-		isInInven[playerid] = 0;
-//		Inventory_InitData(playerid);
-//		Player_ShowInventoryTextraw(playerid);
+		if(GetPVarInt(playerid, "checkinv") == 2) {
+			showSpecPlayerInventory(playerid, 1, GetPVarInt(playerid, "checkinvid"));
+			SetPVarInt(playerid, "checkinv", 1);
+		}
+		else if(isInInven[playerid] == 2) showPlayerInventory(playerid, 1);
 	}
 	else if(playertextid == DSTds[3]) Dialog_Show(playerid, DIALOG_EDITVEHICLE, DIALOG_STYLE_LIST, "Edit vehicle", "Value\nMax. speed\nStock", "Ok", "Exit"), SetPVarInt(playerid, "VehicleID", DealerID[playerid]);
 
