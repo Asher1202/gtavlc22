@@ -166,7 +166,7 @@ ShowKCShop(playerid) {
 	else format(string, sizeof(string), "Crate Random - {FF0000}30 "#DIEMCAOCAP"\n");
 	strcat(szDialog, string);	
 	if(kc >= 45) format(string, sizeof(string), "Crate Skin - {1ECC14}45 "#DIEMCAOCAP"\n");
-	else format(string, sizeof(string), "Noi that trong nha - {FF0000}45 "#DIEMCAOCAP"\n");
+	else format(string, sizeof(string), "Crate Skin - {FF0000}45 "#DIEMCAOCAP"\n");
 	strcat(szDialog, string);	
 	if(kc >= 60) format(string, sizeof(string), "Crate Car Rare - {1ECC14}60 xu\n");
 	else format(string, sizeof(string), "Crate Car Rare - {FF0000}60 xu\n");
@@ -626,7 +626,7 @@ Dialog:DIALOG_SHOPKC1(playerid, response, listitem, inputtext[])
 {
 	if(!response) { InShop[playerid] = 0; ShowKCShop(playerid); return 1; }
 	new gold = GetPVarInt(playerid, "KC"), string[200];
-	if(PlayerInfo[playerid][pKC] < gold && SelectedItem[playerid] != 4) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Shop", "Ban khong co du "#DIEMCAOCAP" de mua san pham nay.", "Ok", "");
+	if(PlayerInfo[playerid][pKC] < gold) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Shop", "Ban khong co du "#DIEMCAOCAP" de mua san pham nay.", "Ok", "");
 	switch(SelectedItem[playerid]) {
 		case 0: {
 			PlayerInfo[playerid][pCrates][0] += 1;
