@@ -4177,7 +4177,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	    	ApplyAnimation ( playerid , "PED" , "getup" , 4.1 , 0 , 0 , 0 , 0 , 0 ) ;
 			SendClientMessage(playerid,COLOR_WARNING,"Server khong cho phep C-Bug, hay dung lai truoc khi ban bi duoi ra dao khi!");
 			TogglePlayerControllable(playerid, false);
-		    defer UnFreezeStation[5000](playerid);
+		    defer UnFreezeStation[7000](playerid);
 	    }
 	    if(newkeys & KEY_SPRINT) {
 			if(gPlayerUsingLoopingAnim[playerid] == 1) StopLoopingAnim(playerid);

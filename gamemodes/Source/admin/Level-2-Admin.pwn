@@ -119,7 +119,7 @@ CMD:getip(playerid, params[]) {
 CMD:nearskin(playerid, params[])
 {
 	new range, skin, Float:rPos[4], x, string[180];
-	if(PlayerInfo[playerid][pAdmin] < 2) return 1;
+	if(PlayerInfo[playerid][pAdmin] < 7) return 1;
 	if(sscanf(params, "ii", skin, range)) return SendClientMessage(playerid, COLOR_GREY, "Su dung: {FFFFFF}/nearskin <skin> <range>");
     GetPlayerPos(playerid, rPos[0], rPos[1], rPos[2]);
 	foreach(new i: Player) {

@@ -403,7 +403,7 @@ CMD:givecrate(playerid, params[]) {
 	if(sscanf(params, "u", id)) return SendClientMessage(playerid, COLOR_ERROR, "Usage: {FFFFFF}/givecrate <playerid/name>");
 	if(!IsPlayerConnected(id)) return SendClientMessage(playerid, COLOR_WHITE, "KHONG HOP LE");
 	SetPVarInt(playerid, "id", id);
-	new string[128];
+	new string[500];
 	for(new i = 0; i < sizeof(CrateName); i++) format(string, sizeof(string), "%s{%s}%s crate\n", string, CrateColors[i], CrateName[i]);
 	Dialog_Show(playerid, DIALOG_GIVECRATES, DIALOG_STYLE_LIST, "Give crates", string, "Chon", "Huy Bo");
 	return 1;

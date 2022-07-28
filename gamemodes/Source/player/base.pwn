@@ -204,6 +204,7 @@ CMD:fish(playerid, params[]) {
 	if(JobInfo[PlayerInfo[playerid][pJob]][jAttemptPerHour] <= 0) {
 		return SendFailMessage(playerid, "Ho da het ca");
 	}
+	if(Iter_Contains(HelpersDuty, playerid)) return SendClientMessage(playerid, COLOR_WHITE, "Ban dang lam viec nhu mot helper.");
 	if(pFishing[playerid] != 0) return SendClientMessage(playerid, COLOR_YELLOW, "Ban dang cau ca roi, hay ban con ca trong balo cua minh truoc");
 	TextDrawShowForPlayer(playerid, GUI_Box1);
 	TextDrawShowForPlayer(playerid, GUI_LBox);

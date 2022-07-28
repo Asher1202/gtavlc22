@@ -299,6 +299,36 @@ CMD:givealllevel(playerid, params[]) {
 	}
 	return 1;
 }
+CMD:giveallmats(playerid, params[]) {
+	new money, szMessage[180];
+	if(IsPlayerLogged[playerid] == 0) return SendClientMessage(playerid, COLOR_RED, "Ban chua dang nhap!");
+	if(PlayerInfo[playerid][pAdmin] < 7) return SendClientMessage(playerid, COLOR_GREY, AdminOnly);
+	if(sscanf(params, "i", money)) return SendClientMessage(playerid, COLOR_GREY, "Cu phap: {FFFFFF}/giveallmats <amount>");
+	foreach(new i: Player) {
+		if(IsPlayerConnected(i) && IsPlayerLogged[i] == 1) {
+			PlayerInfo[i][pMats] += money;
+			Update(i, pMatsx);
+			format(szMessage, sizeof(szMessage), "* Admin %s da tang %s vat lieu cho tat ca nguoi choi!", GetName(playerid), FormatNumber(money));
+			SendClientMessage(i,COLOR_YELLOW,szMessage);
+		}
+	}
+	return 1;
+}
+CMD:giveallkc(playerid, params[]) {
+	new money, szMessage[180];
+	if(IsPlayerLogged[playerid] == 0) return SendClientMessage(playerid, COLOR_RED, "Ban chua dang nhap!");
+	if(PlayerInfo[playerid][pAdmin] < 7) return SendClientMessage(playerid, COLOR_GREY, AdminOnly);
+	if(sscanf(params, "i", money)) return SendClientMessage(playerid, COLOR_GREY, "Cu phap: {FFFFFF}/giveallkc <amount>");
+	foreach(new i: Player) {
+		if(IsPlayerConnected(i) && IsPlayerLogged[i] == 1) {
+			PlayerInfo[i][pKC] += money;
+			Update(i, pKCx);
+			format(szMessage, sizeof(szMessage), "* Admin %s da tang %s kim cuong cho tat ca nguoi choi!", GetName(playerid), FormatNumber(money));
+			SendClientMessage(i,COLOR_YELLOW,szMessage);
+		}
+	}
+	return 1;
+}
 CMD:giveallpp(playerid, params[]) {
 	new money, szMessage[180];
 	if(IsPlayerLogged[playerid] == 0) return SendClientMessage(playerid, COLOR_RED, "Ban chua dang nhap!");

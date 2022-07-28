@@ -125,7 +125,7 @@ CMD:givekc(playerid, params[]) {
 	SendClientMessage(playerid, COLOR_WHITE, string);
 	format(string, sizeof(string), "Admin %s da gui cho ban %s kim cuong.", GetName(playerid), FormatNumber(money));
 	SendClientMessage(id, COLOR_WHITE, string);
-	Update(id, pCashx);	
+	Update(id, pKCx);	
 	format(string, sizeof(string), "%s da nhan duoc $%s tu %s (/givekc)", GetName(id), FormatNumber(money), GetName(playerid));
 	Log("logs/money.log", string);
 	return 1;
@@ -133,7 +133,7 @@ CMD:givekc(playerid, params[]) {
 }
 
 CMD:giveburger(playerid, params[]) {
-	if(PlayerInfo[playerid][pAdmin] < 6) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
+	if(PlayerInfo[playerid][pAdmin] < 3) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
 	new money,id,string[120],sendername[25],giveplayer[25];
 	if(sscanf(params, "ui",id,money)) return SendClientMessage(playerid,COLOR_GREY, "Cu phap: {FFFFFF}/setburger <playerid/name> <so banh>");
 	if(!IsPlayerConnected(id) || id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi da chon khong dang nhap.");

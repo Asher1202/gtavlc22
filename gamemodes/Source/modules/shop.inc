@@ -48,7 +48,7 @@ CMD:shop(playerid, params[]) {
 		"Shop Type\tItem\n\
 		{FFEA3B}[+] Shop Info{FFFFFF}\n\
 		Normal Shop\t16 items\n\
-		Crate\t6 items\n\
+		Shop Kim Cuong\t6 items\n\
 		Extra Packs\t0 items", "Select", "Cancel"
 	);
 	return 1;
@@ -153,7 +153,7 @@ ShowKCShop(playerid) {
 	strcat(szDialog, "Num\tInfo\n{FFE100}(!) HUONG DAN NAP TIEN (MOMO/CHUYEN KHOAN){FFFFFF}\n");
 	
 	for(new i; i < sizeof(KimCuongShop); i++) {
-		if(KimCuongShop[i][SHOP_ITEM_UNIT] == TYPE_PREMIUM_POINTS) {
+		if(KimCuongShop[i][SHOP_ITEM_UNIT] == TYPE_KC) {
 			format(string, sizeof(string), "%s - %s%s "#DIEMCAOCAP"\n", KimCuongShop[i][SHOP_ITEM_NAME], kc >= 45 ? "{1ECC14}" : "{FF0000}", FormatNumber(KimCuongShop[i][SHOP_ITEM_PRICE]));
 			strcat(szDialog, string);	
 		}
@@ -336,8 +336,8 @@ Dialog:DIALOG_SHOP(playerid, response, listitem, inputtext[])
 			SetPVarInt(playerid, "PremiumPoints", 30);
 		}	
 		case 3: {
-			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua the doi ten?\nDe mua no, ban can phai tra 150 "#DIEMCAOCAP". ");
-			SetPVarInt(playerid, "PremiumPoints", 150);
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua the doi ten?\nDe mua no, ban can phai tra 50 "#DIEMCAOCAP". ");
+			SetPVarInt(playerid, "PremiumPoints", 50);
 			// return SendClientMessage(playerid, -1, "Dang bao tri shop doi ten.");
 		}				
 		case 4: {
@@ -631,29 +631,35 @@ Dialog:DIALOG_SHOPKC1(playerid, response, listitem, inputtext[])
 		case 0: {
 			PlayerInfo[playerid][pCrates][0] += 1;
 			format(string, sizeof(string), "%s Ban da mua mot Crate Random Skin "#DIEMCAOCAP".", GetName(playerid));
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua random crate skin thanh cong");
 		}
 		case 1: {
 			PlayerInfo[playerid][pCrates][1] += 1;
 			format(string, sizeof(string), "%s Ban da mua mot Crate Random "#DIEMCAOCAP".", GetName(playerid));
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua random crate skin thanh cong");
 		}	
 		// case 2: {
 		// 	Dialog_Show(playerid, DIALOG_SHOPCAR, DIALOG_STYLE_LIST, "Mua xe (500 xu/xe)", "Cheetah\nTurismo\nBuffalo\nSultan\nElegy\nFCR-900", "Mua ngay", "Khong mua");
 		// }
 		case 2: {
 			PlayerInfo[playerid][pCrates][2] += 1;
-			format(string, sizeof(string), "%s Ban da mua mot Crate Car Rare "#DIEMCAOCAP".", GetName(playerid));	
+			format(string, sizeof(string), "%s Ban da mua mot Crate Car Rare "#DIEMCAOCAP".", GetName(playerid));
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua random crate skin thanh cong");	
 		}
 		case 3: {
 			PlayerInfo[playerid][pCrates][3] += 1;
 			format(string, sizeof(string), "%s Ban da mua mot Crate Car Epic "#DIEMCAOCAP".", GetName(playerid));
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua random crate skin thanh cong");
 		}
 		case 4: {
 			PlayerInfo[playerid][pCrates][4] += 1;
 			format(string, sizeof(string), "%s Ban da mua mot Crate Car Legend "#DIEMCAOCAP".", GetName(playerid));
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua random crate skin thanh cong");
 		}
 		case 5: {
 			PlayerInfo[playerid][pCrates][5] += 1;
 			format(string, sizeof(string), "%s Ban da mua mot Crate Car Mythical "#DIEMCAOCAP".", GetName(playerid));
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua random crate skin thanh cong");
 		}
 	}
 	Update(playerid, pKCx);

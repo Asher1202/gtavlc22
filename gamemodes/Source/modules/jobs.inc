@@ -759,6 +759,7 @@ CMD:startwork(playerid, params[]) {
     GetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
     if(targetfind[playerid] != -1) return Dialog_Show(playerid, DIALOG_CHECKPOINT, DIALOG_STYLE_MSGBOX, "Checkpoint", "Mot cham do dang hoat dong.\nBan co muon xoa no khong? Neu muon, hay chon 'Ok'.", "Ok", "Exit");
 	if(GetPlayerVirtualWorld(playerid) != 0) return 1;
+	if(Iter_Contains(HelpersDuty, playerid)) return SendClientMessage(playerid, COLOR_WHITE, "Ban dang lam viec nhu mot helper.");
 	if(JobDeelay[playerid][PlayerInfo[playerid][pJob]] != 0) return JobTimeDeelay(playerid);
 	switch(PlayerInfo[playerid][pJob]) {
 		case 1: {
