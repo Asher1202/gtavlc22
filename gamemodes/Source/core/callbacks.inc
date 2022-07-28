@@ -4731,10 +4731,15 @@ public OnPlayerModelSelection(playerid, response, listid, modelid) {
 			// if(success == -1) {
 			// 	return SendClientMessage(playerid,COLOR_LGREEN, "ERROR: Ban da su dung het inventory slot!");
 			// }
-
-			if(total_skins(playerid) ==  10) return SendClientMessage(playerid, COLOR_GREY, "Ban co qua nhieu skin! Hay xoa bot!");
+			
+			if(checkslotinv(playerid) == 24) return SendClientMessage(playerid, -1, "Tui do cua ban da day.");
+			if(checkslotskin(playerid) == 10) return SendClientMessage(playerid, -1, "Ban da full slot skin.");
+			if(checktrungskin(playerid,modelid) != 0) return SendClientMessage(playerid, -1, "Ban da so huu skin nay.");
+			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Skins", modelid, 1, 2);
+				else Inventory_Add(playerid,"Skins", modelid, 1, 1);
+			//if(total_skins(playerid) ==  10) return SendClientMessage(playerid, COLOR_GREY, "Ban co qua nhieu skin! Hay xoa bot!");
 			if(are_acest_skin(playerid, modelid)) return SendClientMessage(playerid, COLOR_GREY, "Ban da co skin nay!");
-			give_skin(playerid, modelid);
+			//give_skin(playerid, modelid);
 			PlayerInfo[playerid][pChar] = modelid;
             SetPlayerSkinEx(playerid, PlayerInfo[playerid][pChar]);
 			BizzInfo[InBussines[playerid]][bTill] += 1000;
