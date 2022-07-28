@@ -200,10 +200,11 @@ CMD:bonus(playerid, params[]) {
 	return 1;
 }*/
 CMD:fish(playerid, params[]) {
-	if(Inventory_Count(playerid, "Ca Thuong", 1) + Inventory_Count(playerid, "Ca Hiem", 1) + Inventory_Count(playerid, "Ca Vang", 1) + Inventory_Count(playerid, "Ca Map", 1) >= 1) return SendClientMessage(playerid, COLOR_GREY, "Ban da co 1 con ca trong tui roi, hay ban no tai 24/7 nhe");
+	if(Inventory_Count(playerid, "Ca Thuong") + Inventory_Count(playerid, "Ca Hiem") + Inventory_Count(playerid, "Ca Vang") + Inventory_Count(playerid, "Ca Map") >= 1) return SendClientMessage(playerid, COLOR_GREY, "Ban da co 1 con ca trong tui roi, hay ban no tai 24/7 nhe");
 	if(JobInfo[PlayerInfo[playerid][pJob]][jAttemptPerHour] <= 0) {
 		return SendFailMessage(playerid, "Ho da het ca");
 	}
+	if(checkslotinv(playerid) == 24) return SendClientMessage(playerid, -1, "Tui do cua ban da day.");
 	if(Iter_Contains(HelpersDuty, playerid)) return SendClientMessage(playerid, COLOR_WHITE, "Ban dang lam viec nhu mot helper.");
 	if(pFishing[playerid] != 0) return SendClientMessage(playerid, COLOR_YELLOW, "Ban dang cau ca roi, hay ban con ca trong balo cua minh truoc");
 	TextDrawShowForPlayer(playerid, GUI_Box1);

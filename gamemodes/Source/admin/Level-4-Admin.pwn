@@ -19,7 +19,8 @@ CMD:setskin(playerid, params[]) {
 	if(sscanf(params, "ud",id,model)) return SendClientMessage(playerid, COLOR_GREY, "Cu phap: {FFFFFF}/setskin <playerid/name> <Skin ID>");	
 	if(model < 1 || model > 310) return SendClientMessage(playerid, -1, "Wrong skin ID.");
 	if(!IsPlayerConnected(id) || id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi da chon khong dang nhap.");
-
+	if(checkslotskin(id) == 10) return SendClientMessage(playerid, -1, "Nguoi nay da full slot skin.");
+	if(checktrungskin(id,model) != 0) return SendClientMessage(playerid, -1, "Nguoi nay da so huu skin do.");
 	// if(Player_GetSkinSlot(id, model) != -1) return SendClientMessage(playerid, -1, "Nguoi choi da so huu skin nay.");
 	// new const success = Player_AddItem(id, ItemType:item_type_skin, model, 100);
 	// if(success == -1) {
@@ -33,6 +34,9 @@ CMD:setskin(playerid, params[]) {
 	format(string, sizeof(string), "Ban da set cho %s(%d) skin %d.", GetName(id), id, model);
 	SendClientMessage(playerid, COLOR_WHITE, string);
 	format(string, sizeof(string), "Admin %s da set cho ban skin %d.", GetName(playerid), model);
+	
+	if(Inventory_GetFreeID(id, 1) == -1) Inventory_Add(id,"Skins", model, 1, 2);
+	else Inventory_Add(id,"Skins", model, 1, 1);
 
 	SendClientMessage(id, COLOR_WHITE, string);	
 	new query[128];

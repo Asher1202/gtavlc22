@@ -147,7 +147,9 @@ CMD:giveburger(playerid, params[]) {
 	SendClientMessage(playerid, COLOR_WHITE, string);
 	format(string, sizeof(string), "Admin %s da gui cho ban %d cai banh hamburger.", GetName(playerid), money);
 	SendClientMessage(id, COLOR_WHITE, string);
-	Inventory_Add(id,"Burger", 2703, money, 1);
+
+	if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(id,"Burger", 2703, money, 2);
+	else Inventory_Add(id,"Burger", 2703, money, 1);
 	return 1;
 
 }
@@ -166,7 +168,7 @@ CMD:setburger(playerid, params[]) {
 	SendClientMessage(playerid, COLOR_WHITE, string);
 	format(string, sizeof(string), "Admin %s da set burger cua ban thanh %d.", GetName(playerid), money);
 	SendClientMessage(id, COLOR_WHITE, string);
-	Inventory_Set(id,"Burger", 1, money);
+	Inventory_Set(id,"Burger", money);
 	return 1;
 
 }
