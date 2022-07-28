@@ -5658,7 +5658,7 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 			if(strmatch("Skins", invData[playerid][id][invItem])) {
 				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da thay doi trang phuc (%d)", GetName(playerid), invData[playerid][id][invModel]);
 				SetPVarInt(playerid, "ChoDoi", gettime() + 3);
-				if(isInInven[playerid]! = 0) {
+				if(isInInven[playerid] != 0) {
 					inventoryTextDraws(playerid, false);
 					isInInven[playerid] = 0;
 					CancelSelectTextDraw(playerid);
