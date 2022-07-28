@@ -1379,7 +1379,11 @@ task Timers[1000]() {
 										// 	return SendClientMessagei,COLOR_LGREEN, "ERROR: Ban da het slot skin cho nen ban se duoc tra lai mot hom!");
 
 										// }
-										give_skin(i, amount);
+										if(checkslotinv(i) == 24) return SendClientMessage(i, -1, "Tui do cua ban da day.");
+										if(checkslotskin(i) == 10) return SendClientMessage(i, -1, "Ban da full slot skin.");
+										if(checktrungskin(i,amount) != 0) return SendClientMessage(i, -1, "Ban da so huu skin nay.");
+										if(Inventory_GetFreeID(i, 1) == -1) Inventory_Add(i,"Skins", amount, 1, 2);
+											else Inventory_Add(i,"Skins", amount, 1, 1);
 										save_crates(i);
 										KillTimer(TimerCratesEx[i]);
 						                CrateModel[i] = -1; TatQuayGuong(i);
@@ -1681,7 +1685,11 @@ task Timers[1000]() {
 										// 	return SendClientMessagei,COLOR_LGREEN, "ERROR: Ban da het slot skin cho nen ban se duoc tra lai mot hom!");
 
 										// }
-										give_skin(i, amount);
+										if(checkslotinv(i) == 24) return SendClientMessage(i, -1, "Tui do cua ban da day.");
+										if(checkslotskin(i) == 10) return SendClientMessage(i, -1, "Ban da full slot skin.");
+										if(checktrungskin(i,amount) != 0) return SendClientMessage(i, -1, "Ban da so huu skin nay.");
+										if(Inventory_GetFreeID(i, 1) == -1) Inventory_Add(i,"Skins", amount, 1, 2);
+											else Inventory_Add(i,"Skins", amount, 1, 1);
 										save_crates(i);
 										KillTimer(TimerCratesEx[i]);
 						                CrateModel[i] = -1; TatQuayGuong(i);
