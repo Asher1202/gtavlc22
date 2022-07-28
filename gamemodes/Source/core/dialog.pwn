@@ -5658,6 +5658,11 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 			if(strmatch("Skins", invData[playerid][id][invItem])) {
 				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da thay doi trang phuc (%d)", GetName(playerid), invData[playerid][id][invModel]);
 				SetPVarInt(playerid, "ChoDoi", gettime() + 3);
+				if(isInInven[playerid]! = 0) {
+					inventoryTextDraws(playerid, false);
+					isInInven[playerid] = 0;
+					CancelSelectTextDraw(playerid);
+				}
 			}
 			else {
 				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
@@ -5666,18 +5671,19 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 		}
 		case 1: {
 			if(strmatch("Skins", invData[playerid][id][invItem])) {
-				SetPVarInt(playerid, "ChoDoi", gettime() + 3);
 				if(PlayerInfo[playerid][pChar] == invData[playerid][id][invModel]) {
 					PlayerInfo[playerid][pChar] = 250; 
 					SetPlayerSkin(playerid, 250);
 				}
 				SCMf(playerid, -1, "Ban da lay trang phuc %d tu tui do ra va vut di.", invData[playerid][id][invModel]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem],invData[playerid][id][invQuantity], invData[playerid][id][invModel], invData[playerid][id][invID]);
+				SetPVarInt(playerid, "ChoDoi", gettime() + 3);
 			}
 			else {
 				SCMf(playerid, -1, "Ban da lay %s tu tui do ra va vut di.", invData[playerid][id][invItem]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem]);
 				if(pFishing[playerid] == 1) pFishing[playerid] = 0;
+				SetPVarInt(playerid, "ChoDoi", gettime() + 3);
 			}
 			/*switch(invData[playerid][id][invExists]) {
 				case 1: {

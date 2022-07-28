@@ -315,6 +315,7 @@ stock Inventory_Set(playerid, const item[], quantity) {
 
 alias:openinventory("tuido")
 CMD:openinventory(playerid, params[]) {	
+	if(gettime() < GetPVarInt(playerid, "ChoDoi")) return SCMf(playerid, COLOR_YELLOW, "Vui long doi %d giay!", GetPVarInt(playerid, "ChoDoi") - gettime());
 	if(isInInven[playerid] != 0) return true;
 	if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Vui long xuong xe!");
 	refreshdatainv(playerid);
