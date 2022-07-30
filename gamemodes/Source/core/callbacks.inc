@@ -693,7 +693,7 @@ public OnPlayerDisconnect(playerid, reason)
 			ProxDetector(20.0, playerid, string, COLOR_CLIENT,COLOR_CLIENT,COLOR_CLIENT,COLOR_CLIENT,COLOR_CLIENT); 
 		}
     }
-    if(FarmerTreeTaken[playerid]!=-1) FarmerTreeStatus[FarmerTreeTaken[playerid]] = -1;
+    // if(FarmerTreeTaken[playerid]!=-1) FarmerTreeStatus[FarmerTreeTaken[playerid]] = -1;
 
 	new y,m,d,h,mi;
 	getdate(y,m,d);
@@ -998,23 +998,23 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
 		PlayerTextDrawHide(playerid, GUI_Start);		
 		return 1;
 	}
-	if(FarmerTreeTaken[playerid] >= 0 && JobWorking[playerid] == 2) {
-		for(new i = 1; i < sizeof TreeTD; i++) {
-			if(clickedid == TreeTD[i]) {
-				TextDrawHideForPlayer(playerid, TreeTD[i]);
-				if(++FarmerTreeApples[playerid] == 14) {
-					FarmerTreeStatus[FarmerTreeTaken[playerid]] = 300, FarmerTreeTaken[playerid] = -1;
-					for(new x = 0; x < sizeof TreeTD; x++) TextDrawHideForPlayer(playerid, TreeTD[x]);
-					CancelSelectTextDraw(playerid), TogglePlayerControllable(playerid, true), SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
-					SetPlayerAttachedObject(playerid, ATTACHMENT_ID_BALE,19637,1,-0.00,0.50,-0.03,0.0,86.0,83.0,1.00,1.00,1.00), 
-					Info(playerid, "Ban da lay tao tu cay, hay den checkpoint de nhan luong.");
-					SetPlayerCheckpoint(playerid, -1080.3639,-1195.3372,129.6956, 2.5), 
-					CP[playerid] = 2018;
-					return 1;
-				}
-			}
-		}
-	}
+	// if(FarmerTreeTaken[playerid] >= 0 && JobWorking[playerid] == 2) {
+	// 	for(new i = 1; i < sizeof TreeTD; i++) {
+	// 		if(clickedid == TreeTD[i]) {
+	// 			TextDrawHideForPlayer(playerid, TreeTD[i]);
+	// 			if(++FarmerTreeApples[playerid] == 14) {
+	// 				FarmerTreeStatus[FarmerTreeTaken[playerid]] = 300, FarmerTreeTaken[playerid] = -1;
+	// 				for(new x = 0; x < sizeof TreeTD; x++) TextDrawHideForPlayer(playerid, TreeTD[x]);
+	// 				CancelSelectTextDraw(playerid), TogglePlayerControllable(playerid, true), SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+	// 				SetPlayerAttachedObject(playerid, ATTACHMENT_ID_BALE,19637,1,-0.00,0.50,-0.03,0.0,86.0,83.0,1.00,1.00,1.00), 
+	// 				Info(playerid, "Ban da lay tao tu cay, hay den checkpoint de nhan luong.");
+	// 				SetPlayerCheckpoint(playerid, -1080.3639,-1195.3372,129.6956, 2.5), 
+	// 				CP[playerid] = 2018;
+	// 				return 1;
+	// 			}
+	// 		}
+	// 	}
+	// }
 	return 1;
 }
 public OnPlayerClickPlayer(playerid, clickedplayerid, source)
@@ -1439,11 +1439,21 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 			return 1;
 		} */
 		{
-			new string[180];
-			new weaponname[24];
+			new Float:disc = 0.0;
+    		disc = GetDistanceBetweenPlayers(damagedid,playerid);
+			new string[195];
+			new weaponname[24], part[24];
 			GetWeaponName(weaponid, weaponname, sizeof (weaponname));
+			if(weaponid == 0) weaponname = "Nam dam";
+			if(bodypart == 9) part = "Dau";
+			if(bodypart == 4) part = "Trym";
+			if(bodypart == 5) part = "Tay trai";
+			if(bodypart == 6) part = "Tay phai";
+			if(bodypart == 7) part = "Chan trai";
+			if(bodypart == 8) part = "Chan phai";
+			if(bodypart == 3) part = "Nguc";
 			if(weaponid == 0) weaponname = "Tay";
-			format(string, sizeof(string), "[Chien Dau] Ban da bi {00fa2a}%s{ff0000} ban bang khau sung {00fa2a}%s{ff0000} lam ban mat {00fa2a}%.0fHP%s{ff0000}.",GetName(playerid), weaponname, amount);
+			format(string, sizeof(string), "[Chien Dau] Ban da bi {00fa2a}%s{ff0000} ban bang khau sung {00fa2a}%s{ff0000} lam ban mat {00fa2a}%.0fHP{ff0000} Khoang cach : {00fa2a}%0.1fm | Vi tri [%s].",GetName(playerid), weaponname, amount, disc, part);
 			SendClientMessage(damagedid, COLOR_RED, string);
 		}
 		if(playerDeath[damagedid] == 0) {
@@ -1464,7 +1474,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 				}
 			}
 			foreach(new i: PlayerAdmins) {
-				if(Spectate[i] == damagedid || Spectate[i] == playerid) {
+				if(/*Spectate[i] == damagedid || Spectate[i] == playerid*/Aduty[i] == 1) {
 					if(IsPlayerLogged[i] == 1) {
 						new victim[MAX_PLAYER_NAME], attacker[MAX_PLAYER_NAME];
 						new weaponname[24];
@@ -1474,7 +1484,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 						GetWeaponName(weaponid, weaponname, sizeof (weaponname));
 						if(weaponid == 0) weaponname = "Nam dam";
 						new string[180];
-						format(string, sizeof(string), "[DMG] %s did %.0f damage to %s using weapon %s.", attacker, amount, victim, weaponname);
+						format(string, sizeof(string), "[DMG] %s gay %.0f damage len %s bang %s.", attacker, amount, victim, weaponname);
 						SendClientMessage(i, 0xFFADADFF, string);						
 					}
 				}
@@ -1930,6 +1940,14 @@ public OnPlayerDeathEx(playerid, killerid, reason) {
 							idd = Iter_Alloc(iPickUp);
 							Pickups[idd][psID] = CreateDynamicPickup(1212, 23, Pos[0]+random(4), Pos[1]+random(4), Pos[2], GetPlayerVirtualWorld(playerid));
 							Pickups[idd][psType] = 2;
+							Pickups[idd][psWar] = turf;
+							Pickups[idd][psWeapon] = 0;
+							Pickups[idd][psAmmo] = 0;
+							Pickups[idd][psWar] = turf;	
+							Pickups[idd][psAmount] = 10+random(50);	
+							idd = Iter_Alloc(iPickUp);
+							Pickups[idd][psID] = CreateDynamicPickup(1575, 23, Pos[0]+random(4), Pos[1]+random(4), Pos[2], GetPlayerVirtualWorld(playerid));
+							Pickups[idd][psType] = 3;
 							Pickups[idd][psWar] = turf;
 							Pickups[idd][psWeapon] = 0;
 							Pickups[idd][psAmmo] = 0;
@@ -2586,9 +2604,7 @@ public OnPlayerEnterCheckpoint(playerid)
 			JobWorking[playerid] = 0;			
 			SetVehicleToRespawn(GetPlayerVehicleID(playerid));	
 			JobDeelay[playerid][PlayerInfo[playerid][pJob]] = 100;	
-			for(new m; m < (PlayerInfo[playerid][pVip] + 3); m++) {
-				if(PlayerInfo[playerid][pDailyMission][m] == 5) CheckMission(playerid, m);
-			}			
+					
 		}
 		case 56: {
 			DisablePlayerCheckpointEx(playerid);
@@ -2682,7 +2698,7 @@ public OnPlayerEnterCheckpoint(playerid)
 			if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return FailRob(playerid, "Ban khong lai xe.");
 			if(!IsPlayerInAnyVehicle(playerid)) return FailRob(playerid, "Ban khong o trong xe.");
 			if(LastRVehicle[playerid] != GetPlayerVehicleID(playerid)) return FailRob(playerid, "Xe khac voi xe ma ban dat tui tien len.");
-			new cash = Bags[playerid] * 45000 + random(1000);
+			new cash = Bags[playerid] * 250000 + random(1000);
 			GivePlayerCash(playerid, cash);
 			format(string, sizeof(string), "* Rua tien thanh cong. Ban nhan duoc $%s.", FormatNumber(cash));
 			SendClientMessage(playerid, COLOR_MONEY, string);
@@ -3188,7 +3204,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			// Kick out of a player when he try to enter not his faction car.
 			if(ServerVehicles[vehicle][vFaction] != PlayerInfo[playerid][pMember] && ServerVehicles[vehicle][vFaction] != 0) {
 				va_SendClientMessage(playerid, COLOR_GREY, "Ban khong phai la thanh vien cua %s.", FactionName(ServerVehicles[vehicle][vFaction]));
-				if(!IsACop(playerid)) StopEnterCar(playerid);
+				StopEnterCar(playerid);
 			}
 
 			// Right of his/her faction vehicle, and btw he is a cop
@@ -4334,6 +4350,12 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 				SendClientMessage(playerid, COLOR_LIGHTBLUE, str);
 				GivePlayerCash(playerid, Pickups[i][psAmount]);
 			}
+			else if(Pickups[i][psType] == 3) {
+				format(str, sizeof(str), "Ban da tim thay %d vat lieu rot duoi dat.", Pickups[i][psAmount]);
+				SendClientMessage(playerid, COLOR_LIGHTBLUE, str);
+				PlayerInfo[playerid][pMats] += Pickups[i][psAmount];
+				Update(playerid, pMatsx);
+			}
 			DestroyDynamicPickup(Pickups[i][psID]);
 			Pickups[i][psType] = 0;
 			Pickups[i][psID] = 0;
@@ -4444,7 +4466,7 @@ public OnPlayerText(playerid, text[]) {
 		else if(PlayerInfo[playerid][pHelper] >= 1 || PlayerInfo[playerid][pAdmin] >= 1) ProxDetector(20.0, playerid, string,0xBA0404FF,0xBA0404FF,0xBA0404FF,0xBA0404FF,0xBA0404FF);
 		else if(PlayerInfo[playerid][pYT] >= 1) ProxDetector(20.0, playerid, string,0x388BFFFF,0x388BFFFF,0x388BFFFF,0x388BFFFF,0x388BFFFF);
 		else ProxDetector(20.0, playerid, string,COLOR_GREY,COLOR_GREY,COLOR_GREY,COLOR_GREY,COLOR_GREY);
-		format(string, sizeof(string), "(chat) %s", text);
+		format(string, sizeof(string), "%s : (chat) %s", GetNameEx(playerid),text);
 		Log("logs/Chat.log", string);	
 		
 		format(string, sizeof(string), "\"%s\"", text);

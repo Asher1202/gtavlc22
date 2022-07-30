@@ -31,10 +31,13 @@ new const NormalShopInfo[][e_SHOP_INFO] = {
 new const KimCuongShop[][e_SHOP_INFO] = {
 	{"Crate Random", 				30, 	TYPE_KC},
 	{"Crate Skin", 				45, 	TYPE_KC},
-	{"Crate Car Rare", 					60, 	TYPE_KC},
-	{"Crate Car Epic", 					125, 	TYPE_KC},
-	{"Crate Car Legend", 		250, 	TYPE_KC},
-	{"Crate Car Mythical", 				500, 	TYPE_KC}
+	{"Crate Car Rare", 					70, 	TYPE_KC},
+	{"Crate Car Epic", 					140, 	TYPE_KC},
+	{"Crate Car Legend", 		300, 	TYPE_KC},
+	{"Crate Car Mythical", 				600, 	TYPE_KC},
+	{"VIP GOLD", 				100, 	TYPE_KC},
+	{"VIP PLATIUM", 				300, 	TYPE_KC},
+	{"VIP DIAMOND", 				550, 	TYPE_KC}
 };
 
 CMD:shop(playerid, params[]) {
@@ -48,7 +51,7 @@ CMD:shop(playerid, params[]) {
 		"Shop Type\tItem\n\
 		{FFEA3B}[+] Shop Info{FFFFFF}\n\
 		Normal Shop\t16 items\n\
-		Shop Kim Cuong\t6 items\n\
+		Shop Kim Cuong\t8 items\n\
 		Extra Packs\t0 items", "Select", "Cancel"
 	);
 	return 1;
@@ -168,19 +171,27 @@ ShowKCShop(playerid) {
 	if(kc >= 45) format(string, sizeof(string), "Crate Skin - {1ECC14}45 "#DIEMCAOCAP"\n");
 	else format(string, sizeof(string), "Crate Skin - {FF0000}45 "#DIEMCAOCAP"\n");
 	strcat(szDialog, string);	
-	if(kc >= 60) format(string, sizeof(string), "Crate Car Rare - {1ECC14}60 xu\n");
-	else format(string, sizeof(string), "Crate Car Rare - {FF0000}60 xu\n");
+	if(kc >= 60) format(string, sizeof(string), "Crate Car Rare - {1ECC14}70 xu\n");
+	else format(string, sizeof(string), "Crate Car Rare - {FF0000}70 xu\n");
 	strcat(szDialog, string);
-	if(kc >= 125) format(string, sizeof(string), "Crate Car Epic - {1ECC14}125 "#DIEMCAOCAP"\n");
-	else format(string, sizeof(string), "Crate Car Epic - {FF0000}125 "#DIEMCAOCAP"\n");
+	if(kc >= 125) format(string, sizeof(string), "Crate Car Epic - {1ECC14}140 "#DIEMCAOCAP"\n");
+	else format(string, sizeof(string), "Crate Car Epic - {FF0000}140 "#DIEMCAOCAP"\n");
 	strcat(szDialog, string);
-	if(kc >= 250) format(string, sizeof(string), "Crate Car Legend - {1ECC14}250 "#DIEMCAOCAP"\n");
-	else format(string, sizeof(string), "Crate Car Legend - {FF0000}250 "#DIEMCAOCAP"\n");
+	if(kc >= 250) format(string, sizeof(string), "Crate Car Legend - {1ECC14}300 "#DIEMCAOCAP"\n");
+	else format(string, sizeof(string), "Crate Car Legend - {FF0000}300 "#DIEMCAOCAP"\n");
 	strcat(szDialog, string);	
-	if(kc >= 500) format(string, sizeof(string), "Crate Car Mythical - {1ECC14}500 "#DIEMCAOCAP"\n");
-	else format(string, sizeof(string), "Crate Car Mythical - {FF0000}500 "#DIEMCAOCAP"\n");
+	if(kc >= 500) format(string, sizeof(string), "Crate Car Mythical - {1ECC14}600 "#DIEMCAOCAP"\n");
+	else format(string, sizeof(string), "Crate Car Mythical - {FF0000}600 "#DIEMCAOCAP"\n");
 	strcat(szDialog, string);	
-	
+	if(kc >= 100) format(string, sizeof(string), "VIP GOLD - {1ECC14}100 "#DIEMCAOCAP"\n");
+	else format(string, sizeof(string), "VIP GOLD - {FF0000}100 "#DIEMCAOCAP"\n");
+	strcat(szDialog, string);	
+	if(kc >= 300) format(string, sizeof(string), "VIP PLATIUM - {1ECC14}300 "#DIEMCAOCAP"\n");
+	else format(string, sizeof(string), "VIP PLATIUM- {FF0000}300 "#DIEMCAOCAP"\n");
+	strcat(szDialog, string);	
+	if(kc >= 550 ) format(string, sizeof(string), "VIP DIAMOND - {1ECC14}550  "#DIEMCAOCAP"\n");
+	else format(string, sizeof(string), "VIP DIAMOND - {FF0000}550  "#DIEMCAOCAP"\n");
+	strcat(szDialog, string);	
 	new title[50];
 	format(title, 50, "Shop: [Ban co %d kim cuong]", kc);
 	Dialog_Show(playerid, DIALOG_SHOPKC, DIALOG_STYLE_TABLIST_HEADERS, title, szDialog, "Select", "Close");
@@ -598,24 +609,40 @@ Dialog:DIALOG_SHOPKC(playerid, response, listitem, inputtext[])
 			SetPVarInt(playerid, "KC", 45);
 		}			
 		case 2: {
-			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Car Rare\nDe mua no, ban can phai tra 60 "#DIEMCAOCAP".\n\n\
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Car Rare\nDe mua no, ban can phai tra 70 "#DIEMCAOCAP".\n\n\
 			Vat pham\n- 5.000.000 sad\n- 120 xu\n- PCJ-600\n- Uranus\n- Sanchez\n- ZE-350\n- Sandking\n- Super GT\n- Huntley (ít)\n- Jester (cuc ít)\n- Elegy (cuc ít)\n- Sultan (1%)");
-			SetPVarInt(playerid, "KC", 60);
+			SetPVarInt(playerid, "KC", 70);
 		}			
 		case 3: {
-			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Car Epic\nDe mua no, ban can phai tra 125 "#DIEMCAOCAP".\n\n\
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Car Epic\nDe mua no, ban can phai tra 140 "#DIEMCAOCAP".\n\n\
 			Vat pham\n- 15.000.000 sad\n- 200 xu\n- 50.000 mats\n- Uranus\n- Elegy\n- PCJ-600\n- Jester\n- Buffalo\n- Euros\n- Banshee (cuc ít)\n- Cheetah (cuc ít)\n- Sultan (cuc it)");
-			SetPVarInt(playerid, "KC", 125);
+			SetPVarInt(playerid, "KC", 140);
 		}			
 		case 4: {
-			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Car Legend\nDe mua no, ban can phai tra 250 "#DIEMCAOCAP".\n\n\
-			Vat pham\n- 50.000.000 sad\n- 450 xu\n- 120.000 mats\n- FCR-900\n- Banshee\n- Rancher\n- Cheetah\n- Sultan\n- Turismo (ít)\n- Bullet  (cuc ít)\n- 1.000 xu (1%)\n- Infernus (1%)\n- NRG-500 (1%");
-			SetPVarInt(playerid, "KC", 250);
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Car Legend\nDe mua no, ban can phai tra 300 "#DIEMCAOCAP".\n\n\
+			Vat pham\n- 30.000.000 sad\n- 450 xu\n- 120.000 mats\n- FCR-900\n- Banshee\n- Rancher\n- Cheetah\n- Sultan\n- Turismo (ít)\n- Bullet  (cuc ít)\n- 1.000 xu (1%)\n- Infernus (1%)\n- NRG-500 (1%");
+			SetPVarInt(playerid, "KC", 300);
 		}					
 		case 5: {
-			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Car Mythical\nDe mua no, ban can phai tra 500 "#DIEMCAOCAP".\n\n\
-			Vat pham\n- 100.000.000 sad\n- 650 xu\n- 300.000 mats\n- FCR-900\n- Sultan\n- Turismo\n- Bullet\n- NRG-500(it)\n- Infernus (ít)\n- Maverick  (cuc ít)\n- Hotring Racer A (Cuc it)\n- Monster B (cuc it)\n- 1.099 xu  (2%");
-			SetPVarInt(playerid, "KC", 500);
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua mot hop crate Car Mythical\nDe mua no, ban can phai tra 600 "#DIEMCAOCAP".\n\n\
+			Vat pham\n- 55.000.000 sad\n- 650 xu\n- 300.000 mats\n- FCR-900\n- Sultan\n- Turismo\n- Bullet\n- NRG-500(it)\n- Infernus (ít)\n- Maverick  (cuc ít)\n- Hotring Racer A (Cuc it)\n- Monster B (cuc it)\n- 1.099 xu  (2%");
+			SetPVarInt(playerid, "KC", 600);
+		}					
+		case 6: {
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua VIPGOLD\nDe mua no, ban can phai tra 100 "#DIEMCAOCAP".\n\n\
+			Vat pham\n-Danh hieu [GAME, DISCORD] : VIP Gold\n-Tang them 2 SLOT xe [0/4]\n- Nang muc dat chip tu 700 -> 800\n-Mo khoa tinh nang /vcar\n- Mo khoa tinh nang /vchat\n- Thanh doi 100% -> 120%\n- Moi ngay dang nhap nhan 2 Rob Point\n- Free giay phep thuyen, may bay 15 ngay\n- Bonus 5% tien tat ca cong viec\n- Tang them 1 lan lam nhiem vu hang ngay [0/3] -> [0/4]\n- Mo khoa chuc nang chat mau, dung lenh /pcolor de thay doi mau chat.");
+			SetPVarInt(playerid, "KC", 100);
+		}					
+		case 7: {
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua VIPGOLD\nDe mua no, ban can phai tra 300 "#DIEMCAOCAP".\n\n\
+			Vat pham\n-Danh hieu [GAME, DISCORD] : VIP PLATIUM\n-Tang them 3 SLOT xe [0/5]\n- Nang muc dat chip tu 700 -> 900\n-Mo khoa tinh nang /vcar\n- Mo khoa tinh nang /vchat\n- Thanh doi 100% -> 140%\n- Moi ngay dang nhap nhan 2 Rob Point,5 xu\n- Free giay phep thuyen, may bay, sung 15 ngay\n- Mien tien vao biz\n- Bonus 10% tien tat ca cong viec\n- Giam 5% thue khi choi tai xiu\n- Vehicle box\n- Tang them 2 lan lam nhiem vu hang ngay [0/3] -> [0/4]\n- Mo khoa chuc nang chat mau, dung lenh /pcolor de thay doi mau chat\nCreate skin x1");
+
+			SetPVarInt(playerid, "KC", 300);
+		}					
+		case 8: {
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua VIPGOLD\nDe mua no, ban can phai tra 100 "#DIEMCAOCAP".\n\n\
+			Vat pham\n-Danh hieu [GAME, DISCORD] : VIP DIAMOND\n-Tang them 4 SLOT xe [0/6]\n- Nang muc dat chip tu 700 -> 1000\n-Mo khoa tinh nang /vcar\n- Mo khoa tinh nang /vchat\n- Thanh doi 100% -> 200%\n- Moi ngay dang nhap nhan 2 Rob Point,10 xu, 1 Respect pointn- Free giay phep thuyen, may bay, sung 30 ngay\n- Mien tien vao biz\n- Bonus 20% tien tat ca cong viec\n- Giam 15% thue khi choi tai xiu\n- Vehicle box\n- Tang them 3 lan lam nhiem vu hang ngay [0/4] -> [0/7]\n- Mo khoa chuc nang chat mau, dung lenh /pcolor de thay doi mau chat\n- Rainbow tren tat ca cac xe, dung lenh /rainbowveh de doi mau\n- Create Car rare x1\n Ho tro GIFTCODE hang tuan tu may chu thong qua BLACK");
+			SetPVarInt(playerid, "KC", 550);
 		}					
 	}
 	SelectedItem[playerid] = listitem;
@@ -630,36 +657,69 @@ Dialog:DIALOG_SHOPKC1(playerid, response, listitem, inputtext[])
 	switch(SelectedItem[playerid]) {
 		case 0: {
 			PlayerInfo[playerid][pCrates][0] += 1;
-			format(string, sizeof(string), "%s Ban da mua mot Crate Random Skin "#DIEMCAOCAP".", GetName(playerid));
+			format(string, sizeof(string), "%s Ban da mua mot Crate Random Skin.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua random crate skin thanh cong");
+			PlayerInfo[playerid][pKC] -= 30;
+			Update(playerid, pKCx);
 		}
 		case 1: {
 			PlayerInfo[playerid][pCrates][1] += 1;
-			format(string, sizeof(string), "%s Ban da mua mot Crate Random "#DIEMCAOCAP".", GetName(playerid));
+			format(string, sizeof(string), "%s Ban da mua mot Crate Random.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua random crate skin thanh cong");
+			PlayerInfo[playerid][pKC] -= 45;
+			Update(playerid, pKCx);
 		}	
 		// case 2: {
 		// 	Dialog_Show(playerid, DIALOG_SHOPCAR, DIALOG_STYLE_LIST, "Mua xe (500 xu/xe)", "Cheetah\nTurismo\nBuffalo\nSultan\nElegy\nFCR-900", "Mua ngay", "Khong mua");
 		// }
 		case 2: {
 			PlayerInfo[playerid][pCrates][2] += 1;
-			format(string, sizeof(string), "%s Ban da mua mot Crate Car Rare "#DIEMCAOCAP".", GetName(playerid));
+			format(string, sizeof(string), "%s Ban da mua mot Crate Car Rare.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua random crate skin thanh cong");	
+			PlayerInfo[playerid][pKC] -= 70;
+			Update(playerid, pKCx);
 		}
 		case 3: {
 			PlayerInfo[playerid][pCrates][3] += 1;
-			format(string, sizeof(string), "%s Ban da mua mot Crate Car Epic "#DIEMCAOCAP".", GetName(playerid));
+			format(string, sizeof(string), "%s Ban da mua mot Crate Car Epic.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua random crate skin thanh cong");
+			PlayerInfo[playerid][pKC] -= 140;
+			Update(playerid, pKCx);
 		}
 		case 4: {
 			PlayerInfo[playerid][pCrates][4] += 1;
-			format(string, sizeof(string), "%s Ban da mua mot Crate Car Legend "#DIEMCAOCAP".", GetName(playerid));
+			format(string, sizeof(string), "%s Ban da mua mot Crate Car Legend.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua random crate skin thanh cong");
+			PlayerInfo[playerid][pKC] -= 300;
+			Update(playerid, pKCx);
 		}
 		case 5: {
 			PlayerInfo[playerid][pCrates][5] += 1;
-			format(string, sizeof(string), "%s Ban da mua mot Crate Car Mythical "#DIEMCAOCAP".", GetName(playerid));
+			format(string, sizeof(string), "%s Ban da mua mot Crate Car Mythical.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua random crate skin thanh cong");
+			PlayerInfo[playerid][pKC] -= 600;
+			Update(playerid, pKCx);
+		}
+		case 6: {
+			PlayerInfo[playerid][pVip] = 1;
+			format(string, sizeof(string), "%s Ban da mua VIP GOLD.", GetName(playerid));
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua VIP GOLD thanh cong");
+			PlayerInfo[playerid][pKC] -= 100;
+			Update(playerid, pKCx);
+		}
+		case 7: {
+			PlayerInfo[playerid][pVip] = 2;
+			format(string, sizeof(string), "%s Ban da mua VIP PLATIUM.", GetName(playerid));
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua VIP PLATIUM thanh cong");
+			PlayerInfo[playerid][pKC] -= 300;
+			Update(playerid, pKCx);
+		}
+		case 8: {
+			PlayerInfo[playerid][pVip] = 3;
+			format(string, sizeof(string), "%s Ban da mua VIP PLATIUM.", GetName(playerid));
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua VIP PLATIUM thanh cong");
+			PlayerInfo[playerid][pKC] -= 550;
+			Update(playerid, pKCx);
 		}
 	}
 	Update(playerid, pKCx);

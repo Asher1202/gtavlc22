@@ -1152,9 +1152,7 @@ task DecreaseTimer[1000]() {
 			if(PlayerInfo[i][pJob] != 11) GangZoneHideForPlayer(i, CauCaZoneZ[1]); //None
 			if(PlayerInfo[i][pJob] != 11) GangZoneHideForPlayer(i, CauCaZoneZ[2]); //None
 
-			if(GetPlayerState(i) != PLAYER_STATE_ONFOOT && Aduty[i] != 1) {
-				GivePlayerStamina(i, -1);
-			}
+			
 			if(GetPlayerState(i) == PLAYER_STATE_DRIVER || GetPlayerState(i) == PLAYER_STATE_PASSENGER)
 			{
 				if(PlayerInfo[i][pWantedLevel] != 0)
@@ -1977,7 +1975,7 @@ task Timers[1000]() {
 						}
 			           
 			           	case 9..17: {
-				    		amount = 50000000;
+				    		amount = 30000000;
 							format(string, 64, "%d", amount);
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1212);
 							PlayerTextDrawSetString(i, CratePTD[1], string);
@@ -2270,7 +2268,7 @@ task Timers[1000]() {
 			format(string, sizeof(string), "%s da mo crate Car Mythical con lai %d.", GetName(i), PlayerInfo[i][pCrates][7]);
 			Log("logs/opencrate.log", string);
 			switch(rand) {
-				case 0..10: {
+				case 0..20: {
 			    		    amount = 300000;
 				            format(string, 75, "~y~%s vat lieu.", FormatNumber(amount), totalcrates(i));
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1576);
@@ -2288,8 +2286,8 @@ task Timers[1000]() {
 						    }
 						}
 			           
-			           	case 11..21: {
-				    		amount = 100000000;
+			           	case 21..30: {
+				    		amount = 55000000;
 							format(string, 64, "%d", amount);
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1212);
 							PlayerTextDrawSetString(i, CratePTD[1], string);
@@ -2304,7 +2302,7 @@ task Timers[1000]() {
 									SCMTA(COLOR_CLIENT,string);
 							}
 			            }
-			            case 22..32: {
+			            case 31..40: {
 						    amount = 650;
 				            format(string, 75, "~y~%s Vip Xu.", FormatNumber(amount), totalcrates(i));
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1275);
@@ -2324,7 +2322,7 @@ task Timers[1000]() {
 						        CrateModel[i] = -1; TatQuayGuong(i);
 						    }
 			            }
-						case 33..35: {
+						case 41..50: {
 						    amount = 1099;
 				            format(string, 75, "~y~%s Vip Xu.", FormatNumber(amount), totalcrates(i));
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1275);
@@ -2345,7 +2343,7 @@ task Timers[1000]() {
 						    }
 			            }
 			   			
-			    	    case 36..45: {
+			    	    case 51..60: {
 			    		    amount = random(20) + 20;
 			                format(string, 64, "Sultan");
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 560);
@@ -2359,7 +2357,7 @@ task Timers[1000]() {
 								    SCMTA(COLOR_CLIENT,string);
 							}
 			            }
-			    	    case 46..56: {
+			    	    case 61..70: {
 			    		    amount = random(20) + 20;
 			                format(string, 64, "Turismo");
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 451);
@@ -2373,7 +2371,7 @@ task Timers[1000]() {
 								    SCMTA(COLOR_CLIENT,string);
 							}
 			            }
-			    	    case 57..67: {
+			    	    case 71..80: {
 			    		    amount = random(20) + 20;
 			                format(string, 64, "Bullet");
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 541);
@@ -2387,7 +2385,7 @@ task Timers[1000]() {
 								    SCMTA(COLOR_CLIENT,string);
 							}
 			            }
-			    	    case 68..75: {
+			    	    case 81..85: {
 			    		    amount = random(20) + 20;
 			                format(string, 64, "NRG-500");
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 522);
@@ -2401,7 +2399,7 @@ task Timers[1000]() {
 								    SCMTA(COLOR_CLIENT,string);
 							}
 			            }
-			    	    case 76..82: {
+			    	    case 86..90: {
 			    		    amount = random(20) + 20;
 			                format(string, 64, "Infernus");
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 411);
@@ -2415,7 +2413,7 @@ task Timers[1000]() {
 								    SCMTA(COLOR_CLIENT,string);
 							}
 			            }
-						case 83..88: {
+						case 91..95: {
 			    		    amount = RandomEx(30, 250);
 			                format(string, 65, "Hotring Racer A");
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 502);
@@ -2429,7 +2427,7 @@ task Timers[1000]() {
 								    SCMTA(COLOR_CLIENT, string);
 							}
 						}
-			           	case 89..94: {
+			           	case 96..98: {
 			                format(string, 65, "Monster B");
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 557);
 							PlayerTextDrawSetString(i, CratePTD[1], string);
@@ -2442,7 +2440,7 @@ task Timers[1000]() {
 								    SCMTA(COLOR_CLIENT, string);
 							}
 			            }
-						case 95..100: {
+						case 99..100: {
 			                format(string, 65, "Maverick");
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 487);
 							PlayerTextDrawSetString(i, CratePTD[1], string);
@@ -2869,16 +2867,16 @@ task Timers[1000]() {
 							defscore = WarScoreF[defenders][wi];						
 					
 							if(playerDeath[i] == 0 && PlayerInfo[i][pWantedLevel] == 0 && PlayerInfo[i][pJailTime] == 0 && GetPlayerInterior(i) == 0 && GetPlayerVirtualWorld(i) == 0) {
-								if(CAC_GetStatus(i) || GetPVarInt(i, "NotAndroid") == 0) 
-								{
-									SetPlayerVirtualWorld(i, wi);
-									format(string, sizeof(string), "Ban da duoc dich chuyen den virtual world %d (the gioi ao) vi mafia cua ban dang bao ve hoac tranh gianh dia ban.", wi);
-									SendClientMessage(i, COLOR_YELLOW, string);
-								}
-								else if(ServerSystem[13] == 0) SendClientMessage(i, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");
-								// SetPlayerVirtualWorld(i, wi);
-								// format(string, sizeof(string), "Ban da duoc dich chuyen den virtual world %d (the gioi ao) vi mafia cua ban dang bao ve hoac tranh gianh dia ban.", wi);
-								// SendClientMessage(i, COLOR_YELLOW, string);
+								// if(CAC_GetStatus(i) || GetPVarInt(i, "NotAndroid") == 0) 
+								// {
+								// 	SetPlayerVirtualWorld(i, wi);
+								// 	format(string, sizeof(string), "Ban da duoc dich chuyen den virtual world %d (the gioi ao) vi mafia cua ban dang bao ve hoac tranh gianh dia ban.", wi);
+								// 	SendClientMessage(i, COLOR_YELLOW, string);
+								// }
+								// if(ServerSystem[13] == 0) SendClientMessage(i, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");
+								SetPlayerVirtualWorld(i, wi);
+								format(string, sizeof(string), "Ban da duoc dich chuyen den virtual world %d (the gioi ao) vi mafia cua ban dang bao ve hoac tranh gianh dia ban.", wi);
+								SendClientMessage(i, COLOR_YELLOW, string);
 							}
 
 
@@ -3026,79 +3024,79 @@ task Timers[1000]() {
 					SetVehicleHealth(GetPlayerVehicleID(i), 999);
 				}
 			} 
-			// if(SpecialWeek == 1)  {
-			// 	if(PlayerInfo[i][pBackpack] == 2 && CheckObjects(i) < 100) {
-			// 		new szTD[100];
-			// 		string = "";
-			// 		new objs;
-			// 		for(new sq = 0; sq < 100; sq++) {
-			// 			if(PlayerInfo[i][pSpecialQuest][sq] == 0) {			
-			// 				if(IsPlayerInRangeOfPoint(i, 45.0, QuestPos[sq][0], QuestPos[sq][1], QuestPos[sq][2])) {
-			// 					new Float: oPos[3];
-			// 					GetPlayerObjectRot(i, PlayerInfo[i][pObjectQuest][sq], oPos[0], oPos[1], oPos[2]);
-			// 					SetPlayerObjectRot(i, PlayerInfo[i][pObjectQuest][sq], oPos[0], oPos[1], oPos[2]+35);
-			// 					format(string, 25, "~g~Object %d gan day~n~", sq+1), strcat(szTD, string), objs++;
-			// 				}
-			// 				else if(IsPlayerInRangeOfPoint(i, 75.0, QuestPos[sq][0], QuestPos[sq][1], QuestPos[sq][2])) format(string, sizeof(string), "~y~Object %d gan day~n~", sq+1), strcat(szTD, string), objs++;
-			// 				else if(IsPlayerInRangeOfPoint(i, 150.0, QuestPos[sq][0], QuestPos[sq][1], QuestPos[sq][2])) format(string, sizeof(string), "~r~Object %d gan day~n~", sq+1), strcat(szTD, string), objs++;
+			if(SpecialWeek == 1)  {
+				if(PlayerInfo[i][pBackpack] == 2 && CheckObjects(i) < 100) {
+					new szTD[100];
+					string = "";
+					new objs;
+					for(new sq = 0; sq < 100; sq++) {
+						if(PlayerInfo[i][pSpecialQuest][sq] == 0) {			
+							if(IsPlayerInRangeOfPoint(i, 45.0, QuestPos[sq][0], QuestPos[sq][1], QuestPos[sq][2])) {
+								new Float: oPos[3];
+								GetPlayerObjectRot(i, PlayerInfo[i][pObjectQuest][sq], oPos[0], oPos[1], oPos[2]);
+								SetPlayerObjectRot(i, PlayerInfo[i][pObjectQuest][sq], oPos[0], oPos[1], oPos[2]+35);
+								format(string, 25, "~g~Object %d gan day~n~", sq+1), strcat(szTD, string), objs++;
+							}
+							else if(IsPlayerInRangeOfPoint(i, 75.0, QuestPos[sq][0], QuestPos[sq][1], QuestPos[sq][2])) format(string, sizeof(string), "~y~Object %d gan day~n~", sq+1), strcat(szTD, string), objs++;
+							else if(IsPlayerInRangeOfPoint(i, 150.0, QuestPos[sq][0], QuestPos[sq][1], QuestPos[sq][2])) format(string, sizeof(string), "~r~Object %d gan day~n~", sq+1), strcat(szTD, string), objs++;
 							
-			// 				PlayerTextDrawSetString(i, QuestTD, szTD);
-			// 				PlayerTextDrawShow(i, QuestTD);
+							PlayerTextDrawSetString(i, QuestTD, szTD);
+							PlayerTextDrawShow(i, QuestTD);
 							
-			// 				if(IsPlayerInRangeOfPoint(i, 1.0, QuestPos[sq][0], QuestPos[sq][1], QuestPos[sq][2])) {
-			// 					if(GetPlayerVirtualWorld(i) != 0) return SendClientMessage(i, COLOR_LGREEN, "[ERROR] Ban khong the nhat manh ghep nay vi ban dang o trong mot the gioi ao!");
-			// 					if(QuestDeelay[i] > 0) {
-			// 						format(string, 60, "[ERROR] Ban chi co the lay mot manh ghep khac sau %d giay!", QuestDeelay[i]);
-			// 						SendClientMessage(i, COLOR_LGREEN, string);
-			// 					}				
-			// 					else {
-			// 						if(IsPlayerInAnyVehicle(i)) SendClientMessage(i, COLOR_LGREEN, "[ERROR] Ban dang o trong mot phuong tien!");
-			// 						else {
-			// 							DestroyPlayerObject(i, PlayerInfo[i][pObjectQuest][sq]);
-			// 							PlayerInfo[i][pSpecialQuest][sq] = 1;
-			// 							SaveQuest(i);
-			// 							format(string, 102, "Ban da nhat duoc ~y~%d/100~w~~h~ so manh ghep.~n~Tiep tuc cho den khi nhan duoc phan thuong dac biet!", CheckObjects(i));
-			// 							PlayerTextDrawSetString(i, InfosTD, string);	
-			// 							PlayerTextDrawShow(i, InfosTD);
-			// 							defer HideTextdraw(i);								
-			// 							if(CheckObjects(i) == 100) {
-			// 								format(string, 110, "["QUEST_NAME"] %s da hoan thanh viec thu thap cac manh ghep va gianh duoc phan thuong dac biet!", GetName(i));
-			// 								SCMTA(COLOR_YELLOW, string);
-			// 								SendClientMessage(i, COLOR_YELLOW, "Xin chuc mung! Ban da hoan thanh vien thu thap cac manh ghep bi an!");
-			// 								SendClientMessage(i, COLOR_YELLOW, "Ban nhan duoc: 500.000$, 10 rp, 20 diem cuop, 20 diem vuot nguc, 50 pp, 1 level up, 1 slot gara.");
-			// 								GivePlayerCash(i, 500000);
-			// 								PlayerInfo[i][pExp] += 10;
-			// 								PlayerInfo[i][pPremiumPoints] += 50;
-			// 								Update(i, pPremiumPointsx);			
-			// 								Update(i, pRP);	
-			// 								PlayerInfo[i][pRob] += 20;
-			// 								Update(i, pRobx);	
-			// 								PlayerInfo[i][pEscapePoints] += 20;
+							if(IsPlayerInRangeOfPoint(i, 1.0, QuestPos[sq][0], QuestPos[sq][1], QuestPos[sq][2])) {
+								if(GetPlayerVirtualWorld(i) != 0) return SendClientMessage(i, COLOR_LGREEN, "[ERROR] Ban khong the nhat manh ghep nay vi ban dang o trong mot the gioi ao!");
+								if(QuestDeelay[i] > 0) {
+									format(string, 60, "[ERROR] Ban chi co the lay mot manh ghep khac sau %d giay!", QuestDeelay[i]);
+									SendClientMessage(i, COLOR_LGREEN, string);
+								}				
+								else {
+									if(IsPlayerInAnyVehicle(i)) SendClientMessage(i, COLOR_LGREEN, "[ERROR] Ban dang o trong mot phuong tien!");
+									else {
+										DestroyPlayerObject(i, PlayerInfo[i][pObjectQuest][sq]);
+										PlayerInfo[i][pSpecialQuest][sq] = 1;
+										SaveQuest(i);
+										format(string, 102, "Ban da nhat duoc ~y~%d/100~w~~h~ so manh ghep.~n~Tiep tuc cho den khi nhan duoc phan thuong dac biet!", CheckObjects(i));
+										PlayerTextDrawSetString(i, InfosTD, string);	
+										PlayerTextDrawShow(i, InfosTD);
+										defer HideTextdraw(i);								
+										if(CheckObjects(i) == 100) {
+											format(string, 110, "["QUEST_NAME"] %s da hoan thanh viec thu thap cac manh ghep va gianh duoc phan thuong dac biet!", GetName(i));
+											SCMTA(COLOR_YELLOW, string);
+											SendClientMessage(i, COLOR_YELLOW, "Xin chuc mung! Ban da hoan thanh vien thu thap cac manh ghep bi an!");
+											SendClientMessage(i, COLOR_YELLOW, "Ban nhan duoc: 500.000$, 10 rp, 20 diem cuop, 20 diem vuot nguc, 50 pp, 1 level up, 1 slot gara.");
+											GivePlayerCash(i, 500000);
+											PlayerInfo[i][pExp] += 10;
+											PlayerInfo[i][pPremiumPoints] += 50;
+											Update(i, pPremiumPointsx);			
+											Update(i, pRP);	
+											PlayerInfo[i][pRob] += 20;
+											Update(i, pRobx);	
+											PlayerInfo[i][pEscapePoints] += 20;
 											
-			// 								PlayerInfo[i][pLevel]++;
-			// 								Update(i,pLevelx);
-			// 								SetPlayerScore(i, PlayerInfo[i][pLevel]);
+											PlayerInfo[i][pLevel]++;
+											Update(i,pLevelx);
+											SetPlayerScore(i, PlayerInfo[i][pLevel]);
 											
-			// 								UpdateVar(i, "EscapePoints", PlayerInfo[i][pEscapePoints]);	
-			// 								PlayerTextDrawHide(i, QuestTD);	
-			// 								if(PlayerInfo[i][pSlot][0] == 0) PlayerInfo[i][pSlot][0] = 1;
-			// 								else if(PlayerInfo[i][pSlot][1] == 0) PlayerInfo[i][pSlot][1] = 1;
-			// 								else if(PlayerInfo[i][pSlot][2] == 0) PlayerInfo[i][pSlot][2] = 1;
-			// 								else if(PlayerInfo[i][pSlot][3] == 0) PlayerInfo[i][pSlot][3] = 1;
-			// 								else if(PlayerInfo[i][pSlot][4] == 0) PlayerInfo[i][pSlot][4] = 1;
-			// 								else SendClientMessage(i, COLOR_LGREEN, "Ban khong co cho cho xe vi ban co so luong xe toi da!");
-			// 								UpdateSlots(i);
-			// 							}
-			// 							QuestDeelay[i] = 60;		
-			// 						}	
-			// 					}
-			// 				}
-			// 			}
-			// 		}
-			// 		if(objs == 0) PlayerTextDrawHide(i, QuestTD);
-			// 	}	
-			// 	if(QuestDeelay[i] > 0) QuestDeelay[i] --;		
-			// }
+											UpdateVar(i, "EscapePoints", PlayerInfo[i][pEscapePoints]);	
+											PlayerTextDrawHide(i, QuestTD);	
+											if(PlayerInfo[i][pSlot][0] == 0) PlayerInfo[i][pSlot][0] = 1;
+											else if(PlayerInfo[i][pSlot][1] == 0) PlayerInfo[i][pSlot][1] = 1;
+											else if(PlayerInfo[i][pSlot][2] == 0) PlayerInfo[i][pSlot][2] = 1;
+											else if(PlayerInfo[i][pSlot][3] == 0) PlayerInfo[i][pSlot][3] = 1;
+											else if(PlayerInfo[i][pSlot][4] == 0) PlayerInfo[i][pSlot][4] = 1;
+											else SendClientMessage(i, COLOR_LGREEN, "Ban khong co cho cho xe vi ban co so luong xe toi da!");
+											UpdateSlots(i);
+										}
+										QuestDeelay[i] = 600;		
+									}	
+								}
+							}
+						}
+					}
+					if(objs == 0) PlayerTextDrawHide(i, QuestTD);
+				}	
+				if(QuestDeelay[i] > 0) QuestDeelay[i] --;		
+			}
 		}					
 	}
 	for(new i = 0; i < 3; i++) {
@@ -3898,14 +3896,14 @@ task PayDay[10000]() {
 				}
 				// LoadLosSantosNightLight();		
 			} 
-			// else if(hour == 18) {
-			// 	SpecialWeek = 0;
-			// 	SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Server da tat tim object tu 16h-22h de giam lag.");
-			// } 
-			// else if(hour == 22) {
-			// 	SpecialWeek = 1;
-			// 	SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Tim object da duoc mo lai, ban co the tiep tuc cuoc hanh trinh roi.");
-			// }
+			else if(hour == 18) {
+				SpecialWeek = 0;
+				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Server da tat tim object tu 16h-22h de giam lag.");
+			} 
+			else if(hour == 22) {
+				SpecialWeek = 1;
+				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Tim object da duoc mo lai, ban co the tiep tuc cuoc hanh trinh roi.");
+			}
 			if(hour == 13 || hour == 18) {
 				CasinoOn = 1;
 				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Tai xiu da duoc mo, nhanh tay dat cuoc nao cac dan choi!");

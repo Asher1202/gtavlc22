@@ -5338,6 +5338,9 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				IsSmoking[playerid] = 60;
 				SetPlayerSpecialAction(playerid,SPECIAL_ACTION_SMOKE_CIGGY);
 				Inventory_Remove(playerid, "Smoke");
+				for(new m; m < (PlayerInfo[playerid][pVip] + 3); m++) {
+				if(PlayerInfo[playerid][pDailyMission][m] == 5) CheckMission(playerid, m);
+			}	
 			}
 			else if(strmatch("Ca Thuong", invData[playerid][id][invItem])) {
 				if(gettime() < GetPVarInt(playerid, "Ban2Ca")) NightBot(playerid, "Ban 2 ca");

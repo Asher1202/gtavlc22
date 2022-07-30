@@ -74,7 +74,7 @@ new Text3D:adminLabel[MAX_PLAYERS];
 #include <fly>
 #include <progress2>
 #include <AutoAFK>
-#include <sampcac>
+// #include <sampcac>
 #include <EVF> //for vehiclespeedcap and stufsf
 // #include <td-streamer-player> 
 DEFINE_HOOK_REPLACEMENT(KeyState, KState);
@@ -87,6 +87,7 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 #include "Source/modules/fisherman.pwn"
 #include "Source/modules/progress.inc" //for jobs
 #include "Source/modules/update.pwn"
+#include "Source/modules/jobs/Garden.pwn"
 // #include <battlepass>
 #include "Source/modules/crate.inc"
 #include <core/timers.pwn>

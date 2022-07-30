@@ -66,7 +66,7 @@ new stringDocFileNho[ 144 ];
 // Special
 #define QUEST_NAME 				"Nhiem vu he"
 #define QUEST_OBJECT 			(2406)
-new SpecialWeek = 0;
+new SpecialWeek = 1;
 
 // DEFINES - OTHERS
 #if !defined IsValidVehicle

@@ -2186,12 +2186,12 @@ GiveJobSalary(playerid) {
 		case 2: {
 			new category = GetPVarInt(playerid, "Category");
 			switch(category) {
-				case 0: money = skill*4000 + 9000 + random(1000);
-				case 1: money = skill*4000 + 12000 + random(2000);
-				case 2: money = skill*4000 + 10000 + random(3000);
-				case 3: money = skill*4000 + 14000 + random(4000);
-				case 4: money = skill*5000 + 14500 + random(5000);				
-				case 5: money = skill*5000 + 15000 + random(6000);
+				case 0: money = skill*8000 + 9000 + random(1000);
+				case 1: money = skill*8000 + 12000 + random(2000);
+				case 2: money = skill*8000 + 10000 + random(3000);
+				case 3: money = skill*8000 + 14000 + random(4000);
+				case 4: money = skill*10000 + 14500 + random(5000);				
+				case 5: money = skill*10000 + 15000 + random(6000);
 			}
 		}
 		case 3: money = skill*5000 + 15000 + random(1000);
@@ -4274,28 +4274,28 @@ OnPlayerRegister(playerid, password[]) {
 	PlayerInfo[playerid][pShowCeas] = 1;
 	return 1;
 }
-// showMissions(playerid, key) {
-// 	new string[128], status1[21], status2[21], status3[21];
-// 	if(PlayerInfo[playerid][pProgress][0] >= GetNeedProgress(playerid, 0)) format(status1, 21, "Nhiem vu da hoan tat");
-// 	else format(status1, 10, "%d/%d", PlayerInfo[playerid][pProgress][0], GetNeedProgress(playerid, 0));
-// 	if(PlayerInfo[playerid][pProgress][1] >= GetNeedProgress(playerid, 1)) format(status2, 21, "Nhiem vu da hoan tat");
-// 	else format(status2, 10, "%d/%d", PlayerInfo[playerid][pProgress][1], GetNeedProgress(playerid, 1));
-// 	if(PlayerInfo[playerid][pProgress][2] >= GetNeedProgress(playerid, 2)) format(status3, 21, "Nhiem vu da hoan tat");
-// 	else format(status3, 10, "%d/%d", PlayerInfo[playerid][pProgress][2], GetNeedProgress(playerid, 2));
-// 	format(string, sizeof(string), "Nhiem Vu >> %s (Tien do: %s)", missionName(playerid, PlayerInfo[playerid][pDailyMission][0], 0), status1);
-// 	SendClientMessage(playerid, COLOR_YELLOW, string);
-// 	format(string, sizeof(string), "Nhiem Vu >> %s (Tien do: %s)", missionName(playerid, PlayerInfo[playerid][pDailyMission][1], 1), status2);
-// 	SendClientMessage(playerid, COLOR_YELLOW, string);
-// 	format(string, sizeof(string), "Nhiem Vu >> %s (Tien do: %s)", missionName(playerid, PlayerInfo[playerid][pDailyMission][2], 2), status3);
-// 	SendClientMessage(playerid, COLOR_YELLOW, string);
+showMissions(playerid, key) {
+	new string[128], status1[21], status2[21], status3[21];
+	if(PlayerInfo[playerid][pProgress][0] >= GetNeedProgress(playerid, 0)) format(status1, 21, "Nhiem vu da hoan tat");
+	else format(status1, 10, "%d/%d", PlayerInfo[playerid][pProgress][0], GetNeedProgress(playerid, 0));
+	if(PlayerInfo[playerid][pProgress][1] >= GetNeedProgress(playerid, 1)) format(status2, 21, "Nhiem vu da hoan tat");
+	else format(status2, 10, "%d/%d", PlayerInfo[playerid][pProgress][1], GetNeedProgress(playerid, 1));
+	if(PlayerInfo[playerid][pProgress][2] >= GetNeedProgress(playerid, 2)) format(status3, 21, "Nhiem vu da hoan tat");
+	else format(status3, 10, "%d/%d", PlayerInfo[playerid][pProgress][2], GetNeedProgress(playerid, 2));
+	format(string, sizeof(string), "Nhiem Vu >> %s (Tien do: %s)", missionName(playerid, PlayerInfo[playerid][pDailyMission][0], 0), status1);
+	SendClientMessage(playerid, COLOR_YELLOW, string);
+	format(string, sizeof(string), "Nhiem Vu >> %s (Tien do: %s)", missionName(playerid, PlayerInfo[playerid][pDailyMission][1], 1), status2);
+	SendClientMessage(playerid, COLOR_YELLOW, string);
+	format(string, sizeof(string), "Nhiem Vu >> %s (Tien do: %s)", missionName(playerid, PlayerInfo[playerid][pDailyMission][2], 2), status3);
+	SendClientMessage(playerid, COLOR_YELLOW, string);
 	
-// 	if(SpecialWeek == 1 && key != 1) {
-// 		format(string, sizeof(string), "["QUEST_NAME"] Tien do: %d/100", CheckObjects(playerid));
-// 		SendClientMessage(playerid, COLOR_YELLOW, string);
-// 		SendClientMessage(playerid, COLOR_YELLOW, "De hoan thanh nhiem vu nay, ban can mot cai Backpack mua o shop 24/7 (/gps).");
-// 		SendClientMessage(playerid, COLOR_YELLOW, "Giai thuong: 500.000$, 10 rp, 20 diem cuop, 20 diem vuot nguc, 50 pp, 1 level up, 1 slot xe.");
-// 	}	
-// }
+	if(SpecialWeek == 1 && key != 1) {
+		format(string, sizeof(string), "["QUEST_NAME"] Tien do: %d/100", CheckObjects(playerid));
+		SendClientMessage(playerid, COLOR_YELLOW, string);
+		SendClientMessage(playerid, COLOR_YELLOW, "De hoan thanh nhiem vu nay, ban can mot cai Backpack mua o shop 24/7 (/gps).");
+		SendClientMessage(playerid, COLOR_YELLOW, "Giai thuong: 500.000$, 10 rp, 20 diem cuop, 20 diem vuot nguc, 50 pp, 1 level up, 1 slot xe.");
+	}	
+}
 timer SetSpawnInfoEx[500](playerid, team, skin, Float:x, Float:y, Float:z, Float:rotation, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo)
 {
     SetSpawnInfo(playerid, team, skin, x, y, z, rotation, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo);
@@ -4916,12 +4916,12 @@ OnPlayerLoginEx(playerid, const password[]) {
 		if(IsAMember(playerid)) {
 			
 			Iter_Add(PlayerGangster, playerid);
-			if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0)
-			{
-			 	UsingSampcac{playerid} = 1;
-				SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
-			}
-			else SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");
+			// if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0)
+			// {
+			//  	UsingSampcac{playerid} = 1;
+			// 	SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
+			// }
+			// else SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");
 		}
 	}
 	return 1;
@@ -4965,7 +4965,8 @@ SendAdminMessage(color,const string[], level = 1) {
 			}
 		}
 	}
-	printf("%s", string);
+	Log("logs/adminlog.log", string);
+	// printf("%s", string);
 	return 1;
 }
 OOCNews(color,string[]) {
@@ -5141,8 +5142,8 @@ LeaveRaceArena(playerid) {
 	return 1;
 }
 function CheckRace() {
-	if(Iter_Count(PlayerInRace) < 3) {
-		SendArenaMessage(COLOR_YELLOW, "Cuoc dua khong the bat dau vi co it hon 3 nguoi!");
+	if(Iter_Count(PlayerInRace) < 2) {
+		SendArenaMessage(COLOR_YELLOW, "Cuoc dua khong the bat dau vi co it hon 2 nguoi!");
 		foreach(new i: Player) {
 			if(IsPlayerConnected(i) && Iter_Contains(PlayerInRace, i)) {
 				LeaveRaceArena(i);

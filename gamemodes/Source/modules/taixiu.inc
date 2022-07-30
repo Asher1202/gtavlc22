@@ -67,8 +67,8 @@ Dialog:DIALOG_CUOCTAI(playerid, response, listitem, inputtext[]) {
 	    if(Iter_Contains(InTaixiu,playerid)) return SendClientMessage(playerid,COLOR_GREY, "Ban dang tham gia tai xiu.");
         new chipcuoc = strval(inputtext),string[100];
 		
-		format(string, sizeof(string), "Cuoc toi thieu la %d chip, toi da %d chip!", CHIP_TX_MIN, CHIP_TX_MAX);
-        if (chipcuoc < CHIP_TX_MIN || chipcuoc > CHIP_TX_MAX) return SendClientMessage(playerid,COLOR_GREY, string);
+		format(string, sizeof(string), "Cuoc toi thieu la %d chip, toi da %d chip!", CHIP_TX_MIN, CHIP_TX_MAX*(1+(100*PlayerInfo[playerid][pVip])));
+        if (chipcuoc < CHIP_TX_MIN || chipcuoc > CHIP_TX_MAX*(1+(100*PlayerInfo[playerid][pVip]))) return SendClientMessage(playerid,COLOR_GREY, string);
 
         if (PlayerInfo[playerid][pCasinoChip] < chipcuoc) return SendClientMessage(playerid,COLOR_GREY,"Ban khong co du chip de cuoc!");
         PlayerInfo[playerid][pCasinoChip] -= chipcuoc;
@@ -90,8 +90,8 @@ Dialog:DIALOG_CUOCXIU(playerid, response, listitem, inputtext[]) {
 	    if(Iter_Contains(InTaixiu,playerid)) return SendClientMessage(playerid,COLOR_GREY, "Ban dang tham gia tai xiu.");
         new chipcuoc = strval(inputtext),string[100];
 
-		format(string, sizeof(string), "Cuoc toi thieu la %d chip, toi da %d chip!", CHIP_TX_MIN, CHIP_TX_MAX);
-        if (chipcuoc < CHIP_TX_MIN || chipcuoc > CHIP_TX_MAX) return SendClientMessage(playerid,COLOR_GREY, string);		
+		format(string, sizeof(string), "Cuoc toi thieu la %d chip, toi da %d chip!", CHIP_TX_MIN,CHIP_TX_MAX*(1+(100*PlayerInfo[playerid][pVip])));
+        if (chipcuoc < CHIP_TX_MIN || chipcuoc > CHIP_TX_MAX*(1+(100*PlayerInfo[playerid][pVip]))) return SendClientMessage(playerid,COLOR_GREY, string);		
 
         if (PlayerInfo[playerid][pCasinoChip] < chipcuoc) return SendClientMessage(playerid,COLOR_GREY,"Ban khong co du chip de cuoc!");
         PlayerInfo[playerid][pCasinoChip] -= chipcuoc;

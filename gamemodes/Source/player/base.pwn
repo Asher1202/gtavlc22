@@ -1950,168 +1950,168 @@ CMD:buyparachute(playerid, params[])
 	Update(playerid, pCashx);
 	return 1;
 }
-CMD:getgift(playerid, params[]) {
-	// if(SpecialWeek == 1) return SendClientMessage(playerid, COLOR_LGREEN, "Giftbox chua duoc kich hoat!");
-	new string[180], won[256];
-	if(PlayerInfo[playerid][pGiftPoints] > 1)
-    {
-		if(PlayerInfo[playerid][pConnectTime] < 5) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co 5 gio choi de nhan mon qua nay!");
-		if(IsPlayerInRangeOfPoint(playerid, 25.0, 192.0716,-1825.4077,7.2670))
-		{
-			new rand = random(310);
-			PlayerInfo[playerid][pGiftPoints] = 0;
-			Update(playerid, pGiftPointsx);
-			if(rand < 275)
-			{
-				new randmoney = 50000 + random(50000);
-				PlayerInfo[playerid][pCash] += randmoney;
-				GivePlayerCash(playerid, randmoney);
-				format(won, sizeof(won), "Ban chien thang $%s tu hop qua!", FormatNumber(randmoney));
-				format(string, sizeof(string), "%s da chien thang $%s tu hop qua!.", GetName(playerid), FormatNumber(randmoney));
-				//InsertLog(playerid, string, LOG_GIFTBOX);
-				ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
-				GiftMoney += randmoney;
-			}
-			else if(rand >= 275 && rand < 280)
-			{
-				new randrp = 10 + random(40);
-				PlayerInfo[playerid][pPremiumPoints] += randrp;
-				Update(playerid, pPremiumPointsx);
-				format(won, sizeof(won), "Ban da chien thang %d "#DIEMCAOCAP" tu hop qua!", randrp);
-				format(string, sizeof(string), "%s da chien thang %d "#DIEMCAOCAP" tu hop qua!.", GetName(playerid), randrp);
-				//InsertLog(playerid, string, LOG_GIFTBOX);	
-				ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
-				GiftGold += randrp;
-				format(string, sizeof(string), "(( AdmBot: %s da chien thang %d "#DIEMCAOCAP" tu hop qua!! ))", GetName(playerid), randrp);
-				SCMTA(COLOR_CLIENT, string);				
-			}			
-			else if(rand >= 280 && rand < 297)
-			{
-				new randrp = 1 + random(4);
-				PlayerInfo[playerid][pExp] += randrp;
-				Update(playerid, pRP);
-				format(won, sizeof(won), "Ban da chien thang %d diem kinh nghiem tu hop qua!", randrp);
-				format(string, sizeof(string), "%s da chien thang %d diem kinh nghiem tu hop qua!.", GetName(playerid), randrp);
-				//InsertLog(playerid, string, LOG_GIFTBOX);
-				ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);		
-				GiftRP += randrp;
-				UpdateProgress(playerid, 0);
-			}			
-			else if(rand >= 297 && rand <= 300) {
-				if(GiftVehicle < 60) {
-					if(GetSlots(playerid) == GetVehicles(playerid)) {
-						new randmoney = 100000 + random(50000);
-						PlayerInfo[playerid][pCash] += randmoney;
-						GivePlayerCash(playerid, randmoney);
-						format(won, sizeof(won), "Ban chien thang $%s tu hop qua!", FormatNumber(randmoney));
-						format(string, sizeof(string), "%s da chien thang $%s tu hop qua!.", GetName(playerid), FormatNumber(randmoney));
-						//InsertLog(playerid, string, LOG_GIFTBOX);
-						ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
-						GiftMoney += randmoney;				
-					}
-					else {
-						GiftVehicle++;
-						format(won, sizeof(won), "Chuc mung! Ban da chien thang xe Stretch tu hop qua!.");
-						GiveVehicle(playerid, 409);
-						format(string, sizeof(string), "(( AdmBot: %s da chien thang xe Stretch tu hop qua!! ))", GetName(playerid));
-						SCMTA(COLOR_CLIENT, string);
-						format(string, sizeof(string), "(( AdmBot: Ngoai ra %d xe con lai trong hop qua. ))", 60-GiftVehicle);
-						SCMTA(COLOR_CLIENT, string);
-						format(string, sizeof(string), "%s da chien thang mot chiec Stretch tu hop qua!.", GetName(playerid));
-						//InsertLog(playerid, string, LOG_GIFTBOX);
-					}
-				}								
-			}
-			else if(rand > 300 && rand < 305)
-			{
-				new str[128];
-				PlayerInfo[playerid][pCarLic] = 1;
-				PlayerInfo[playerid][pCarLicT] += 30;
-				PlayerInfo[playerid][pCarLicS] = 0;
-				PlayerInfo[playerid][pFlyLic] = 1;
-				PlayerInfo[playerid][pFlyLicT] += 30;
-				PlayerInfo[playerid][pFlyLicS] = 0;
-				PlayerInfo[playerid][pBoatLic] = 1;
-				PlayerInfo[playerid][pBoatLicT] += 30;
-				PlayerInfo[playerid][pBoatLicS] = 0;
-				PlayerInfo[playerid][pGunLic] = 1;
-				PlayerInfo[playerid][pGunLicT] += 30;
-				PlayerInfo[playerid][pGunLicS] = 0;		
-				format(str,128,"UPDATE users SET `CarLic`='1',`CarLicT`='%d',`CarLicS`='0' WHERE `ID`='%d'",PlayerInfo[playerid][pCarLicT],PlayerInfo[playerid][pSQLID]);
-				mysql_query(SQL,str,false);
-				format(str,128,"UPDATE users SET `FlyLic`='1',`FlyLicT`='%d',`FlyLicS`='0' WHERE `ID`='%d'",PlayerInfo[playerid][pFlyLicT],PlayerInfo[playerid][pSQLID]);
-				mysql_query(SQL,str,false);
-				format(str,128,"UPDATE users SET `BoatLic`='1',`BoatLicT`='%d',`BoatLicS`='0' WHERE `ID`='%d'",PlayerInfo[playerid][pBoatLicT],PlayerInfo[playerid][pSQLID]);
-				mysql_query(SQL,str,false);
-				format(str,128,"UPDATE users SET `GunLic`='1',`GunLicT`='%d', `GunLicS`='0' WHERE `ID`='%d'",PlayerInfo[playerid][pGunLicT],PlayerInfo[playerid][pSQLID]);
-				mysql_query(SQL,str,false);
-				format(won, sizeof(won), "Ban da nhan duoc tat ca giay phep co thoi han 30 gio!");
-				format(string, sizeof(string), "%s da nhan duoc tat ca giay phep co thoi han 30 gio.", GetName(playerid));
-				//InsertLog(playerid, string, LOG_GIFTBOX);	
-				ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
-			}
-			else if(rand > 305 && rand < 306) {
-				if(PlayerInfo[playerid][pFpunish] == 0) {
-					new randmoney = 50000 + random(50000);
-					PlayerInfo[playerid][pCash] += randmoney;
-					GivePlayerCash(playerid, randmoney);
-					format(won, sizeof(won), "Ban chien thang $%s tu hop qua!", FormatNumber(randmoney));
-					format(string, sizeof(string), "%s da chien thang $%s tu hop qua!.", GetName(playerid), FormatNumber(randmoney));
-					//InsertLog(playerid, string, LOG_GIFTBOX);
-					ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
-					GiftMoney += randmoney;				
-				}
-				else {
-					PlayerInfo[playerid][pFpunish] = 0;
-					Update(playerid, pFpunishx);
-					format(won, sizeof(won), "Chuc mung! Ban da nhan duoc xoa FP.");
-					format(string, sizeof(string), "%s da nhan duoc xoa FP.", GetName(playerid));
-					//InsertLog(playerid, string, LOG_GIFTBOX);
-					ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);		
-				}
-			}				
-			else if(rand > 306) {
-				if(PlayerInfo[playerid][pWarns] == 0) {
-					new randmoney = 100000 + random(50000);
-					PlayerInfo[playerid][pCash] += randmoney;
-					GivePlayerCash(playerid, randmoney);
-					format(won, sizeof(won), "Ban chien thang $%s tu hop qua!", FormatNumber(randmoney));
-					format(string, sizeof(string), "%s da chien thang $%s tu hop qua!.", GetName(playerid), FormatNumber(randmoney));
-					//InsertLog(playerid, string, LOG_GIFTBOX);
-					ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
-					GiftMoney += randmoney;				
-				}
-				else {
-					PlayerInfo[playerid][pWarns] = 0;
-					Update(playerid, pWarnsx);
-					format(won, sizeof(won), "Chuc mung! Ban da nhan duoc xoa warn.");
-					format(string, sizeof(string), "%s da nhan duoc xoa warn.", GetName(playerid));
-					//InsertLog(playerid, string, LOG_GIFTBOX);	
-					ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);		
-				}
-			}
-			else {
-				new randmoney = 100000 + random(100000);
-				PlayerInfo[playerid][pCash] += randmoney;
-				GivePlayerCash(playerid, randmoney);
-				format(won, sizeof(won), "Ban chien thang $%s tu hop qua!", FormatNumber(randmoney));
-				format(string, sizeof(string), "%s da chien thang $%s tu hop qua!.", GetName(playerid), FormatNumber(randmoney));
-				//InsertLog(playerid, string, LOG_GIFTBOX);
-				ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
-				GiftMoney += randmoney;			
-			}
-			UpdateGift();
-			Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Giftbox", won, "Ok", "");
-		}
-		else return SendClientMessage(playerid, COLOR_GREY, "Ban khong o vi tri hop qua! (/locations)");
-	}
-	else {
-		format(string, sizeof(string), "Ban co the nhan mon qua nay khi ban co %d gio choi.", 2-PlayerInfo[playerid][pGiftPoints]);
-		SendClientMessage(playerid, COLOR_YELLOW, string);
-		SendClientMessage(playerid, COLOR_YELLOW, "So gio duoc tinh chi khi ban choi it nhat 30 phut cho den Payday.");
-	}
-	return 1;
-}
+// CMD:getgift(playerid, params[]) {
+// 	// if(SpecialWeek == 1) return SendClientMessage(playerid, COLOR_LGREEN, "Giftbox chua duoc kich hoat!");
+// 	new string[180], won[256];
+// 	if(PlayerInfo[playerid][pGiftPoints] > 1)
+//     {
+// 		if(PlayerInfo[playerid][pConnectTime] < 5) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co 5 gio choi de nhan mon qua nay!");
+// 		if(IsPlayerInRangeOfPoint(playerid, 25.0, 192.0716,-1825.4077,7.2670))
+// 		{
+// 			new rand = random(310);
+// 			PlayerInfo[playerid][pGiftPoints] = 0;
+// 			Update(playerid, pGiftPointsx);
+// 			if(rand < 275)
+// 			{
+// 				new randmoney = 50000 + random(50000);
+// 				PlayerInfo[playerid][pCash] += randmoney;
+// 				GivePlayerCash(playerid, randmoney);
+// 				format(won, sizeof(won), "Ban chien thang $%s tu hop qua!", FormatNumber(randmoney));
+// 				format(string, sizeof(string), "%s da chien thang $%s tu hop qua!.", GetName(playerid), FormatNumber(randmoney));
+// 				//InsertLog(playerid, string, LOG_GIFTBOX);
+// 				ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
+// 				GiftMoney += randmoney;
+// 			}
+// 			else if(rand >= 275 && rand < 280)
+// 			{
+// 				new randrp = 10 + random(40);
+// 				PlayerInfo[playerid][pPremiumPoints] += randrp;
+// 				Update(playerid, pPremiumPointsx);
+// 				format(won, sizeof(won), "Ban da chien thang %d "#DIEMCAOCAP" tu hop qua!", randrp);
+// 				format(string, sizeof(string), "%s da chien thang %d "#DIEMCAOCAP" tu hop qua!.", GetName(playerid), randrp);
+// 				//InsertLog(playerid, string, LOG_GIFTBOX);	
+// 				ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
+// 				GiftGold += randrp;
+// 				format(string, sizeof(string), "(( AdmBot: %s da chien thang %d "#DIEMCAOCAP" tu hop qua!! ))", GetName(playerid), randrp);
+// 				SCMTA(COLOR_CLIENT, string);				
+// 			}			
+// 			else if(rand >= 280 && rand < 297)
+// 			{
+// 				new randrp = 1 + random(4);
+// 				PlayerInfo[playerid][pExp] += randrp;
+// 				Update(playerid, pRP);
+// 				format(won, sizeof(won), "Ban da chien thang %d diem kinh nghiem tu hop qua!", randrp);
+// 				format(string, sizeof(string), "%s da chien thang %d diem kinh nghiem tu hop qua!.", GetName(playerid), randrp);
+// 				//InsertLog(playerid, string, LOG_GIFTBOX);
+// 				ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);		
+// 				GiftRP += randrp;
+// 				UpdateProgress(playerid, 0);
+// 			}			
+// 			else if(rand >= 297 && rand <= 300) {
+// 				if(GiftVehicle < 60) {
+// 					if(GetSlots(playerid) == GetVehicles(playerid)) {
+// 						new randmoney = 100000 + random(50000);
+// 						PlayerInfo[playerid][pCash] += randmoney;
+// 						GivePlayerCash(playerid, randmoney);
+// 						format(won, sizeof(won), "Ban chien thang $%s tu hop qua!", FormatNumber(randmoney));
+// 						format(string, sizeof(string), "%s da chien thang $%s tu hop qua!.", GetName(playerid), FormatNumber(randmoney));
+// 						//InsertLog(playerid, string, LOG_GIFTBOX);
+// 						ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
+// 						GiftMoney += randmoney;				
+// 					}
+// 					else {
+// 						GiftVehicle++;
+// 						format(won, sizeof(won), "Chuc mung! Ban da chien thang xe Stretch tu hop qua!.");
+// 						GiveVehicle(playerid, 409);
+// 						format(string, sizeof(string), "(( AdmBot: %s da chien thang xe Stretch tu hop qua!! ))", GetName(playerid));
+// 						SCMTA(COLOR_CLIENT, string);
+// 						format(string, sizeof(string), "(( AdmBot: Ngoai ra %d xe con lai trong hop qua. ))", 60-GiftVehicle);
+// 						SCMTA(COLOR_CLIENT, string);
+// 						format(string, sizeof(string), "%s da chien thang mot chiec Stretch tu hop qua!.", GetName(playerid));
+// 						//InsertLog(playerid, string, LOG_GIFTBOX);
+// 					}
+// 				}								
+// 			}
+// 			else if(rand > 300 && rand < 305)
+// 			{
+// 				new str[128];
+// 				PlayerInfo[playerid][pCarLic] = 1;
+// 				PlayerInfo[playerid][pCarLicT] += 30;
+// 				PlayerInfo[playerid][pCarLicS] = 0;
+// 				PlayerInfo[playerid][pFlyLic] = 1;
+// 				PlayerInfo[playerid][pFlyLicT] += 30;
+// 				PlayerInfo[playerid][pFlyLicS] = 0;
+// 				PlayerInfo[playerid][pBoatLic] = 1;
+// 				PlayerInfo[playerid][pBoatLicT] += 30;
+// 				PlayerInfo[playerid][pBoatLicS] = 0;
+// 				PlayerInfo[playerid][pGunLic] = 1;
+// 				PlayerInfo[playerid][pGunLicT] += 30;
+// 				PlayerInfo[playerid][pGunLicS] = 0;		
+// 				format(str,128,"UPDATE users SET `CarLic`='1',`CarLicT`='%d',`CarLicS`='0' WHERE `ID`='%d'",PlayerInfo[playerid][pCarLicT],PlayerInfo[playerid][pSQLID]);
+// 				mysql_query(SQL,str,false);
+// 				format(str,128,"UPDATE users SET `FlyLic`='1',`FlyLicT`='%d',`FlyLicS`='0' WHERE `ID`='%d'",PlayerInfo[playerid][pFlyLicT],PlayerInfo[playerid][pSQLID]);
+// 				mysql_query(SQL,str,false);
+// 				format(str,128,"UPDATE users SET `BoatLic`='1',`BoatLicT`='%d',`BoatLicS`='0' WHERE `ID`='%d'",PlayerInfo[playerid][pBoatLicT],PlayerInfo[playerid][pSQLID]);
+// 				mysql_query(SQL,str,false);
+// 				format(str,128,"UPDATE users SET `GunLic`='1',`GunLicT`='%d', `GunLicS`='0' WHERE `ID`='%d'",PlayerInfo[playerid][pGunLicT],PlayerInfo[playerid][pSQLID]);
+// 				mysql_query(SQL,str,false);
+// 				format(won, sizeof(won), "Ban da nhan duoc tat ca giay phep co thoi han 30 gio!");
+// 				format(string, sizeof(string), "%s da nhan duoc tat ca giay phep co thoi han 30 gio.", GetName(playerid));
+// 				//InsertLog(playerid, string, LOG_GIFTBOX);	
+// 				ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
+// 			}
+// 			else if(rand > 305 && rand < 306) {
+// 				if(PlayerInfo[playerid][pFpunish] == 0) {
+// 					new randmoney = 50000 + random(50000);
+// 					PlayerInfo[playerid][pCash] += randmoney;
+// 					GivePlayerCash(playerid, randmoney);
+// 					format(won, sizeof(won), "Ban chien thang $%s tu hop qua!", FormatNumber(randmoney));
+// 					format(string, sizeof(string), "%s da chien thang $%s tu hop qua!.", GetName(playerid), FormatNumber(randmoney));
+// 					//InsertLog(playerid, string, LOG_GIFTBOX);
+// 					ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
+// 					GiftMoney += randmoney;				
+// 				}
+// 				else {
+// 					PlayerInfo[playerid][pFpunish] = 0;
+// 					Update(playerid, pFpunishx);
+// 					format(won, sizeof(won), "Chuc mung! Ban da nhan duoc xoa FP.");
+// 					format(string, sizeof(string), "%s da nhan duoc xoa FP.", GetName(playerid));
+// 					//InsertLog(playerid, string, LOG_GIFTBOX);
+// 					ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);		
+// 				}
+// 			}				
+// 			else if(rand > 306) {
+// 				if(PlayerInfo[playerid][pWarns] == 0) {
+// 					new randmoney = 100000 + random(50000);
+// 					PlayerInfo[playerid][pCash] += randmoney;
+// 					GivePlayerCash(playerid, randmoney);
+// 					format(won, sizeof(won), "Ban chien thang $%s tu hop qua!", FormatNumber(randmoney));
+// 					format(string, sizeof(string), "%s da chien thang $%s tu hop qua!.", GetName(playerid), FormatNumber(randmoney));
+// 					//InsertLog(playerid, string, LOG_GIFTBOX);
+// 					ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
+// 					GiftMoney += randmoney;				
+// 				}
+// 				else {
+// 					PlayerInfo[playerid][pWarns] = 0;
+// 					Update(playerid, pWarnsx);
+// 					format(won, sizeof(won), "Chuc mung! Ban da nhan duoc xoa warn.");
+// 					format(string, sizeof(string), "%s da nhan duoc xoa warn.", GetName(playerid));
+// 					//InsertLog(playerid, string, LOG_GIFTBOX);	
+// 					ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);		
+// 				}
+// 			}
+// 			else {
+// 				new randmoney = 100000 + random(100000);
+// 				PlayerInfo[playerid][pCash] += randmoney;
+// 				GivePlayerCash(playerid, randmoney);
+// 				format(won, sizeof(won), "Ban chien thang $%s tu hop qua!", FormatNumber(randmoney));
+// 				format(string, sizeof(string), "%s da chien thang $%s tu hop qua!.", GetName(playerid), FormatNumber(randmoney));
+// 				//InsertLog(playerid, string, LOG_GIFTBOX);
+// 				ProxDetector(30.0,playerid, string, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW, COLOR_YELLOW);	
+// 				GiftMoney += randmoney;			
+// 			}
+// 			UpdateGift();
+// 			Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Giftbox", won, "Ok", "");
+// 		}
+// 		else return SendClientMessage(playerid, COLOR_GREY, "Ban khong o vi tri hop qua! (/locations)");
+// 	}
+// 	else {
+// 		format(string, sizeof(string), "Ban co the nhan mon qua nay khi ban co %d gio choi.", 2-PlayerInfo[playerid][pGiftPoints]);
+// 		SendClientMessage(playerid, COLOR_YELLOW, string);
+// 		SendClientMessage(playerid, COLOR_YELLOW, "So gio duoc tinh chi khi ban choi it nhat 30 phut cho den Payday.");
+// 	}
+// 	return 1;
+// }
 CMD:deletecar(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 6) return 1;
 	new id;
@@ -3154,12 +3154,12 @@ CMD:accept(playerid, params[]) {
 
 		if(IsAMember(playerid)) {
 			Iter_Add(PlayerGangster, playerid);
-			if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0) 
-			{
-				SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
-				UsingSampcac{playerid} = 1;
-			}
-			else SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");
+			// if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0) 
+			// {
+			// 	SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
+			// 	UsingSampcac{playerid} = 1;
+			// }
+			// else SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");
 		}
 	}
 	else if(strcmp(x_job,"cinvite",true) == 0) {
@@ -3574,15 +3574,15 @@ CMD:balance(playerid, params[]) {
 	SendClientMessage(playerid, COLOR_WHITE, string);
 	return 1;
 }
-CMD:kiemtrasampcac(playerid, params[]) {
-	if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0) 
-	{
-	 	SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
-		UsingSampcac{playerid} = 1;
-	}
-	else SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");
-	return 1;
-}
+// CMD:kiemtrasampcac(playerid, params[]) {
+// 	if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0) 
+// 	{
+// 	 	SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
+// 		UsingSampcac{playerid} = 1;
+// 	}
+// 	else SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");
+// 	return 1;
+// }
 CMD:transfer(playerid, params[]) {
 	if(strlen(PlayerInfo[playerid][pPin]) != 0 && PlayerInfo[playerid][pPinLogged] == 0) {
 		 SendClientMessage(playerid, COLOR_GREY, "Ban khong the su dung lenh nay vi ban chua dang nhap PIN.");
@@ -7618,6 +7618,14 @@ CMD:icecream(playerid, params[]) {
 			if(PlayerInfo[playerid][pHunger] <= 95) Stamina_SetValue(playerid, 2);
 		}
 	}
+	return 1;
+}
+CMD:mocong(playerid, params[]) {
+	if(PlayerInfo[playerid][pMember] == 12 && taxiBarTimer == Timer:0 && IsPlayerInRangeOfPoint(playerid, 15.0, 1811.57495, -1894.22595, 13.54720)) {
+			MoveObject(taxibar, 1811.57495, -1894.22595, 13.54720, 0.15, 0.0, 0.0, 90.0);
+			taxiBarTimer = defer taxibaraclose[9000]();
+			return 1;
+		}	
 	return 1;
 }
 CMD:eat(playerid, params[]) {

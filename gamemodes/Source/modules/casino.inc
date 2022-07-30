@@ -4,7 +4,7 @@
 #define     X11_COLOR_CHIP      X11_DARK_TURQUOISE
 #define     COLOR_CHIP          DARK_TURQUOISE
 #define     CHIP_MONEY_BUY      (1000)
-#define     CHIP_MONEY_SELL     (950)
+#define     CHIP_MONEY_SELL     (900)
 #define 	CHIP_DICE_MIN 		(100)
 #define 	CHIP_DICE_MAX 		(500)
 #define 	DICE_DELAY 			(10)

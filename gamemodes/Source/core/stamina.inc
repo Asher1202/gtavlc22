@@ -115,7 +115,16 @@ Stamina_SetValue(playerid, num) {
 			Update(playerid, pHungerx);
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban bi chet vi qua doi");
 		}
-		case 1..14: {
+		case 1..3: {
+			new Float:health;
+			GetPlayerHealthEx(playerid, health);
+			LoopingAnim(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
+			SetPlayerHealthEx(playerid, health-3);
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban qua doi, hay mo tui do de an mot chiec hamburger");
+			SetPlayerDrunkLevel (playerid, 5000);
+		}
+
+		case 4..14: {
 			new Float:health;
 			GetPlayerHealthEx(playerid, health);
 			LoopingAnim(playerid, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);

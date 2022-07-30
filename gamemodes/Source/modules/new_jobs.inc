@@ -1615,6 +1615,7 @@ CMD:sellmats(playerid, params[]) {
 		if(SellMatsPrice[giveplayerid][playerid] > 0) return SendClientMessage(playerid, X11_SPRING_GREEN, "[ERROR]: "WHITE"Ban da gui offer roi.");
         if(giveplayerid == playerid) return SendClientMessage(playerid, X11_SPRING_GREEN, "[ERROR]: "WHITE" Ban khong the ban vat lieu cho chinh ban.");
         if(PlayerInfo[playerid][pMats] < amount) return SendClientMessage(playerid,X11_SPRING_GREEN, "[ERROR]: "WHITE" Ban khong co du so vat lieu can thiet.");
+		if(PlayerInfo[playerid][pLevel] < 4 && PlayerInfo[giveplayerid][pLevel] < 4) return SendClientMessage(playerid, -1, "Ban hoac nguoi choi do khong du level 4.");
         if(MoneyACheck(playerid, price, 1, 5000000)) return 1;
         if(AmountCheck(playerid, amount, 1, 10000)) return 1;
 

@@ -133,6 +133,12 @@ UpdateFood(f_number) {
     }
     return f_number;
 }
+//if player not on vehicle check and decrease hunger
+ptask DecreaseHunger[240000](playerid)
+{
+	if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT && Aduty[playerid] != 1) GivePlayerStamina(playerid, -1);
+	return 0;
+}
 
 task resetFoodMoney[60000]()
 {
@@ -237,7 +243,8 @@ CMD:traodoi(playerid, params[]) {
 		return 1;
 	}	
     if(id == playerid) return SendClientMessage(playerid,-1, "Ban khong tu trao doi cho chinh ban.");
-    if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessage(playerid, -1, "Ban can dat cap 3 de trao doi.");
+    if(PlayerInfo[playerid][pLevel] < 4 && PlayerInfo[id][pLevel] < 4) return SendClientMessage(playerid, -1, "Ban hoac nguoi choi do khong du level 4.");
+
 	//if(GetPVarInt(id, "InLesson") != playerid) return SendClientMessage(playerid, -1, "Nguoi choi nay khong o trong mot bai hoc.");
 	if(id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi da chon khong dang nhap.");
     if(valoare < 0) return SendClientMessage(playerid, COLOR_GREY, "[ASHER] : Bug nua ha may ong noi");

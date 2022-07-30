@@ -2,16 +2,16 @@
 
 #define MAX_CRATES 		9
 new IsCrates[MAX_PLAYERS], CrateModel[MAX_PLAYERS], CheckMoGuong[MAX_PLAYERS], PlayerText: CratePTD[2], Text: CrateTD[6], CrateTime[MAX_PLAYERS], AlegeCrates[MAX_PLAYERS], Text3D: LabelCrates;
-new CrateName[9][30] = {
-	{"Random Skin"},
-	{"Random Car Silver"}, 
-	{"Random Car Gold"}, 
-	{"Ticket Than Bi"}, 
-	{"Voucher Cao Cap"},
-    {"Random Skin Huyen Thoai"},
-    {"Random Xe Cao Cap"},
-    {"Random Xe Gioi Han"},
-    {"Random Xe Huyen Thoai"}
+new CrateName[6][30] = {
+	{"Random"},
+	{"Random Skin"}, 
+	{"Random Car Rare"}, 
+	{"Random Car Epic"}, 
+	{"Random Car Legend"},
+    {"Random Car Mythical"}
+    // {"Random Xe Cao Cap"},
+    // {"Random Xe Gioi Han"},
+    // {"Random Xe Huyen Thoai"}
 };
 new CratePrice[][] = {
 	{5000000, 50},
@@ -345,19 +345,19 @@ function ShowMoGuongTD(playerid) {
 	PlayerTextDrawSetString(playerid, MoGuong[playerid][20], gString);
 	format(gString, sizeof(gString), "~g~~h~RANDOM~N~So Huu : %d", PlayerInfo[playerid][pCrates][1]);
 	PlayerTextDrawSetString(playerid, MoGuong[playerid][21], gString);
-	format(gString, sizeof(gString), "~g~~h~RANDOM CAR RARE~N~So Huu : %d", PlayerInfo[playerid][pCrates][2]);
+	format(gString, sizeof(gString), "~g~~h~CAR RARE~N~So Huu : %d", PlayerInfo[playerid][pCrates][2]);
 	PlayerTextDrawSetString(playerid, MoGuong[playerid][22], gString);
-	format(gString, sizeof(gString), "~g~~h~RANDOM CAR EPIC~N~So Huu : %d", PlayerInfo[playerid][pCrates][3]);
+	format(gString, sizeof(gString), "~g~~h~CAR EPIC~N~So Huu : %d", PlayerInfo[playerid][pCrates][3]);
 	PlayerTextDrawSetString(playerid, MoGuong[playerid][23], gString);
-	format(gString, sizeof(gString), "~g~~h~RANDOM CAR LEGEND : %d", PlayerInfo[playerid][pCrates][4]);
+	format(gString, sizeof(gString), "~g~~h~CAR LEGEND : %d", PlayerInfo[playerid][pCrates][4]);
 	PlayerTextDrawSetString(playerid, MoGuong[playerid][24], gString);
-    format(gString, sizeof(gString), "~g~~h~RANDOM CAR MYTHICAL~N~So Huu : %d", PlayerInfo[playerid][pCrates][5]);
+    format(gString, sizeof(gString), "~g~~h~CAR MYTHICAL~N~So Huu : %d", PlayerInfo[playerid][pCrates][5]);
     PlayerTextDrawSetString(playerid, MoGuong[playerid][32], gString);
-    format(gString, sizeof(gString), "~g~~h~CAR CAO CAP~N~So Huu : %d", PlayerInfo[playerid][pCrates][6]);
+    format(gString, sizeof(gString), "~g~~h~UPDATING..~N~So Huu : %d", PlayerInfo[playerid][pCrates][6]);
     PlayerTextDrawSetString(playerid, MoGuong[playerid][31], gString);
-    format(gString, sizeof(gString), "~g~~h~CAR GIOI HAN~N~So Huu : %d", PlayerInfo[playerid][pCrates][7]);
+    format(gString, sizeof(gString), "~g~~h~UPDATING..~N~So Huu : %d", PlayerInfo[playerid][pCrates][7]);
     PlayerTextDrawSetString(playerid, MoGuong[playerid][33], gString);
-    format(gString, sizeof(gString), "~g~~h~CAR HUYEN THOAI~N~So Huu : %d", PlayerInfo[playerid][pCrates][8]);
+    format(gString, sizeof(gString), "~g~~h~UPDATING...~N~So Huu : %d", PlayerInfo[playerid][pCrates][8]);
     PlayerTextDrawSetString(playerid, MoGuong[playerid][36], gString);
 	for(new i = 0; i < 37; i++) PlayerTextDrawShow(playerid, MoGuong[playerid][i]);
 	SelectTextDraw(playerid, 0xFF0000FF);
@@ -428,7 +428,7 @@ function ShowCrates(playerid) {
 function startcrates(playerid) {
 	TatMoGuong(playerid);
 	save_crates(playerid);
-	for(new l = 0; l < 7; l++) TextDrawShowForPlayer(playerid, CrateTD[l]);
+	for(new l = 0; l < 8; l++) TextDrawShowForPlayer(playerid, CrateTD[l]);
 
 	// opencrates(playerid);
 	ShowCrates(playerid);

@@ -904,7 +904,7 @@ hook ResetVariables(playerid) {
     deathLabel[playerid] = Create3DTextLabel("", -1, 0.0, 0.0, 0.0, 10.0, 0, 0);
     // UseNewestClient{playerid} = 0;
     // AcWarning{playerid} = 0; 
-    UsingSampcac{playerid} = 0;
+    // UsingSampcac{playerid} = 0;
     
     // DMV System
     DrivingTest[playerid] = 0, 
@@ -2023,7 +2023,7 @@ missionName(playerid, type, id) {
         case 2: format(string, sizeof(string), "Cau %d ca", PlayerInfo[playerid][pNeedProgress][id]);
         case 3: format(string, sizeof(string), "Lay va giao vat lieu %d lan", PlayerInfo[playerid][pNeedProgress][id]);
         case 4: format(string, sizeof(string), "Che tao hamburger %d lan", PlayerInfo[playerid][pNeedProgress][id]);
-        case 5: format(string, sizeof(string), "Danh cap %d phuong tien", PlayerInfo[playerid][pNeedProgress][id]); 
+        case 5: format(string, sizeof(string), "Hut %d dieu thuoc", PlayerInfo[playerid][pNeedProgress][id]); 
         case 6: format(string, sizeof(string), "Ban sung cho nguoi choi");      
         case 7: format(string, sizeof(string), "Treo len dinh nui Chilliad");
         case 8: format(string, sizeof(string), "Ghe tham san bay Los Santos");
@@ -2354,7 +2354,7 @@ stock NearMessage2(playerid, Float:range, color, const text[], va_args<>) {
 stock GetFactionMembersOn2(fid) {
     new x;
     foreach(new i: Player) {
-        if(UsingSampcac{i} == 1 && IsPlayerLogged[i] == 1) {
+        if(/*UsingSampcac{i} == 1 &&*/ IsPlayerLogged[i] == 1) {
             if(PlayerInfo[i][pMember] == fid) { x++; }
         }
     }

@@ -43,7 +43,7 @@ function PayTax(playerid, moneyAmount, E_TAX_TYPE:type) {
         }
         case e_CHUYEN_TIEN: {
             tax = floatround(float(moneyAmount) * 0.15);
-            format(taxText, sizeof(taxText), "(Thue chuyen tien: %02f%%)", 0.2);
+            format(taxText, sizeof(taxText), "(Thue chuyen tien: %02f%%)", 0.15);
         }
         // case e_RUT_TIEN: {
         //     tax = floatround(float(moneyAmount) * 0.05);
@@ -117,9 +117,9 @@ Ban nha, can ho - Tru 10% gia tri can nha ban ra\n\");
 
 function payTaxTaiXiu(playerid, chip) {
     new taxText[200];
-    format(taxText, sizeof(taxText), "(Thue tai xiu: %02f%%)", 0.1);
+    format(taxText, sizeof(taxText), "(Thue tai xiu: %02f%%)", 0.05);
 
-    new tax = floatround(float(chip) * 0.1);
+    new tax = floatround(float(chip) * 0.05);
     new str[200];
     format(str, sizeof(str), "Ban da thanh toan thue %s$ %s", FormatNumber(tax), taxText);
     SendSuccessMessage(playerid, str);
