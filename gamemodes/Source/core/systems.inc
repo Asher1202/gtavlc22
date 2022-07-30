@@ -10567,6 +10567,7 @@ Update(playerid, type) {
 			case pDailyMission6x: format(var, sizeof(var), "UPDATE users SET `DailyMission6`='%d' WHERE ID=%i",PlayerInfo[playerid][pDailyMission][5], PlayerInfo[playerid][pSQLID]);
 			case pProgress6x: format(var, sizeof(var), "UPDATE users SET `Progress6`='%d' WHERE ID=%i",PlayerInfo[playerid][pProgress][5], PlayerInfo[playerid][pSQLID]);
 			case pKCx: format(var, sizeof(var), "UPDATE users SET `KC`='%d' WHERE ID=%i",PlayerInfo[playerid][pKC], PlayerInfo[playerid][pSQLID]);
+			case pTutorialx: format(var, sizeof(var), "UPDATE users SET `huongdan`='%d' WHERE ID=%i",PlayerInfo[playerid][pTutorial], PlayerInfo[playerid][pSQLID]);
 
 			default: return SendClientMessage(playerid, -1, sprintf("Loi: %d, F8 cai nay lai va bao cho Admin cap cao.", type)), printf("[002] Update(playerid, %d)",type);
 		}

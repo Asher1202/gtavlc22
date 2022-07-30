@@ -130,6 +130,7 @@ enum pInfo {
 	pCasinoChip,
 	pHunger,
 	pGrowthPoints,
+	pTutorial,
 };
 new 
 	PlayerInfo[MAX_PLAYERS + 1][pInfo],

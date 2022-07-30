@@ -667,7 +667,7 @@ DMV_End(playerid, failed) {
 	
 	PlayerTextDrawHide(playerid, InfosTD);
 	if( failed == 0 ) {
-		if(PlayerInfo[playerid][pLevel] < 5) defer MAGTutorial(playerid);
+		//if(PlayerInfo[playerid][pLevel] < 5) defer MAGTutorial(playerid);
 		PlayerInfo[playerid][pCarLic] = 1;
 		PlayerInfo[playerid][pCarLicT] = 50;
 		SendClientMessage(playerid, COLOR_LIGHTBLUE, "Ban da duoc cap giay phep lai xe trong 50 gio. Chuc mung!");
@@ -680,6 +680,11 @@ DMV_End(playerid, failed) {
 			PlayerInfo[playerid][pFlyLic] = 1;
 			PlayerInfo[playerid][pBoatLicT] = 10;
 			PlayerInfo[playerid][pBoatLic] = 1;				
+		}
+		if(PlayerInfo[playerid][pTutorial] == 0) 
+		{
+			PlayerInfo[playerid][pTutorial] = 1;
+			Tutorial(playerid);
 		}
 		finishAchievement(playerid, 6);	
 

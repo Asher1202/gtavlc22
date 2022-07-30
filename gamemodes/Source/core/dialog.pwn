@@ -4512,15 +4512,19 @@ Dialog:DIALOG_REGISTER5(playerid, response, listitem, inputtext[])
 	if(!response) {
 		PlayerInfo[playerid][pTut] = 1; gOoc[playerid] = 0; gNews[playerid] = 0; gFam[playerid] = 0;
 		ResetPlayerCash(playerid);
-		GivePlayerCash(playerid, 15000);
-		PlayerInfo[playerid][pAccount] = 20000;				
+		GivePlayerCash(playerid, 35000);
+		PlayerInfo[playerid][pAccount] = 35000;				
 		new string[200];	
-		format(string, sizeof(string), "UPDATE users SET `Tutorial`='1',`Bank`='20000',`Money`='15000' WHERE `name`='%s'",GetName(playerid));
+		format(string, sizeof(string), "UPDATE users SET `Tutorial`='1', `huongdan`='0',`Bank`='20000',`Money`='15000' WHERE `name`='%s'",GetName(playerid));
 		mysql_query(SQL, string);
 		format(string, sizeof(string), "%s(%d) da dang ky vao may chu. [#%d]", GetName(playerid), playerid, PlayerInfo[playerid][pSQLID]);
 		SendAdminMessage(COLOR_LIGHTRED, string, 1);
-		TogglePlayerSpectating(playerid, true);
-		TutorialTime(playerid);
+		IsPlayerLogged[playerid] = 1;
+		TogglePlayerSpectating(playerid, false);
+		SetCameraBehindPlayer(playerid);
+		SpawnPlayer(playerid);
+		PlayerInfo[playerid][pTutorial] = 0;	
+		Tutorial(playerid);
 		return 1;				
 	}
 	else {
@@ -4567,7 +4571,7 @@ Dialog:DIALOG_REGISTER6(playerid, response, listitem, inputtext[])
 	mysql_query(SQL, string);
 	format(string, sizeof(string), "%s(%d) da dang ky vao may chu. [#%d]", GetName(playerid), playerid, PlayerInfo[playerid][pSQLID]);
 	SendAdminMessage(COLOR_LIGHTRED, string, 1);				
-	TutorialTime(playerid);
+	//TutorialTime(playerid);
 	return 1;
 }
 Dialog:DIALOG_TRANSFER(playerid, response, listitem, inputtext[]) 
@@ -4662,8 +4666,12 @@ Dialog:DIALOG_STORE(playerid, response, listitem, inputtext[])
 			mysql_query(SQL,query);
 			format(query,sizeof(query),"UPDATE `bizz` SET `Till`='%d',`Products`='%d' WHERE `ID`='%d'",BizzInfo[InBussines[playerid]][bTill],BizzInfo[InBussines[playerid]][bProducts],InBussines[playerid]);
 			mysql_query(SQL,query,false);
-
-			if(PlayerInfo[playerid][pNewbieStep] == 1) defer CLOTutorial(playerid);
+			if(PlayerInfo[playerid][pTutorial] == 1) 
+			{
+				PlayerInfo[playerid][pTutorial] = 2;
+				Tutorial(playerid);
+			}
+			//if(PlayerInfo[playerid][pNewbieStep] == 1) defer CLOTutorial(playerid);
 		}
 		case 1: {
 			if(GetPlayerCash(playerid) < 10000) return SendClientMessage(playerid, COLOR_GREY, "Ban khong du tien de mua vat pham nay.");
@@ -4676,6 +4684,11 @@ Dialog:DIALOG_STORE(playerid, response, listitem, inputtext[])
 			mysql_query(SQL,query);
 			format(query,sizeof(query),"UPDATE `bizz` SET `Till`='%d',`Products`='%d' WHERE `ID`='%d'",BizzInfo[InBussines[playerid]][bTill],BizzInfo[InBussines[playerid]][bProducts],InBussines[playerid]);
 			mysql_query(SQL,query, false);
+			if(PlayerInfo[playerid][pTutorial] == 1) 
+			{
+				PlayerInfo[playerid][pTutorial] = 2;
+				Tutorial(playerid);
+			}
 		}
 		case 2: {
 			if(GetPlayerCash(playerid) < 30000) return SendClientMessage(playerid, COLOR_GREY, "Ban khong du tien de mua vat pham nay.");

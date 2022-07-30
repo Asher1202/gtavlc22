@@ -338,7 +338,7 @@ timer resetAntiCheatStatus[2000](playerid) {
 public OnPlayerDisconnect(playerid, reason)
 {
 	if(IsPlayerNPC(playerid)) return 1;
-
+	Update(playerid, pTutorialx);
 	if(Iter_Contains(LoginQueue[1], playerid)) Iter_Remove(LoginQueue[1], playerid);
 	if(Iter_Contains(LoginQueue[0], playerid)) {
 		Iter_Remove(LoginQueue[0], playerid);
@@ -4017,7 +4017,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 					format(string, sizeof(string), "* Chuc mung! Cong viec moi cua ban la %s.", JobInfo[j][jName]);
 					SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
-					
+
+					if(PlayerInfo[playerid][pTutorial] == 2) 
+			   	   	{
+				   	   PlayerInfo[playerid][pTutorial] = 3;
+				   	   Tutorial(playerid);
+			   	   	}
 					if(j == 8) SendClientMessage(playerid, COLOR_LIGHTBLUE, "De dinh vi mot nguoi choi, hay su dung lenh /find.");
 					else if(j == 11) SendClientMessage(playerid, COLOR_LIGHTBLUE, "De bat dau lam viec, ban co the su dung lenh /cauca.");
 					
@@ -4027,7 +4032,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					mysql_format(SQL, str, 60, "UPDATE `users` SET `Job`='%d' WHERE `ID`='%d' LIMIT 1",PlayerInfo[playerid][pJob],PlayerInfo[playerid][pSQLID]);
 					mysql_tquery(SQL, str, "", "");
 
-					if(PlayerInfo[playerid][pNewbieStep] > 0) defer FinishTutorial(playerid);
+					//if(PlayerInfo[playerid][pNewbieStep] > 0) defer FinishTutorial(playerid);
 				}
 	    	}
 	    	if(Fishing[playerid] == 1) {

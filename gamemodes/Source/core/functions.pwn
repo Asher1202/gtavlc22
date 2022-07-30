@@ -4497,6 +4497,8 @@ OnPlayerLoginEx(playerid, const password[]) {
 		//Growth points
 		cache_get_value_name_int(0, "GrowthPoints", 	PlayerInfo[playerid][pGrowthPoints]);
 
+		cache_get_value_name_int(0, "huongdan", 	PlayerInfo[playerid][pTutorial]);
+
 		new questsvar[256];
 		cache_get_value_name(0, "SpecialQuest", result); format(questsvar, sizeof(questsvar), result);
 		sscanf(questsvar, "p<|>a<i>[101]", PlayerInfo[playerid][pSpecialQuest]);
@@ -4912,7 +4914,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 		PlayerTextDrawSetString(playerid, logoptd, str);
 		PlayerTextDrawShow(playerid, logoptd);
 		TextDrawShowForPlayer(playerid, logotd);
-	
+		if(PlayerInfo[playerid][pTutorial] != 3) Tutorial(playerid);
 		if(IsAMember(playerid)) {
 			
 			Iter_Add(PlayerGangster, playerid);
@@ -5921,7 +5923,36 @@ function GetVehicleMaxSpeed(model) {
 	}
 	return speed;
 }
-
+function Tutorial(playerid) {
+	for(new i = 0; i < 20; i++) SendClientMessage(playerid, COLOR_WHITE, ""); 
+	switch(PlayerInfo[playerid][pTutorial]) {
+		case 0: {
+			SendClientMessage(playerid, COLOR_YELLOW, "Huong Dan Co Ban: 1/5");
+			SendClientMessage(playerid, COLOR_YELLOW, "Hay Di Den Diem Danh Dau Tren Ban Do De Thi Bang Lai");
+			SetPlayerCheckpointEx(playerid, ExamPos[0],ExamPos[1],ExamPos[2], 2.0);
+			CP[playerid] = 53;
+		}
+		case 1: {
+			SendClientMessage(playerid, COLOR_YELLOW, "Huong Dan Co Ban: 2/3");
+			SendClientMessage(playerid, COLOR_YELLOW, "Tiep Theo Ban Hay Den Cua Hang 24/7 De Mua Dien Thoai Nhe.");
+			CP[playerid] = 53;
+			SetPlayerCheckpointEx(playerid, 1352.3364,-1758.8607,13.5078, 2.0);
+		}
+		case 2: {
+			SendClientMessage(playerid, COLOR_YELLOW, "Huong Dan Co Ban: 3/3");
+			SendClientMessage(playerid, COLOR_YELLOW, "Hay Nhan Nghe Cau Ca Hoac Bat Ki Nghe Nao Do De Hoan Thanh");
+			CP[playerid] = 53;
+			SetPlayerCheckpointEx(playerid, 559.417,-1965.46,2.43594, 2.0);	
+		}	
+		case 3: {
+			SendClientMessage(playerid, COLOR_YELLOW, "Hoan Tat Nhiem Vu");
+			SendClientMessage(playerid, COLOR_YELLOW, "Hay Co Gang Lam Mot Cong Dan Guong Mau Nhe");
+			CP[playerid] = 53;
+		}	
+	}
+	Update(playerid, pTutorialx);
+	return true; 
+}
 stock Carspeed(playerid,mode = 1) {
     new Float:Velocity [3];
     GetVehicleVelocity ( GetPlayerVehicleID ( playerid ) , Velocity [ 0 ] , Velocity [ 1 ] , Velocity [ 2 ] ) ;
