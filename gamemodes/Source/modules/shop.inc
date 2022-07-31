@@ -165,33 +165,6 @@ ShowKCShop(playerid) {
 			strcat(szDialog, string);
 		}
 	}
-	if(kc >= 30) format(string, sizeof(string), "Crate Random - {1ECC14}30 "#DIEMCAOCAP"\n");
-	else format(string, sizeof(string), "Crate Random - {FF0000}30 "#DIEMCAOCAP"\n");
-	strcat(szDialog, string);	
-	if(kc >= 45) format(string, sizeof(string), "Crate Skin - {1ECC14}45 "#DIEMCAOCAP"\n");
-	else format(string, sizeof(string), "Crate Skin - {FF0000}45 "#DIEMCAOCAP"\n");
-	strcat(szDialog, string);	
-	if(kc >= 60) format(string, sizeof(string), "Crate Car Rare - {1ECC14}70 xu\n");
-	else format(string, sizeof(string), "Crate Car Rare - {FF0000}70 xu\n");
-	strcat(szDialog, string);
-	if(kc >= 125) format(string, sizeof(string), "Crate Car Epic - {1ECC14}140 "#DIEMCAOCAP"\n");
-	else format(string, sizeof(string), "Crate Car Epic - {FF0000}140 "#DIEMCAOCAP"\n");
-	strcat(szDialog, string);
-	if(kc >= 250) format(string, sizeof(string), "Crate Car Legend - {1ECC14}300 "#DIEMCAOCAP"\n");
-	else format(string, sizeof(string), "Crate Car Legend - {FF0000}300 "#DIEMCAOCAP"\n");
-	strcat(szDialog, string);	
-	if(kc >= 500) format(string, sizeof(string), "Crate Car Mythical - {1ECC14}600 "#DIEMCAOCAP"\n");
-	else format(string, sizeof(string), "Crate Car Mythical - {FF0000}600 "#DIEMCAOCAP"\n");
-	strcat(szDialog, string);	
-	if(kc >= 100) format(string, sizeof(string), "VIP GOLD - {1ECC14}100 "#DIEMCAOCAP"\n");
-	else format(string, sizeof(string), "VIP GOLD - {FF0000}100 "#DIEMCAOCAP"\n");
-	strcat(szDialog, string);	
-	if(kc >= 300) format(string, sizeof(string), "VIP PLATIUM - {1ECC14}300 "#DIEMCAOCAP"\n");
-	else format(string, sizeof(string), "VIP PLATIUM- {FF0000}300 "#DIEMCAOCAP"\n");
-	strcat(szDialog, string);	
-	if(kc >= 550 ) format(string, sizeof(string), "VIP DIAMOND - {1ECC14}550  "#DIEMCAOCAP"\n");
-	else format(string, sizeof(string), "VIP DIAMOND - {FF0000}550  "#DIEMCAOCAP"\n");
-	strcat(szDialog, string);	
 	new title[50];
 	format(title, 50, "Shop: [Ban co %d kim cuong]", kc);
 	Dialog_Show(playerid, DIALOG_SHOPKC, DIALOG_STYLE_TABLIST_HEADERS, title, szDialog, "Select", "Close");

@@ -1658,7 +1658,7 @@ task Timers[1000]() {
 					Log("logs/opencrate.log", string);
 					new rand = random(100);
 					switch(rand) {
-				    	case 0..20: {
+				    	case 0..30: {
 				    		LoadSkins(1, amount);
 				            format(string, 70, "Skin %d (%s).", amount, GetSkinRareCMD(amount));
 				            PlayerTextDrawSetPreviewModel(i, CratePTD[0], amount);
@@ -1695,7 +1695,7 @@ task Timers[1000]() {
 				            	}
 				            }
 						}
-						case 21..41: {
+						case 31..60: {
 							amount = RandomEx(400000,500000);
 							format(string, 64, "%d", amount);
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1212);
@@ -1711,7 +1711,7 @@ task Timers[1000]() {
 									SCMTA(COLOR_CLIENT,string);
 							}
 						}
-						case 42..57: {
+						case 61..75: {
 							amount = RandomMinMax(15, 20);
 				            format(string, 75, "~y~%s Vip Xu.", FormatNumber(amount), totalcrates(i));
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1275);
@@ -1728,7 +1728,7 @@ task Timers[1000]() {
 						        CrateModel[i] = -1; TatQuayGuong(i);
 						    }
 						}
-						case 58..68: {
+						case 76..84: {
 							amount = RandomMinMax(5000, 10999);
 				            format(string, 75, "~y~%s vat lieu.", FormatNumber(amount), totalcrates(i));
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1576);
@@ -1745,7 +1745,7 @@ task Timers[1000]() {
 						        CrateModel[i] = -1; TatQuayGuong(i);
 						    }
 						}
-						case 69..84: {
+						case 85..99: {
 			    		    // amount = random(20) + 20;
 			                format(string, 64, "Freeway");
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 463);
@@ -1759,7 +1759,7 @@ task Timers[1000]() {
 								    SCMTA(COLOR_CLIENT,string);
 							}
 			            }
-						case 85..100: {
+						case 100: {
 			    		    // amount = random(20) + 20;
 			                format(string, 64, "Elegy");
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 562);
@@ -3919,8 +3919,10 @@ task PayDay[10000]() {
 			if(hour == 12 || hour == 3) {
 				BidaOn=0;
 				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Bida da dong, hay nghi ngoi thoi nao (Bida mo vao khung gio 8h-12h va 16h -> 3h ).");
+
 			}
-			if(hour == 12 || hour == 1)
+
+			if(hour == 1)
 			{
 				RestartTime = 5*60;
 				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Server chuan bi khoi dong lai sau 5 phut.");

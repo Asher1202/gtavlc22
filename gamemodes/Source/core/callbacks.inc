@@ -181,7 +181,7 @@ public OnGameModeInit() {
 	tev = gettime()+1800;
 	gettime(ghour, gminute, gsecond);
 	new string[30];
-	format(string, sizeof(string), "GTAVLC v3.1.02, %02d/%02d [%02d:%02d]", Day, Month, ghour, gminute);
+	format(string, sizeof(string), "GTAVLC v5.02, %02d/%02d [%02d:%02d]", Day, Month, ghour, gminute);
 	SetGameModeText(string);
 	ghour = FixHour(ghour);
 	if(!realtime) SetWorldTime(wotime);
@@ -3965,7 +3965,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 			if(IsPlayerInRangeOfPoint(playerid,3.0, 1804.9772, -1847.8226, 13.5739))  
 			{
-				Dialog_Show(playerid, DIALOG_KIEMTRANHIEMVU, DIALOG_STYLE_LIST, "KIEM TRA NHIEM VU", "NHIEM VU HANG NGAY", "Co", "Da hieu");
+				Dialog_Show(playerid, DIALOG_KIEMTRANHIEMVU, DIALOG_STYLE_LIST, "KIEM TRA NHIEM VU", "NHIEM VU HANG NGAY\nNHIEM VU MUA HE", "Co", "Da hieu");
 			}
 
 			if(InBussines[playerid] > 0)

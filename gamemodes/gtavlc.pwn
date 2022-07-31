@@ -90,6 +90,7 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 #include "Source/modules/jobs/Garden.pwn"
 // #include <battlepass>
 #include "Source/modules/crate.inc"
+#include "Source/core/foodsystem.inc"
 #include <core/timers.pwn>
 #include "Source/modules/jail_escape"
 #include "Source/modules/tutorial.pwn"
@@ -155,7 +156,7 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 #include "Source/modules/ls_beachside.pwn"
 #include "Source/modules/dmv.pwn"
 #include "Source/modules/catsung.pwn"
-#include "Source/core/foodsystem.inc"
+
 
 // Map
 #include "Source/map/interior2"

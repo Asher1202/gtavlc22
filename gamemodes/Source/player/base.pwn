@@ -8125,10 +8125,10 @@ CMD:noooc(playerid, params[])
 // 	ResetDailyBonus();
 // 	return 1;
 // }
-// CMD:missions(playerid, params[]) {
-// 	showMissions(playerid, 0);
-// 	return 1;
-// }
+CMD:missions(playerid, params[]) {
+	showMissions(playerid, 0);
+	return 1;
+}
 // CMD:achievements(playerid, params[]) {
 // 	new szDialog[100], szDialog2[2000];
 // 	for(new i = 0; i < 32; i++) {

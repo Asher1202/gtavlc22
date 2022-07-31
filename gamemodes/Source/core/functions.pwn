@@ -4275,19 +4275,19 @@ OnPlayerRegister(playerid, password[]) {
 	return 1;
 }
 showMissions(playerid, key) {
-	new string[128], status1[21], status2[21], status3[21];
-	if(PlayerInfo[playerid][pProgress][0] >= GetNeedProgress(playerid, 0)) format(status1, 21, "Nhiem vu da hoan tat");
-	else format(status1, 10, "%d/%d", PlayerInfo[playerid][pProgress][0], GetNeedProgress(playerid, 0));
-	if(PlayerInfo[playerid][pProgress][1] >= GetNeedProgress(playerid, 1)) format(status2, 21, "Nhiem vu da hoan tat");
-	else format(status2, 10, "%d/%d", PlayerInfo[playerid][pProgress][1], GetNeedProgress(playerid, 1));
-	if(PlayerInfo[playerid][pProgress][2] >= GetNeedProgress(playerid, 2)) format(status3, 21, "Nhiem vu da hoan tat");
-	else format(status3, 10, "%d/%d", PlayerInfo[playerid][pProgress][2], GetNeedProgress(playerid, 2));
-	format(string, sizeof(string), "Nhiem Vu >> %s (Tien do: %s)", missionName(playerid, PlayerInfo[playerid][pDailyMission][0], 0), status1);
-	SendClientMessage(playerid, COLOR_YELLOW, string);
-	format(string, sizeof(string), "Nhiem Vu >> %s (Tien do: %s)", missionName(playerid, PlayerInfo[playerid][pDailyMission][1], 1), status2);
-	SendClientMessage(playerid, COLOR_YELLOW, string);
-	format(string, sizeof(string), "Nhiem Vu >> %s (Tien do: %s)", missionName(playerid, PlayerInfo[playerid][pDailyMission][2], 2), status3);
-	SendClientMessage(playerid, COLOR_YELLOW, string);
+	new string[128]/*, status1[21], status2[21], status3[21]*/;
+	// if(PlayerInfo[playerid][pProgress][0] >= GetNeedProgress(playerid, 0)) format(status1, 21, "Nhiem vu da hoan tat");
+	// else format(status1, 10, "%d/%d", PlayerInfo[playerid][pProgress][0], GetNeedProgress(playerid, 0));
+	// if(PlayerInfo[playerid][pProgress][1] >= GetNeedProgress(playerid, 1)) format(status2, 21, "Nhiem vu da hoan tat");
+	// else format(status2, 10, "%d/%d", PlayerInfo[playerid][pProgress][1], GetNeedProgress(playerid, 1));
+	// if(PlayerInfo[playerid][pProgress][2] >= GetNeedProgress(playerid, 2)) format(status3, 21, "Nhiem vu da hoan tat");
+	// else format(status3, 10, "%d/%d", PlayerInfo[playerid][pProgress][2], GetNeedProgress(playerid, 2));
+	// format(string, sizeof(string), "Nhiem Vu >> %s (Tien do: %s)", missionName(playerid, PlayerInfo[playerid][pDailyMission][0], 0), status1);
+	// SendClientMessage(playerid, COLOR_YELLOW, string);
+	// format(string, sizeof(string), "Nhiem Vu >> %s (Tien do: %s)", missionName(playerid, PlayerInfo[playerid][pDailyMission][1], 1), status2);
+	// SendClientMessage(playerid, COLOR_YELLOW, string);
+	// format(string, sizeof(string), "Nhiem Vu >> %s (Tien do: %s)", missionName(playerid, PlayerInfo[playerid][pDailyMission][2], 2), status3);
+	// SendClientMessage(playerid, COLOR_YELLOW, string);
 	
 	if(SpecialWeek == 1 && key != 1) {
 		format(string, sizeof(string), "["QUEST_NAME"] Tien do: %d/100", CheckObjects(playerid));

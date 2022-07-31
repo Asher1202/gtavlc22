@@ -1181,7 +1181,7 @@ CMD:thaluoi(playerid, params[])
 
 CMD:thuethuyen(playerid, params[])
  {
-	if(PlayerInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid, COLOR_YELLOW, "Lenh nay dang duoc test, chi admin moi duoc su dung");
+	// if(PlayerInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid, COLOR_YELLOW, "Lenh nay dang duoc test, chi admin moi duoc su dung");
     if(PlayerInfo[playerid][pJob] != 11) return SendClientMessage(playerid, COLOR_GREY, "Ban khong phai la FisherMan LS!");
 	if(GetPlayerSkill(playerid) < 4 ) return SendClientMessage(playerid, COLOR_GREY, "Job skill level cua ban chua du 4 nen khong the su dung!");
     if(!IsPlayerInRangeOfPoint(playerid, Float:5.0, 581.5700, -1958.3500, 2.0300)) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o diem thue thuyen.");

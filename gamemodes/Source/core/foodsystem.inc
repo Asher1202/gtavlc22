@@ -60,7 +60,7 @@ hook OnProgressCompleted(playerid, progressid, params)
             Inventory_Remove(playerid, "Burger", 10);
             DeletePVar(playerid, "MuaThucAn");
             new string[100];
-            format(string, sizeof(string), "%s da ban 10 cai banh burger voi gia.", GetName(playerid), FormatNumber(f_foodData[0][F_gia]));
+            format(string, sizeof(string), "%s da ban 10 cai banh burger voi gia %s.", GetName(playerid), FormatNumber(f_foodData[0][F_gia]));
             ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
             for(new m; m < (PlayerInfo[playerid][pVip] + 3); m++) {
@@ -76,7 +76,7 @@ hook OnProgressCompleted(playerid, progressid, params)
             f_foodData[0][F_soLuong] -= 10;
             UpdateFood(0);
             new string[100];
-            format(string, sizeof(string), "%s da mua 10 cai banh burger voi gia.", GetName(playerid), FormatNumber(f_foodData[0][F_gia]+500));
+            format(string, sizeof(string), "%s da mua 10 cai banh burger voi gia %s.", GetName(playerid), FormatNumber(f_foodData[0][F_gia]+500));
             ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
             GivePlayerCash(playerid, -f_foodData[0][F_gia]+500);
             DeletePVar(playerid, "MuaThucAn");
@@ -97,6 +97,7 @@ function LoadFood() {
     cache_delete(test);
 	printf("Da load thuc an");
 }
+
 
 stock getFoodName(id)
 {
@@ -153,6 +154,12 @@ task resetFoodMoney[60000]()
             SCMTA(0x0099ffff, string);
             f_foodData[0][F_gia] = newmoney;
             UpdateFood(0); 
+            new amount, string1[128];
+            amount = RandomMinMax(40,250);
+            f_foodData[0][F_soLuong] += amount;
+            UpdateFood(0);
+            format(string1, sizeof(string1), "[CUA HANG BURGER SHOT] : Chung toi vua nhap them %d banh ve cua hang, hay den mua burger thoi nao", amount);
+            SendClientMessageToAll(COLOR_LIGHTBLUE, string1);
         }
     }
     return 1;
@@ -292,7 +299,7 @@ CMD:nhapburger(playerid, params[]) {
 	f_foodData[0][F_soLuong] += money;
     UpdateFood(0);
 	
-	format(string, sizeof(string), "[CUA HANG BURGER SHOT] : Chung toi vua nhap them %d banh ve cua hang, hay den mua burger thoi nao", FormatNumber(money));
+	format(string, sizeof(string), "[CUA HANG BURGER SHOT] : Chung toi vua nhap them %s banh ve cua hang, hay den mua burger thoi nao", FormatNumber(money));
 	SendClientMessageToAll(COLOR_LIGHTBLUE, string);
 	format(string, sizeof(string), "%s da nhap %s banh", GetName(playerid), FormatNumber(money));
 	Log("logs/burger.log", string);
