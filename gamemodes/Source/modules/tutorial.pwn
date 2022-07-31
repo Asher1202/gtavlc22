@@ -123,7 +123,7 @@ timer FinishTutorial[5000](playerid) {
 	return true;
 }
 
-TutorialTime(playerid) 
+/*TutorialTime(playerid) 
 {
 	// if(GetPlayerVirtualWorld(playerid) == 0) SetPlayerVirtualWorld(playerid, playerid+1); 
 
@@ -136,4 +136,4 @@ TutorialTime(playerid)
 
 	defer DMVTutorial(playerid); 
 	return true;
-}
+}*/
