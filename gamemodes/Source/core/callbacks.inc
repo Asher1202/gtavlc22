@@ -693,7 +693,7 @@ public OnPlayerDisconnect(playerid, reason)
 			ProxDetector(20.0, playerid, string, COLOR_CLIENT,COLOR_CLIENT,COLOR_CLIENT,COLOR_CLIENT,COLOR_CLIENT); 
 		}
     }
-    // if(FarmerTreeTaken[playerid]!=-1) FarmerTreeStatus[FarmerTreeTaken[playerid]] = -1;
+    if(FarmerTreeTaken[playerid]!=-1) FarmerTreeStatus[FarmerTreeTaken[playerid]] = -1;
 
 	new y,m,d,h,mi;
 	getdate(y,m,d);

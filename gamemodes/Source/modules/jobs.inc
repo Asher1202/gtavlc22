@@ -625,37 +625,37 @@ hook OnGameModeInit() {
 
 	return 1;
 }
-// hook OnPlayerKStateChange(playerid, newkeys, oldkeys) {
-//     if(GetPlayerState(playerid) == PLAYER_STATE_ONFOOT) {
-// 	    if(newkeys & KEY_SECONDARY_ATTACK) {
-// 		   	if(JobWorking[playerid] == 2) {
-// 		   		new Float:x,Float:y,Float:z;
-// 				for(new i = 0; i < sizeof(FarmerTree); i++) {
-// 					GetDynamicObjectPos(FarmerStairTree[i], x,y,z);
-// 					if(IsPlayerInRangeOfPoint(playerid, 2.0, x,y,z)) {
-// 						if(FarmerTreeTaken[playerid] == -1) return 1;
-// 						if(FarmerTreeStatus[i] > 0) return Info(playerid, "Cay da duoc thu hoach");
-// 						if(FarmerTreeApples[playerid] > 0) return Info(playerid, "Ban da lay mot hop tao!");
-// 						foreach(new p: Character) { if(FarmerTreeTaken[p] == i) return Info(playerid, "Cay nay da duoc mot nguoi choi khac thu hoach."); }
-// 						SetPlayerFacingAngle(playerid, 90.0), 
-// 						SetPlayerPosEx(playerid, x,y,z), 
-// 						FarmerTreeTaken[playerid] = i;
-// 						RemovePlayerAttachedObject(playerid, ATTACHMENT_ID_BALE), 
-// 						SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE), 
-// 						ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.0, 1, 0, 0, 0, 0), 
-// 						TogglePlayerControllable(playerid, false);
-// 						for(new t = 0; t < sizeof TreeTD; t++) TextDrawShowForPlayer(playerid, TreeTD[t]);
-// 						SelectTextDraw(playerid, 0xFF0000FF), 
-// 						SendClientMessage(playerid, COLOR_LIGHTBLUE, "* Thu hoach tat ca nhung qua tao ben duoi."), 
-// 						Info(playerid, "De thu hoach tao, nhap chuot vao no");
-// 						return 1;
-// 					}
-// 				}
-// 		   	}
-// 		}
-// 	}
-//    	return 1;
-// }
+hook OnPlayerKStateChange(playerid, newkeys, oldkeys) {
+    if(GetPlayerState(playerid) == PLAYER_STATE_ONFOOT) {
+	    if(newkeys & KEY_SECONDARY_ATTACK) {
+		   	if(JobWorking[playerid] == 2) {
+		   		new Float:x,Float:y,Float:z;
+				for(new i = 0; i < sizeof(FarmerTree); i++) {
+					GetDynamicObjectPos(FarmerStairTree[i], x,y,z);
+					if(IsPlayerInRangeOfPoint(playerid, 2.0, x,y,z)) {
+						if(FarmerTreeTaken[playerid] == -1) return 1;
+						if(FarmerTreeStatus[i] > 0) return Info(playerid, "Cay da duoc thu hoach");
+						if(FarmerTreeApples[playerid] > 0) return Info(playerid, "Ban da lay mot hop tao!");
+						foreach(new p: Character) { if(FarmerTreeTaken[p] == i) return Info(playerid, "Cay nay da duoc mot nguoi choi khac thu hoach."); }
+						SetPlayerFacingAngle(playerid, 90.0), 
+						SetPlayerPosEx(playerid, x,y,z), 
+						FarmerTreeTaken[playerid] = i;
+						RemovePlayerAttachedObject(playerid, ATTACHMENT_ID_BALE), 
+						SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE), 
+						ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.0, 1, 0, 0, 0, 0), 
+						TogglePlayerControllable(playerid, false);
+						for(new t = 0; t < sizeof TreeTD; t++) TextDrawShowForPlayer(playerid, TreeTD[t]);
+						SelectTextDraw(playerid, 0xFF0000FF), 
+						SendClientMessage(playerid, COLOR_LIGHTBLUE, "* Thu hoach tat ca nhung qua tao ben duoi."), 
+						Info(playerid, "De thu hoach tao, nhap chuot vao no");
+						return 1;
+					}
+				}
+		   	}
+		}
+	}
+   	return 1;
+}
 hook OnPlayerEnterCheckpoint(playerid) {
 	if(CP[playerid] == 2018) {
 		callcmd::stopwork(playerid, "");
