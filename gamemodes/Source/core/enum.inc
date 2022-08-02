@@ -77,7 +77,7 @@ new const DmvTimes[] =
 	59
 };
 // end declare
-new cadoumort,cadoulevel,cadoumesaj,collectobject,colectgf[MAX_PLAYERS],cadoumsg, checkifdamage,
+new cadoumort,cadoulevel,cadoumesaj,collectobject,colectgf[MAX_PLAYERS],cadoumsg,timewaitdead = 0, cadouviatai2,
     cadoubani[MAX_PLAYERS],cadoupp[MAX_PLAYERS],cadourp[MAX_PLAYERS],cadouviatai,Timer:cadoutimer[MAX_PLAYERS],
     parazburator,cadoutimeractiv[MAX_PLAYERS],cadouviata;
 //new File:logfile;

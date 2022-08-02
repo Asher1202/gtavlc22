@@ -269,7 +269,7 @@ cadouzb() {
 		case 4: cadouzburator = CreateObject(19054,1774.8221, -2551.8459, 313.4843, 0,0,0, 500),MoveObject(cadouzburator,1774.8221, -2551.8459, 13.4843,30),SCMTA(COLOR_DEPART, "[GIFTBOX] Mot vat the la roi ra khoi UFO thang xuong thanh pho Los Santos. Goi y: Duong bang.");
 		case 5: cadouzburator = CreateObject(19054,2028.2600, -1421.1907, 217.0645, 0,0,0, 500),MoveObject(cadouzburator,2028.2600, -1421.1907, 17.0645,30),SCMTA(COLOR_DEPART, "[GIFTBOX] Mot vat the la roi ra khoi UFO thang xuong thanh pho Los Santos. Goi y: Benh vien.");
 	} 
-	checkifdamage = 0; // when spawn no damage
+	//checkifdamage = 0; // when spawn no damage
 				       // we need to check if damaged then no respawn, if not damaged for 30min then just destroy it and settimer to respawn it after 2 hours
 	SCMTA(COLOR_DEPART, "[GIFTBOX] Vat the co hinh dang mot mon qua, no se cham dat trong vai giay!"),
 	SCMTA(COLOR_DEPART, "[GIFTBOX] Tat ca nguoi choi tham gia deu nhan duoc giai thuong, nhung giai thuong dac biet se gianh cho nguoi gioi nhat!");
@@ -278,12 +278,12 @@ cadouzb() {
 	foreach(new i: Player) dmgdat[i] = 0,cadoubani[i] = 0,cadourp[i] = 0,cadoupp[i] = 0,cadoutimeractiv[i] = 0,cadoulqw[i] = 0,colectgf[i] = 0;
 	cadoumort = 0,cadoumsg = 1,azisceva = 0,cadoumesaj = 0,cadouviatai = cadouviata;
 	SetTimer("destroypara", 12000, false),DestroyObject(collectobject),DestroyDynamic3DTextLabel(Cadolabel);
-	
+	cadouviatai2 = cadouviata, timewaitdead = 0;
 	return 1;
 }
 //distrugere parachute info2
 function destroypara() cadoulabel(),DestroyObject(parazburator),SCMTA(COLOR_DEPART, "[GIFTBOX] Vat the da cham dat!");
-task CheckGift[5000]()
+task CheckGift[1000]()
 {
 	if(cadoumort == 1)
 	{
@@ -291,14 +291,16 @@ task CheckGift[5000]()
 	}
 	else
 	{
-		switch(checkifdamage)
-		{
-			case 0 : {
-
-			}
-			case 1: {
-
-			}
+		if(cadouviata == cadouviatai2) timewaitdead ++;
+		if(timewaitdead == 1800) {
+			DestroyObject(parazburator);
+			DestroyObject(cadouzburator);
+			Delete3DTextLabel(Cadolabel);
+			cadoumsg = 0;
+			cadoumort == 1;
+			timewaitdead = 0;
+			SetTimer("cadouzb", 7200000, false);
+			SCMTA(COLOR_DEPART, "[GIFTBOX] Vat the da da bien mat!");
 		}
 	}
 	return 1;

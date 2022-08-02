@@ -64,6 +64,7 @@ hook OnGameModeExit() {
 }
 public OnGameModeInit() {
 	DisableCrashDetectLongCall();
+	SetTimer("cadouzb", 7200000, false);
 	
 	AMXProtection();
 	Streamer_SetVisibleItems(STREAMER_TYPE_OBJECT, 800); // increase object limit
@@ -4604,6 +4605,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				if(cadouviata <= 0) 
 				{
 					cadoumort = 1,cadoumsg = 0,cadoulbl = 0,cadoulevel = 0,azisceva = 1,cadoumesaj = 1;
+					SetTimer("cadouzb", 7200000, false);
 					new Float:pos[3];
 					GetObjectPos(cadouzburator, pos[0],pos[1],pos[2]);
 					collectobject = CreateObject(1577,  pos[0],pos[1],pos[2], 0,0,0, 100.0);UpdateDynamic3DTextLabelText(Cadolabel, COLOR_WHITE, "De lay phan thuong /collectgift!");
