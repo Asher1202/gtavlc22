@@ -538,20 +538,20 @@ stock GetSkinType(skin) {
     }
     return string;
 }
-CMD:skins(playerid, params[]) {
-	//  if(PlayerInfo[playerid][pMember] !=0) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000} [HE THONG] {FFFFFF}: Ban khong the su dung lenh nay vi ban o trong mot to chuc!");
-	 if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000} [HE THONG] {FFFFFF}: Ban khong the tiep tuc neu ban khong xuong xe");
-     new szDialog[512], string[128];
-     strcat(szDialog, "#\tSkin ID\tStatus\n");
-     for(new i; i< 10; i++) {
-         if(PlayerInfo[playerid][pSkins][i] == GetPlayerSkin(playerid)) format(string, sizeof(string), "%d.\t%d\t{FFEA00}Da trang bi\n", i+1, PlayerInfo[playerid][pSkins][i]);
-         else if(PlayerInfo[playerid][pSkins][i] != -1) format(string, sizeof(string), "%d.\t%d\t{FF0000}Dang ban\n", i+1, PlayerInfo[playerid][pSkins][i]);
-         else if(PlayerInfo[playerid][pSkins][i] == -1) format(string, sizeof(string), "%d.\tkhong\t{00FF00}Trong\n", i+1);
-         strcat(szDialog, string);
-     }
-     Dialog_Show(playerid, DIALOG_SKIN, DIALOG_STYLE_TABLIST_HEADERS, "My Skins", szDialog, "Chon", "Huy bo");
-     return 1;
-}
+// CMD:skins(playerid, params[]) {
+// 	//  if(PlayerInfo[playerid][pMember] !=0) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000} [HE THONG] {FFFFFF}: Ban khong the su dung lenh nay vi ban o trong mot to chuc!");
+// 	 if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000} [HE THONG] {FFFFFF}: Ban khong the tiep tuc neu ban khong xuong xe");
+//      new szDialog[512], string[128];
+//      strcat(szDialog, "#\tSkin ID\tStatus\n");
+//      for(new i; i< 10; i++) {
+//          if(PlayerInfo[playerid][pSkins][i] == GetPlayerSkin(playerid)) format(string, sizeof(string), "%d.\t%d\t{FFEA00}Da trang bi\n", i+1, PlayerInfo[playerid][pSkins][i]);
+//          else if(PlayerInfo[playerid][pSkins][i] != -1) format(string, sizeof(string), "%d.\t%d\t{FF0000}Dang ban\n", i+1, PlayerInfo[playerid][pSkins][i]);
+//          else if(PlayerInfo[playerid][pSkins][i] == -1) format(string, sizeof(string), "%d.\tkhong\t{00FF00}Trong\n", i+1);
+//          strcat(szDialog, string);
+//      }
+//      Dialog_Show(playerid, DIALOG_SKIN, DIALOG_STYLE_TABLIST_HEADERS, "My Skins", szDialog, "Chon", "Huy bo");
+//      return 1;
+// }
 
 stock GetSkinRareCMD(skin) {
     new x;

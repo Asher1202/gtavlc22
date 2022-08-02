@@ -67,8 +67,8 @@ Dialog:DIALOG_CUOCTAI(playerid, response, listitem, inputtext[]) {
 	    if(Iter_Contains(InTaixiu,playerid)) return SendClientMessage(playerid,COLOR_GREY, "Ban dang tham gia tai xiu.");
         new chipcuoc = strval(inputtext),string[100];
 		
-		format(string, sizeof(string), "Cuoc toi thieu la %d chip, toi da %d chip!", CHIP_TX_MIN, CHIP_TX_MAX*(1+(100*PlayerInfo[playerid][pVip])));
-        if (chipcuoc < CHIP_TX_MIN || chipcuoc > CHIP_TX_MAX*(1+(100*PlayerInfo[playerid][pVip]))) return SendClientMessage(playerid,COLOR_GREY, string);
+		format(string, sizeof(string), "Cuoc toi thieu la %d chip, toi da %d chip!", CHIP_TX_MIN, CHIP_TX_MAX+(1+(100*PlayerInfo[playerid][pVip])));
+        if (chipcuoc < CHIP_TX_MIN || chipcuoc > CHIP_TX_MAX+(1+(100*PlayerInfo[playerid][pVip]))) return SendClientMessage(playerid,COLOR_GREY, string);
 
         if (PlayerInfo[playerid][pCasinoChip] < chipcuoc) return SendClientMessage(playerid,COLOR_GREY,"Ban khong co du chip de cuoc!");
         PlayerInfo[playerid][pCasinoChip] -= chipcuoc;
@@ -91,7 +91,7 @@ Dialog:DIALOG_CUOCXIU(playerid, response, listitem, inputtext[]) {
         new chipcuoc = strval(inputtext),string[100];
 
 		format(string, sizeof(string), "Cuoc toi thieu la %d chip, toi da %d chip!", CHIP_TX_MIN,CHIP_TX_MAX*(1+(100*PlayerInfo[playerid][pVip])));
-        if (chipcuoc < CHIP_TX_MIN || chipcuoc > CHIP_TX_MAX*(1+(100*PlayerInfo[playerid][pVip]))) return SendClientMessage(playerid,COLOR_GREY, string);		
+        if (chipcuoc < CHIP_TX_MIN || chipcuoc >CHIP_TX_MAX+(1+(100*PlayerInfo[playerid][pVip]))) return SendClientMessage(playerid,COLOR_GREY, string);		
 
         if (PlayerInfo[playerid][pCasinoChip] < chipcuoc) return SendClientMessage(playerid,COLOR_GREY,"Ban khong co du chip de cuoc!");
         PlayerInfo[playerid][pCasinoChip] -= chipcuoc;
@@ -107,12 +107,12 @@ Dialog:DIALOG_CUOCXIU(playerid, response, listitem, inputtext[]) {
     return 1;
 }
 TaixiuTime() {
-	new ran1, ran2, ran3,string[120],i,tong;
+	new ran1, ran2, ran3,string[120],i,tong, PTX;
 
 	for(new x = 0; x <= random(15); x++) {
 		ran1 = 1+random(6), ran2 = 1+random(6), ran3 = 1+random(6);
 	}
-
+	PTX = PhienTaiXiu;
 	tong = ran1 + ran2 + ran3;
 
 	if(ts_win != TS_DEFAULT) {
@@ -139,7 +139,7 @@ TaixiuTime() {
 		if(4<=tong<=10) xiuwin=1;
 		if(10<tong<=17) taiwin=1;
 		if(tong==3 || tong==18) {
-			format(string, sizeof(string), "Tai xiu: Xuc xac do ra %d %d %d. Khong ben nao thang!", ran1, ran2, ran3);
+			format(string, sizeof(string), "[Tai xiu]: Phien tai xiu %s xuc xac do ra %d %d %d. Khong ben nao thang!", FormatNumber(PTX),ran1, ran2, ran3);
 			SendClientMessageToAll(COLOR_WHITE, string);
 		}
 	}
@@ -150,10 +150,10 @@ TaixiuTime() {
 		if(tongcuocxiu-tongcuoctai>3000000) taiwin=1;
 	}*/
 	if(taiwin==1) {
-		format(string, sizeof(string), "Tai xiu: Xuc xac do ra %d %d %d. {FF0000}Tai {FFFFFF}thang voi %d nguoi choi, tong giai thuong %s chip!",ran1, ran2, ran3, tongtai, FormatNumber(tongcuoctai));
+		format(string, sizeof(string), "[Tai xiu]: Phien tai xiu %s Xuc xac do ra %d %d %d. {FF0000}Tai {FFFFFF}thang voi %d nguoi choi, tong giai thuong %s chip!",FormatNumber(PTX),ran1, ran2, ran3, tongtai, FormatNumber(tongcuoctai));
         SendClientMessageToAll(COLOR_WHITE, string);
         foreach(i: ChonTai) {
-        	format(string,sizeof(string),"Tai xiu: Ban da chien thang, nhan duoc %s chip!",FormatNumber(cuoctai[i]*2));
+        	format(string,sizeof(string),"[Tai xiu]: Ban da chien thang, nhan duoc %s chip!",FormatNumber(cuoctai[i]*2));
 		    SendClientMessage(i, COLOR_LIGHTBLUE, string);
 		
 			new chipLeft = payTaxTaiXiu(i, cuoctai[i] * 2);
@@ -162,10 +162,10 @@ TaixiuTime() {
         }
 	}
 	else if(xiuwin==1) {
-		format(string, sizeof(string), "Tai xiu: Xuc xac do ra %d %d %d. {29F013}Xiu {FFFFFF}thang voi %d nguoi choi, tong giai thuong %s chip!",ran1, ran2, ran3, tongxiu, FormatNumber(tongcuocxiu));
+		format(string, sizeof(string), "[Tai xiu]: Phien tai xiu %s Xuc xac do ra %d %d %d. {29F013}Xiu {FFFFFF}thang voi %d nguoi choi, tong giai thuong %s chip!",FormatNumber(PTX),ran1, ran2, ran3, tongxiu, FormatNumber(tongcuocxiu));
         SendClientMessageToAll(COLOR_WHITE, string);
         foreach(i: ChonXiu) {
-        	format(string,sizeof(string),"Tai xiu: Ban da chien thang, nhan duoc %s " COLOR_CHIP "chip" WHITE "!",FormatNumber(cuocxiu[i]*2));
+        	format(string,sizeof(string),"[Tai xiu]: Ban da chien thang, nhan duoc %s " COLOR_CHIP "chip" WHITE "!",FormatNumber(cuocxiu[i]*2));
 		    SendClientMessage(i, COLOR_LIGHTBLUE, string);
 
 			new chipLeft = payTaxTaiXiu(i, cuocxiu[i] * 2);

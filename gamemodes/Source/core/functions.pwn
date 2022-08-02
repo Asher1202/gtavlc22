@@ -67,7 +67,7 @@ Info(playerid, txt[]) {
 	PlayerTextDrawShow(playerid, _itxt3);
 	PlayerTextDrawShow(playerid, _itxt2);
 
-	printf("Info PTD: %d, %d, %d\n", _:_itxt1, _:_itxt2, _:_itxt3);
+	// printf("Info PTD: %d, %d, %d\n", _:_itxt1, _:_itxt2, _:_itxt3);
 
     defer Timer_HideInfo[10000](playerid, _:_itxt1, _:_itxt2, _:_itxt3);
 	return 1;
@@ -254,18 +254,23 @@ function XeCaNhan(playerid) {
 }
 cadouzb() { 
 	if(cadoumsg == 1) return 1;
-	new indiciu = random(2);cadoulevel = 1 + random(4);
+	new indiciu = random(5);cadoulevel = 1 + random(4);
 	switch(indiciu) {
 		case 0:
-			cadouzburator = CreateObject(19054,3066.0925,2091.6895,322.0981, 0,0,0, 500),
-			MoveObject(cadouzburator,2901.3501,2040.6469,10.8203,30),
-			SCMTA(COLOR_DEPART, "[GIFTBOX] Mot vat the la roi ra khoi UFO thang xuong thanh pho Las Venturas'. Goi y: Ocean.");
+			cadouzburator = CreateObject(19054,2780.4368, -2020.5125, 322, 0,0,0, 500),
+			MoveObject(cadouzburator,2780.4368, -2020.5125, 13.3232,30),
+			SCMTA(COLOR_DEPART, "[GIFTBOX] Mot vat the la roi ra khoi UFO thang xuong thanh pho Los Santos. Goi y: San bong gan bo bien.");
 		case 1:
-			cadouzburator = CreateObject(19054,1342.2188,-2685.3093,273.5103, 0,0,0, 500),
-			MoveObject(cadouzburator,1418.4274,-2621.2546,13.5469,30),
-			SCMTA(COLOR_DEPART, "[GIFTBOX] Mot vat the la roi ra khoi UFO thang xuong thanh pho Los Santos'. Goi y: Aero."); 
-		case 2: cadouzburator = CreateObject(19054,1079.5297,1067.8638,270.8250, 0,0,0, 500),MoveObject(cadouzburator,1088.6166,1070.4855,10.8359,30),SCMTA(COLOR_DEPART, "[GIFTBOX] Mot vat the la roi ra khoi UFO thang xuong thanh pho Las Venturas'. Goi y: BattleGrounds.");
+			cadouzburator = CreateObject(19054,1662.4728, -1007.4742, 362.4278, 0,0,0, 500),
+			MoveObject(cadouzburator,1662.4728, -1007.4742, 62.4278,30),
+			SCMTA(COLOR_DEPART, "[GIFTBOX] Mot vat the la roi ra khoi UFO thang xuong thanh pho Los Santos. Goi y: Cao toc."); 
+		case 2: cadouzburator = CreateObject(19054,72.0031, -1534.8987, 275.1975, 0,0,0, 500),MoveObject(cadouzburator,72.0031, -1534.8987, 5.1975,30),SCMTA(COLOR_DEPART, "[GIFTBOX] Mot vat the la roi ra khoi UFO thang xuong thanh pho Los Santos. Goi y: Tram thu phi.");
+		case 3: cadouzburator = CreateObject(19054,563.8014, -1902.2493, 273.2223, 0,0,0, 500),MoveObject(cadouzburator,563.8014, -1902.2493, 3.2223,30),SCMTA(COLOR_DEPART, "[GIFTBOX] Mot vat the la roi ra khoi UFO thang xuong thanh pho Los Santos. Goi y: Bo bien.");
+		case 4: cadouzburator = CreateObject(19054,1774.8221, -2551.8459, 313.4843, 0,0,0, 500),MoveObject(cadouzburator,1774.8221, -2551.8459, 13.4843,30),SCMTA(COLOR_DEPART, "[GIFTBOX] Mot vat the la roi ra khoi UFO thang xuong thanh pho Los Santos. Goi y: Duong bang.");
+		case 5: cadouzburator = CreateObject(19054,2028.2600, -1421.1907, 217.0645, 0,0,0, 500),MoveObject(cadouzburator,2028.2600, -1421.1907, 17.0645,30),SCMTA(COLOR_DEPART, "[GIFTBOX] Mot vat the la roi ra khoi UFO thang xuong thanh pho Los Santos. Goi y: Benh vien.");
 	} 
+	checkifdamage = 0; // when spawn no damage
+				       // we need to check if damaged then no respawn, if not damaged for 30min then just destroy it and settimer to respawn it after 2 hours
 	SCMTA(COLOR_DEPART, "[GIFTBOX] Vat the co hinh dang mot mon qua, no se cham dat trong vai giay!"),
 	SCMTA(COLOR_DEPART, "[GIFTBOX] Tat ca nguoi choi tham gia deu nhan duoc giai thuong, nhung giai thuong dac biet se gianh cho nguoi gioi nhat!");
 	parazburator = CreateObject(2903, 0,0,0,0,0,0, 500),AttachObjectToObject(parazburator, cadouzburator, 0,0,6,0,0,0, 1);flamazburator = CreateObject(18728, 0,0,0,0,0,0, 500),AttachObjectToObject(flamazburator, cadouzburator, 0,0,-2,0,0,0, 1);
@@ -273,10 +278,31 @@ cadouzb() {
 	foreach(new i: Player) dmgdat[i] = 0,cadoubani[i] = 0,cadourp[i] = 0,cadoupp[i] = 0,cadoutimeractiv[i] = 0,cadoulqw[i] = 0,colectgf[i] = 0;
 	cadoumort = 0,cadoumsg = 1,azisceva = 0,cadoumesaj = 0,cadouviatai = cadouviata;
 	SetTimer("destroypara", 12000, false),DestroyObject(collectobject),DestroyDynamic3DTextLabel(Cadolabel);
+	
 	return 1;
 }
 //distrugere parachute info2
 function destroypara() cadoulabel(),DestroyObject(parazburator),SCMTA(COLOR_DEPART, "[GIFTBOX] Vat the da cham dat!");
+task CheckGift[5000]()
+{
+	if(cadoumort == 1)
+	{
+		return 1;
+	}
+	else
+	{
+		switch(checkifdamage)
+		{
+			case 0 : {
+
+			}
+			case 1: {
+
+			}
+		}
+	}
+	return 1;
+}
 // update 3dtextlabel info3
 cadoulabel() {
 	if(cadoumort == 1) return 1;
@@ -1940,35 +1966,35 @@ GetPlayerSkill(playerid) {
 	switch(PlayerInfo[playerid][pJob]) {
 		case 1: {
 			level = PlayerInfo[playerid][pFarmerSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 2: {
 			level = PlayerInfo[playerid][pTruckerSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 3: {
 			level = PlayerInfo[playerid][pWoodSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 4: {
 			level = PlayerInfo[playerid][pJackerSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 5: {
 			level = PlayerInfo[playerid][pMatSkill];
@@ -1981,67 +2007,67 @@ GetPlayerSkill(playerid) {
 		}
 		case 6: {
 			level = PlayerInfo[playerid][pDrugsSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 7: {
 			level = PlayerInfo[playerid][pMechSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 9: {
 			level = PlayerInfo[playerid][pPizzaSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}	
 		case 10: {
 			level = PlayerInfo[playerid][pCurierSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}	
 		case 11, 15: {
 			level = PlayerInfo[playerid][pFishSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}			
 		case 12: {
 			level = PlayerInfo[playerid][pPilotSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 13: {
 			level = PlayerInfo[playerid][pStivuitorSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 14: {
 			level = PlayerInfo[playerid][pNewsPaperSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}	
 	}
 	return level;
@@ -2052,107 +2078,107 @@ GetPlayerSkill2(playerid, id) {
 	switch(id) {
 		case 1: {
 			level = PlayerInfo[playerid][pFarmerSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 2: {
 			level = PlayerInfo[playerid][pTruckerSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 3: {
 			level = PlayerInfo[playerid][pWoodSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 4: {
 			level = PlayerInfo[playerid][pJackerSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 5: {
 			level = PlayerInfo[playerid][pMatSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 6: {
 			level = PlayerInfo[playerid][pDrugsSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 7: {
 			level = PlayerInfo[playerid][pMechSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 9: {
 			level = PlayerInfo[playerid][pPizzaSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}	
 		case 10: {
 			level = PlayerInfo[playerid][pCurierSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}	
 		case 11, 15: {
 			level = PlayerInfo[playerid][pFishSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}			
 		case 12: {
 			level = PlayerInfo[playerid][pPilotSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 13: {
 			level = PlayerInfo[playerid][pStivuitorSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}
 		case 14: {
 			level = PlayerInfo[playerid][pNewsPaperSkill];
-			if(level >= 0 && level < 30) level = 1;
-			else if(level >= 30 && level < 90) level = 2;
-			else if(level >= 90 && level < 210) level = 3;
-			else if(level >= 210 && level < 450) level = 4;
-			else if(level >= 450) level = 5;
+			if(level >= 0 && level < 40) level = 1;
+			else if(level >= 40 && level < 120) level = 2;
+			else if(level >= 120 && level < 240) level = 3;
+			else if(level >= 240 && level < 999) level = 4;
+			else if(level >= 999) level = 5;
 		}	
 	}
 	return level;
@@ -2161,10 +2187,14 @@ GetPlayerSkill2(playerid, id) {
 GetNeedPoints(playerid, jid) {
 	new x;
 	new skill = GetPlayerSkill2(playerid, jid);
-	if(skill == 1) x = 30;
-	else if(skill == 2) x = 90;
-	else if(skill == 3) x = 210;
-	else if(skill == 4) x = 450;
+	if(skill == 1) x = 40;
+	else if(skill == 2) x = 120;
+	else if(skill == 3) x = 240;
+	else if(skill == 4) x = 480;
+	else if(skill == 5) x = 999;
+	else if(skill == 6) x = 2000;
+	else if(skill == 7) x = 3500;
+	else if(skill == 8) x = 5999;
 	return x;
 }
 
@@ -2173,8 +2203,12 @@ GetNeedPoints4(playerid, jid) {
 	new skill = GetPlayerSkill2(playerid, jid);
 	if(skill == 1) x = 30;
 	else if(skill == 2) x = 90;
-	else if(skill == 3) x = 210;
-	else if(skill == 4) x = 450;
+	else if(skill == 3) x = 240;
+	else if(skill == 4) x = 480;
+	else if(skill == 5) x = 999;
+	else if(skill == 6) x = 2000;
+	else if(skill == 7) x = 3500;
+	else if(skill == 8) x = 5999;
 	return x;
 }
 
@@ -3469,6 +3503,7 @@ ShowStats(playerid,targetid) {
 		infostring89[180],
 		playersip[180],
 		radios[64],
+
 		infostring[180],
 	
 		account = PlayerInfo[targetid][pAccount],
@@ -3502,8 +3537,12 @@ ShowStats(playerid,targetid) {
 	if(PlayerInfo[targetid][pJob] == 0) jtext = "Khong";
 	else format(jtext, sizeof(jtext), "%s", JobInfo[PlayerInfo[targetid][pJob]][jName]);
 
-	if(PlayerInfo[targetid][pVip] == 0) { vtext = "Khong"; }
-	else if(PlayerInfo[targetid][pVip] == 1) { vtext = "Co"; }		
+	switch(PlayerInfo[targetid][pVip]){
+		case 1 : vtext = "{f5e342}Gold";
+		case 2 : vtext = "{e8f9fa}Platium";
+		case 3 : vtext = "{19f2ff}Diamond";
+		case 0 : vtext = "Khong Co";
+	}	
 
 	
 	expamount = nxtlevel*levelexp;
@@ -3516,7 +3555,7 @@ ShowStats(playerid,targetid) {
 	
 	format(string, sizeof(string), "Ten: %s (%d) | Gio choi: %0.2f | Money: $%s | Bank: $%s | Phone: %d | ID gioi thieu: %d ", GetNameEx(targetid), targetid, PlayerInfo[targetid][pConnectTime], FormatNumber(cash),FormatNumber(account), pnumber, PlayerInfo[targetid][pSQLID]);
 	SendClientMessage(playerid, COLOR_WHITE,string);
-	format(string, sizeof(string), "Level: %d | Respect Points: %d/%d | Cap do tiep thao: $%s | Vip: %s | VIP XU: %d", level,exp,expamount,FormatNumber(costlevel),vtext,PlayerInfo[targetid][pPremiumPoints]);
+	format(string, sizeof(string), "Level: %d | Respect Points: %d/%d | Cap do tiep thao: $%s | Vip: %s {ffffff} | VIP XU: %d", level,exp,expamount,FormatNumber(costlevel),vtext,PlayerInfo[targetid][pPremiumPoints]);
 	SendClientMessage(playerid, COLOR_WHITE,string);
 	format(string, sizeof(string), "Pham toi: %d | Ngoi tu: %d | Thuoc phien [/usedrugs] | Vat lieu: %d | Radio: %s | Rob: %d/10 | Vuot nguc: %d/20 | Phao hoa: %d", crimes,arrests,mats,radios, rob,PlayerInfo[targetid][pEscapePoints],PlayerInfo[targetid][pFire]);
 	SendClientMessage(playerid, COLOR_WHITE,string);
@@ -3604,7 +3643,7 @@ SetPlayerToTeamColor(playerid) {
 			case 2: SetPlayerColor(playerid, 0x2b45f5FF); 
 			case 3: SetPlayerColor(playerid, 0x80FF00FF); 
 			case 4: SetPlayerColor(playerid, 0x0CFF00FF); 
-			case 5: SetPlayerColor(playerid, 0x11F2F2FF);
+			case 5: SetPlayerColor(playerid, 0x4f4f4fFF);
 			case 6: SetPlayerColor(playerid, 0xFFAE00FF);
 			case 7: SetPlayerColor(playerid, 0x00FF80FF); 
 			case 8: SetPlayerColor(playerid, 0xFFFFA8FF); 
@@ -3647,6 +3686,7 @@ function LoadStuff() {
 		cache_get_value_name_int(0, "GiftRP", GiftRP);
 		cache_get_value_name_int(0, "GiftGold", GiftGold);
 		cache_get_value_name_int(0, "GiftVehicle", GiftVehicle);
+		cache_get_value_name_int(0, "PhienTaiXiu", PhienTaiXiu);
 				
 		cache_get_value_name_float(0, "SpawnAngle", SpawnPos[3]);
 
@@ -4546,7 +4586,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 		cache_get_value_name_int(0, "SpawnChange", SpawnChange[playerid]);
 		cache_get_value_name_float(0, "Seconds", 	PlayerInfo[playerid][pSeconds]);
 		cache_get_value_name_int(0, "Used", 	PlayerInfo[playerid][pUsed]);
-
+		cache_get_value_name_int(0, "QuestDeelay", 	PlayerInfo[playerid][pQuestDelay]);
 		
 		cache_get_value_name_int(0, "RacePlace1", 	PlayerInfo[playerid][pRacePlace][0]);
 		cache_get_value_name_int(0, "RacePlace2", 	PlayerInfo[playerid][pRacePlace][1]);
@@ -4750,7 +4790,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 	}
     StopAudioStreamForPlayer(playerid);
 	SetPlayerScore(playerid, PlayerInfo[playerid][pLevel]);
-	
+	QuestDeelay[playerid] = PlayerInfo[playerid][pQuestDelay];
 	if(PlayerInfo[playerid][pTut] == 0) {
 		gOoc[playerid] = 1; gNews[playerid] = 1; gFam[playerid] = 1;
 		RegistrationStep[playerid] = 1;
@@ -5337,7 +5377,7 @@ ResetRace() {
 	for(new i = 0; i < 40; i++) RacePlaces[i] = 0;
 	return 1;
 }
-/*new AaF_cache[MAX_PLAYERS] = { -1, ... };
+new AaF_cache[MAX_PLAYERS] = { -1, ... };
 new AaF_cacheTime[MAX_PLAYERS];
 Float:DistanceCameraTargetToLocation(Float:CamX, Float:CamY, Float:CamZ, Float:ObjX, Float:ObjY, Float:ObjZ, Float:FrX, Float:FrY, Float:FrZ) {
 	new Float:TGTDistance;
@@ -5581,7 +5621,7 @@ function BurningTimer(playerid) {
 	}
 	else { KillTimer(PlayerFireTimer[playerid][0]); KillTimer(PlayerFireTimer[playerid][1]); }
 }
-*/
+
 SetCheckpoint(playerid) {
 	new rand = random(5);
 	switch(rand) {

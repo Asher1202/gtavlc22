@@ -806,6 +806,7 @@ IsMonth29(year) {
 }
 YoutubeStreamForPlayer(playerid, link[]) {
     PlayAudioStreamForPlayer(playerid, link);
+    
 }
 timer HideMoneyTD[4500](playerid) {
     PlayerTextDrawHide(playerid, ShowMoneyPlus);
@@ -912,7 +913,7 @@ hook ResetVariables(playerid) {
     SelectTD[playerid] = 0;
     LamViecChung[playerid] = 0;
     DaThueThuyen[playerid] = 0;
-    QuestDeelay[playerid] = 0;
+    // QuestDeelay[playerid] = PlayerInfo[playerid][pQuestDeelay];
     TradeID[playerid] = -1;    
     InsideTradeToys[playerid] = 0;
     // PlayerInfo[playerid][pSelection] = -1;
@@ -2418,7 +2419,7 @@ RaceMapName(map) {
     }
     return string;
 }
-/*
+
 CanPlayerBurn(playerid, val = 0) {
     //CallRemoteFunction("CanBurn", "d", playerid) >= 0 && 
     if(GetPlayerSkin(playerid) != 277 && GetPlayerSkin(playerid) != 278 
@@ -2440,18 +2441,18 @@ IsInWaterCar(playerid) {
  
 HasExtinguisher(playerid) {
     return GetPlayerWeapon(playerid) == 42 && !IsPlayerInAnyVehicle(playerid);
-}*/
+}
 // Carspeed(playerid,mode = 1) {
 //     new Float:Velocity [3];
 //     GetVehicleVelocity ( GetPlayerVehicleID ( playerid ) , Velocity [ 0 ] , Velocity [ 1 ] , Velocity [ 2 ] ) ;
 //     return IsPlayerInAnyVehicle ( playerid ) ? floatround ( ( ( floatsqroot ( ( ( Velocity [ 0 ] * Velocity [ 0 ] ) + ( Velocity [ 1 ] * Velocity [ 1 ] ) + ( Velocity [ 2 ] * Velocity [ 2 ] ) ) ) * ( !mode ? 105.0 : 170.0 ) ) ) * 1 ) : 0;
 // }
-/*Pressing(playerid) {
+Pressing(playerid) {
     new keys, updown, leftright;
     GetPlayerKeys(playerid, keys, updown, leftright);
     return keys;
-}*/
-/*Aiming_at_Flame(playerid) {
+}
+Aiming_at_Flame(playerid) {
     if(gettime() - AaF_cacheTime[playerid] < 1) return AaF_cache[playerid];
     AaF_cacheTime[playerid] = gettime();
     new id = -1;
@@ -2532,7 +2533,7 @@ IsPlayerInWater(playerid) {
     if((1544 >= an >= 1538 || an == 1062 || an == 1250) && (Z <= 0 || (Z <= 41.0 && IsPlayerInArea(playerid, -1387, -473, 2025, 2824))) ||
     (1544 >= an >= 1538 || an == 1062 || an == 1250) && (Z <= 2 || (Z <= 39.0 && IsPlayerInArea(playerid, -1387, -473, 2025, 2824)))) return 1;
     return 0;
-}*/
+}
 
 forward DiaDiemCauCaO(playerid);
 public DiaDiemCauCaO(playerid)

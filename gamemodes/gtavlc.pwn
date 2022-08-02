@@ -78,6 +78,7 @@ new Text3D:adminLabel[MAX_PLAYERS];
 #include <EVF> //for vehiclespeedcap and stufsf
 // #include <td-streamer-player> 
 DEFINE_HOOK_REPLACEMENT(KeyState, KState);
+
 #include <enum>
 #include <VIP>
 #include <utils>
@@ -166,7 +167,7 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 #include <map/interior8>
 #include <map/interior10>
 #include <map/hq.inc>
-
+#include <map/hqvagos>
 // #include <map/yellow>
 #include <map/islandevent>
 // #include <map/grays2s>

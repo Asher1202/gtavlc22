@@ -97,6 +97,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 	        	}
 	            else PlayAudioStreamForPlayer(playerid, station, GetPVarFloat(i, "bposX"), GetPVarFloat(i, "bposY"), GetPVarFloat(i, "bposZ"), 100.0, 1);
 				SendClientMessage(playerid, COLOR_GREY, " Ban dang nghe nhac duoc phat ra tu mot chiec boombox gan do.");
+				// PlayAudioStreamForPlayer(playerid, "https://steamcast.com/sbin/listen.m3u?id=6089681");
 				return 1;
 	        }
 	    }

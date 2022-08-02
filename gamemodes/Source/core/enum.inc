@@ -77,7 +77,7 @@ new const DmvTimes[] =
 	59
 };
 // end declare
-new cadoumort,cadoulevel,cadoumesaj,collectobject,colectgf[MAX_PLAYERS],cadoumsg,
+new cadoumort,cadoulevel,cadoumesaj,collectobject,colectgf[MAX_PLAYERS],cadoumsg, checkifdamage,
     cadoubani[MAX_PLAYERS],cadoupp[MAX_PLAYERS],cadourp[MAX_PLAYERS],cadouviatai,Timer:cadoutimer[MAX_PLAYERS],
     parazburator,cadoutimeractiv[MAX_PLAYERS],cadouviata;
 //new File:logfile;
@@ -137,10 +137,10 @@ new
 	pFishing[MAX_PLAYERS],
 	FishPrice[MAX_PLAYERS],
 	JobCP[MAX_PLAYERS],
-	//Flame[MAX_FIRES][FlameInfo],
-	//Iterator:iFlame<MAX_FIRES>,
-	//PlayerFireTimer[MAX_PLAYERS][3], // Burn, StopBurn, Extinguish a fire
-	//Float:PlayerOnFireHP[MAX_PLAYERS],
+	Flame[MAX_FIRES][FlameInfo],
+	Iterator:iFlame<MAX_FIRES>,
+	PlayerFireTimer[MAX_PLAYERS][3], // Burn, StopBurn, Extinguish a fire
+	Float:PlayerOnFireHP[MAX_PLAYERS],
 	// Timer:logina[MAX_PLAYERS],
 	SpamTimes[MAX_PLAYERS],
 	PlayerText: HPAlert,
@@ -509,11 +509,11 @@ new
 	VehicleExist[MAX_VEHICLES];
 
 // fire
-/*new 
+new 
 	playerFire[MAX_PLAYERS],
 	ActiveFire,
 	ActiveFires;
-*/
+
 new
 	// Local
 	ServerAccounts, MaxPlayers, Float:g_SpeedThreshold,			MaxPlayersDate[22], Sondaj[180], SondajTime, Timer:SondajTimer,  SondajVotes[2], 
@@ -525,7 +525,7 @@ new
 	furnitures = mS_INVALID_LISTID,			fskins[15] = mS_INVALID_LISTID,				cobj = mS_INVALID_LISTID, skinlist = mS_INVALID_LISTID,
 	Licitatie, TimpLicitatie, 				TipLicitatie, TotalBani, IDLicitatie, 		LastPlayer, 
 	QuestDeelay[MAX_PLAYERS],
-	GiftMoney, GiftRP, GiftGold, 			GiftLevel, GiftFP, GiftVehicle, 			RestartTime, //QuestPickup[30],
+	GiftMoney, GiftRP, GiftGold, 			GiftLevel, GiftFP, GiftVehicle, 			PhienTaiXiu,			RestartTime, //QuestPickup[30],
 	PaintballWinnerScore[3], 				PaintballWinner[3], 
 	PaintTime[3] = -1,						EventStatus, EventVW, EventInt,				gatelvpd[3],								TimpMateriale[MAX_PLAYERS],
 	

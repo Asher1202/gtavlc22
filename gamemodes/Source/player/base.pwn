@@ -953,8 +953,7 @@ CMD:attack(playerid, params[]) {
 		// if(strcmp(days,"Sunday",true) == 0 || strcmp(days,"Monday",true) == 0 || strcmp(days,"Wednesday",true) == 0 || strcmp(days,"Friday",true) == 0) {} else return SendClientMessage(playerid, COLOR_LIGHTRED, "Chi co the bat dau war vao cac ngay chan trong tuan (CN-2-4-6)!");
 		// else return SendClientMessage(playerid, COLOR_LIGHTRED, "Gio war se nam trong khoang thoi gian 18:00 - 22:00!");
 		// nếu giờ lớn hơn 19 và bé hơn 21
-		if(!(19 < hour < 21))
-			if(!(minute < 30)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chua den gio war (19-21h30)");
+		if(!(19 < hour < 21)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chua den gio war (19-21h30)"); 
 		if(ServerSystem[20] == 1) {
 			if(!(strcmp(days,"Monday",true) == 0 || strcmp(days,"Sunday",true) == 0 || strcmp(days,"Wednesday",true) == 0 || strcmp(days,"Friday",true) == 0)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chi co the bat dau war vao cac ngay chan trong tuan (CN-2-4-6)!");			
 		}
@@ -3032,7 +3031,7 @@ CMD:accept(playerid, params[]) {
 		if(GetPlayerCash(playerid) < BurgerMoney[playerid]) return SendClientMessage(playerid, COLOR_YELLOW, "Bug nua ha ong noi");
 
 		Inventory_Add(playerid,"Burger", 2703, BurgerAmount[playerid], 1);
-		Inventory_Remove(BurgerOffer[playerid], "Burger", 1, BurgerAmount[playerid]);
+		Inventory_Remove(BurgerOffer[playerid], "Burger", BurgerAmount[playerid]);
 		GivePlayerCash(playerid, -BurgerMoney[playerid]);
 		GivePlayerCash(id, BurgerMoney[playerid]);
 		Update(playerid, pCashx);
@@ -5919,9 +5918,9 @@ CMD:quitjob(playerid, params[]) {
 	CP[playerid] = 0;
 	TogglePlayerControllable(playerid, true);
 	if(JobWorking[playerid]==2) {
-		for(new x = 0; x < sizeof TreeTD; x++) TextDrawHideForPlayer(playerid, TreeTD[x]);
-	    CancelSelectTextDraw(playerid), FarmerTimer[playerid] = -1, FarmerTreeTaken[playerid] = -1, RemovePlayerAttachedObject(playerid, ATTACHMENT_ID_BALE), SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE), TogglePlayerControllable(playerid, 1);
-    }
+            for(new x = 0; x < sizeof TreeTD; x++) TextDrawHideForPlayer(playerid, TreeTD[x]);
+            CancelSelectTextDraw(playerid), Gardener[playerid][gnTimer] = -1, Gardener[playerid][gnTreeTaken] = -1, RemovePlayerAttachedObject(playerid, ATTACHMENT_ID_BALE), SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE), TogglePlayerControllable(playerid, 1);
+	}
 	DisablePlayerCheckpointEx(playerid);
 	RemovePlayerAttachedObject(playerid, 2);
 	JobWorking[playerid] = 0;
@@ -6191,7 +6190,7 @@ CMD:clanduty(playerid, params[]) {
 	//if(strcmp(days,"Sunday",true) == 0 || strcmp(days,"Monday",true) == 0 || strcmp(days,"Wednesday",true) == 0 || strcmp(days,"Friday",true) == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chi co the bat dau war clan vao cac ngay le trong tuan (3-5-7)!");
 	if(hour == 19|| hour == 20 || hour == 21) {} else return SendClientMessage(playerid, COLOR_LIGHTRED, "Gio war se nam trong khoang thoi gian 19h - 22h!");
 	switch(ClanDuty[playerid]) {
-		case 0: SendClientMessage(playerid, -1, "Ban da kich hoat clan duty thanh cong!"), ClanDuty[playerid] = 1;
+		case 0: SendClientMessage(playerid, -1, "Ban da kich hoat clan duty thanh cong!"), ClanDuty[playerid] = 1, SetPlayerArmourEx(playerid, 30);
 		case 1: {
 			if(StartedSpray[playerid] == 1 || ClanDuty[playerid] == 1) {
 				SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Ban khong con onduty clan nua!");
@@ -6618,7 +6617,7 @@ CMD:bid(playerid, params[]) {
 }
 CMD:acover(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 1) return 1;
-	new name[180];
+	new name[180], string[128];
 	if(sscanf(params, "s[25]",name)) return SendClientMessage(playerid, COLOR_GREY, "USAGE: {FFFFFF}/acover <name>");
 	if(strlen(name) < 1 || strlen(name) > 25) return 1;
 	SetPVarInt(playerid, "Cover", 1);
@@ -6627,6 +6626,8 @@ CMD:acover(playerid, params[]) {
 	SetPlayerSkinEx(playerid, 1+random(100));
 	SetPlayerName(playerid, name);
     SendClientMessage(playerid, -1, "Ban dang cai trang!");
+	format(string, sizeof(string), "%s da cai trang thanh %s", pName[playerid], name);
+	Log("logs/adminlog.log", string);
 	return 1;
 }
 CMD:acoveroff(playerid, params[]) {

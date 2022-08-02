@@ -319,6 +319,7 @@ timer updatecadoubar[100](playerid) {
 	GetObjectPos(cadouzburator, X,Y,Z);
 	if(!IsPlayerInRangeOfPoint(playerid, 115.0, X,Y,Z)) return PlayerTextDrawHide(playerid, cadouzburatorPTD[0]),DestroyPlayerProgressBar(playerid, cadouBAR[playerid]),cadoulqw[playerid] = 0;
 	new string[65];
+	
 	if(cadouviata > 999) format(string,sizeof(string),"Gift Level ~r~%d~w~~n~  HP: ~r~%d~w~/%d",cadoulevel,cadouviata,cadouviatai),PlayerTextDrawSetString(playerid, cadouzburatorPTD[0], string),PlayerTextDrawShow(playerid, cadouzburatorPTD[0]);
 	if(cadouviata < 1000) format(string,sizeof(string),"Gift Level ~r~%d~w~~n~ HP: ~r~%d~w~/%d",cadoulevel,cadouviata,cadouviatai),PlayerTextDrawSetString(playerid, cadouzburatorPTD[0], string),PlayerTextDrawShow(playerid, cadouzburatorPTD[0]);
 	if(cadoulqw[playerid] == 0) { 
@@ -1108,6 +1109,16 @@ task DecreaseTimer[1000]() {
 			if(playerArmour == 100 && PlayerInfo[i][pAdmin] == 0 && GetPVarInt(i, "Armour") == 0) {
 				if(ServerSystem[3] == 0) NightBot(i, "Cheats (armour-hack)");	
 			}
+			if(IsPlayerInRangeOfPoint(i, 40.0, 1116.1476,-1457.6807,13.8592)) {	
+				if(GetPVarInt(i, "Listening") == 0) {
+					PlayAudioStreamForPlayer(i, "https://steamcast.com/sbin/listen.m3u?id=6089681", 1116.1476,-1457.6807,13.8592, 40.0, 1);
+					SetPVarInt(i, "Listening", 1);
+					SendClientMessage(i, COLOR_YELLOW, "{32a852}Ban da vao khu vuc {ff0000}tai xiu, {32a852}chuc ban co nhung giay phut tuyet voi nhat");
+				}	
+			}
+			else {
+				if(GetPVarInt(i, "Listening") == 1) SetPVarInt(i, "Listening", 0);
+			}
 			//if(FPS2[i] == 0 && AFKSeconds[i] > 120 && PlayerInfo[i][pSleeping] == 0) NightBot(i, "rakdroid");
 
 			// new Float: playerHealth; 
@@ -1176,11 +1187,11 @@ task DecreaseTimer[1000]() {
 						Showed[i] = 2;
 						SFID[i] = sf;
 					}
-					else if(!PlayerToPoint(20.0, i, GraffitiInfo[SFID[i]][gfX], GraffitiInfo[SFID[i]][gfY], GraffitiInfo[SFID[i]][gfZ]) && Showed[i] == 2) {
-						PlayerTextDrawHide(i, SafeTD);	
-						Showed[i] = 0;
-						SFID[i] = 0;					
-					}
+					// else if(!PlayerToPoint(20.0, i, GraffitiInfo[SFID[i]][gfX], GraffitiInfo[SFID[i]][gfY], GraffitiInfo[SFID[i]][gfZ]) && Showed[i] == 2) {
+					// 	PlayerTextDrawHide(i, SafeTD);	
+					// 	Showed[i] = 0;
+					// 	SFID[i] = 0;					
+					// } Array index out of bounds SFID get clan num return > SFID
 					
 					if(SafeZone[sf][szRange] >= 15) {
 						if(PlayerToPoint(SafeZone[sf][szRange], i, SafeZone[sf][szX], SafeZone[sf][szY], SafeZone[sf][szZ]) && Showed[i] == 0) {
@@ -1287,7 +1298,7 @@ task Timers[1000]() {
 			
 			if(NearWanted[i] == 1) show_near_wanted(i);
 
-			if(IsPlayerRunning(i) && Aduty[i] != 1){
+			if(IsPlayerRunning(i) && Aduty[i] != 1 && InWar[PlayerInfo[i][pMember]] == 0){
 				GivePlayerStamina(i, -6);
 			}
 			if(GetPlayerStamina(i) <= 30) //The smaller the faster it drains 
@@ -1377,9 +1388,24 @@ task Timers[1000]() {
 										// 	return SendClientMessagei,COLOR_LGREEN, "ERROR: Ban da het slot skin cho nen ban se duoc tra lai mot hom!");
 
 										// }
-										if(checkslotinv(i) == 24) return SendClientMessage(i, -1, "Tui do cua ban da day.");
-										if(checkslotskin(i) == 10) return SendClientMessage(i, -1, "Ban da full slot skin.");
-										if(checktrungskin(i,amount) != 0) return SendClientMessage(i, -1, "Ban da so huu skin nay.");
+										if(checkslotinv(i) == 24) {
+											SendClientMessage(i, -1, "Tui do cua ban da day.");
+											PlayerInfo[i][pCrates][0] += 1, save_crates(i);
+											KillTimer(TimerCratesEx[i]);
+						                	CrateModel[i] = -1; TatQuayGuong(i);
+										}
+										if(checkslotskin(i) == 10) {
+											SendClientMessage(i, -1, "Ban da full slot skin.");
+											PlayerInfo[i][pCrates][0] += 1, save_crates(i);
+											KillTimer(TimerCratesEx[i]);
+						                	CrateModel[i] = -1; TatQuayGuong(i);
+										}
+										if(checktrungskin(i,amount) != 0) {
+											SendClientMessage(i, -1, "Ban da so huu skin nay.");
+											PlayerInfo[i][pCrates][0] += 1, save_crates(i);
+											KillTimer(TimerCratesEx[i]);
+						                	CrateModel[i] = -1; TatQuayGuong(i);
+										}
 										if(Inventory_GetFreeID(i, 1) == -1) Inventory_Add(i,"Skins", amount, 1, 2);
 											else Inventory_Add(i,"Skins", amount, 1, 1);
 										save_crates(i);
@@ -1455,6 +1481,10 @@ task Timers[1000]() {
 						        KillTimer(TimerCratesEx[i]);
 						        CrateModel[i] = -1; TatQuayGuong(i);
 						    }
+						}
+						default : {
+							SendClientMessage(i, COLOR_YELLOW, "Chuc ban may man lan sau");
+							printf("%s, %d da mo hop", GetName(i), rand);
 						}
 					}
 				}
@@ -1651,14 +1681,18 @@ task Timers[1000]() {
 									    SCMTA(COLOR_CLIENT, string);
 								}
 				            }
+							default : {
+							SendClientMessage(i, COLOR_YELLOW, "Chuc ban may man lan sau");
+							printf("%s, %d da mo hop", GetName(i), rand);
+							}
 						}
 					}
 				case 2:{
 					format(string, sizeof(string), "%s da mo crate Random con lai %d.", GetName(i), PlayerInfo[i][pCrates][0]);
 					Log("logs/opencrate.log", string);
-					new rand = random(100);
+					new rand = random(89);
 					switch(rand) {
-				    	case 0..30: {
+				    	case 0..20: {
 				    		LoadSkins(1, amount);
 				            format(string, 70, "Skin %d (%s).", amount, GetSkinRareCMD(amount));
 				            PlayerTextDrawSetPreviewModel(i, CratePTD[0], amount);
@@ -1683,9 +1717,24 @@ task Timers[1000]() {
 										// 	return SendClientMessagei,COLOR_LGREEN, "ERROR: Ban da het slot skin cho nen ban se duoc tra lai mot hom!");
 
 										// }
-										if(checkslotinv(i) == 24) return SendClientMessage(i, -1, "Tui do cua ban da day.");
-										if(checkslotskin(i) == 10) return SendClientMessage(i, -1, "Ban da full slot skin.");
-										if(checktrungskin(i,amount) != 0) return SendClientMessage(i, -1, "Ban da so huu skin nay.");
+										if(checkslotinv(i) == 24) {
+											SendClientMessage(i, -1, "Tui do cua ban da day.");
+											PlayerInfo[i][pCrates][1] += 1, save_crates(i);
+											KillTimer(TimerCratesEx[i]);
+						                	CrateModel[i] = -1; TatQuayGuong(i);
+										}
+										if(checkslotskin(i) == 10) {
+											SendClientMessage(i, -1, "Ban da full slot skin.");
+											PlayerInfo[i][pCrates][1] += 1, save_crates(i);
+											KillTimer(TimerCratesEx[i]);
+						                	CrateModel[i] = -1; TatQuayGuong(i);
+										}
+										if(checktrungskin(i,amount) != 0) {
+											SendClientMessage(i, -1, "Ban da so huu skin nay.");
+											PlayerInfo[i][pCrates][1] += 1, save_crates(i);
+											KillTimer(TimerCratesEx[i]);
+						                	CrateModel[i] = -1; TatQuayGuong(i);
+										}
 										if(Inventory_GetFreeID(i, 1) == -1) Inventory_Add(i,"Skins", amount, 1, 2);
 											else Inventory_Add(i,"Skins", amount, 1, 1);
 										save_crates(i);
@@ -1695,7 +1744,7 @@ task Timers[1000]() {
 				            	}
 				            }
 						}
-						case 31..60: {
+						case 21..40: {
 							amount = RandomEx(400000,500000);
 							format(string, 64, "%d", amount);
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1212);
@@ -1711,7 +1760,7 @@ task Timers[1000]() {
 									SCMTA(COLOR_CLIENT,string);
 							}
 						}
-						case 61..75: {
+						case 41..60: {
 							amount = RandomMinMax(15, 20);
 				            format(string, 75, "~y~%s Vip Xu.", FormatNumber(amount), totalcrates(i));
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1275);
@@ -1728,7 +1777,7 @@ task Timers[1000]() {
 						        CrateModel[i] = -1; TatQuayGuong(i);
 						    }
 						}
-						case 76..84: {
+						case 61..80: {
 							amount = RandomMinMax(5000, 10999);
 				            format(string, 75, "~y~%s vat lieu.", FormatNumber(amount), totalcrates(i));
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 1576);
@@ -1745,7 +1794,7 @@ task Timers[1000]() {
 						        CrateModel[i] = -1; TatQuayGuong(i);
 						    }
 						}
-						case 85..99: {
+						case 81..88: {
 			    		    // amount = random(20) + 20;
 			                format(string, 64, "Freeway");
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 463);
@@ -1759,7 +1808,7 @@ task Timers[1000]() {
 								    SCMTA(COLOR_CLIENT,string);
 							}
 			            }
-						case 100: {
+						case 89: {
 			    		    // amount = random(20) + 20;
 			                format(string, 64, "Elegy");
 							PlayerTextDrawSetPreviewModel(i, CratePTD[0], 562);
@@ -1773,6 +1822,10 @@ task Timers[1000]() {
 								    SCMTA(COLOR_CLIENT,string);
 							}
 			            }
+						default : {
+							SendClientMessage(i, COLOR_YELLOW, "Chuc ban may man lan sau");
+							printf("%s, %d da mo hop", GetName(i), rand);
+						}
 					}
 				}
 			case 4:{
@@ -1947,6 +2000,10 @@ task Timers[1000]() {
 								    SCMTA(COLOR_CLIENT, string);
 							}
 			            }
+						default : {
+							SendClientMessage(i, COLOR_YELLOW, "Chuc ban may man lan sau");
+							printf("%s, %d da mo hop", GetName(i), rand);
+						}
 					}
 				}
 
@@ -2170,6 +2227,10 @@ task Timers[1000]() {
 								    SCMTA(COLOR_CLIENT, string);
 								}
 				            }
+							default : {
+							SendClientMessage(i, COLOR_YELLOW, "Chuc ban may man lan sau");
+							printf("%s, %d da mo hop", GetName(i), rand);
+							}
 						}
 					}
 			// case 6:
@@ -2453,6 +2514,10 @@ task Timers[1000]() {
 								    SCMTA(COLOR_CLIENT, string);
 							}
 			            }
+						default : {
+							SendClientMessage(i, COLOR_YELLOW, "Chuc ban may man lan sau");
+							printf("%s, %d da mo hop", GetName(i), rand);
+						}
 				        }
 				    }
 			// case 8:
@@ -3087,7 +3152,8 @@ task Timers[1000]() {
 											else SendClientMessage(i, COLOR_LGREEN, "Ban khong co cho cho xe vi ban co so luong xe toi da!");
 											UpdateSlots(i);
 										}
-										QuestDeelay[i] = 600;		
+										QuestDeelay[i] = 600;	
+											
 									}	
 								}
 							}
@@ -3564,7 +3630,7 @@ task SyncUp[60000]() {
 	gettime(tmphour, tmpminute, tmpsecond);
 	getdate(Year, Month, Day);	
 	
-	//if(tmpminute == 30 || tmpminute == 0) Incendii();
+	if(tmpminute == 30 || tmpminute == 0) Incendii();
 	
 	if(tmpminute == 0 || tmpminute == 10 || tmpminute == 20 || tmpminute == 30 || tmpminute == 40 || tmpminute == 50) OpenCells();
 	else CloseCells();
@@ -4030,7 +4096,7 @@ task RentCar[20000]() {
 	}
 	return 1;
 }
-/*task OnFireUpdate[FIRE_UPDATE_TIMER_DELAY]()
+task OnFireUpdate[FIRE_UPDATE_TIMER_DELAY]()
 {
 	new aim, piss;
 	foreach(new playerid: Player) {
@@ -4099,7 +4165,7 @@ task RentCar[20000]() {
 		}
 	#endif
 	return 1;
-}*/
+}
 task SaveImportantData[3600000]() {
     new query[300];
 	

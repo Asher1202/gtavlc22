@@ -11,7 +11,7 @@ enum pInfo {
 	Float: pConnectTime,
 	Float: pHealth,
 	Float: pSeconds,
-	
+	pQuestDelay,
 	PlayerText:c_GUI_Elements[8],
 	c_DmvObjs[91],
 	c_DmvAreas[3],

@@ -15,7 +15,7 @@ hook OnGameModeInit() {
     SetDynamicObjectMaterial(tmpobjid, 0, 2803, "cj_meaty", "CJ_FLESH_2", 0x00000000);
 
 	CreateDynamic3DTextLabel("{4790DE}Buon thuoc phien\n{FFFFFF}Nhap '/work' de bat dau cong viec", -1, 1761.1273,-2137.6575,14.4469, 15.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 15.0);
-	CreateDynamic3DTextLabel("{4790DE}Nguoi trong vuon\n{FFFFFF}Nhap '/work' de bat dau cong viec", -1, -1080.3639,-1195.3372,129.6956, 15.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 15.0);
+	// CreateDynamic3DTextLabel("{4790DE}Nguoi trong vuon\n{FFFFFF}Nhap '/work' de bat dau cong viec", -1, -1080.3639,-1195.3372,129.6956, 15.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 15.0);
 
     CreateDynamic3DTextLabel("{4790DE}Tho San\n{FFFFFF}Nhap '/work' de bat dau cong viec", -1, -1649.4355,-2246.1865,31.0780, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 15.0);
 
@@ -657,10 +657,10 @@ hook OnPlayerKStateChange(playerid, newkeys, oldkeys) {
    	return 1;
 }
 hook OnPlayerEnterCheckpoint(playerid) {
-	if(CP[playerid] == 2018) {
-		callcmd::stopwork(playerid, "");
-		GiveJobSalary(playerid);
-	}
+	// if(CP[playerid] == 2018) {
+	// 	callcmd::stopwork(playerid, "");
+	// 	GiveJobSalary(playerid);
+	// }
 	if(CP[playerid] == 35624098) {
 		if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid,COLOR_GREY, "Xin hay xuong xe.");
 
@@ -872,9 +872,9 @@ CMD:startwork(playerid, params[]) {
 				CP[playerid] = 53;
 				return 1;
 			}
-			FarmerTreeApples[playerid] = 0, 
-			FarmerTreeTaken[playerid] = 0, 
-			FarmerTimer[playerid] = 120, Info(playerid, "Di vao vuon cay de thu hoach.");
+			Gardener[playerid][gnTreeApples] = 0, 
+			Gardener[playerid][gnTreeTaken] = 0, 
+			Gardener[playerid][gnTimer] = 120, Info(playerid, "Di vao vuon cay de thu hoach.");
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY), 
 			SetPlayerAttachedObject(playerid, ATTACHMENT_ID_BALE,19639,1,-0.00,0.50,-0.03,0.0,86.0,83.0,1.00,1.00,1.00);
 			JobWorking[playerid] = 2;
@@ -1189,7 +1189,7 @@ CMD:thuethuyen(playerid, params[])
 	if(GetPlayerCash(playerid) < 100000) return SendClientMessage(playerid, -1, "Ban khong du 100.000$ de thue thuyen.");
 	if(DaThueThuyen[playerid] != 0) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da thue mot chiec thuyen roi hay /huythuyen neu muon thue lai");
 	{
-		new carid = CreateVehicleEx(453, 593.1933, -1957.2242, -0.0212, -180.0,  126, 1, 300);
+		new carid = CreateVehicleEx(453, 593.1933, -1957.2242, 5.0212, -180.0,  -1, -1, 300);
 		ThuyenSpawn[carid] = carid;
 		DaThueThuyen[playerid] = carid;
 		Gas[ThuyenSpawn[carid]] = 100;
@@ -1313,7 +1313,7 @@ hook OnProgressCompleted(playerid, progressid, params)
 
 			}
 			else if(rar >= 69 && rar < 75) {
-				x = (40000 + random(500000) + asher*5500);
+				x = (40000 + random(100000) + asher*5500);
 				format(string, sizeof(string), "Ban da bat duoc {FF0000}%sKG MUC ONG{FFFFFF}, {FF0000}%sKG CA BAN CHAN{FFFFFF}, {FF0000}%sKG CA MOI HOA{FFFFFF} ban co the ban voi gia $%s ! ", FormatNumber(asher),FormatNumber(asher),FormatNumber(asher),FormatNumber(x));
 				SendClientMessage(playerid, COLOR_YELLOW, string);
 				SendClientMessage(playerid, -1, "Di den cua hang 24/7 de ban ca!. (/gps)");

@@ -215,7 +215,7 @@ Dialog:DIALOG_CHANGENAME(playerid, response, listitem, inputtext[])
 	mysql_format(SQL, szQuery, sizeof(szQuery), "UPDATE `friends` SET `friendName`='%s' WHERE `friendName`='%s'", name, GetName(playerid));
 	mysql_pquery(SQL, szQuery);
 
-	PlayerInfo[playerid][pPremiumPoints] -= 150;
+	PlayerInfo[playerid][pPremiumPoints] -= 50;
 	Update(playerid, pPremiumPointsx);
 	format(string, sizeof(string), "Chuc mung! Ban da doi ten thanh %s.", name);  
 	SendClientMessage(playerid, COLOR_GOLD, string);
@@ -674,6 +674,7 @@ Dialog:DIALOG_SHOPKC1(playerid, response, listitem, inputtext[])
 			Update(playerid, pKCx);
 		}
 		case 6: {
+			if(PlayerInfo[playerid][pVip] == 1) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da co vip nay, hay mua vip khac");
 			PlayerInfo[playerid][pVip] = 1;
 			format(string, sizeof(string), "%s Ban da mua VIP GOLD.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua VIP GOLD thanh cong");
@@ -681,6 +682,7 @@ Dialog:DIALOG_SHOPKC1(playerid, response, listitem, inputtext[])
 			Update(playerid, pKCx);
 		}
 		case 7: {
+			if(PlayerInfo[playerid][pVip] == 2) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da co vip nay, hay mua vip khac");
 			PlayerInfo[playerid][pVip] = 2;
 			format(string, sizeof(string), "%s Ban da mua VIP PLATIUM.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua VIP PLATIUM thanh cong");
@@ -688,9 +690,10 @@ Dialog:DIALOG_SHOPKC1(playerid, response, listitem, inputtext[])
 			Update(playerid, pKCx);
 		}
 		case 8: {
+			if(PlayerInfo[playerid][pVip] == 3) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da co vip nay, hay mua vip khac");
 			PlayerInfo[playerid][pVip] = 3;
-			format(string, sizeof(string), "%s Ban da mua VIP PLATIUM.", GetName(playerid));
-			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua VIP PLATIUM thanh cong");
+			format(string, sizeof(string), "%s Ban da mua VIP DIAMOND.", GetName(playerid));
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua VIP DIAMOND thanh cong");
 			PlayerInfo[playerid][pKC] -= 550;
 			Update(playerid, pKCx);
 		}

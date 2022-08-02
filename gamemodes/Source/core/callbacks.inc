@@ -222,7 +222,7 @@ public OnGameModeInit() {
 	cadoumort = 1;
 	ServerSystem[10] = 1; // đấu giá
 	// ServerSystem[12] = 1; // tắt AUTOKICK cho nex-ac
-	ServerSystem[14] = 1; // tắt AUTOKICK anti fakekill
+	// ServerSystem[14] = 1; // tắt AUTOKICK anti fakekill
 	ServerSystem[15] = 1; // tắt AUTOKICK anti godmode
 	ServerSystem[16] = 1; // tắt AUTOKICK anti teleport/airbreak
 	ServerSystem[11] = 1; // tắt AUTOKICK anti trollcar
@@ -698,7 +698,7 @@ public OnPlayerDisconnect(playerid, reason)
 	new y,m,d,h,mi;
 	getdate(y,m,d);
 	gettime(h,mi);
-	format(query, sizeof(query), "UPDATE users SET `lastOn`='%02d.%02d.%d %02d:%02d' WHERE `ID`='%d'",d,m,y,h,mi, PlayerInfo[playerid][pSQLID]);
+	format(query, sizeof(query), "UPDATE users SET `lastOn`='%02d.%02d.%d %02d:%02d', `QuestDeelay` = '%d' WHERE `ID`='%d'",d,m,y,h,mi, QuestDeelay[playerid],PlayerInfo[playerid][pSQLID]);
 	mysql_pquery(SQL, query);
 	// GetPlayerFacingAngle(playerid, R);
 	// SavePlayerPosData(playerid, X,Y,Z,R);
@@ -719,7 +719,7 @@ public OnPlayerDisconnect(playerid, reason)
 	isInInven[playerid] = 0;
 	SetPVarInt(playerid, "checkinv", 0);
 	SetPVarInt(playerid, "checkinvid", 0);
-
+	
 	CallLocalFunction("ResetVariables", "i", playerid);
     return 1;
 }
@@ -1438,9 +1438,10 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 			}
 			return 1;
 		} */
+		new Float:disc = 0.0;
+    	disc = GetDistanceBetweenPlayers(damagedid,playerid);
 		{
-			new Float:disc = 0.0;
-    		disc = GetDistanceBetweenPlayers(damagedid,playerid);
+			
 			new string[195];
 			new weaponname[24], part[24];
 			GetWeaponName(weaponid, weaponname, sizeof (weaponname));
@@ -1474,7 +1475,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 				}
 			}
 			foreach(new i: PlayerAdmins) {
-				if(/*Spectate[i] == damagedid || Spectate[i] == playerid*/Aduty[i] == 1) {
+				if(Spectate[i] == damagedid || Spectate[i] == playerid || Aduty[i] == 1) {
 					if(IsPlayerLogged[i] == 1) {
 						new victim[MAX_PLAYER_NAME], attacker[MAX_PLAYER_NAME];
 						new weaponname[24];
@@ -1541,6 +1542,8 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 				KickEx(playerid);
 				return 1;
 			}
+			if(weaponid == 0) 
+				if(disc > 400.0) NightBot(playerid, "Nghi van hack #1");
 			for(new sf = 0; sf < MAX_SAFEZONES; sf++) {
 				if(SafeZone[sf][szRange] >= 15) {
 					if(PlayerToPoint(SafeZone[sf][szRange], playerid, SafeZone[sf][szX], SafeZone[sf][szY], SafeZone[sf][szZ])) {
@@ -3436,6 +3439,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     new string[180];
     new engine,lights,alarm,doors,bonnet,boot,objective;
+	
     if(GetPlayerState(playerid) == PLAYER_STATE_SPECTATING) {
 	    if(newkeys == KEY_SPRINT) {
 			if(Spectate[playerid] != 255) {
@@ -4798,7 +4802,9 @@ public OnPlayerModelSelection(playerid, response, listid, modelid) {
 public OnPlayerCommandReceived(playerid, cmd[], params[], flags) {
 	if(IsPlayerLogged[playerid] == 0) return 0;
 	// printf("%s: /%s %s", GetName(playerid), cmd, params);
-	// Log("logs/Chat.log", string2);	
+	new string2[128];
+	format(string2, sizeof(string2), "%s: /%s %s", GetName(playerid), cmd, params);
+	Log("logs/Command.log", string2);	
 	if(PlayerInfo[playerid][pAdmin] < 6) {
 		foreach(new i: BlockedCommand) {
 			if(!strcmp(cmd, CommandBlocked[i], true) && strlen(CommandBlocked[i]) > 3) {

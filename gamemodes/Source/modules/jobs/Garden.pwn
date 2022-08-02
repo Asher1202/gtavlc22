@@ -2,7 +2,7 @@
 
 #define MAX_TREE 40
 #define STOREHOUSE -1080.3639,-1195.3372,129.6956
-new Text:TreeTD[15];
+// new Text:TreeTD[15];
 
 enum enumGardenerTree {
     gntObject,

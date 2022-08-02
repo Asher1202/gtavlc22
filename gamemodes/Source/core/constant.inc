@@ -74,7 +74,7 @@ new SpecialWeek = 1;
 #endif
 
 // #define SPECIAL_ACTION_PISSING   68	
-// #define KEY_AIM 				(128)
+#define KEY_AIM 				(128)
 
 #define TOWTRUCK_FACTION_ID 		(8)
 #define MEDIC_FACTION_ID 			(13)
@@ -84,7 +84,7 @@ new SpecialWeek = 1;
 #define MAX_TURFS 					(48)
 #define MAX_BIZ 					(120)
 #define MAX_HOUSES					(300)
-/*
+
 // FIRE
 #define MAX_FIRES					(100)		// max amout of fires able to exist at once
 // #define BurnOthers								// should players be able to ignite other players by touching?
@@ -102,7 +102,7 @@ new SpecialWeek = 1;
 #define EXTINGUISH_TIME_PLAYER		(2)			// time it takes to extinguish a player (seconds)
 #define FIRE_OBJECT_SLOT			(1)			// the slot used with SetPlayerAttachedObject and RemovePlayerAttachedObject	
 
-*/
+
 #define COLOR_ERROR         0xC0241FFF
 #define Peeing(%0) (GetPlayerSpecialAction(%0) == SPECIAL_ACTION_PISSING)
 

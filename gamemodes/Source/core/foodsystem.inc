@@ -137,7 +137,7 @@ UpdateFood(f_number) {
 //if player not on vehicle check and decrease hunger
 ptask DecreaseHunger[240000](playerid)
 {
-	if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT && Aduty[playerid] != 1) GivePlayerStamina(playerid, -1);
+	if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT && Aduty[playerid] != 1 && InWar[PlayerInfo[playerid][pMember]] == 0) GivePlayerStamina(playerid, -1);
 	return 0;
 }
 

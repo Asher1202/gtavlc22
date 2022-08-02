@@ -3,8 +3,8 @@
 #define MAX_CRATES 		9
 new IsCrates[MAX_PLAYERS], CrateModel[MAX_PLAYERS], CheckMoGuong[MAX_PLAYERS], PlayerText: CratePTD[2], Text: CrateTD[6], CrateTime[MAX_PLAYERS], AlegeCrates[MAX_PLAYERS], Text3D: LabelCrates;
 new CrateName[6][30] = {
-	{"Random"},
-	{"Random Skin"}, 
+	{"Random Skin"},
+	{"Random"}, 
 	{"Random Car Rare"}, 
 	{"Random Car Epic"}, 
 	{"Random Car Legend"},
@@ -84,47 +84,47 @@ hook OnGameModeInit() {
 	TextDrawSetProportional(CrateTD[3], 1);
 	TextDrawSetSelectable(CrateTD[3], 0);
 	 
-	CrateTD[2] = TextDrawCreate(302.400146, 309.348358, "Mo Hop Qua");
-	TextDrawLetterSize(CrateTD[2], 0.280000, 1.475556);
-	TextDrawTextSize(CrateTD[2], 10.000000, 136.730698);
-	TextDrawAlignment(CrateTD[2], 2);
-	TextDrawColor(CrateTD[2], 0xFFFFFFFF);
-	TextDrawUseBox(CrateTD[2], 1);
-	TextDrawBoxColor(CrateTD[2], 0x00FF001C);
-	TextDrawSetShadow(CrateTD[2], 0);
-	TextDrawSetOutline(CrateTD[2], 1);
-	TextDrawBackgroundColor(CrateTD[2], 0x0000007A);
-	TextDrawFont(CrateTD[2], 2);
-	TextDrawSetProportional(CrateTD[2], 1);
-	TextDrawSetSelectable(CrateTD[2], 1);
+	// CrateTD[2] = TextDrawCreate(302.400146, 309.348358, "Mo Hop Qua");
+	// TextDrawLetterSize(CrateTD[2], 0.280000, 1.475556);
+	// TextDrawTextSize(CrateTD[2], 10.000000, 136.730698);
+	// TextDrawAlignment(CrateTD[2], 2);
+	// TextDrawColor(CrateTD[2], 0xFFFFFFFF);
+	// TextDrawUseBox(CrateTD[2], 1);
+	// TextDrawBoxColor(CrateTD[2], 0x00FF001C);
+	// TextDrawSetShadow(CrateTD[2], 0);
+	// TextDrawSetOutline(CrateTD[2], 1);
+	// TextDrawBackgroundColor(CrateTD[2], 0x0000007A);
+	// TextDrawFont(CrateTD[2], 2);
+	// TextDrawSetProportional(CrateTD[2], 1);
+	// TextDrawSetSelectable(CrateTD[2], 1);
 	 
-	CrateTD[1] = TextDrawCreate(302.466766, 343.450439, "Huy Bo");
-	TextDrawLetterSize(CrateTD[1], 0.280000, 1.475556);
-	TextDrawTextSize(CrateTD[1], 10.000000, 136.730698);
-	TextDrawAlignment(CrateTD[1], 2);
-	TextDrawColor(CrateTD[1], 0xFFFFFFFF);
-	TextDrawUseBox(CrateTD[1], 1);
-	TextDrawBoxColor(CrateTD[1], 0xFF000024);
-	TextDrawSetShadow(CrateTD[1], 0);
-	TextDrawSetOutline(CrateTD[1], 1);
-	TextDrawBackgroundColor(CrateTD[1], 0x0000007A);
-	TextDrawFont(CrateTD[1], 2);
-	TextDrawSetProportional(CrateTD[1], 1);
-	TextDrawSetSelectable(CrateTD[1], 1);
+	// CrateTD[1] = TextDrawCreate(302.466766, 343.450439, "Huy Bo");
+	// TextDrawLetterSize(CrateTD[1], 0.280000, 1.475556);
+	// TextDrawTextSize(CrateTD[1], 10.000000, 136.730698);
+	// TextDrawAlignment(CrateTD[1], 2);
+	// TextDrawColor(CrateTD[1], 0xFFFFFFFF);
+	// TextDrawUseBox(CrateTD[1], 1);
+	// TextDrawBoxColor(CrateTD[1], 0xFF000024);
+	// TextDrawSetShadow(CrateTD[1], 0);
+	// TextDrawSetOutline(CrateTD[1], 1);
+	// TextDrawBackgroundColor(CrateTD[1], 0x0000007A);
+	// TextDrawFont(CrateTD[1], 2);
+	// TextDrawSetProportional(CrateTD[1], 1);
+	// TextDrawSetSelectable(CrateTD[1], 1);
 	 
-	CrateTD[0] = TextDrawCreate(302.466766, 326.449402, "QUAY MIEN PHI");
-	TextDrawLetterSize(CrateTD[0], 0.280000, 1.475556);
-	TextDrawTextSize(CrateTD[0], 10.000000, 136.730698);
-	TextDrawAlignment(CrateTD[0], 2);
-	TextDrawColor(CrateTD[0], 0xFFFFFFFF);
-	TextDrawUseBox(CrateTD[0], 1);
-	TextDrawBoxColor(CrateTD[0], 0xADD8E619);
-	TextDrawSetShadow(CrateTD[0], 0);
-	TextDrawSetOutline(CrateTD[0], 1);
-	TextDrawBackgroundColor(CrateTD[0], 0x0000007A);
-	TextDrawFont(CrateTD[0], 2);
-	TextDrawSetProportional(CrateTD[0], 1);
-	TextDrawSetSelectable(CrateTD[0], 1);    
+	// CrateTD[0] = TextDrawCreate(302.466766, 326.449402, "QUAY MIEN PHI");
+	// TextDrawLetterSize(CrateTD[0], 0.280000, 1.475556);
+	// TextDrawTextSize(CrateTD[0], 10.000000, 136.730698);
+	// TextDrawAlignment(CrateTD[0], 2);
+	// TextDrawColor(CrateTD[0], 0xFFFFFFFF);
+	// TextDrawUseBox(CrateTD[0], 1);
+	// TextDrawBoxColor(CrateTD[0], 0xADD8E619);
+	// TextDrawSetShadow(CrateTD[0], 0);
+	// TextDrawSetOutline(CrateTD[0], 1);
+	// TextDrawBackgroundColor(CrateTD[0], 0x0000007A);
+	// TextDrawFont(CrateTD[0], 2);
+	// TextDrawSetProportional(CrateTD[0], 1);
+	// TextDrawSetSelectable(CrateTD[0], 1);    
 }
 hook OnPlayerConnect(playerid) {
 	CratePTD[0] = CreatePlayerTextDraw(playerid, 254.666626, 186.111084, "");
@@ -349,7 +349,7 @@ function ShowMoGuongTD(playerid) {
 	PlayerTextDrawSetString(playerid, MoGuong[playerid][22], gString);
 	format(gString, sizeof(gString), "~g~~h~CAR EPIC~N~So Huu : %d", PlayerInfo[playerid][pCrates][3]);
 	PlayerTextDrawSetString(playerid, MoGuong[playerid][23], gString);
-	format(gString, sizeof(gString), "~g~~h~CAR LEGEND : %d", PlayerInfo[playerid][pCrates][4]);
+	format(gString, sizeof(gString), "~g~~h~CAR LEGEND~N~So Huu : %d", PlayerInfo[playerid][pCrates][4]);
 	PlayerTextDrawSetString(playerid, MoGuong[playerid][24], gString);
     format(gString, sizeof(gString), "~g~~h~CAR MYTHICAL~N~So Huu : %d", PlayerInfo[playerid][pCrates][5]);
     PlayerTextDrawSetString(playerid, MoGuong[playerid][32], gString);
