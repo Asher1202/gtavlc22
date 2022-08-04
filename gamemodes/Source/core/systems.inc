@@ -1,4 +1,22 @@
 RemoveMaps(playerid) {
+	//HQ VAGOS
+	RemoveBuildingForPlayer(playerid, 3750, 664.9219, -1309.3516, 18.3672, 0.25);
+    RemoveBuildingForPlayer(playerid, 6523, 702.8672, -1276.0313, 20.9063, 0.25);
+    RemoveBuildingForPlayer(playerid, 726, 743.2422, -1151.4766, 20.8750, 0.25);
+    RemoveBuildingForPlayer(playerid, 733, 778.2109, -1207.2031, 13.5391, 0.25);
+    RemoveBuildingForPlayer(playerid, 729, 731.3906, -1223.1641, 12.5078, 0.25);
+    RemoveBuildingForPlayer(playerid, 733, 717.1172, -1236.2266, 12.0625, 0.25);
+    RemoveBuildingForPlayer(playerid, 726, 680.8594, -1293.3984, 12.3984, 0.25);
+    RemoveBuildingForPlayer(playerid, 732, 782.7969, -1304.0781, 12.3906, 0.25);
+    RemoveBuildingForPlayer(playerid, 620, 651.1094, -1305.9766, 12.5859, 0.25);
+    RemoveBuildingForPlayer(playerid, 3749, 664.9219, -1309.3516, 18.3672, 0.25);
+    RemoveBuildingForPlayer(playerid, 620, 678.4844, -1251.7891, 12.0313, 0.25);
+    RemoveBuildingForPlayer(playerid, 6522, 702.8672, -1276.0313, 20.9063, 0.25);
+    RemoveBuildingForPlayer(playerid, 620, 746.4922, -1303.4141, 11.6719, 0.25);
+    RemoveBuildingForPlayer(playerid, 620, 760.4531, -1304.1328, 12.2813, 0.25);
+    RemoveBuildingForPlayer(playerid, 620, 782.3438, -1277.8359, 12.2031, 0.25);
+    RemoveBuildingForPlayer(playerid, 6489, 715.4063, -1236.2188, 19.1641, 0.25);
+    RemoveBuildingForPlayer(playerid, 620, 783.0625, -1245.7969, 12.5938, 0.25);
 	// Map dau gia
 	RemoveBuildingForPlayer(playerid, 647, 2332.6484, 2357.3750, 11.1719, 0.25);
 	RemoveBuildingForPlayer(playerid, 647, 2321.7891, 2368.8984, 11.1719, 0.25);
@@ -11555,6 +11573,7 @@ Update(playerid, type) {
 			case pProgress6x: format(var, sizeof(var), "UPDATE users SET `Progress6`='%d' WHERE ID=%i",PlayerInfo[playerid][pProgress][5], PlayerInfo[playerid][pSQLID]);
 			case pKCx: format(var, sizeof(var), "UPDATE users SET `KC`='%d' WHERE ID=%i",PlayerInfo[playerid][pKC], PlayerInfo[playerid][pSQLID]);
 			case pTutorialx: format(var, sizeof(var), "UPDATE users SET `huongdan`='%d' WHERE ID=%i",PlayerInfo[playerid][pTutorial], PlayerInfo[playerid][pSQLID]);
+			// case pUpdateLevelx: format(var, sizeof(var), "UPDATE users SET `UpdateLevel`='%d' WHERE ID=%i",PlayerInfo[playerid][pUpdateLevel], PlayerInfo[playerid][pSQLID]);
 
 			default: return SendClientMessage(playerid, -1, sprintf("Loi: %d, F8 cai nay lai va bao cho Admin cap cao.", type)), printf("[002] Update(playerid, %d)",type);
 		}

@@ -32,7 +32,7 @@ enum pInfo {
 	pMuteTime, 		pExp,
 	pCash, 			pBanned,
 	pAccount,		pKC,
-	pModel,
+	pModel,			pUpdateLevel[20],
 	pHouse, 		pBizz,
 	pCarLicS, 		pFlyLicS,
 	pBoatLicS, 		pGunLicS,

@@ -1958,7 +1958,7 @@ JobPoints(playerid) {
 		case 11, 15: level = PlayerInfo[playerid][pFishSkill];	
 		case 12: level = PlayerInfo[playerid][pPilotSkill];	
 		case 13: level = PlayerInfo[playerid][pStivuitorSkill];
-		case 14: level = PlayerInfo[playerid][pNewsPaperSkill];		
+		case 14: level = PlayerInfo[playerid][pNewsPaperSkill];
 	}
 	return level;
 }
@@ -1972,7 +1972,10 @@ GetPlayerSkill(playerid) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][1] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][1] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][1] == 3)level = 8;
 		}
 		case 2: {
 			level = PlayerInfo[playerid][pTruckerSkill];
@@ -1980,7 +1983,10 @@ GetPlayerSkill(playerid) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][2] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][2] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][2] == 3)level = 8;
 		}
 		case 3: {
 			level = PlayerInfo[playerid][pWoodSkill];
@@ -1988,7 +1994,10 @@ GetPlayerSkill(playerid) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][3] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][3] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][1] == 3)level = 8;
 		}
 		case 4: {
 			level = PlayerInfo[playerid][pJackerSkill];
@@ -1996,7 +2005,10 @@ GetPlayerSkill(playerid) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][4] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][4] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][4] == 3)level = 8;
 		}
 		case 5: {
 			level = PlayerInfo[playerid][pMatSkill];
@@ -2004,8 +2016,10 @@ GetPlayerSkill(playerid) {
 			else if(level >= 50 && level < 200) level = 2;
 			else if(level >= 200 && level < 500) level = 3;
 			else if(level >= 500 && level < 1000) level = 4;
-			else if(level >= 1000 && level < 1700) level = 5;
-			else if(level >= 1700) level = 6;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][5] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][5] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][5] == 3)level = 8;
 		}
 		case 6: {
 			level = PlayerInfo[playerid][pDrugsSkill];
@@ -2013,7 +2027,10 @@ GetPlayerSkill(playerid) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][6] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][6] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][6] == 3)level = 8;
 		}
 		case 7: {
 			level = PlayerInfo[playerid][pMechSkill];
@@ -2021,7 +2038,10 @@ GetPlayerSkill(playerid) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][7] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][7] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][7] == 3)level = 8;
 		}
 		case 9: {
 			level = PlayerInfo[playerid][pPizzaSkill];
@@ -2029,7 +2049,10 @@ GetPlayerSkill(playerid) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][9] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][9] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][9] == 3)level = 8;
 		}	
 		case 10: {
 			level = PlayerInfo[playerid][pCurierSkill];
@@ -2037,15 +2060,23 @@ GetPlayerSkill(playerid) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][10] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][10] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][10] == 3)level = 8;
 		}	
 		case 11, 15: {
 			level = PlayerInfo[playerid][pFishSkill];
+			new jobidz;
+			jobidz = PlayerInfo[playerid][pJob];
 			if(level >= 0 && level < 40) level = 1;
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][jobidz] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][jobidz] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][jobidz] == 3)level = 8;
 		}			
 		case 12: {
 			level = PlayerInfo[playerid][pPilotSkill];
@@ -2053,7 +2084,10 @@ GetPlayerSkill(playerid) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][12] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][12] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][12] == 3)level = 8;
 		}
 		case 13: {
 			level = PlayerInfo[playerid][pStivuitorSkill];
@@ -2061,7 +2095,10 @@ GetPlayerSkill(playerid) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][13] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][13] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][13] == 3)level = 8;
 		}
 		case 14: {
 			level = PlayerInfo[playerid][pNewsPaperSkill];
@@ -2069,7 +2106,10 @@ GetPlayerSkill(playerid) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][14] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][14] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][14] == 3)level = 8;
 		}	
 	}
 	return level;
@@ -2078,13 +2118,16 @@ GetPlayerSkill(playerid) {
 GetPlayerSkill2(playerid, id) {
     new level;
 	switch(id) {
-		case 1: {
+case 1: {
 			level = PlayerInfo[playerid][pFarmerSkill];
 			if(level >= 0 && level < 40) level = 1;
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][1] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][1] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][1] == 3)level = 8;
 		}
 		case 2: {
 			level = PlayerInfo[playerid][pTruckerSkill];
@@ -2092,7 +2135,10 @@ GetPlayerSkill2(playerid, id) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][2] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][2] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][2] == 3)level = 8;
 		}
 		case 3: {
 			level = PlayerInfo[playerid][pWoodSkill];
@@ -2100,7 +2146,10 @@ GetPlayerSkill2(playerid, id) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][3] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][3] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][1] == 3)level = 8;
 		}
 		case 4: {
 			level = PlayerInfo[playerid][pJackerSkill];
@@ -2108,15 +2157,21 @@ GetPlayerSkill2(playerid, id) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][4] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][4] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][4] == 3)level = 8;
 		}
 		case 5: {
 			level = PlayerInfo[playerid][pMatSkill];
-			if(level >= 0 && level < 40) level = 1;
-			else if(level >= 40 && level < 120) level = 2;
-			else if(level >= 120 && level < 240) level = 3;
-			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			if(level >= 0 && level < 50) level = 1;
+			else if(level >= 50 && level < 200) level = 2;
+			else if(level >= 200 && level < 500) level = 3;
+			else if(level >= 500 && level < 1000) level = 4;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][5] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][5] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][5] == 3)level = 8;
 		}
 		case 6: {
 			level = PlayerInfo[playerid][pDrugsSkill];
@@ -2124,7 +2179,10 @@ GetPlayerSkill2(playerid, id) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][6] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][6] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][6] == 3)level = 8;
 		}
 		case 7: {
 			level = PlayerInfo[playerid][pMechSkill];
@@ -2132,7 +2190,10 @@ GetPlayerSkill2(playerid, id) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][7] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][7] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][7] == 3)level = 8;
 		}
 		case 9: {
 			level = PlayerInfo[playerid][pPizzaSkill];
@@ -2140,7 +2201,10 @@ GetPlayerSkill2(playerid, id) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][9] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][9] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][9] == 3)level = 8;
 		}	
 		case 10: {
 			level = PlayerInfo[playerid][pCurierSkill];
@@ -2148,15 +2212,23 @@ GetPlayerSkill2(playerid, id) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][10] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][10] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][10] == 3)level = 8;
 		}	
 		case 11, 15: {
 			level = PlayerInfo[playerid][pFishSkill];
+			new jobidz;
+			jobidz = PlayerInfo[playerid][pJob];
 			if(level >= 0 && level < 40) level = 1;
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][jobidz] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][jobidz] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][jobidz] == 3)level = 8;
 		}			
 		case 12: {
 			level = PlayerInfo[playerid][pPilotSkill];
@@ -2164,7 +2236,10 @@ GetPlayerSkill2(playerid, id) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][12] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][12] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][12] == 3)level = 8;
 		}
 		case 13: {
 			level = PlayerInfo[playerid][pStivuitorSkill];
@@ -2172,7 +2247,10 @@ GetPlayerSkill2(playerid, id) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][13] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][13] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][13] == 3)level = 8;
 		}
 		case 14: {
 			level = PlayerInfo[playerid][pNewsPaperSkill];
@@ -2180,7 +2258,10 @@ GetPlayerSkill2(playerid, id) {
 			else if(level >= 40 && level < 120) level = 2;
 			else if(level >= 120 && level < 240) level = 3;
 			else if(level >= 240 && level < 999) level = 4;
-			else if(level >= 999) level = 5;
+			else if(level >= 999 && level < 2000) level = 5;
+			else if(level >= 2000 && level < 3500 && PlayerInfo[playerid][pUpdateLevel][14] == 1) level = 6;
+			else if(level >= 3500 && level < 5999 && PlayerInfo[playerid][pUpdateLevel][14] == 2) level = 7;
+			else if(level >= 5999 && PlayerInfo[playerid][pUpdateLevel][14] == 3)level = 8;
 		}	
 	}
 	return level;
@@ -2284,6 +2365,28 @@ GiveJobSalary(playerid) {
 	}
 	if(PlayerInfo[playerid][pJobBonus50] > 0) bonus += money/2;
 	if(PlayerInfo[playerid][pJobBonus100] > 0) bonus += money;
+	if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] != 0) {
+		new updatenum = PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]];
+		bonus += updatenum*10000;
+		new luck;
+		luck = random(100);
+		if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5);
+		if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5);
+		if(55 <= luck < 55+(updatenum*5)) {
+			new giftrandom = random(1);
+			switch(giftrandom){
+				case 0 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
+				case 1 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][1] += 1, save_crates(playerid);
+			}
+		}
+		if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec");
+		if(75 <= luck < 75+((updatenum*2) -1)) {
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random car legend"); 
+			PlayerInfo[playerid][pCrates][4] += 1; 
+			save_crates(playerid);
+		}
+		
+	}
 	new vipbonus;
 	if(PlayerInfo[playerid][pVip] == 1) vipbonus += (money/100) * 15;
     else if(PlayerInfo[playerid][pVip] == 2) vipbonus += (money/100) * 25;
@@ -4379,6 +4482,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 		cache_get_value_name_int(0, "Respect", 	PlayerInfo[playerid][pExp]);
 		cache_get_value_name_int(0, "Money", 	PlayerInfo[playerid][pCash]);
 		cache_get_value_name_int(0, "KC", 	PlayerInfo[playerid][pKC]);
+		cache_get_value_name_int(0, "UpdateLevel", 	PlayerInfo[playerid][pUpdateLevel]);
 		cache_get_value_name_int(0, "Bank", 	PlayerInfo[playerid][pAccount]);
 		cache_get_value_name_int(0, "Crimes", 	PlayerInfo[playerid][pCrimes]);
 		cache_get_value_name_int(0, "Kills", 	PlayerInfo[playerid][pKills]);
@@ -4553,6 +4657,13 @@ OnPlayerLoginEx(playerid, const password[]) {
 		cache_get_value_name(0, "Skin", result); format(skin, 64, result);
         sscanf(skin, "p<|>iiiiiiiiii", PlayerInfo[playerid][pSkins][0], PlayerInfo[playerid][pSkins][1], PlayerInfo[playerid][pSkins][2], PlayerInfo[playerid][pSkins][3], PlayerInfo[playerid][pSkins][4],
         PlayerInfo[playerid][pSkins][5], PlayerInfo[playerid][pSkins][6], PlayerInfo[playerid][pSkins][7], PlayerInfo[playerid][pSkins][8], PlayerInfo[playerid][pSkins][9]);
+        
+	    new UpdateLevel[64];
+		cache_get_value_name(0, "UpdateLevel", result); format(UpdateLevel, 64, result);
+        sscanf(UpdateLevel, "p<|>iiiiiiiiiiiiiiiii", PlayerInfo[playerid][pUpdateLevel][0], PlayerInfo[playerid][pUpdateLevel][1], PlayerInfo[playerid][pUpdateLevel][2], PlayerInfo[playerid][pUpdateLevel][3], PlayerInfo[playerid][pUpdateLevel][4],
+        PlayerInfo[playerid][pUpdateLevel][5], PlayerInfo[playerid][pUpdateLevel][6], PlayerInfo[playerid][pUpdateLevel][7], PlayerInfo[playerid][pUpdateLevel][8], PlayerInfo[playerid][pUpdateLevel][9],
+        PlayerInfo[playerid][pUpdateLevel][10], PlayerInfo[playerid][pUpdateLevel][11], PlayerInfo[playerid][pUpdateLevel][12], PlayerInfo[playerid][pUpdateLevel][13], PlayerInfo[playerid][pUpdateLevel][14],
+        PlayerInfo[playerid][pUpdateLevel][15], PlayerInfo[playerid][pUpdateLevel][16]);
         
         new Crates[100];
 		cache_get_value_name(0, "Crates", result); format(Crates, 64, result);
@@ -5999,4 +6110,15 @@ stock Carspeed(playerid,mode = 1) {
     new Float:Velocity [3];
     GetVehicleVelocity ( GetPlayerVehicleID ( playerid ) , Velocity [ 0 ] , Velocity [ 1 ] , Velocity [ 2 ] ) ;
     return IsPlayerInAnyVehicle ( playerid ) ? floatround ( ( ( floatsqroot ( ( ( Velocity [ 0 ] * Velocity [ 0 ] ) + ( Velocity [ 1 ] * Velocity [ 1 ] ) + ( Velocity [ 2 ] * Velocity [ 2 ] ) ) ) * ( !mode ? 105.0 : 170.0 ) ) ) * 1 ) : 0;
+}
+save_jobs(playerid) {
+    new string[128];
+    mysql_format(SQL, string, sizeof(string), "UPDATE `users` SET `UpdateLevel`='%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|' WHERE `ID`='%d'",
+        PlayerInfo[playerid][pUpdateLevel][0], PlayerInfo[playerid][pUpdateLevel][1], PlayerInfo[playerid][pUpdateLevel][2], PlayerInfo[playerid][pUpdateLevel][3], PlayerInfo[playerid][pUpdateLevel][4],
+        PlayerInfo[playerid][pUpdateLevel][5], PlayerInfo[playerid][pUpdateLevel][6], PlayerInfo[playerid][pUpdateLevel][7], PlayerInfo[playerid][pUpdateLevel][8], PlayerInfo[playerid][pUpdateLevel][9],
+        PlayerInfo[playerid][pUpdateLevel][10], PlayerInfo[playerid][pUpdateLevel][11], PlayerInfo[playerid][pUpdateLevel][12], PlayerInfo[playerid][pUpdateLevel][13], PlayerInfo[playerid][pUpdateLevel][14],
+        PlayerInfo[playerid][pUpdateLevel][15], PlayerInfo[playerid][pUpdateLevel][16],
+        PlayerInfo[playerid][pSQLID]);
+
+    mysql_query(SQL, string, false);
 }

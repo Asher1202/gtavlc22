@@ -5407,14 +5407,42 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					//pFishess[playerid] = 0;
 					PlayerInfo[playerid][pFishSkill] ++;
 					UpdateVar(playerid, "FishSkill", PlayerInfo[playerid][pFishSkill]);
-					if(PlayerInfo[playerid][pFishSkill] == 50)
+					if(PlayerInfo[playerid][pFishSkill] == 120)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 2. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					else if(PlayerInfo[playerid][pFishSkill] == 100)
+					else if(PlayerInfo[playerid][pFishSkill] == 240)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 3. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					else if(PlayerInfo[playerid][pFishSkill] == 200)
+					else if(PlayerInfo[playerid][pFishSkill] == 480)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 4. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					else if(PlayerInfo[playerid][pFishSkill] == 400)
+					else if(PlayerInfo[playerid][pFishSkill] == 999)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 5. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					else if(PlayerInfo[playerid][pFishSkill] == 2000 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 1)
+					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 6. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					else if(PlayerInfo[playerid][pFishSkill] == 3500 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 2)
+					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 7. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					else if(PlayerInfo[playerid][pFishSkill] == 5900 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 3)
+					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 8. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] != 0) {
+						new updatenum = PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]];
+						bonus += updatenum*10000;
+						new luck;
+						luck = random(100);
+						if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5);
+						if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5);
+						if(55 <= luck < 55+(updatenum*5)) {
+							new giftrandom = random(1);
+							switch(giftrandom){
+								case 0 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
+								case 1 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][1] += 1, save_crates(playerid);
+							}
+						}
+						if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec");
+						if(75 <= luck < 75+((updatenum*2) -1)) {
+							SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random car legend"); 
+							PlayerInfo[playerid][pCrates][4] += 1; 
+							save_crates(playerid);
+						}
+						
+					}					
 					if(togjob[playerid] == 0) {
 						JobProgress(playerid);
 					}
@@ -5479,14 +5507,42 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					//pFishess[playerid] = 0;
 					PlayerInfo[playerid][pFishSkill] ++;
 					UpdateVar(playerid, "FishSkill", PlayerInfo[playerid][pFishSkill]);
-					if(PlayerInfo[playerid][pFishSkill] == 50)
+					if(PlayerInfo[playerid][pFishSkill] == 120)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 2. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					else if(PlayerInfo[playerid][pFishSkill] == 100)
+					else if(PlayerInfo[playerid][pFishSkill] == 240)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 3. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					else if(PlayerInfo[playerid][pFishSkill] == 200)
+					else if(PlayerInfo[playerid][pFishSkill] == 480)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 4. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					else if(PlayerInfo[playerid][pFishSkill] == 400)
+					else if(PlayerInfo[playerid][pFishSkill] == 999)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 5. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					else if(PlayerInfo[playerid][pFishSkill] == 2000 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 1)
+					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 6. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					else if(PlayerInfo[playerid][pFishSkill] == 3500 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 2)
+					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 7. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					else if(PlayerInfo[playerid][pFishSkill] == 5900 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 3)
+					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 8. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] != 0) {
+						new updatenum = PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]];
+						bonus += updatenum*10000;
+						new luck;
+						luck = random(100);
+						if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5);
+						if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5);
+						if(55 <= luck < 55+(updatenum*5)) {
+							new giftrandom = random(1);
+							switch(giftrandom){
+								case 0 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
+								case 1 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][1] += 1, save_crates(playerid);
+							}
+						}
+						if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec");
+						if(75 <= luck < 75+((updatenum*2) -1)) {
+							SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random car legend"); 
+							PlayerInfo[playerid][pCrates][4] += 1; 
+							save_crates(playerid);
+						}
+						
+					}					
 					if(togjob[playerid] == 0) {
 						JobProgress(playerid);
 					}
@@ -5550,14 +5606,42 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					//pFishess[playerid] = 0;
 					PlayerInfo[playerid][pFishSkill] ++;
 					UpdateVar(playerid, "FishSkill", PlayerInfo[playerid][pFishSkill]);
-					if(PlayerInfo[playerid][pFishSkill] == 50)
+					if(PlayerInfo[playerid][pFishSkill] == 120)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 2. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					else if(PlayerInfo[playerid][pFishSkill] == 100)
+					else if(PlayerInfo[playerid][pFishSkill] == 240)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 3. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					else if(PlayerInfo[playerid][pFishSkill] == 200)
+					else if(PlayerInfo[playerid][pFishSkill] == 480)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 4. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					else if(PlayerInfo[playerid][pFishSkill] == 400)
+					else if(PlayerInfo[playerid][pFishSkill] == 999)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 5. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					else if(PlayerInfo[playerid][pFishSkill] == 2000 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 1)
+					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 6. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					else if(PlayerInfo[playerid][pFishSkill] == 3500 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 2)
+					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 7. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					else if(PlayerInfo[playerid][pFishSkill] == 5900 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 3)
+					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 8. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] != 0) {
+						new updatenum = PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]];
+						bonus += updatenum*10000;
+						new luck;
+						luck = random(100);
+						if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5);
+						if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5);
+						if(55 <= luck < 55+(updatenum*5)) {
+							new giftrandom = random(1);
+							switch(giftrandom){
+								case 0 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
+								case 1 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][1] += 1, save_crates(playerid);
+							}
+						}
+						if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec");
+						if(75 <= luck < 75+((updatenum*2) -1)) {
+							SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random car legend"); 
+							PlayerInfo[playerid][pCrates][4] += 1; 
+							save_crates(playerid);
+						}
+						
+					}					
 					if(togjob[playerid] == 0) {
 						JobProgress(playerid);
 					}
@@ -5617,14 +5701,41 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					//pFishess[playerid] = 0;
 					PlayerInfo[playerid][pFishSkill] ++;
 					UpdateVar(playerid, "FishSkill", PlayerInfo[playerid][pFishSkill]);
-					if(PlayerInfo[playerid][pFishSkill] == 50)
+					if(PlayerInfo[playerid][pFishSkill] == 120)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 2. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					else if(PlayerInfo[playerid][pFishSkill] == 100)
+					else if(PlayerInfo[playerid][pFishSkill] == 240)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 3. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					else if(PlayerInfo[playerid][pFishSkill] == 200)
+					else if(PlayerInfo[playerid][pFishSkill] == 480)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 4. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					else if(PlayerInfo[playerid][pFishSkill] == 400)
+					else if(PlayerInfo[playerid][pFishSkill] == 999)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 5. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					else if(PlayerInfo[playerid][pFishSkill] == 2000 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 1)
+					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 6. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					else if(PlayerInfo[playerid][pFishSkill] == 3500 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 2)
+					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 7. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					else if(PlayerInfo[playerid][pFishSkill] == 5900 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 3)
+					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 8. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
+					if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] != 0) {
+						new updatenum = PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]];
+						bonus += updatenum*10000;
+						new luck;
+						luck = random(100);
+						if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5);
+						if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5);
+						if(55 <= luck < 55+(updatenum*5)) {
+							new giftrandom = random(1);
+							switch(giftrandom){
+								case 0 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
+								case 1 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][1] += 1, save_crates(playerid);
+							}
+						}
+						if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec");
+						if(75 <= luck < 75+((updatenum*2) -1)) {
+							SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random car legend"); 
+							PlayerInfo[playerid][pCrates][4] += 1; 
+							save_crates(playerid);
+						}
+					}					
 					if(togjob[playerid] == 0) {
 						JobProgress(playerid);
 					}
