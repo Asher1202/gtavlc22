@@ -297,7 +297,7 @@ task CheckGift[1000]()
 			DestroyObject(cadouzburator);
 			Delete3DTextLabel(Cadolabel);
 			cadoumsg = 0;
-			cadoumort == 1;
+			cadoumort = 1;
 			timewaitdead = 0;
 			SetTimer("cadouzb", 7200000, false);
 			SCMTA(COLOR_DEPART, "[GIFTBOX] Vat the da da bien mat!");
@@ -2222,12 +2222,12 @@ GiveJobSalary(playerid) {
 		case 2: {
 			new category = GetPVarInt(playerid, "Category");
 			switch(category) {
-				case 0: money = skill*8000 + 9000 + random(1000);
-				case 1: money = skill*8000 + 12000 + random(2000);
-				case 2: money = skill*8000 + 10000 + random(3000);
-				case 3: money = skill*8000 + 14000 + random(4000);
-				case 4: money = skill*10000 + 14500 + random(5000);				
-				case 5: money = skill*10000 + 15000 + random(6000);
+				case 0: money = skill*12000 + 9000 + random(1000);
+				case 1: money = skill*12000 + 12000 + random(2000);
+				case 2: money = skill*12000 + 10000 + random(3000);
+				case 3: money = skill*12000 + 14000 + random(4000);
+				case 4: money = skill*18000 + 14500 + random(5000);				
+				case 5: money = skill*18000 + 15000 + random(6000);
 			}
 		}
 		case 3: money = skill*5000 + 15000 + random(1000);
@@ -2258,7 +2258,7 @@ GiveJobSalary(playerid) {
 		}
 		case 7: money = 20000 + random(10000);
 		//case 6: money = 10000 + random(200) + GetPlayerSkill(playerid)*4000;
-		case 9: money = skill*3500 + (pizzamoney[playerid] * 6);
+		case 9: money = skill*4500 + (pizzamoney[playerid] * 6);
 		case 10: money = skill*2000 + 12000 + random(1000);
 		case 12: money = skill*4000 + 14000 + random(1000);
 		case 13: money = skill*100 + 2000 + random(1000);
@@ -4960,12 +4960,12 @@ OnPlayerLoginEx(playerid, const password[]) {
 		if(IsAMember(playerid)) {
 			
 			Iter_Add(PlayerGangster, playerid);
-			// if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0)
-			// {
-			//  	UsingSampcac{playerid} = 1;
-			// 	SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
-			// }
-			// else SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");
+			if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0)
+			{
+			 	UsingSampcac{playerid} = 1;
+				SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
+			}
+			else SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");
 		}
 	}
 	return 1;
@@ -5379,250 +5379,250 @@ ResetRace() {
 	for(new i = 0; i < 40; i++) RacePlaces[i] = 0;
 	return 1;
 }
-new AaF_cache[MAX_PLAYERS] = { -1, ... };
-new AaF_cacheTime[MAX_PLAYERS];
-Float:DistanceCameraTargetToLocation(Float:CamX, Float:CamY, Float:CamZ, Float:ObjX, Float:ObjY, Float:ObjZ, Float:FrX, Float:FrY, Float:FrZ) {
-	new Float:TGTDistance;
-	// get distance from camera to target
-	TGTDistance = floatsqroot((CamX - ObjX) * (CamX - ObjX) + (CamY - ObjY) * (CamY - ObjY) + (CamZ - ObjZ) * (CamZ - ObjZ));
-	new Float:tmpX, Float:tmpY, Float:tmpZ;
-	tmpX = FrX * TGTDistance + CamX;
-	tmpY = FrY * TGTDistance + CamY;
-	tmpZ = FrZ * TGTDistance + CamZ;
-	return floatsqroot((tmpX - ObjX) * (tmpX - ObjX) + (tmpY - ObjY) * (tmpY - ObjY) + (tmpZ - ObjZ) * (tmpZ - ObjZ));
-} 
+// new AaF_cache[MAX_PLAYERS] = { -1, ... };
+// new AaF_cacheTime[MAX_PLAYERS];
+// Float:DistanceCameraTargetToLocation(Float:CamX, Float:CamY, Float:CamZ, Float:ObjX, Float:ObjY, Float:ObjZ, Float:FrX, Float:FrY, Float:FrZ) {
+// 	new Float:TGTDistance;
+// 	// get distance from camera to target
+// 	TGTDistance = floatsqroot((CamX - ObjX) * (CamX - ObjX) + (CamY - ObjY) * (CamY - ObjY) + (CamZ - ObjZ) * (CamZ - ObjZ));
+// 	new Float:tmpX, Float:tmpY, Float:tmpZ;
+// 	tmpX = FrX * TGTDistance + CamX;
+// 	tmpY = FrY * TGTDistance + CamY;
+// 	tmpZ = FrZ * TGTDistance + CamZ;
+// 	return floatsqroot((tmpX - ObjX) * (tmpX - ObjX) + (tmpY - ObjY) * (tmpY - ObjY) + (tmpZ - ObjZ) * (tmpZ - ObjZ));
+// } 
 
-RemoveSmokeFromFire(id) {
-    for(new i; i < 5; i++) {
-		DestroyObject(Flame[id][Smoke][i]);
-		Flame[id][Smoke][i] = -1;
-	}
-}
-CreateFire(Float:x, Float:y, Float:z) {
-	new slot = Iter_Alloc(iFlame);
-	if(slot == -1) { return slot; }
-	Flame[slot][Flame_Exists] = 1;
-	Flame[slot][Flame_pos][0] = x;
-	Flame[slot][Flame_pos][1] = y;
-	Flame[slot][Flame_pos][2] = z - Z_DIFFERENCE;
-	Flame[slot][Flame_id] = CreateObject(18689, Flame[slot][Flame_pos][0], Flame[slot][Flame_pos][1], Flame[slot][Flame_pos][2], 0.0, 0.0, 0.0);
-	for(new i; i < 5; i++) Flame[slot][Smoke][i] = -1;
-	return slot;
-}
+// RemoveSmokeFromFire(id) {
+//     for(new i; i < 5; i++) {
+// 		DestroyObject(Flame[id][Smoke][i]);
+// 		Flame[id][Smoke][i] = -1;
+// 	}
+// }
+// CreateFire(Float:x, Float:y, Float:z) {
+// 	new slot = Iter_Alloc(iFlame);
+// 	if(slot == -1) { return slot; }
+// 	Flame[slot][Flame_Exists] = 1;
+// 	Flame[slot][Flame_pos][0] = x;
+// 	Flame[slot][Flame_pos][1] = y;
+// 	Flame[slot][Flame_pos][2] = z - Z_DIFFERENCE;
+// 	Flame[slot][Flame_id] = CreateObject(18689, Flame[slot][Flame_pos][0], Flame[slot][Flame_pos][1], Flame[slot][Flame_pos][2], 0.0, 0.0, 0.0);
+// 	for(new i; i < 5; i++) Flame[slot][Smoke][i] = -1;
+// 	return slot;
+// }
  
-DestroyFire(id) {
-	DestroyObject(Flame[id][Flame_id]);
-	Flame[id][Flame_Exists] = 0;
-	Iter_Remove(iFlame, id);
-	Flame[id][Flame_pos][0] = 0.0;
-	Flame[id][Flame_pos][1] = 0.0;
-	Flame[id][Flame_pos][2] = 0.0;
-	RemoveSmokeFromFire(id);
-}
+// DestroyFire(id) {
+// 	DestroyObject(Flame[id][Flame_id]);
+// 	Flame[id][Flame_Exists] = 0;
+// 	Iter_Remove(iFlame, id);
+// 	Flame[id][Flame_pos][0] = 0.0;
+// 	Flame[id][Flame_pos][1] = 0.0;
+// 	Flame[id][Flame_pos][2] = 0.0;
+// 	RemoveSmokeFromFire(id);
+// }
 
 
-Incendii() {
-	if(ActiveFire == 1) return 1;
-	new rand = 1+random(6);
-	// , Enable;
-	// foreach(new i: Player) {
-	// 	if(IsPlayerConnected(i)) {
-	// 		if(PlayerInfo[i][pMember] == 13) Enable = 1;
-	// 	}	
-	// }
-	// if(Enable == 0) return 1;
-	ActiveFire = 1;
+// Incendii() {
+// 	if(ActiveFire == 1) return 1;
+// 	new rand = 1+random(6);
+// 	// , Enable;
+// 	// foreach(new i: Player) {
+// 	// 	if(IsPlayerConnected(i)) {
+// 	// 		if(PlayerInfo[i][pMember] == 13) Enable = 1;
+// 	// 	}	
+// 	// }
+// 	// if(Enable == 0) return 1;
+// 	ActiveFire = 1;
 	
-	switch(rand) {
-		case 1: {
-			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o Dealership (gan san bay LS). ))**");
-			CreateFire(1447.33362, -2270.97876, 13.53329);
-			CreateFire(1449.19092, -2281.46582, 13.53329);
-			CreateFire(1450.10107, -2292.59912, 13.53329);
-			CreateFire(1444.30566, -2293.84229, 13.53329);
-			CreateFire(1439.56592, -2281.49438, 13.53329);
-			CreateFire(1446.06042, -2276.06177, 13.53329);
-			CreateFire(1440.99780, -2295.79102, 13.53329);
-			CreateFire(1446.97278, -2298.66260, 13.53329);
-			CreateFire(1439.44263, -2292.82886, 13.53329);
-			CreateFire(1450.84875, -2288.62695, 17.73017);
-			CreateFire(1451.00476, -2280.73560, 18.60952);
-			CreateFire(1451.12659, -2292.72192, 19.00922);
-			ActiveFires = 12;	
-		}
-		case 2: {
-			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o khu vuc Bank LS. ))**");
-			CreateFire(1461.29077, -1020.04413, 24.39252);
-			CreateFire(1453.41455, -1018.86261, 24.78256);
-			CreateFire(1457.31860, -1021.81921, 23.66661);
-			CreateFire(1472.64844, -1021.95868, 23.86036);
-			CreateFire(1470.11157, -1018.45203, 25.06591);
-			CreateFire(1466.07129, -1023.56616, 23.86035);
-			CreateFire(1451.05774, -1022.35870, 23.86035);
-			CreateFire(1477.53076, -1021.78857, 23.86035);
-			CreateFire(1466.21130, -1020.53876, 32.02980);
-			CreateFire(1454.94385, -1010.21252, 27.00608);
-			CreateFire(1457.23840, -1013.37164, 27.00608);
-			CreateFire(1468.42810, -1011.77533, 27.00608);
-			CreateFire(1470.46069, -1013.74866, 27.00608);
-			ActiveFires = 13;	
-		}	
-		case 3: {
-			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o khu vuc Benh vien LS. ))**");
-			CreateFire(1173.6420, -1311.1465, 16.2516);
-			CreateFire(1176.3635, -1313.2428, 12.9905);
-			CreateFire(1173.8491, -1319.7798, 14.1583);
-			CreateFire(1173.2473, -1316.1572, 15.2792);
-			CreateFire(1178.2623, -1317.4094, 13.0812);
-			CreateFire(1174.7070, -1323.7081, 13.7589);
-			CreateFire(1171.7349, -1327.6919, 15.5322);
-			CreateFire(1177.1036, -1330.5254, 13.0297);
-			CreateFire(1173.0571, -1332.5093, 16.1815);
-			CreateFire(1175.5625, -1327.1409, 13.3478);
-			CreateFire(1173.4460, -1334.4224, 14.6413);
-			CreateFire(1175.2076, -1333.0369, 12.9747);
-			CreateFire(1173.3470, -1312.7200, 15.6086);
-			ActiveFires = 13;	
-		}
-		case 4: {
-			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o khu vuc City Hall LS. ))**");
-			CreateFire(1471.2257, -1747.2070, 13.6019);
-			CreateFire(1478.5143, -1750.8141, 18.1465);
-			CreateFire(1478.5143, -1750.8141, 14.5618);
-			CreateFire(1475.8438, -1752.1500, 14.6049);
-			CreateFire(1483.7394, -1749.4760, 14.6049);
-			CreateFire(1481.2520, -1752.4677, 14.6049);
-			CreateFire(1479.3599, -1761.7220, 17.2895);
-			CreateFire(1480.4056, -1763.2598, 18.7660);
-			CreateFire(1484.9719, -1759.5471, 17.7796);
-			CreateFire(1470.0608, -1759.6865, 19.5259);
-			CreateFire(1475.4269, -1759.1777, 17.2620);
-			CreateFire(1492.4440, -1759.1493, 17.8372);
-			CreateFire(1486.9480, -1759.0610, 18.4096);
-			ActiveFires = 13;	
-		}
-		case 5: {
-			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o khu vuc CNN LS. ))**");
-			CreateFire(1143.0273,-1419.4666,13.4334);
-			CreateFire(1140.6815,-1420.5711,13.4334);
-			CreateFire(1139.0225,-1416.0004,13.4334);
-			CreateFire(1136.2081,-1419.9488,13.4334);
-			CreateFire(1135.0714,-1419.0253,13.4334);
-			CreateFire(1132.2939,-1416.6721,13.4334);
-			CreateFire(1130.6403,-1420.3807,13.4334);
-			CreateFire(1127.9373,-1420.1279,13.4334);
-			CreateFire(1125.3940,-1422.5349,13.4334);
-			CreateFire(1128.0363,-1417.0174,13.4334);
-			CreateFire(1124.9595,-1418.1000,13.4334);
-			CreateFire(1121.7322,-1420.6076,13.4334);
-			CreateFire(1119.0516,-1419.4093,13.4334);
-			CreateFire(1121.7360,-1416.1755,13.4334);
-			CreateFire(1116.2637,-1418.3240,13.4334);
-			ActiveFires = 15;
-		}
-		case 6: {
-			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o khu vuc Nghia trang LS. ))**");
-			CreateFire(834.42230, -1102.63550, 24.32769);
-			CreateFire(832.82513, -1096.31262, 24.32769);
-			CreateFire(831.43103, -1107.05066, 24.32769);
-			CreateFire(828.20605, -1112.53174, 24.32769);
-			CreateFire(832.88177, -1109.87598, 24.32769);
-			CreateFire(827.47925, -1092.92334, 24.32769);
-			CreateFire(836.82794, -1097.99402, 24.32769);
-			CreateFire(834.97687, -1107.24231, 24.32769);
-			CreateFire(831.45331, -1099.08691, 24.32769);
-			CreateFire(830.32629, -1095.59424, 25.74726);
-			CreateFire(830.32959, -1110.23877, 25.74726);
-			CreateFire(824.17328, -1098.36670, 25.96719);
-			CreateFire(823.70483, -1106.10046, 25.96719);
-			CreateFire(825.56116, -1101.07373, 25.96719);
-			ActiveFires = 14;	
-		}
-		case 7: {
-			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o khu vuc Dealership gan CNN. ))**");
-			CreateFire(1305.1740,-1415.9807,11.2996);
-			CreateFire(1298.3923,-1418.7242,11.1023);
-			CreateFire(1295.7797,-1416.5821,11.3009);
-			CreateFire(1300.9633,-1416.8632,11.0875);
-			CreateFire(1312.9210,-1417.1586,11.1013);
-			CreateFire(1307.3242,-1417.9655,11.8554);
-			CreateFire(1287.6235,-1418.0328,11.4318);
-			CreateFire(1291.2949,-1419.0675,11.5564);
-			ActiveFires = 8;			
-		}
-	}
-	return 1;
-}
+// 	switch(rand) {
+// 		case 1: {
+// 			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o Dealership (gan san bay LS). ))**");
+// 			CreateFire(1447.33362, -2270.97876, 13.53329);
+// 			CreateFire(1449.19092, -2281.46582, 13.53329);
+// 			CreateFire(1450.10107, -2292.59912, 13.53329);
+// 			CreateFire(1444.30566, -2293.84229, 13.53329);
+// 			CreateFire(1439.56592, -2281.49438, 13.53329);
+// 			CreateFire(1446.06042, -2276.06177, 13.53329);
+// 			CreateFire(1440.99780, -2295.79102, 13.53329);
+// 			CreateFire(1446.97278, -2298.66260, 13.53329);
+// 			CreateFire(1439.44263, -2292.82886, 13.53329);
+// 			CreateFire(1450.84875, -2288.62695, 17.73017);
+// 			CreateFire(1451.00476, -2280.73560, 18.60952);
+// 			CreateFire(1451.12659, -2292.72192, 19.00922);
+// 			ActiveFires = 12;	
+// 		}
+// 		case 2: {
+// 			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o khu vuc Bank LS. ))**");
+// 			CreateFire(1461.29077, -1020.04413, 24.39252);
+// 			CreateFire(1453.41455, -1018.86261, 24.78256);
+// 			CreateFire(1457.31860, -1021.81921, 23.66661);
+// 			CreateFire(1472.64844, -1021.95868, 23.86036);
+// 			CreateFire(1470.11157, -1018.45203, 25.06591);
+// 			CreateFire(1466.07129, -1023.56616, 23.86035);
+// 			CreateFire(1451.05774, -1022.35870, 23.86035);
+// 			CreateFire(1477.53076, -1021.78857, 23.86035);
+// 			CreateFire(1466.21130, -1020.53876, 32.02980);
+// 			CreateFire(1454.94385, -1010.21252, 27.00608);
+// 			CreateFire(1457.23840, -1013.37164, 27.00608);
+// 			CreateFire(1468.42810, -1011.77533, 27.00608);
+// 			CreateFire(1470.46069, -1013.74866, 27.00608);
+// 			ActiveFires = 13;	
+// 		}	
+// 		case 3: {
+// 			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o khu vuc Benh vien LS. ))**");
+// 			CreateFire(1173.6420, -1311.1465, 16.2516);
+// 			CreateFire(1176.3635, -1313.2428, 12.9905);
+// 			CreateFire(1173.8491, -1319.7798, 14.1583);
+// 			CreateFire(1173.2473, -1316.1572, 15.2792);
+// 			CreateFire(1178.2623, -1317.4094, 13.0812);
+// 			CreateFire(1174.7070, -1323.7081, 13.7589);
+// 			CreateFire(1171.7349, -1327.6919, 15.5322);
+// 			CreateFire(1177.1036, -1330.5254, 13.0297);
+// 			CreateFire(1173.0571, -1332.5093, 16.1815);
+// 			CreateFire(1175.5625, -1327.1409, 13.3478);
+// 			CreateFire(1173.4460, -1334.4224, 14.6413);
+// 			CreateFire(1175.2076, -1333.0369, 12.9747);
+// 			CreateFire(1173.3470, -1312.7200, 15.6086);
+// 			ActiveFires = 13;	
+// 		}
+// 		case 4: {
+// 			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o khu vuc City Hall LS. ))**");
+// 			CreateFire(1471.2257, -1747.2070, 13.6019);
+// 			CreateFire(1478.5143, -1750.8141, 18.1465);
+// 			CreateFire(1478.5143, -1750.8141, 14.5618);
+// 			CreateFire(1475.8438, -1752.1500, 14.6049);
+// 			CreateFire(1483.7394, -1749.4760, 14.6049);
+// 			CreateFire(1481.2520, -1752.4677, 14.6049);
+// 			CreateFire(1479.3599, -1761.7220, 17.2895);
+// 			CreateFire(1480.4056, -1763.2598, 18.7660);
+// 			CreateFire(1484.9719, -1759.5471, 17.7796);
+// 			CreateFire(1470.0608, -1759.6865, 19.5259);
+// 			CreateFire(1475.4269, -1759.1777, 17.2620);
+// 			CreateFire(1492.4440, -1759.1493, 17.8372);
+// 			CreateFire(1486.9480, -1759.0610, 18.4096);
+// 			ActiveFires = 13;	
+// 		}
+// 		case 5: {
+// 			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o khu vuc CNN LS. ))**");
+// 			CreateFire(1143.0273,-1419.4666,13.4334);
+// 			CreateFire(1140.6815,-1420.5711,13.4334);
+// 			CreateFire(1139.0225,-1416.0004,13.4334);
+// 			CreateFire(1136.2081,-1419.9488,13.4334);
+// 			CreateFire(1135.0714,-1419.0253,13.4334);
+// 			CreateFire(1132.2939,-1416.6721,13.4334);
+// 			CreateFire(1130.6403,-1420.3807,13.4334);
+// 			CreateFire(1127.9373,-1420.1279,13.4334);
+// 			CreateFire(1125.3940,-1422.5349,13.4334);
+// 			CreateFire(1128.0363,-1417.0174,13.4334);
+// 			CreateFire(1124.9595,-1418.1000,13.4334);
+// 			CreateFire(1121.7322,-1420.6076,13.4334);
+// 			CreateFire(1119.0516,-1419.4093,13.4334);
+// 			CreateFire(1121.7360,-1416.1755,13.4334);
+// 			CreateFire(1116.2637,-1418.3240,13.4334);
+// 			ActiveFires = 15;
+// 		}
+// 		case 6: {
+// 			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o khu vuc Nghia trang LS. ))**");
+// 			CreateFire(834.42230, -1102.63550, 24.32769);
+// 			CreateFire(832.82513, -1096.31262, 24.32769);
+// 			CreateFire(831.43103, -1107.05066, 24.32769);
+// 			CreateFire(828.20605, -1112.53174, 24.32769);
+// 			CreateFire(832.88177, -1109.87598, 24.32769);
+// 			CreateFire(827.47925, -1092.92334, 24.32769);
+// 			CreateFire(836.82794, -1097.99402, 24.32769);
+// 			CreateFire(834.97687, -1107.24231, 24.32769);
+// 			CreateFire(831.45331, -1099.08691, 24.32769);
+// 			CreateFire(830.32629, -1095.59424, 25.74726);
+// 			CreateFire(830.32959, -1110.23877, 25.74726);
+// 			CreateFire(824.17328, -1098.36670, 25.96719);
+// 			CreateFire(823.70483, -1106.10046, 25.96719);
+// 			CreateFire(825.56116, -1101.07373, 25.96719);
+// 			ActiveFires = 14;	
+// 		}
+// 		case 7: {
+// 			SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Tat ca nguoi dan San Andreas hay can than! Mot dam chay dang dien ra o khu vuc Dealership gan CNN. ))**");
+// 			CreateFire(1305.1740,-1415.9807,11.2996);
+// 			CreateFire(1298.3923,-1418.7242,11.1023);
+// 			CreateFire(1295.7797,-1416.5821,11.3009);
+// 			CreateFire(1300.9633,-1416.8632,11.0875);
+// 			CreateFire(1312.9210,-1417.1586,11.1013);
+// 			CreateFire(1307.3242,-1417.9655,11.8554);
+// 			CreateFire(1287.6235,-1418.0328,11.4318);
+// 			CreateFire(1291.2949,-1419.0675,11.5564);
+// 			ActiveFires = 8;			
+// 		}
+// 	}
+// 	return 1;
+// }
 
-function ExtinguishTimer(playerid, id) {
-	if(id < -1 && (Aiming_at_Flame(playerid) == id || Pissing_at_Flame(playerid) == id)) { 
-		TogglePlayerBurning(id+MAX_PLAYERS, false); 
-	}
+// function ExtinguishTimer(playerid, id) {
+// 	if(id < -1 && (Aiming_at_Flame(playerid) == id || Pissing_at_Flame(playerid) == id)) { 
+// 		TogglePlayerBurning(id+MAX_PLAYERS, false); 
+// 	}
 	
-	else if(Flame[id][Flame_Exists] && ((Pressing(playerid) & KEY_FIRE && Aiming_at_Flame(playerid) == id) || (Pissing_at_Flame(playerid) == id))) {
-		new sendername[MAX_PLAYER_NAME+26];
-		GetPlayerName(playerid, sendername, sizeof(sendername));
-		if(Aiming_at_Flame(playerid) == id) {
-			if(PlayerInfo[playerid][pMember] == 13) {
-				PlayerTextDrawSetString(playerid, InfosTD, "~y~Ban da dap tat ngon lua nay!");
-				defer HideTextdraw(playerid);
-				PlayerTextDrawShow(playerid, InfosTD);
-				playerFire[playerid] ++;
-			}	
-		}
-		DestroyFire(id);
-		ActiveFires --;
-		if(ActiveFires == 0) FinalFire();		
-	}
-	KillTimer(PlayerFireTimer[playerid][2]);
-	PlayerFireTimer[playerid][2] = -1;
-}
+// 	else if(Flame[id][Flame_Exists] && ((Pressing(playerid) & KEY_FIRE && Aiming_at_Flame(playerid) == id) || (Pissing_at_Flame(playerid) == id))) {
+// 		new sendername[MAX_PLAYER_NAME+26];
+// 		GetPlayerName(playerid, sendername, sizeof(sendername));
+// 		if(Aiming_at_Flame(playerid) == id) {
+// 			if(PlayerInfo[playerid][pMember] == 13) {
+// 				PlayerTextDrawSetString(playerid, InfosTD, "~y~Ban da dap tat ngon lua nay!");
+// 				defer HideTextdraw(playerid);
+// 				PlayerTextDrawShow(playerid, InfosTD);
+// 				playerFire[playerid] ++;
+// 			}	
+// 		}
+// 		DestroyFire(id);
+// 		ActiveFires --;
+// 		if(ActiveFires == 0) FinalFire();		
+// 	}
+// 	KillTimer(PlayerFireTimer[playerid][2]);
+// 	PlayerFireTimer[playerid][2] = -1;
+// }
 
-FinalFire() {
-	SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Ngon lua da tat thanh cong! ))**");
-	new string[128];
-	foreach(new i: Player) {
-		if(playerFire[i] != 0) {
-			format(string, sizeof(string), "Dap tat chay: %d", playerFire[i]);
-			SendClientMessage(i, COLOR_GRAD2, string);
-			new money = 5000 * playerFire[i] + random(100);
-			format(string, sizeof(string), "So tien con lai: $%s", FormatNumber(money));
-			SendClientMessage(i, COLOR_GRAD2, string);	
-			GivePlayerCash(i, money);
-			playerFire[i] = 0;	
-			UpdateFactionRaport(i, 5);			
-		}
-	}
-	ActiveFire = 0;
-	return 1;
-}
+// FinalFire() {
+// 	SCMTA(COLOR_LIGHTBLUE, "**(( Fireman Dispatch: Ngon lua da tat thanh cong! ))**");
+// 	new string[128];
+// 	foreach(new i: Player) {
+// 		if(playerFire[i] != 0) {
+// 			format(string, sizeof(string), "Dap tat chay: %d", playerFire[i]);
+// 			SendClientMessage(i, COLOR_GRAD2, string);
+// 			new money = 5000 * playerFire[i] + random(100);
+// 			format(string, sizeof(string), "So tien con lai: $%s", FormatNumber(money));
+// 			SendClientMessage(i, COLOR_GRAD2, string);	
+// 			GivePlayerCash(i, money);
+// 			playerFire[i] = 0;	
+// 			UpdateFactionRaport(i, 5);			
+// 		}
+// 	}
+// 	ActiveFire = 0;
+// 	return 1;
+// }
 
-TogglePlayerBurning(playerid, burning) {
-	if(burning) {
-		SetPlayerAttachedObject(playerid, FIRE_OBJECT_SLOT, 18690, 2, -1, 0, -1.9, 0, 0);
-		GetPlayerHealth(playerid, PlayerOnFireHP[playerid]);
-		KillTimer(PlayerFireTimer[playerid][0]); KillTimer(PlayerFireTimer[playerid][1]);
-		PlayerFireTimer[playerid][0] = SetTimerEx("BurningTimer", 91, 1, "d", playerid);
-		PlayerFireTimer[playerid][1] = SetTimerEx("TogglePlayerBurning", 7000, 0, "dd", playerid, 0);
-	}
-	else {
-		KillTimer(PlayerFireTimer[playerid][0]);
-		RemovePlayerAttachedObject(playerid, FIRE_OBJECT_SLOT);
-	}
-	SetPVarInt(playerid, "IsOnFire", burning);
-	return 1;
-}
+// TogglePlayerBurning(playerid, burning) {
+// 	if(burning) {
+// 		SetPlayerAttachedObject(playerid, FIRE_OBJECT_SLOT, 18690, 2, -1, 0, -1.9, 0, 0);
+// 		GetPlayerHealth(playerid, PlayerOnFireHP[playerid]);
+// 		KillTimer(PlayerFireTimer[playerid][0]); KillTimer(PlayerFireTimer[playerid][1]);
+// 		PlayerFireTimer[playerid][0] = SetTimerEx("BurningTimer", 91, 1, "d", playerid);
+// 		PlayerFireTimer[playerid][1] = SetTimerEx("TogglePlayerBurning", 7000, 0, "dd", playerid, 0);
+// 	}
+// 	else {
+// 		KillTimer(PlayerFireTimer[playerid][0]);
+// 		RemovePlayerAttachedObject(playerid, FIRE_OBJECT_SLOT);
+// 	}
+// 	SetPVarInt(playerid, "IsOnFire", burning);
+// 	return 1;
+// }
  
-function BurningTimer(playerid) {
-	if(GetPVarInt(playerid, "IsOnFire")) {
-		new Float:hp;
-		GetPlayerHealth(playerid, hp);
-		if(hp < PlayerOnFireHP[playerid]) PlayerOnFireHP[playerid] = hp;
-		PlayerOnFireHP[playerid] -= 1.0;
-		SetPlayerHealthEx(playerid, PlayerOnFireHP[playerid]);
-	}
-	else { KillTimer(PlayerFireTimer[playerid][0]); KillTimer(PlayerFireTimer[playerid][1]); }
-}
+// function BurningTimer(playerid) {
+// 	if(GetPVarInt(playerid, "IsOnFire")) {
+// 		new Float:hp;
+// 		GetPlayerHealth(playerid, hp);
+// 		if(hp < PlayerOnFireHP[playerid]) PlayerOnFireHP[playerid] = hp;
+// 		PlayerOnFireHP[playerid] -= 1.0;
+// 		SetPlayerHealthEx(playerid, PlayerOnFireHP[playerid]);
+// 	}
+// 	else { KillTimer(PlayerFireTimer[playerid][0]); KillTimer(PlayerFireTimer[playerid][1]); }
+// }
 
 SetCheckpoint(playerid) {
 	new rand = random(5);

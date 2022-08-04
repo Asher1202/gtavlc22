@@ -179,7 +179,7 @@ Dialog:DIALOG_SHOPBACK(playerid, response, listitem, inputtext[]) {
 Dialog:DIALOG_CHANGENAME(playerid, response, listitem, inputtext[]) 
 {
 	if(!response) return ShowNormalShop(playerid);
-	if(PlayerInfo[playerid][pPremiumPoints] < 150) return SendClientMessage(playerid, -1, "Ban khong co du "#DIEMCAOCAP"!");
+	if(PlayerInfo[playerid][pPremiumPoints] < 50) return SendClientMessage(playerid, -1, "Ban khong co du "#DIEMCAOCAP"!");
 	if(strlen(inputtext) < 2 || strlen(inputtext) > 24) {
 		SendClientMessage(playerid, COLOR_GREY, "Ten phai co tu 3 den 24 ky tu.");
 		Dialog_Show(playerid, DIALOG_CHANGENAME, DIALOG_STYLE_INPUT, "Shop:", "Ban chuan bi thay doi ten}.\nChu y, dat ten ma nguoi khac khong su dung.\nGioi han 3 den 24 ky tu.", "Ok", "Back");
@@ -602,18 +602,18 @@ Dialog:DIALOG_SHOPKC(playerid, response, listitem, inputtext[])
 			SetPVarInt(playerid, "KC", 600);
 		}					
 		case 6: {
-			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua VIPGOLD\nDe mua no, ban can phai tra 100 "#DIEMCAOCAP".\n\n\
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua VIP GOLD\nDe mua no, ban can phai tra 100 "#DIEMCAOCAP".\n\n\
 			Vat pham\n-Danh hieu [GAME, DISCORD] : VIP Gold\n-Tang them 2 SLOT xe [0/4]\n- Nang muc dat chip tu 700 -> 800\n-Mo khoa tinh nang /vcar\n- Mo khoa tinh nang /vchat\n- Thanh doi 100% -> 120%\n- Moi ngay dang nhap nhan 2 Rob Point\n- Free giay phep thuyen, may bay 15 ngay\n- Bonus 5% tien tat ca cong viec\n- Tang them 1 lan lam nhiem vu hang ngay [0/3] -> [0/4]\n- Mo khoa chuc nang chat mau, dung lenh /pcolor de thay doi mau chat.");
 			SetPVarInt(playerid, "KC", 100);
 		}					
 		case 7: {
-			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua VIPGOLD\nDe mua no, ban can phai tra 300 "#DIEMCAOCAP".\n\n\
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua VIP PLATIUM\nDe mua no, ban can phai tra 300 "#DIEMCAOCAP".\n\n\
 			Vat pham\n-Danh hieu [GAME, DISCORD] : VIP PLATIUM\n-Tang them 3 SLOT xe [0/5]\n- Nang muc dat chip tu 700 -> 900\n-Mo khoa tinh nang /vcar\n- Mo khoa tinh nang /vchat\n- Thanh doi 100% -> 140%\n- Moi ngay dang nhap nhan 2 Rob Point,5 xu\n- Free giay phep thuyen, may bay, sung 15 ngay\n- Mien tien vao biz\n- Bonus 10% tien tat ca cong viec\n- Giam 5% thue khi choi tai xiu\n- Vehicle box\n- Tang them 2 lan lam nhiem vu hang ngay [0/3] -> [0/4]\n- Mo khoa chuc nang chat mau, dung lenh /pcolor de thay doi mau chat\nCreate skin x1");
 
 			SetPVarInt(playerid, "KC", 300);
 		}					
 		case 8: {
-			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua VIPGOLD\nDe mua no, ban can phai tra 100 "#DIEMCAOCAP".\n\n\
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua VIP DIAMOND\nDe mua no, ban can phai tra 100 "#DIEMCAOCAP".\n\n\
 			Vat pham\n-Danh hieu [GAME, DISCORD] : VIP DIAMOND\n-Tang them 4 SLOT xe [0/6]\n- Nang muc dat chip tu 700 -> 1000\n-Mo khoa tinh nang /vcar\n- Mo khoa tinh nang /vchat\n- Thanh doi 100% -> 200%\n- Moi ngay dang nhap nhan 2 Rob Point,10 xu, 1 Respect pointn- Free giay phep thuyen, may bay, sung 30 ngay\n- Mien tien vao biz\n- Bonus 20% tien tat ca cong viec\n- Giam 15% thue khi choi tai xiu\n- Vehicle box\n- Tang them 3 lan lam nhiem vu hang ngay [0/4] -> [0/7]\n- Mo khoa chuc nang chat mau, dung lenh /pcolor de thay doi mau chat\n- Rainbow tren tat ca cac xe, dung lenh /rainbowveh de doi mau\n- Create Car rare x1\n Ho tro GIFTCODE hang tuan tu may chu thong qua BLACK");
 			SetPVarInt(playerid, "KC", 550);
 		}					
@@ -676,9 +676,13 @@ Dialog:DIALOG_SHOPKC1(playerid, response, listitem, inputtext[])
 		case 6: {
 			if(PlayerInfo[playerid][pVip] == 1) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da co vip nay, hay mua vip khac");
 			PlayerInfo[playerid][pVip] = 1;
+			
 			format(string, sizeof(string), "%s Ban da mua VIP GOLD.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua VIP GOLD thanh cong");
 			PlayerInfo[playerid][pKC] -= 100;
+			new query[128];
+			format(query, sizeof(query), "UPDATE `users` SET `Vip`='1' WHERE `id`='%d'", PlayerInfo[playerid][pSQLID]);
+			mysql_query(SQL, query);
 			Update(playerid, pKCx);
 		}
 		case 7: {
@@ -687,6 +691,9 @@ Dialog:DIALOG_SHOPKC1(playerid, response, listitem, inputtext[])
 			format(string, sizeof(string), "%s Ban da mua VIP PLATIUM.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua VIP PLATIUM thanh cong");
 			PlayerInfo[playerid][pKC] -= 300;
+			new query[128];
+			format(query, sizeof(query), "UPDATE `users` SET `Vip`='2' WHERE `id`='%d'", PlayerInfo[playerid][pSQLID]);
+			mysql_query(SQL, query);
 			Update(playerid, pKCx);
 		}
 		case 8: {
@@ -695,6 +702,9 @@ Dialog:DIALOG_SHOPKC1(playerid, response, listitem, inputtext[])
 			format(string, sizeof(string), "%s Ban da mua VIP DIAMOND.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua VIP DIAMOND thanh cong");
 			PlayerInfo[playerid][pKC] -= 550;
+			new query[128];
+			format(query, sizeof(query), "UPDATE `users` SET `Vip`='3' WHERE `id`='%d'", PlayerInfo[playerid][pSQLID]);
+			mysql_query(SQL, query);
 			Update(playerid, pKCx);
 		}
 	}

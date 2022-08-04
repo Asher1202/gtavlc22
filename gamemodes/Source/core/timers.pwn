@@ -1109,16 +1109,16 @@ task DecreaseTimer[1000]() {
 			if(playerArmour == 100 && PlayerInfo[i][pAdmin] == 0 && GetPVarInt(i, "Armour") == 0) {
 				if(ServerSystem[3] == 0) NightBot(i, "Cheats (armour-hack)");	
 			}
-			if(IsPlayerInRangeOfPoint(i, 40.0, 1116.1476,-1457.6807,13.8592)) {	
-				if(GetPVarInt(i, "Listening") == 0) {
-					PlayAudioStreamForPlayer(i, "https://steamcast.com/sbin/listen.m3u?id=6089681", 1116.1476,-1457.6807,13.8592, 40.0, 1);
-					SetPVarInt(i, "Listening", 1);
-					SendClientMessage(i, COLOR_YELLOW, "{32a852}Ban da vao khu vuc {ff0000}tai xiu, {32a852}chuc ban co nhung giay phut tuyet voi nhat");
-				}	
-			}
-			else {
-				if(GetPVarInt(i, "Listening") == 1) SetPVarInt(i, "Listening", 0);
-			}
+			// if(IsPlayerInRangeOfPoint(i, 40.0, 1116.1476,-1457.6807,13.8592)) {	
+			// 	if(GetPVarInt(i, "Listening") == 0) {
+			// 		PlayAudioStreamForPlayer(i, "https://steamcast.com/sbin/listen.m3u?id=6090911", 1116.1476,-1457.6807,13.8592, 40.0, 1);
+			// 		SetPVarInt(i, "Listening", 1);
+			// 		SendClientMessage(i, COLOR_YELLOW, "{32a852}Ban da vao khu vuc {ff0000}tai xiu, {32a852}chuc ban co nhung giay phut tuyet voi nhat");
+			// 	}	
+			// }
+			// else {
+			// 	if(GetPVarInt(i, "Listening") == 1) SetPVarInt(i, "Listening", 0);
+			// }
 			//if(FPS2[i] == 0 && AFKSeconds[i] > 120 && PlayerInfo[i][pSleeping] == 0) NightBot(i, "rakdroid");
 
 			// new Float: playerHealth; 
@@ -2914,8 +2914,8 @@ task Timers[1000]() {
 				}	
 			}
 			if(IsAMember(i)) {
-			//	if(UsingSampcac{i} == 0 || ServerSystem[13] == 0) return SendClientMessage(i, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");
-				//if(InWar[PlayerInfo[i][pMember]] == 1 && (UsingSampcac{i} == 1 || ServerSystem[13] == 1) && IsPlayerLogged[i] == 1) {
+				// if(UsingSampcac{i} == 0 || ServerSystem[13] == 0) return SendClientMessage(i, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");
+				// if(InWar[PlayerInfo[i][pMember]] == 1 && (UsingSampcac{i} == 1 || ServerSystem[13] == 1) && IsPlayerLogged[i] == 1) {
 				if(InWar[PlayerInfo[i][pMember]] == 1 && IsPlayerLogged[i] == 1) {
 					new faction = PlayerInfo[i][pMember];
 					for(new wi = 1; wi < turfsss;wi++) {
@@ -2932,16 +2932,17 @@ task Timers[1000]() {
 							defscore = WarScoreF[defenders][wi];						
 					
 							if(playerDeath[i] == 0 && PlayerInfo[i][pWantedLevel] == 0 && PlayerInfo[i][pJailTime] == 0 && GetPlayerInterior(i) == 0 && GetPlayerVirtualWorld(i) == 0) {
-								// if(CAC_GetStatus(i) || GetPVarInt(i, "NotAndroid") == 0) 
-								// {
-								// 	SetPlayerVirtualWorld(i, wi);
-								// 	format(string, sizeof(string), "Ban da duoc dich chuyen den virtual world %d (the gioi ao) vi mafia cua ban dang bao ve hoac tranh gianh dia ban.", wi);
-								// 	SendClientMessage(i, COLOR_YELLOW, string);
-								// }
-								// if(ServerSystem[13] == 0) SendClientMessage(i, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");
-								SetPlayerVirtualWorld(i, wi);
-								format(string, sizeof(string), "Ban da duoc dich chuyen den virtual world %d (the gioi ao) vi mafia cua ban dang bao ve hoac tranh gianh dia ban.", wi);
-								SendClientMessage(i, COLOR_YELLOW, string);
+								if(CAC_GetStatus(i) || GetPVarInt(i, "NotAndroid") == 0) 
+								{
+									SetPlayerVirtualWorld(i, wi);
+									format(string, sizeof(string), "Ban da duoc dich chuyen den virtual world %d (the gioi ao) vi mafia cua ban dang bao ve hoac tranh gianh dia ban.", wi);
+									SendClientMessage(i, COLOR_YELLOW, string);
+									SetPlayerArmourEx(i, 30);
+								}
+								if(ServerSystem[13] == 0) SendClientMessage(i, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");
+								// SetPlayerVirtualWorld(i, wi);
+								// format(string, sizeof(string), "Ban da duoc dich chuyen den virtual world %d (the gioi ao) vi mafia cua ban dang bao ve hoac tranh gianh dia ban.", wi);
+								// SendClientMessage(i, COLOR_YELLOW, string);
 							}
 
 
@@ -3630,7 +3631,7 @@ task SyncUp[60000]() {
 	gettime(tmphour, tmpminute, tmpsecond);
 	getdate(Year, Month, Day);	
 	
-	if(tmpminute == 30 || tmpminute == 0) Incendii();
+	// if(tmpminute == 30 || tmpminute == 0) Incendii();
 	
 	if(tmpminute == 0 || tmpminute == 10 || tmpminute == 20 || tmpminute == 30 || tmpminute == 40 || tmpminute == 50) OpenCells();
 	else CloseCells();
@@ -4096,76 +4097,76 @@ task RentCar[20000]() {
 	}
 	return 1;
 }
-task OnFireUpdate[FIRE_UPDATE_TIMER_DELAY]()
-{
-	new aim, piss;
-	foreach(new playerid: Player) {
-		piss = Pissing_at_Flame(playerid);
-		aim = Aiming_at_Flame(playerid);
-		if(GetPVarInt(playerid, "IsOnFire") && !CanPlayerBurn(playerid, 1)) TogglePlayerBurning(playerid, false);
-		if(piss != -1 || aim != -1) {
-			if(PlayerFireTimer[playerid][2] == -1 && ((aim != -1 && Pressing(playerid) & KEY_FIRE) || piss != -1)) {
-				new value, time, Float:x, Float:y, Float:z;
-				if(piss != -1) {
-					value = piss;
-					time = EXTINGUISH_TIME_PEEING;
-				}
-				else if(aim != -1)
-				{
-					value = aim;
-					if(GetPlayerWeapon(playerid) == 41) {
-						CreateExplosion(Flame[value][Flame_pos][0], Flame[value][Flame_pos][1], Flame[value][Flame_pos][2], 2, 5);
-						return 1;
-					}
-					if(IsPlayerInAnyVehicle(playerid))
-					{
-						time = EXTINGUISH_TIME_VEHICLE;
-					}
-					else
-					{
-						time = EXTINGUISH_TIME_ONFOOT;
-					}
-				}
-				if(value < -1) { time = EXTINGUISH_TIME_PLAYER; }
-				time *= 5000;
-				if(value >= -1) {
-					x = Flame[value][Flame_pos][0];
-					y = Flame[value][Flame_pos][1];
-					z = Flame[value][Flame_pos][2];
-					RemoveSmokeFromFire(value);
-					Flame[value][Smoke][0] = CreateObject(18725, x, y, z, 0.0, 0.0, 0.0);
-					Flame[value][Smoke][1] = CreateObject(18725, x+1, y, z, 0.0, 0.0, 0.0);
-					Flame[value][Smoke][2] = CreateObject(18725, x-1, y, z, 0.0, 0.0, 0.0);
-					Flame[value][Smoke][3] = CreateObject(18725, x, y+1, z, 0.0, 0.0, 0.0);
-					Flame[value][Smoke][4] = CreateObject(18725, x, y-1, z, 0.0, 0.0, 0.0);
-				}
-				PlayerFireTimer[playerid][2] = SetTimerEx("ExtinguishTimer", time, 0, "dd", playerid, value);
-			}
-		}
-		if(CanPlayerBurn(playerid) && IsAtFlame(playerid)) {
-			TogglePlayerBurning(playerid, true);
-		}		
-	}
+// task OnFireUpdate[FIRE_UPDATE_TIMER_DELAY]()
+// {
+// 	new aim, piss;
+// 	foreach(new playerid: Player) {
+// 		piss = Pissing_at_Flame(playerid);
+// 		aim = Aiming_at_Flame(playerid);
+// 		if(GetPVarInt(playerid, "IsOnFire") && !CanPlayerBurn(playerid, 1)) TogglePlayerBurning(playerid, false);
+// 		if(piss != -1 || aim != -1) {
+// 			if(PlayerFireTimer[playerid][2] == -1 && ((aim != -1 && Pressing(playerid) & KEY_FIRE) || piss != -1)) {
+// 				new value, time, Float:x, Float:y, Float:z;
+// 				if(piss != -1) {
+// 					value = piss;
+// 					time = EXTINGUISH_TIME_PEEING;
+// 				}
+// 				else if(aim != -1)
+// 				{
+// 					value = aim;
+// 					if(GetPlayerWeapon(playerid) == 41) {
+// 						CreateExplosion(Flame[value][Flame_pos][0], Flame[value][Flame_pos][1], Flame[value][Flame_pos][2], 2, 5);
+// 						return 1;
+// 					}
+// 					if(IsPlayerInAnyVehicle(playerid))
+// 					{
+// 						time = EXTINGUISH_TIME_VEHICLE;
+// 					}
+// 					else
+// 					{
+// 						time = EXTINGUISH_TIME_ONFOOT;
+// 					}
+// 				}
+// 				if(value < -1) { time = EXTINGUISH_TIME_PLAYER; }
+// 				time *= 5000;
+// 				if(value >= -1) {
+// 					x = Flame[value][Flame_pos][0];
+// 					y = Flame[value][Flame_pos][1];
+// 					z = Flame[value][Flame_pos][2];
+// 					RemoveSmokeFromFire(value);
+// 					Flame[value][Smoke][0] = CreateObject(18725, x, y, z, 0.0, 0.0, 0.0);
+// 					Flame[value][Smoke][1] = CreateObject(18725, x+1, y, z, 0.0, 0.0, 0.0);
+// 					Flame[value][Smoke][2] = CreateObject(18725, x-1, y, z, 0.0, 0.0, 0.0);
+// 					Flame[value][Smoke][3] = CreateObject(18725, x, y+1, z, 0.0, 0.0, 0.0);
+// 					Flame[value][Smoke][4] = CreateObject(18725, x, y-1, z, 0.0, 0.0, 0.0);
+// 				}
+// 				PlayerFireTimer[playerid][2] = SetTimerEx("ExtinguishTimer", time, 0, "dd", playerid, value);
+// 			}
+// 		}
+// 		if(CanPlayerBurn(playerid) && IsAtFlame(playerid)) {
+// 			TogglePlayerBurning(playerid, true);
+// 		}		
+// 	}
 
-	#if defined BurnOthers
-		new Float:x, Float:y, Float:z;
-		foreach(new i: Player)
-	  	{
-	  		if(playerid != i)
-		  	{
-			  	if(CanPlayerBurn(i) && GetPVarInt(playerid, "IsOnFire") && !GetPVarInt(i, "IsOnFire"))
-	  			{
-				  	GetPlayerPos(i, x, y, z);
-					if(IsPlayerInRangeOfPoint(playerid, BURNING_RADIUS, x, y, z))
-					{
-						TogglePlayerBurning(i, true);
-					}
-				}
-			}
-		}
-	#endif
-	return 1;
-}
+// 	#if defined BurnOthers
+// 		new Float:x, Float:y, Float:z;
+// 		foreach(new i: Player)
+// 	  	{
+// 	  		if(playerid != i)
+// 		  	{
+// 			  	if(CanPlayerBurn(i) && GetPVarInt(playerid, "IsOnFire") && !GetPVarInt(i, "IsOnFire"))
+// 	  			{
+// 				  	GetPlayerPos(i, x, y, z);
+// 					if(IsPlayerInRangeOfPoint(playerid, BURNING_RADIUS, x, y, z))
+// 					{
+// 						TogglePlayerBurning(i, true);
+// 					}
+// 				}
+// 			}
+// 		}
+// 	#endif
+// 	return 1;
+// }
 task SaveImportantData[3600000]() {
     new query[300];
 	

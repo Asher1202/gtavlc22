@@ -172,6 +172,21 @@ CMD:cancelrestart(playerid, params[]) {
 	RestartTime = 0;
 	return 1;
 }
+CMD:tatdangky(playerid, params[]) {
+	if(PlayerInfo[playerid][pAdmin] < 7) return 1;
+	{
+		if(DISABLEREG == 0)
+		{
+			SendClientMessage(playerid, COLOR_CLIENT, "Ban da bat chuc nang tat dang ki, hay /tatdangky lan nua neu muon bat lai");
+			DISABLEREG = 1;
+		}
+		else {
+			SendClientMessage(playerid, COLOR_CLIENT, "Ban da co phep dang ky");
+			DISABLEREG = 0;
+		}
+	}
+	return 1;
+}
 
 
 CMD:blowup(playerid, params[])

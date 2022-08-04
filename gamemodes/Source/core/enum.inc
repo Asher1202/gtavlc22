@@ -9,19 +9,19 @@ new Iterator:Jobs<MAX_JOBS>, Iterator:Bizs<MAX_BIZ>, Iterator:House<MAX_HOUSES>,
 	Iterator:ChonXiu<MAX_PLAYERS>,
 	Iterator:SelectA<MAX_PLAYERS>,Iterator:SelectB<MAX_PLAYERS>,Iterator:SelectC<MAX_PLAYERS>,
 	Iterator:ClanVehicle<MAX_VEHICLES>;
-// new UsingSampcac[MAX_PLAYERS char];
+new UsingSampcac[MAX_PLAYERS char];
 // #if defined _sampvoice_included
 // new SV_SGSTREAM:sgstream[MAX_PLAYERS] = SV_NULL;
 // new SV_SGROUP:stream_group;
 // #endif
 #define MAX_INVENTORY 50
 forward Float:GetDistanceBetweenPoints(Float:x1, Float:y1, Float:z1, Float:x2, Float:y2, Float:z2);
-enum FlameInfo {
-	Flame_id,
-	Flame_Exists,
-	Float:Flame_pos[3],
-	Smoke[5],
-}
+// enum FlameInfo {
+// 	Flame_id,
+// 	Flame_Exists,
+// 	Float:Flame_pos[3],
+// 	Smoke[5],
+// }
 new noooc = 1;
 new Text:LottoTD[6],Text:LottoChonSo[35];
 
@@ -137,10 +137,10 @@ new
 	pFishing[MAX_PLAYERS],
 	FishPrice[MAX_PLAYERS],
 	JobCP[MAX_PLAYERS],
-	Flame[MAX_FIRES][FlameInfo],
-	Iterator:iFlame<MAX_FIRES>,
-	PlayerFireTimer[MAX_PLAYERS][3], // Burn, StopBurn, Extinguish a fire
-	Float:PlayerOnFireHP[MAX_PLAYERS],
+	// Flame[MAX_FIRES][FlameInfo],
+	// Iterator:iFlame<MAX_FIRES>,
+	// PlayerFireTimer[MAX_PLAYERS][3], // Burn, StopBurn, Extinguish a fire
+	// Float:PlayerOnFireHP[MAX_PLAYERS],
 	// Timer:logina[MAX_PLAYERS],
 	SpamTimes[MAX_PLAYERS],
 	PlayerText: HPAlert,
@@ -508,11 +508,11 @@ new
 	VehicleSQL[MAX_VEHICLES],
 	VehicleExist[MAX_VEHICLES];
 
-// fire
-new 
-	playerFire[MAX_PLAYERS],
-	ActiveFire,
-	ActiveFires;
+// // fire
+// new 
+// 	playerFire[MAX_PLAYERS],
+// 	ActiveFire,
+// 	ActiveFires;
 
 new
 	// Local
@@ -533,6 +533,7 @@ new
 	wotime = 15, levelcost = 2000,			realchat = 1, 								levelexp = 3,
 	FactionChat[16], Questions, 			Tax, TaxValue, cell2,gatelspd,gateds[2],				gateng,lspdbar, 	
 	// Global	
+	DISABLEREG,
 	LamViecChung[MAX_PLAYERS],				DaThueThuyen[MAX_PLAYERS],
 	NearPNS[MAX_PLAYERS],					pickups,									pizzamoney[MAX_PLAYERS],						
 	WarKills[MAX_PLAYERS],  				WarDeaths[MAX_PLAYERS],						Aduty[MAX_PLAYERS],

@@ -1,6 +1,6 @@
 #define MAX_DAMAGES 100
 
-x#define		BODY_PART_TORSO 	3
+#define		BODY_PART_TORSO 	3
 #define 	BODY_PART_GROIN 	4
 #define 	BODY_PART_RIGHT_ARM 5
 #define 	BODY_PART_LEFT_ARM 	6
@@ -10,7 +10,7 @@ x#define		BODY_PART_TORSO 	3
 
 enum dmgInfo
 {
-	dmgIssuerName[MAX_PLAYER_NAME],
+	dmgIssuerName[34+1],
 	dmgDamage,
 	dmgWeapon,
 	dmgBodypart,
@@ -42,7 +42,7 @@ stock ShowPlayerDamages(playerid, toid) {
 	new  str[1000], str1[100], count = 0, name[MAX_PLAYER_NAME];
 	GetPlayerName(playerid, name, sizeof(name));
 	for(new id = 0; id < MAX_DAMAGES; id++) if(DamageInfo[playerid][id][dmgDamage] != 0) count++;
-	if(count == 0) return Dialog_Show(toid, 0, DIALOG_STYLE_LIST, name, "There is no damage to display...", "Close", "");
+	if(count == 0) return Dialog_Show(toid, 0, DIALOG_STYLE_LIST, name, "Khong co gi de hien thi...", "Close", "");
 	else if(count > 0)
 	{	
 		for(new gunname[50], id = 0; id < MAX_DAMAGES; id++)
@@ -50,11 +50,11 @@ stock ShowPlayerDamages(playerid, toid) {
 			if(DamageInfo[playerid][id][dmgDamage] != 0)
 			{
 				GetWeaponNameEx(DamageInfo[playerid][id][dmgWeapon],gunname,sizeof(gunname));	
-				format(str1, sizeof(str1), "%s gave %d dmg, using %s to %s (Armor: %s) %ds ago\n", DamageInfo[playerid][id][dmgIssuerName], 
+				format(str1, sizeof(str1), "%s gay %d dmg, bang %s vi tri %s (Giap: %s) %ds ago\n", DamageInfo[playerid][id][dmgIssuerName], 
 					DamageInfo[playerid][id][dmgDamage], 
 					gunname, 
 					GetBodypartName(DamageInfo[playerid][id][dmgBodypart]), 
-					(DamageInfo[playerid][id][dmgKevlarhit]==true) ? "Yes" : "No", 
+					(DamageInfo[playerid][id][dmgKevlarhit]==true) ? "Co" : "Khong", 
 					gettime() - DamageInfo[playerid][id][dmgSeconds]);
 				strcat(str, str1);
 			}
@@ -63,12 +63,12 @@ stock ShowPlayerDamages(playerid, toid) {
 	}
 	return 1;
 }
-/*
+
 hook OnPlayerDeath(playerid) {
 	// ShowPlayerDamages(playerid, playerid);
 	// defer ResetPlayerDamages[10000](playerid);
 }
-*/
+
 CMD:damages(playerid, params[])
 {
 	new 

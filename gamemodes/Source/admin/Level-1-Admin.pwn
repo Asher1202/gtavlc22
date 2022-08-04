@@ -2101,16 +2101,16 @@ CMD:a(playerid, params[]) {
 	SendAdminMessage(COLOR_ADMCHAT, result, 1);
 	return 1;
 }
-// CMD:sampcac(playerid, params[]) {
-// 	if(PlayerInfo[playerid][pAdmin]+PlayerInfo[playerid][pHelper] == 0) return 1;
-// 	new info[2000];
-// 	strcat(info, "ID\tName\n");
-// 	foreach(new i: Player) {
-// 		if(UsingSampcac{i} == 1) format(info, sizeof(info), "%s%d\t%s\n", info, i, GetName(i));
-// 	}
-// 	Dialog_Show(playerid, 0, DIALOG_STYLE_TABLIST_HEADERS, "Danh sach nguoi choi cai SAMPCAC", info, "Dong", "");
-// 	return 1;
-// }
+CMD:sampcac(playerid, params[]) {
+	if(PlayerInfo[playerid][pAdmin]+PlayerInfo[playerid][pHelper] == 0) return 1;
+	new info[2000];
+	strcat(info, "ID\tName\n");
+	foreach(new i: Player) {
+		if(UsingSampcac{i} == 1) format(info, sizeof(info), "%s%d\t%s\n", info, i, GetName(i));
+	}
+	Dialog_Show(playerid, 0, DIALOG_STYLE_TABLIST_HEADERS, "Danh sach nguoi choi cai SAMPCAC", info, "Dong", "");
+	return 1;
+}
 CMD:fmats(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] == 0) return 1;
 	new info[1000], szDialog[100];

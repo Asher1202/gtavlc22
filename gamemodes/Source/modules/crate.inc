@@ -1,7 +1,7 @@
 #include <YSI_Coding\y_hooks>
 
 #define MAX_CRATES 		9
-new IsCrates[MAX_PLAYERS], CrateModel[MAX_PLAYERS], CheckMoGuong[MAX_PLAYERS], PlayerText: CratePTD[2], Text: CrateTD[6], CrateTime[MAX_PLAYERS], AlegeCrates[MAX_PLAYERS], Text3D: LabelCrates;
+new IsCrates[MAX_PLAYERS], CrateModel[MAX_PLAYERS], CheckMoGuong[MAX_PLAYERS], PlayerText: CratePTD[2], Text: CrateTD[4], CrateTime[MAX_PLAYERS], AlegeCrates[MAX_PLAYERS], Text3D: LabelCrates;
 new CrateName[6][30] = {
 	{"Random Skin"},
 	{"Random"}, 
@@ -42,61 +42,61 @@ hook OnGameModeInit() {
 	// Create3DTextLabel("{610F7D}Hop Qua Hiem{FFFFFF}\nSu Dung {610F7D}/buycrate{FFFFFF} De Mua Crate\n{FFFFFF}Gia Hop Qua: {610F7D}10.000.000  SAD {FFFFFF} / {610F7D}100 VIP XU",0xFFFFFFFF,1980.0298,-2181.1948,13.5469,25.0, 0, 1);
 	// Create3DTextLabel("{045AB6}Hop Qua Thuong{FFFFFF}\nSu Dung {045AB6}/buycrate{FFFFFF} De Mua Crate\n{FFFFFF}Gia Hop Qua: {045AB6}5.000.000  SAD {FFFFFF} / {045AB6}50 VIP XU",0xFFFFFFFF,1974.7478,-2181.4993,13.5469,25.0, 0, 1);    
 
-	CrateTD[5] = TextDrawCreate(234.333313, 183.362961, "box");
-	TextDrawLetterSize(CrateTD[5], 0.000000, 13.533330);
-	TextDrawTextSize(CrateTD[5], 371.000000, 0.000000);
-	TextDrawAlignment(CrateTD[5], 1);
-	TextDrawColor(CrateTD[5], 0xFFFFFFFF);
-	TextDrawUseBox(CrateTD[5], 1);
-	TextDrawBoxColor(CrateTD[5], 0x0000005D);
-	TextDrawSetShadow(CrateTD[5], 0);
-	TextDrawSetOutline(CrateTD[5], 0);
-	TextDrawBackgroundColor(CrateTD[5], 0x000000FF);
-	TextDrawFont(CrateTD[5], 1);
-	TextDrawSetProportional(CrateTD[5], 1);
-	TextDrawSetSelectable(CrateTD[5], 0);
-	 
-	CrateTD[4] = TextDrawCreate(234.333328, 164.266617, "box");
-	TextDrawLetterSize(CrateTD[4], 0.000000, 1.666666);
-	TextDrawTextSize(CrateTD[4], 371.000000, 0.000000);
-	TextDrawAlignment(CrateTD[4], 1);
-	TextDrawColor(CrateTD[4], 0xFFFFFFFF);
-	TextDrawUseBox(CrateTD[4], 1);
-	TextDrawBoxColor(CrateTD[4], 0x000000FE);
-	TextDrawSetShadow(CrateTD[4], 0);
-	TextDrawSetOutline(CrateTD[4], 0);
-	TextDrawBackgroundColor(CrateTD[4], 0x000000FF);
-	TextDrawFont(CrateTD[4], 1);
-	TextDrawSetProportional(CrateTD[4], 1);
-	TextDrawSetSelectable(CrateTD[4], 0);
-	 
-	CrateTD[3] = TextDrawCreate(303.000000, 163.466629, "Hop Qua");
-	TextDrawLetterSize(CrateTD[3], 0.400000, 1.600000);
-	TextDrawTextSize(CrateTD[3], 1280.000000, 1280.000000);
-	TextDrawAlignment(CrateTD[3], 2);
+	CrateTD[3] = TextDrawCreate(234.333313, 183.362961, "box");
+	TextDrawLetterSize(CrateTD[3], 0.000000, 13.533330);
+	TextDrawTextSize(CrateTD[3], 371.000000, 0.000000);
+	TextDrawAlignment(CrateTD[3], 1);
 	TextDrawColor(CrateTD[3], 0xFFFFFFFF);
-	TextDrawUseBox(CrateTD[3], 0);
-	TextDrawBoxColor(CrateTD[3], 0x80808080);
+	TextDrawUseBox(CrateTD[3], 1);
+	TextDrawBoxColor(CrateTD[3], 0x0000005D);
 	TextDrawSetShadow(CrateTD[3], 0);
-	TextDrawSetOutline(CrateTD[3], 1);
+	TextDrawSetOutline(CrateTD[3], 0);
 	TextDrawBackgroundColor(CrateTD[3], 0x000000FF);
-	TextDrawFont(CrateTD[3], 3);
+	TextDrawFont(CrateTD[3], 1);
 	TextDrawSetProportional(CrateTD[3], 1);
 	TextDrawSetSelectable(CrateTD[3], 0);
 	 
-	// CrateTD[2] = TextDrawCreate(302.400146, 309.348358, "Mo Hop Qua");
-	// TextDrawLetterSize(CrateTD[2], 0.280000, 1.475556);
-	// TextDrawTextSize(CrateTD[2], 10.000000, 136.730698);
-	// TextDrawAlignment(CrateTD[2], 2);
-	// TextDrawColor(CrateTD[2], 0xFFFFFFFF);
-	// TextDrawUseBox(CrateTD[2], 1);
-	// TextDrawBoxColor(CrateTD[2], 0x00FF001C);
-	// TextDrawSetShadow(CrateTD[2], 0);
-	// TextDrawSetOutline(CrateTD[2], 1);
-	// TextDrawBackgroundColor(CrateTD[2], 0x0000007A);
-	// TextDrawFont(CrateTD[2], 2);
-	// TextDrawSetProportional(CrateTD[2], 1);
-	// TextDrawSetSelectable(CrateTD[2], 1);
+	CrateTD[2] = TextDrawCreate(234.333328, 164.266617, "box");
+	TextDrawLetterSize(CrateTD[2], 0.000000, 1.666666);
+	TextDrawTextSize(CrateTD[2], 371.000000, 0.000000);
+	TextDrawAlignment(CrateTD[2], 1);
+	TextDrawColor(CrateTD[2], 0xFFFFFFFF);
+	TextDrawUseBox(CrateTD[2], 1);
+	TextDrawBoxColor(CrateTD[2], 0x000000FE);
+	TextDrawSetShadow(CrateTD[2], 0);
+	TextDrawSetOutline(CrateTD[2], 0);
+	TextDrawBackgroundColor(CrateTD[2], 0x000000FF);
+	TextDrawFont(CrateTD[2], 1);
+	TextDrawSetProportional(CrateTD[2], 1);
+	TextDrawSetSelectable(CrateTD[2], 0);
+	 
+	CrateTD[1] = TextDrawCreate(303.000000, 163.466629, "Hop Qua");
+	TextDrawLetterSize(CrateTD[1], 0.400000, 1.600000);
+	TextDrawTextSize(CrateTD[1], 1280.000000, 1280.000000);
+	TextDrawAlignment(CrateTD[1], 2);
+	TextDrawColor(CrateTD[1], 0xFFFFFFFF);
+	TextDrawUseBox(CrateTD[1], 0);
+	TextDrawBoxColor(CrateTD[1], 0x80808080);
+	TextDrawSetShadow(CrateTD[1], 0);
+	TextDrawSetOutline(CrateTD[1], 1);
+	TextDrawBackgroundColor(CrateTD[1], 0x000000FF);
+	TextDrawFont(CrateTD[1], 3);
+	TextDrawSetProportional(CrateTD[1], 1);
+	TextDrawSetSelectable(CrateTD[1], 0);
+	 
+	CrateTD[0] = TextDrawCreate(302.400146, 309.348358, "Mo Hop Qua");
+	TextDrawLetterSize(CrateTD[0], 0.280000, 1.475556);
+	TextDrawTextSize(CrateTD[0], 10.000000, 136.730698);
+	TextDrawAlignment(CrateTD[0], 2);
+	TextDrawColor(CrateTD[0], 0xFFFFFFFF);
+	TextDrawUseBox(CrateTD[0], 1);
+	TextDrawBoxColor(CrateTD[0], 0x00FF001C);
+	TextDrawSetShadow(CrateTD[0], 0);
+	TextDrawSetOutline(CrateTD[0], 1);
+	TextDrawBackgroundColor(CrateTD[0], 0x0000007A);
+	TextDrawFont(CrateTD[0], 2);
+	TextDrawSetProportional(CrateTD[0], 1);
+	TextDrawSetSelectable(CrateTD[0], 1);
 	 
 	// CrateTD[1] = TextDrawCreate(302.466766, 343.450439, "Huy Bo");
 	// TextDrawLetterSize(CrateTD[1], 0.280000, 1.475556);
@@ -275,28 +275,28 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
 }
 hook OnPlayerClickTextDraw(playerid, Text:clickedid) {
 
-	if(clickedid == CrateTD[1]) {
-	    if(CrateModel[playerid] >= 0) return true;
-		for(new j = 0; j < 6; j++) TextDrawHideForPlayer(playerid, CrateTD[j]);
-		for(new j = 0; j < 2; j++) PlayerTextDrawHide(playerid, CratePTD[j]);
-		IsCrates[playerid] = 0;
-		CancelSelectTextDraw(playerid);
-		return ~0;
-	}
-	else if(clickedid == CrateTD[0]) {
-		if(CrateModel[playerid] >= 0) return true;
- 		CrateModel[playerid] = 0;
- 		CrateTime[playerid] = 20;
-    	SendClientMessage(playerid, COLOR_WHITE, "{D81B15}(Crate System){FFFFFF} Ban da mo hop TEST, Se Khong nhan duoc bat cu thu gi.");
-    	startcrates(playerid);
-		return ~0;
-	}	    
-    else if(clickedid == Text:INVALID_TEXT_DRAW) {
+	// if(clickedid == CrateTD[1]) {
+	//     if(CrateModel[playerid] >= 0) return true;
+	// 	for(new j = 0; j < 6; j++) TextDrawHideForPlayer(playerid, CrateTD[j]);
+	// 	for(new j = 0; j < 2; j++) PlayerTextDrawHide(playerid, CratePTD[j]);
+	// 	IsCrates[playerid] = 0;
+	// 	CancelSelectTextDraw(playerid);
+	// 	return ~0;
+	// }
+	// else if(clickedid == CrateTD[0]) {
+	// 	if(CrateModel[playerid] >= 0) return true;
+ 	// 	CrateModel[playerid] = 0;
+ 	// 	CrateTime[playerid] = 20;
+    // 	SendClientMessage(playerid, COLOR_WHITE, "{D81B15}(Crate System){FFFFFF} Ban da mo hop TEST, Se Khong nhan duoc bat cu thu gi.");
+    // 	startcrates(playerid);
+	// 	return ~0;
+	// }	    
+    if(clickedid == Text:INVALID_TEXT_DRAW) {
 		if(CrateTime[playerid] > 0) SelectTextDraw(playerid, 0xCA3ADBFF);
 		else {
 			if(IsCrates[playerid] == 1) {
 				IsCrates[playerid] = 0;
-				for(new j = 0; j < 6; j++) TextDrawHideForPlayer(playerid, CrateTD[j]);
+				for(new j = 0; j < 3; j++) TextDrawHideForPlayer(playerid, CrateTD[j]);
 				for(new j = 0; j < 2; j++) PlayerTextDrawHide(playerid, CratePTD[j]);
 				CancelSelectTextDraw(playerid);
 				return ~0;
@@ -371,7 +371,7 @@ function TatMoGuong(playerid) {
 }	
 function TatQuayGuong(playerid) {
 	IsCrates[playerid] = 0;
-	for(new j = 0; j < 6; j++) TextDrawHideForPlayer(playerid, CrateTD[j]);
+	for(new j = 0; j < 4; j++) TextDrawHideForPlayer(playerid, CrateTD[j]);
 	for(new j = 0; j < 2; j++) PlayerTextDrawHide(playerid, CratePTD[j]);
 	CancelSelectTextDraw(playerid);
 	CheckMoGuong[playerid] = 1;
@@ -417,10 +417,10 @@ function ShowCrates(playerid) {
 	new string[64];
 	PlayerTextDrawSetPreviewModel(playerid, CratePTD[0], 18631);
 	format(string, sizeof(string), "Ban co %d hop qua.", totalcrates(playerid));
-	PlayerTextDrawSetString(playerid, CratePTD[1], string);
+	// PlayerTextDrawSetString(playerid, CratePTD[1], string);
 	for(new i = 0; i < 8; i++) TextDrawShowForPlayer(playerid, CrateTD[i]);
-	PlayerTextDrawShow(playerid, CratePTD[1]);
-	PlayerTextDrawShow(playerid, CratePTD[0]);
+	// PlayerTextDrawShow(playerid, CratePTD[1]);
+	// PlayerTextDrawShow(playerid, CratePTD[0]);
 	SelectTextDraw(playerid, 0xCA3ADBFF);
 	IsCrates[playerid] = 1;
 	return true;

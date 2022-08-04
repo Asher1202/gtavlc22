@@ -74,7 +74,7 @@ new Text3D:adminLabel[MAX_PLAYERS];
 #include <fly>
 #include <progress2>
 #include <AutoAFK>
-// #include <sampcac>
+#include <sampcac>
 #include <EVF> //for vehiclespeedcap and stufsf
 // #include <td-streamer-player> 
 DEFINE_HOOK_REPLACEMENT(KeyState, KState);
@@ -95,6 +95,7 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 #include <core/timers.pwn>
 #include "Source/modules/jail_escape"
 #include "Source/modules/tutorial.pwn"
+#include "Source/modules/damage-informer/base.pwn"
 #include <jobs>
 #include <cpn>
 #include <core/callbacks>
@@ -169,7 +170,7 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 #include <map/hq.inc>
 #include <map/hqvagos>
 // #include <map/yellow>
-#include <map/islandevent>
+// #include <map/islandevent>
 // #include <map/grays2s>
 // #include <map/grays3s>
 

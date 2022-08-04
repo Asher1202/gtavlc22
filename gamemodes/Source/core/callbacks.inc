@@ -229,6 +229,7 @@ public OnGameModeInit() {
 	ServerSystem[11] = 1; // tắt AUTOKICK anti trollcar
 	ServerSystem[20] = 1; // tắt war bù
 	ServerSystem[21] = 1; // tắt x2 payday
+	DISABLEREG = 0;
 	return 1;
 }
 timer CheckAccount[3000](playerid) {
@@ -308,6 +309,7 @@ public OnPlayerConnect(playerid) {
 		SendClientMessage(playerid, COLOR_WARNING, "Ai primit kick deoarece numele tau contine un IP!");
 		KickEx(playerid);	
 	}*/
+	// ResetPlayerDamages(playerid);
 	RemoveMaps(playerid);
 	PlayerTextdraws(playerid);
 	LoadGuong(playerid);
@@ -1323,7 +1325,46 @@ public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart) 
 	
 	new Float:HP, Float:AP, Float:remainHP;
 		//if(issuerid == INVALID_PLAYER_ID) return 1;
+	
 	if(issuerid != INVALID_PLAYER_ID) {
+		new id;
+		GetPlayerHealth(playerid, HP);
+		GetPlayerArmour(playerid, AP);
+		for(new i = 0; i < MAX_DAMAGES; i++)
+		{
+			if(!DamageInfo[playerid][i][dmgDamage])
+			{
+				id = i;
+				break;
+			}
+		}
+		new name[35];
+		DamageInfo[playerid][id][dmgDamage] = floatround(amount, floatround_round);
+		DamageInfo[playerid][id][dmgIssuerName] = GetPlayerName(playerid, name, sizeof(name));
+		DamageInfo[playerid][id][dmgWeapon] = weaponid;
+		DamageInfo[playerid][id][dmgBodypart] = bodypart;
+		if(AP > 0) DamageInfo[playerid][id][dmgKevlarhit] = true;
+		else if(AP < 1) DamageInfo[playerid][id][dmgKevlarhit] = false;
+		DamageInfo[playerid][id][dmgSeconds] = gettime();
+		new Float:disc = 0.0;
+    	disc = GetDistanceBetweenPlayers(issuerid,playerid);
+		{
+			
+			new string[195];
+			new weaponname[24], part[24];
+			GetWeaponName(weaponid, weaponname, sizeof (weaponname));
+			if(weaponid == 0) weaponname = "Nam dam";
+			if(bodypart == 9) part = "Dau";
+			if(bodypart == 4) part = "Trym";
+			if(bodypart == 5) part = "Tay trai";
+			if(bodypart == 6) part = "Tay phai";
+			if(bodypart == 7) part = "Chan trai";
+			if(bodypart == 8) part = "Chan phai";
+			if(bodypart == 3) part = "Nguc";
+			if(weaponid == 0) weaponname = "Tay";
+			format(string, sizeof(string), "[Chien Dau] Ban da bi {00fa2a}%s{ff0000} ban bang khau sung {00fa2a}%s{ff0000} lam ban mat {00fa2a}%.0fHP{ff0000} Khoang cach : {00fa2a}%0.1fm | Vi tri [%s].",GetName(issuerid), weaponname, amount, disc, part);
+			SendClientMessage(playerid, COLOR_RED, string);
+		}
 		if(amount < 0) {
 			new string[128],sendername[25];
 			GetPlayerName(issuerid,sendername,sizeof(sendername));
@@ -1665,6 +1706,7 @@ public OnPlayerDeathEx(playerid, killerid, reason) {
     }
 	else ADeathMessage(INVALID_PLAYER_ID, playerid, 47);
 	// Death 3DText
+	// ResetPlayerDamages(playerid);
 	Update3DTextLabelText(deathLabel[playerid], COLOR_LIGHTRED, "[dead]");
 	Attach3DTextLabelToPlayer(deathLabel[playerid], playerid, 0.0, 0.0, 0.3);
 	if(InRob[playerid] == 1) FailRob(playerid, "Ban da chet");
@@ -4596,7 +4638,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			if(hitid == cadouzburator)
 			{
 				new dmg = 5;
-				cadouviata -= dmg,cadoubani[playerid] += 250,dmgdat[playerid] += dmg,cadoulabel();
+				cadouviata -= dmg,cadoubani[playerid] += 850,dmgdat[playerid] += dmg,cadoulabel();
 				if(cadoutimeractiv[playerid] == 0) {
 					if(cadoumesaj != 0) return 1;
 					cadoutimer[playerid] = repeat updatecadoubar[100](playerid);
@@ -4610,7 +4652,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 					GetObjectPos(cadouzburator, pos[0],pos[1],pos[2]);
 					collectobject = CreateObject(1577,  pos[0],pos[1],pos[2], 0,0,0, 100.0);UpdateDynamic3DTextLabelText(Cadolabel, COLOR_WHITE, "De lay phan thuong /collectgift!");
 					foreach(new i: Player) {
-					if(dmgdat[i] > 500) cadourp[i] = 1, cadoupp[i] = 1 + random(2);
+					if(dmgdat[i] > 500) cadourp[i] = RandomMinMax(5, 10), cadoupp[i] = 1 + random(6);
 					if(dmgdat[i] > 0) SendClientMessage(i,COLOR_MONEY, "[GIFTBOX] De lay phan thuong, hay su dung /collectgift!");
 					SCMTA(COLOR_MONEY, "[GIFTBOX] De xem bang xep hang nguoi tham gia /topevent!");
 					stop cadoutimer[i];
@@ -4646,10 +4688,12 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
     return 1;
 }
 public OnPlayerStreamIn(playerid, forplayerid) {
+	
+	ShowPlayerNameTagForPlayer(playerid, forplayerid, 0);
+	ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
 	if(!IsPCPlayer(playerid)) {
 		ShowPlayerNameTagForPlayer(playerid, forplayerid, 1);
 	}
-	if(IsPCPlayer(playerid)) ShowPlayerNameTagForPlayer(playerid, forplayerid, 0);
 	SetHitStreamIn(playerid, forplayerid);
 
 	return 1;
@@ -4714,7 +4758,7 @@ public OnPlayerStreamOut(playerid, forplayerid) {
 	if(IsPCPlayer(playerid)) {
 		ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
 	}
-	if(!IsPCPlayer(playerid)) {
+	else{
 		ShowPlayerNameTagForPlayer(playerid, forplayerid, 0);
 	}
 	SetHitStreamOut(playerid, forplayerid);	

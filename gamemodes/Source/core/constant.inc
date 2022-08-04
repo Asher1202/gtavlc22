@@ -85,23 +85,22 @@ new SpecialWeek = 1;
 #define MAX_BIZ 					(120)
 #define MAX_HOUSES					(300)
 
-// FIRE
-#define MAX_FIRES					(100)		// max amout of fires able to exist at once
-// #define BurnOthers								// should players be able to ignite other players by touching?
-#define FireMessageColor			0x00FF55FF	// color used for the extinguishing message
+// // FIRE
+// #define MAX_FIRES					(100)		// max amout of fires able to exist at once
+// // #define BurnOthers								// should players be able to ignite other players by touching?
+// #define FireMessageColor			0x00FF55FF	// color used for the extinguishing message
 
-#define BURNING_RADIUS 				(1.5)     	// radius in which you start burning if you're too close to a fire
-#define ONFOOT_RADIUS				(1.5)		// radius in which you can extinguish the fire by foot
-#define PISSING_DISTANCE			(2.0)		// radius in which you can extinguish the fire by peeing
-#define CAR_RADIUS					(8.0)		// radius in which you can extinguish the fire by firetruck/SWAT Van
-#define Z_DIFFERENCE				(2.5)		// height which is used for technical accurancy of extinguishing. Please do not change
-#define FIRE_UPDATE_TIMER_DELAY     (500)     	// amount of milliseconds the fire timer should loop in
-#define EXTINGUISH_TIME_VEHICLE		(1)			// time you have to spray at the fire with a firetruck (seconds)
-#define EXTINGUISH_TIME_ONFOOT		(4)			// time you have to spray at the fire onfoot (seconds)
-#define EXTINGUISH_TIME_PEEING		(10)		// time you have to pee at the fire (seconds)
-#define EXTINGUISH_TIME_PLAYER		(2)			// time it takes to extinguish a player (seconds)
-#define FIRE_OBJECT_SLOT			(1)			// the slot used with SetPlayerAttachedObject and RemovePlayerAttachedObject	
-
+// #define BURNING_RADIUS 				(1.5)     	// radius in which you start burning if you're too close to a fire
+// #define ONFOOT_RADIUS				(1.5)		// radius in which you can extinguish the fire by foot
+// #define PISSING_DISTANCE			(2.0)		// radius in which you can extinguish the fire by peeing
+// #define CAR_RADIUS					(8.0)		// radius in which you can extinguish the fire by firetruck/SWAT Van
+// #define Z_DIFFERENCE				(2.5)		// height which is used for technical accurancy of extinguishing. Please do not change
+// #define FIRE_UPDATE_TIMER_DELAY     (500)     	// amount of milliseconds the fire timer should loop in
+// #define EXTINGUISH_TIME_VEHICLE		(1)			// time you have to spray at the fire with a firetruck (seconds)
+// #define EXTINGUISH_TIME_ONFOOT		(4)			// time you have to spray at the fire onfoot (seconds)
+// #define EXTINGUISH_TIME_PEEING		(10)		// time you have to pee at the fire (seconds)
+// #define EXTINGUISH_TIME_PLAYER		(2)			// time it takes to extinguish a player (seconds)
+// #define FIRE_OBJECT_SLOT			(1)			// the slot used with SetPlayerAttachedObject and RemovePlayerAttachedObject	
 
 #define COLOR_ERROR         0xC0241FFF
 #define Peeing(%0) (GetPlayerSpecialAction(%0) == SPECIAL_ACTION_PISSING)

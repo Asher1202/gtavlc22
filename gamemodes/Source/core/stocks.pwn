@@ -808,20 +808,20 @@ YoutubeStreamForPlayer(playerid, link[]) {
     PlayAudioStreamForPlayer(playerid, link);
     
 }
-timer HideMoneyTD[4500](playerid) {
-    PlayerTextDrawHide(playerid, ShowMoneyPlus);
-    return 1;
-}
+// timer HideMoneyTD[4500](playerid) {
+//     PlayerTextDrawHide(playerid, ShowMoneyPlus);
+//     return 1;
+// }
 GivePlayerCash(playerid, money) {
     Cash[playerid] += money;
-    new string[22];
-    if(money > 0) format(string, sizeof(string), "~g~~h~+$%s", FormatNumber(money));
-    else format(string, sizeof(string), "~r~~h~-$%s",FormatNumber(-money));
-    PlayerTextDrawSetString(playerid, ShowMoneyPlus, string);
-    PlayerTextDrawShow(playerid, ShowMoneyPlus);
+    // new string[22];
+    // if(money > 0) format(string, sizeof(string), "~g~~h~+$%s", FormatNumber(money));
+    // else format(string, sizeof(string), "~r~~h~-$%s",FormatNumber(-money));
+    // PlayerTextDrawSetString(playerid, ShowMoneyPlus, string);
+    // PlayerTextDrawShow(playerid, ShowMoneyPlus);
 
-    stop TDCashTimer[playerid];
-    TDCashTimer[playerid] = defer HideMoneyTD(playerid);
+    // stop TDCashTimer[playerid];
+    // TDCashTimer[playerid] = defer HideMoneyTD(playerid);
     return 1;
 }
 GetPlayerCash(playerid) return Cash[playerid];
@@ -905,7 +905,7 @@ hook ResetVariables(playerid) {
     deathLabel[playerid] = Create3DTextLabel("", -1, 0.0, 0.0, 0.0, 10.0, 0, 0);
     // UseNewestClient{playerid} = 0;
     // AcWarning{playerid} = 0; 
-    // UsingSampcac{playerid} = 0;
+    UsingSampcac{playerid} = 0;
     
     // DMV System
     DrivingTest[playerid] = 0, 
@@ -2355,7 +2355,7 @@ stock NearMessage2(playerid, Float:range, color, const text[], va_args<>) {
 stock GetFactionMembersOn2(fid) {
     new x;
     foreach(new i: Player) {
-        if(/*UsingSampcac{i} == 1 &&*/ IsPlayerLogged[i] == 1) {
+        if(UsingSampcac{i} == 1 && IsPlayerLogged[i] == 1) {
             if(PlayerInfo[i][pMember] == fid) { x++; }
         }
     }
@@ -2420,120 +2420,120 @@ RaceMapName(map) {
     return string;
 }
 
-CanPlayerBurn(playerid, val = 0) {
-    //CallRemoteFunction("CanBurn", "d", playerid) >= 0 && 
-    if(GetPlayerSkin(playerid) != 277 && GetPlayerSkin(playerid) != 278 
-    && GetPlayerSkin(playerid) != 279 && !IsPlayerInWater(playerid) && ((!val && !GetPVarInt(playerid, "IsOnFire")) 
-    || (val && GetPVarInt(playerid, "IsOnFire")))) { return 1; }
+// CanPlayerBurn(playerid, val = 0) {
+//     //CallRemoteFunction("CanBurn", "d", playerid) >= 0 && 
+//     if(GetPlayerSkin(playerid) != 277 && GetPlayerSkin(playerid) != 278 
+//     && GetPlayerSkin(playerid) != 279 && !IsPlayerInWater(playerid) && ((!val && !GetPVarInt(playerid, "IsOnFire")) 
+//     || (val && GetPVarInt(playerid, "IsOnFire")))) { return 1; }
     
-    return 0;
-}
-
-Pissing_at_Flame(playerid) {
-    if(Peeing(playerid)) return Aiming_at_Flame(playerid);
-    return -1;
-}
- 
-IsInWaterCar(playerid) {
-    return GetVehicleModel(GetPlayerVehicleID(playerid)) == 407 
-        || GetVehicleModel(GetPlayerVehicleID(playerid)) == 601;
-}
- 
-HasExtinguisher(playerid) {
-    return GetPlayerWeapon(playerid) == 42 && !IsPlayerInAnyVehicle(playerid);
-}
-// Carspeed(playerid,mode = 1) {
-//     new Float:Velocity [3];
-//     GetVehicleVelocity ( GetPlayerVehicleID ( playerid ) , Velocity [ 0 ] , Velocity [ 1 ] , Velocity [ 2 ] ) ;
-//     return IsPlayerInAnyVehicle ( playerid ) ? floatround ( ( ( floatsqroot ( ( ( Velocity [ 0 ] * Velocity [ 0 ] ) + ( Velocity [ 1 ] * Velocity [ 1 ] ) + ( Velocity [ 2 ] * Velocity [ 2 ] ) ) ) * ( !mode ? 105.0 : 170.0 ) ) ) * 1 ) : 0;
+//     return 0;
 // }
-Pressing(playerid) {
-    new keys, updown, leftright;
-    GetPlayerKeys(playerid, keys, updown, leftright);
-    return keys;
-}
-Aiming_at_Flame(playerid) {
-    if(gettime() - AaF_cacheTime[playerid] < 1) return AaF_cache[playerid];
-    AaF_cacheTime[playerid] = gettime();
-    new id = -1;
-    new Float:dis = 99999.99;
-    new Float:dis2;
-    new Float:px, Float:py, Float:pz;
-    new Float:x, Float:y, Float:z, Float:a;
-    GetXYInFrontOfPlayer(playerid, x, y, z, a, 1);
-    z -= Z_DIFFERENCE;
-    new Float:cx,Float:cy,Float:cz,Float:fx,Float:fy,Float:fz;
-    GetPlayerCameraPos(playerid, cx, cy, cz);
-    GetPlayerCameraFrontVector(playerid, fx, fy, fz);
-    foreach(new i: Player) {
-        if(GetPVarInt(i, "IsOnFire") && IsPlayerConnected(i) && (IsInWaterCar(playerid) || HasExtinguisher(playerid) || GetPlayerWeapon(playerid) == 41 || Peeing(playerid)) && GetPVarInt(i, "IsOnFire")) {
-            GetPlayerPos(i, px, py, pz);
-            if(!Peeing(playerid)) dis2 = DistanceCameraTargetToLocation(cx, cy, cz, px, py, pz, fx, fy, fz);
-            else {
-                if(IsPlayerInRangeOfPoint(playerid, ONFOOT_RADIUS, px, py, pz)) dis2 = 0.0;
-            }
-            if(dis2 < dis) {
-                dis = dis2;
-                id = i;
-                if(Peeing(playerid)) return id;
-            }
-        }
-    }
-    if(id != -1) { return id-MAX_PLAYERS; }
-    foreach(new i: iFlame) {
-        if(Flame[i][Flame_Exists]) {
-            if(IsInWaterCar(playerid) || HasExtinguisher(playerid) || GetPlayerWeapon(playerid) == 41 || Peeing(playerid)) {
-                if(!Peeing(playerid)) dis2 = DistanceCameraTargetToLocation(cx, cy, cz, Flame[i][Flame_pos][0], Flame[i][Flame_pos][1], Flame[i][Flame_pos][2]+Z_DIFFERENCE, fx, fy, fz);
-                else dis2 = GetDistanceBetweenPoints(x,y,z,Flame[i][Flame_pos][0],Flame[i][Flame_pos][1],Flame[i][Flame_pos][2]);
-                if((IsPlayerInAnyVehicle(playerid) && dis2 < CAR_RADIUS && dis2 < dis) || (!IsPlayerInAnyVehicle(playerid) && ((dis2 < ONFOOT_RADIUS && dis2 < dis) || (Peeing(playerid) && dis2 < PISSING_DISTANCE && dis2 < dis)))) {
-                    dis = dis2;
-                    id = i;
-                }
-            }
-        }
-    }
-    if(id != -1) {
-        if
-        (
-            (
-                IsPlayerInAnyVehicle(playerid) && !IsPlayerInRangeOfPoint(playerid, 50, Flame[id][Flame_pos][0], Flame[id][Flame_pos][1], Flame[id][Flame_pos][2])
-            )
-            ||
-            (
-                !IsPlayerInAnyVehicle(playerid)  && !IsPlayerInRangeOfPoint(playerid, 5, Flame[id][Flame_pos][0], Flame[id][Flame_pos][1], Flame[id][Flame_pos][2])
-            )
-        )
-        { id = -1; }
-    }
-    AaF_cache[playerid] = id;
-    return id;
-}
-GetXYInFrontOfPlayer(playerid, &Float:x, &Float:y, &Float:z, &Float:a, Float:distance) {
-    GetPlayerPos(playerid, x, y ,z);
-    if(IsPlayerInAnyVehicle(playerid)) GetVehicleZAngle(GetPlayerVehicleID(playerid),a);
-    else GetPlayerFacingAngle(playerid, a);
-    x += (distance * floatsin(-a, degrees));
-    y += (distance * floatcos(-a, degrees));
-    return 0;
-}
 
-IsAtFlame(playerid) {
-    foreach(new i: iFlame) {
-        if(Flame[i][Flame_Exists]) {
-            if(!IsPlayerInAnyVehicle(playerid) && (IsPlayerInRangeOfPoint(playerid, BURNING_RADIUS, Flame[i][Flame_pos][0], Flame[i][Flame_pos][1], Flame[i][Flame_pos][2]+Z_DIFFERENCE) ||
-            IsPlayerInRangeOfPoint(playerid, BURNING_RADIUS, Flame[i][Flame_pos][0], Flame[i][Flame_pos][1], Flame[i][Flame_pos][2]+Z_DIFFERENCE-1))) return 1;
-        }
-    }
-    return 0;
-}
+// Pissing_at_Flame(playerid) {
+//     if(Peeing(playerid)) return Aiming_at_Flame(playerid);
+//     return -1;
+// }
+ 
+// IsInWaterCar(playerid) {
+//     return GetVehicleModel(GetPlayerVehicleID(playerid)) == 407 
+//         || GetVehicleModel(GetPlayerVehicleID(playerid)) == 601;
+// }
+ 
+// HasExtinguisher(playerid) {
+//     return GetPlayerWeapon(playerid) == 42 && !IsPlayerInAnyVehicle(playerid);
+// }
+// // Carspeed(playerid,mode = 1) {
+// //     new Float:Velocity [3];
+// //     GetVehicleVelocity ( GetPlayerVehicleID ( playerid ) , Velocity [ 0 ] , Velocity [ 1 ] , Velocity [ 2 ] ) ;
+// //     return IsPlayerInAnyVehicle ( playerid ) ? floatround ( ( ( floatsqroot ( ( ( Velocity [ 0 ] * Velocity [ 0 ] ) + ( Velocity [ 1 ] * Velocity [ 1 ] ) + ( Velocity [ 2 ] * Velocity [ 2 ] ) ) ) * ( !mode ? 105.0 : 170.0 ) ) ) * 1 ) : 0;
+// // }
+// Pressing(playerid) {
+//     new keys, updown, leftright;
+//     GetPlayerKeys(playerid, keys, updown, leftright);
+//     return keys;
+// }
+// Aiming_at_Flame(playerid) {
+//     if(gettime() - AaF_cacheTime[playerid] < 1) return AaF_cache[playerid];
+//     AaF_cacheTime[playerid] = gettime();
+//     new id = -1;
+//     new Float:dis = 99999.99;
+//     new Float:dis2;
+//     new Float:px, Float:py, Float:pz;
+//     new Float:x, Float:y, Float:z, Float:a;
+//     GetXYInFrontOfPlayer(playerid, x, y, z, a, 1);
+//     z -= Z_DIFFERENCE;
+//     new Float:cx,Float:cy,Float:cz,Float:fx,Float:fy,Float:fz;
+//     GetPlayerCameraPos(playerid, cx, cy, cz);
+//     GetPlayerCameraFrontVector(playerid, fx, fy, fz);
+//     foreach(new i: Player) {
+//         if(GetPVarInt(i, "IsOnFire") && IsPlayerConnected(i) && (IsInWaterCar(playerid) || HasExtinguisher(playerid) || GetPlayerWeapon(playerid) == 41 || Peeing(playerid)) && GetPVarInt(i, "IsOnFire")) {
+//             GetPlayerPos(i, px, py, pz);
+//             if(!Peeing(playerid)) dis2 = DistanceCameraTargetToLocation(cx, cy, cz, px, py, pz, fx, fy, fz);
+//             else {
+//                 if(IsPlayerInRangeOfPoint(playerid, ONFOOT_RADIUS, px, py, pz)) dis2 = 0.0;
+//             }
+//             if(dis2 < dis) {
+//                 dis = dis2;
+//                 id = i;
+//                 if(Peeing(playerid)) return id;
+//             }
+//         }
+//     }
+//     if(id != -1) { return id-MAX_PLAYERS; }
+//     foreach(new i: iFlame) {
+//         if(Flame[i][Flame_Exists]) {
+//             if(IsInWaterCar(playerid) || HasExtinguisher(playerid) || GetPlayerWeapon(playerid) == 41 || Peeing(playerid)) {
+//                 if(!Peeing(playerid)) dis2 = DistanceCameraTargetToLocation(cx, cy, cz, Flame[i][Flame_pos][0], Flame[i][Flame_pos][1], Flame[i][Flame_pos][2]+Z_DIFFERENCE, fx, fy, fz);
+//                 else dis2 = GetDistanceBetweenPoints(x,y,z,Flame[i][Flame_pos][0],Flame[i][Flame_pos][1],Flame[i][Flame_pos][2]);
+//                 if((IsPlayerInAnyVehicle(playerid) && dis2 < CAR_RADIUS && dis2 < dis) || (!IsPlayerInAnyVehicle(playerid) && ((dis2 < ONFOOT_RADIUS && dis2 < dis) || (Peeing(playerid) && dis2 < PISSING_DISTANCE && dis2 < dis)))) {
+//                     dis = dis2;
+//                     id = i;
+//                 }
+//             }
+//         }
+//     }
+//     if(id != -1) {
+//         if
+//         (
+//             (
+//                 IsPlayerInAnyVehicle(playerid) && !IsPlayerInRangeOfPoint(playerid, 50, Flame[id][Flame_pos][0], Flame[id][Flame_pos][1], Flame[id][Flame_pos][2])
+//             )
+//             ||
+//             (
+//                 !IsPlayerInAnyVehicle(playerid)  && !IsPlayerInRangeOfPoint(playerid, 5, Flame[id][Flame_pos][0], Flame[id][Flame_pos][1], Flame[id][Flame_pos][2])
+//             )
+//         )
+//         { id = -1; }
+//     }
+//     AaF_cache[playerid] = id;
+//     return id;
+// }
+// GetXYInFrontOfPlayer(playerid, &Float:x, &Float:y, &Float:z, &Float:a, Float:distance) {
+//     GetPlayerPos(playerid, x, y ,z);
+//     if(IsPlayerInAnyVehicle(playerid)) GetVehicleZAngle(GetPlayerVehicleID(playerid),a);
+//     else GetPlayerFacingAngle(playerid, a);
+//     x += (distance * floatsin(-a, degrees));
+//     y += (distance * floatcos(-a, degrees));
+//     return 0;
+// }
 
-IsPlayerInWater(playerid) {
-    new Float:X, Float:Y, Float:Z, an = GetPlayerAnimationIndex(playerid);
-    GetPlayerPos(playerid, X, Y, Z);
-    if((1544 >= an >= 1538 || an == 1062 || an == 1250) && (Z <= 0 || (Z <= 41.0 && IsPlayerInArea(playerid, -1387, -473, 2025, 2824))) ||
-    (1544 >= an >= 1538 || an == 1062 || an == 1250) && (Z <= 2 || (Z <= 39.0 && IsPlayerInArea(playerid, -1387, -473, 2025, 2824)))) return 1;
-    return 0;
-}
+// IsAtFlame(playerid) {
+//     foreach(new i: iFlame) {
+//         if(Flame[i][Flame_Exists]) {
+//             if(!IsPlayerInAnyVehicle(playerid) && (IsPlayerInRangeOfPoint(playerid, BURNING_RADIUS, Flame[i][Flame_pos][0], Flame[i][Flame_pos][1], Flame[i][Flame_pos][2]+Z_DIFFERENCE) ||
+//             IsPlayerInRangeOfPoint(playerid, BURNING_RADIUS, Flame[i][Flame_pos][0], Flame[i][Flame_pos][1], Flame[i][Flame_pos][2]+Z_DIFFERENCE-1))) return 1;
+//         }
+//     }
+//     return 0;
+// }
+
+// IsPlayerInWater(playerid) {
+//     new Float:X, Float:Y, Float:Z, an = GetPlayerAnimationIndex(playerid);
+//     GetPlayerPos(playerid, X, Y, Z);
+//     if((1544 >= an >= 1538 || an == 1062 || an == 1250) && (Z <= 0 || (Z <= 41.0 && IsPlayerInArea(playerid, -1387, -473, 2025, 2824))) ||
+//     (1544 >= an >= 1538 || an == 1062 || an == 1250) && (Z <= 2 || (Z <= 39.0 && IsPlayerInArea(playerid, -1387, -473, 2025, 2824)))) return 1;
+//     return 0;
+// }
 
 forward DiaDiemCauCaO(playerid);
 public DiaDiemCauCaO(playerid)

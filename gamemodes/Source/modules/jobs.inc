@@ -625,37 +625,37 @@ hook OnGameModeInit() {
 
 	return 1;
 }
-hook OnPlayerKStateChange(playerid, newkeys, oldkeys) {
-    if(GetPlayerState(playerid) == PLAYER_STATE_ONFOOT) {
-	    if(newkeys & KEY_SECONDARY_ATTACK) {
-		   	if(JobWorking[playerid] == 2) {
-		   		new Float:x,Float:y,Float:z;
-				for(new i = 0; i < sizeof(FarmerTree); i++) {
-					GetDynamicObjectPos(FarmerStairTree[i], x,y,z);
-					if(IsPlayerInRangeOfPoint(playerid, 2.0, x,y,z)) {
-						if(FarmerTreeTaken[playerid] == -1) return 1;
-						if(FarmerTreeStatus[i] > 0) return Info(playerid, "Cay da duoc thu hoach");
-						if(FarmerTreeApples[playerid] > 0) return Info(playerid, "Ban da lay mot hop tao!");
-						foreach(new p: Character) { if(FarmerTreeTaken[p] == i) return Info(playerid, "Cay nay da duoc mot nguoi choi khac thu hoach."); }
-						SetPlayerFacingAngle(playerid, 90.0), 
-						SetPlayerPosEx(playerid, x,y,z), 
-						FarmerTreeTaken[playerid] = i;
-						RemovePlayerAttachedObject(playerid, ATTACHMENT_ID_BALE), 
-						SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE), 
-						ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.0, 1, 0, 0, 0, 0), 
-						TogglePlayerControllable(playerid, false);
-						for(new t = 0; t < sizeof TreeTD; t++) TextDrawShowForPlayer(playerid, TreeTD[t]);
-						SelectTextDraw(playerid, 0xFF0000FF), 
-						SendClientMessage(playerid, COLOR_LIGHTBLUE, "* Thu hoach tat ca nhung qua tao ben duoi."), 
-						Info(playerid, "De thu hoach tao, nhap chuot vao no");
-						return 1;
-					}
-				}
-		   	}
-		}
-	}
-   	return 1;
-}
+// hook OnPlayerKStateChange(playerid, newkeys, oldkeys) {
+//     if(GetPlayerState(playerid) == PLAYER_STATE_ONFOOT) {
+// 	    if(newkeys & KEY_SECONDARY_ATTACK) {
+// 		   	if(JobWorking[playerid] == 2) {
+// 		   		new Float:x,Float:y,Float:z;
+// 				for(new i = 0; i < sizeof(FarmerTree); i++) {
+// 					GetDynamicObjectPos(FarmerStairTree[i], x,y,z);
+// 					if(IsPlayerInRangeOfPoint(playerid, 2.0, x,y,z)) {
+// 						if(FarmerTreeTaken[playerid] == -1) return 1;
+// 						if(FarmerTreeStatus[i] > 0) return Info(playerid, "Cay da duoc thu hoach");
+// 						if(FarmerTreeApples[playerid] > 0) return Info(playerid, "Ban da lay mot hop tao!");
+// 						foreach(new p: Character) { if(FarmerTreeTaken[p] == i) return Info(playerid, "Cay nay da duoc mot nguoi choi khac thu hoach."); }
+// 						SetPlayerFacingAngle(playerid, 90.0), 
+// 						SetPlayerPosEx(playerid, x,y,z), 
+// 						FarmerTreeTaken[playerid] = i;
+// 						RemovePlayerAttachedObject(playerid, ATTACHMENT_ID_BALE), 
+// 						SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE), 
+// 						ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.0, 1, 0, 0, 0, 0), 
+// 						TogglePlayerControllable(playerid, false);
+// 						for(new t = 0; t < sizeof TreeTD; t++) TextDrawShowForPlayer(playerid, TreeTD[t]);
+// 						SelectTextDraw(playerid, 0xFF0000FF), 
+// 						SendClientMessage(playerid, COLOR_LIGHTBLUE, "* Thu hoach tat ca nhung qua tao ben duoi."), 
+// 						Info(playerid, "De thu hoach tao, nhap chuot vao no");
+// 						return 1;
+// 					}
+// 				}
+// 		   	}
+// 		}
+// 	}
+//    	return 1;
+// }
 hook OnPlayerEnterCheckpoint(playerid) {
 	// if(CP[playerid] == 2018) {
 	// 	callcmd::stopwork(playerid, "");
@@ -1168,7 +1168,7 @@ CMD:thaluoi(playerid, params[])
 				// ChauTimer[playerid] = SetTimerEx("CauCaOBien", 100, true, "i", playerid);
 				TogglePlayerControllable(playerid, 0);
 				OnePlayAnim(playerid,"RIOT","RIOT_CHANT",4.0,1,1,1,1,0);
-				ShowProgressBar(playerid, "Dang Tha Luoi", PROGRESS_THALUOI, RandomMinMax(10000, 150000), 0xfcba03FF);
+				ShowProgressBar(playerid, "Dang Tha Luoi", PROGRESS_THALUOI, RandomMinMax(19000, 250000), 0xfcba03FF);
 				StartFish[playerid] = 1;
 				return 1;
 			}
@@ -1214,7 +1214,7 @@ hook OnProgressCompleted(playerid, progressid, params)
     {
         if(ThuySan[playerid] == 0) {
 			new asher = RandomMinMax(1,9), rar = random(2000), string[300], x;
-			x = 50000+random(45000)+ asher*100;
+			x = 50000+random(35000)+ asher*100;
 			
 			if(rar >= 1 && rar < 20) {
 				x = (42152 + random(44223) + asher*500);

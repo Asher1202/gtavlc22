@@ -335,6 +335,12 @@ Dialog:DIALOG_COLLECTCADOU(playerid, response, listitem, inputtext[])
 	colectgf[playerid] = 1;	
 	return 1;
 }
+Dialog:DIALOG_DAMAGE(playerid, response, listitem, inputtext[]) 
+{
+	if (response || !response)
+		return 1;
+	return 1;
+}
 Dialog:DIALOG_CODE(playerid, response, listitem, inputtext[]) 
 {
 	new query[70], string[100];
@@ -4436,9 +4442,17 @@ Dialog:DIALOG_LOGIN1(playerid, response, listitem, inputtext[])
 		OnPlayerRegister(playerid,tmppass);
 	}
 	else {
-		new string[200];
-		format(string, sizeof(string), "Chao mung, %s!\nTai khoan cau ban chua ai dang ky het.\nDe co the dang ky, xin hay nhap mat khau vao phia duoi.\n{FFA1A1}Mat khau cua ban can co it nhat 6 ky tu!",GetName(playerid));
-		Dialog_Show(playerid, DIALOG_LOGIN1, DIALOG_STYLE_PASSWORD, "Dang ky", string, "Dang ky", "Thoat");
+		if(DISABLEREG == 0)
+		{
+			new string[200];
+			format(string, sizeof(string), "Chao mung, %s!\nTai khoan cau ban chua ai dang ky het.\nDe co the dang ky, xin hay nhap mat khau vao phia duoi.\n{FFA1A1}Mat khau cua ban can co it nhat 6 ky tu!",GetName(playerid));
+			Dialog_Show(playerid, DIALOG_LOGIN1, DIALOG_STYLE_PASSWORD, "Dang ky", string, "Dang ky", "Thoat");
+		}
+		else {
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban khong the lam dieu do vao luc nay");
+			KickEx(playerid);
+		}
+		
 	}
 	return 1;
 }

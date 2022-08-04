@@ -77,7 +77,7 @@ CMD:sung(playerid, params[]) {
 
 }
 
-CMD:catsung(playerid, params[])
+CMD:xecatsung(playerid, params[])
 {
     if(OnDuty[playerid] == 1) return SendClientMessage(playerid, COLOR_WHITE, "Ban khong the cat sung khi dang onduty!");
     if(GetPlayerVirtualWorld(playerid) != 0 ) return SendClientMessage(playerid, COLOR_WHITE, "Ban khong the cat sung khi dang o trong mot VW!");
@@ -129,7 +129,74 @@ CMD:catsung(playerid, params[])
 	return 1;
 
 }
-CMD:laysung(playerid, params[])
+
+CMD:ccatsung(playerid, params[])
+{
+    if(OnDuty[playerid] == 1) return SendClientMessage(playerid, COLOR_WHITE, "Ban khong the cat sung khi dang onduty!");
+    if(GetPlayerVirtualWorld(playerid) != 0 ) return SendClientMessage(playerid, COLOR_WHITE, "Ban khong the cat sung khi dang o trong mot VW!");
+	if(UsingDrugs[playerid] != 0) return SendClientMessage(playerid, COLOR_WHITE, "Ban dang su dung thuoc phien!");
+	if(PlayerToPoint(300.0, playerid, -1423.5153,935.8321,1036.4756)) return SendClientMessage(playerid, -1, "Ban dang o trong Event Arena.");
+	if(PaintType[playerid] != 0) return SendClientMessage(playerid, -1, "Ban dang o trong paintball!");
+	if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000} [HE THONG] {FFFFFF}: Ban dang o trong mot xe!");
+	new weaponid = GetPlayerWeapon(playerid);
+	new ammo = GetPlayerAmmo(playerid);
+	new gunmodel;
+	switch(weaponid)
+	{
+		case 24 : gunmodel = 348;
+		case 31 : gunmodel = 356;
+		case 30 : gunmodel = 355;
+		case 28 : gunmodel = 352;
+		case 25 : gunmodel = 349;
+		case 5 : gunmodel = 336;
+	}
+	// new idd, vid;
+	//new slotsung = GetWeaponSlot(weaponid);
+	//if(weaponid != PInfo[playerid][Sung][slotsung]) return SendMessage(playerid, COLOR_THATBAI, "Ban khong the cat cay sung nay!",SMHETHONG);
+	// vid = GetClosestVehicle(playerid);
+	// idd = FindSpawnID(vid);
+	// if(XeCaNhan(playerid) == -1) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000} [HE THONG] {FFFFFF}: Ban khong o trong xe ca nhan cua ban!");
+	// if(IsABike(vid)) return SendClientMessage(playerid, COLOR_YELLOW, "Ban khong the bo sung vao xe dap");
+	ApplyAnimation(playerid,  "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0, 1);
+	// if(!IsABike(vid) && !IsAPlane(vid) && !IsABoat(vid))
+	// {
+	// 	new engine,lights,alarm,doors,bonnet,boot,objective;
+	// 	GetVehicleParamsEx(vid,engine,lights,alarm,doors,bonnet,boot,objective);
+	// 	if(boot == VEHICLE_PARAMS_OFF || boot == VEHICLE_PARAMS_UNSET) return SendClientMessage(playerid, COLOR_GREY, "Cop xe phai duoc mo ra (/xe copxe).");
+	// }
+	// new slot;
+	// if(sscanf(params, "d", slot)) return SendClientMessage(playerid, COLOR_GREY, "/catsung [slot]");
+	// if(slot>2 || slot < 1) return SendClientMessage(playerid,COLOR_GREY,"Slot tu 1 -> 2");
+	if(weaponid == 0) return SendClientMessage(playerid,COLOR_GREY,"Ban chua cam vu khi");
+	if(weaponid == 35) return SendClientMessage(playerid,COLOR_GREY,"Sung nay khong the cat");
+	if(weaponid == 38) return SendClientMessage(playerid,COLOR_GREY,"Sung nay khong the cat");
+	for(new i = 0; i<= 6; i++)
+	{
+		if(weaponid == PlayerInfo[playerid][pSungGang][i]) return SendClientMessage(playerid, COLOR_RED, "Ban khong the bo mot khau sung lay tu gangster {B6EEBD}vao cop xe!"); 
+	}
+	// if(CarInfo[vid][cSlotSung][slot-1] != 0) return SendClientMessage(playerid,COLOR_GREY,"Slot nay da co sung");
+	// CarInfo[vid][cSlotSung][slot-1] = weaponid;
+	// CarInfo[vid][cSlotAmmo][slot-1] = ammo;
+	new gunname[32];
+	GetWeaponName(weaponid,gunname,sizeof(gunname));
+
+	if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,gunname, gunmodel, ammo, 2);
+	else Inventory_Add(playerid,gunname, gunmodel, ammo, 1);
+	ResetWeapons(playerid);
+	new str[128];
+	format(str,sizeof(str),"Ban da cat cay sung %s va %d vien dan",gunname, ammo);
+	SendClientMessage(playerid, COLOR_GREEN, str);
+	// new query[512];
+	// mysql_format(SQL, query, sizeof(query), 
+	// 	"UPDATE cars SET Sung1 = '%d', Sung2 = '%d', Ammo1 = '%d', Ammo2 = '%d' WHERE ID=%d", 
+	// CarInfo[vid][cSlotSung][0], CarInfo[vid][cSlotSung][1],CarInfo[vid][cSlotAmmo][0],CarInfo[vid][cSlotAmmo][1], idd);
+	// mysql_tquery(SQL, query, "", "");
+	//saveCar(idd);
+	
+	return 1;
+
+}
+CMD:xelaysung(playerid, params[])
 {
 	if(UsingDrugs[playerid] != 0) return SendClientMessage(playerid, COLOR_WHITE, "Ban dang su dung thuoc phien!");
 	if(PlayerToPoint(300.0, playerid, -1423.5153,935.8321,1036.4756)) return SendClientMessage(playerid, -1, "Ban dang o trong Event Arena.");

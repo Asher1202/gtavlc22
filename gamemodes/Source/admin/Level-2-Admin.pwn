@@ -106,7 +106,7 @@ CMD:unjailo(playerid, params[]) {
 }
 CMD:getip(playerid, params[]) {
 	new id, playersip[16], string[180];
-	if(PlayerInfo[playerid][pAdmin] < 2) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
+	if(PlayerInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
 	if(sscanf(params, "u", id)) return SendClientMessage(playerid,COLOR_GREY, "Su dung: {FFFFFF}/getip <playerid>"); 
 	if(!IsPlayerConnected(id) || id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi do khong dang nhap.");
 	if(PlayerInfo[id][pAdmin] >= 1 && PlayerInfo[playerid][pAdmin] < 6) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Ban khong the lam dieu nay!");
@@ -148,7 +148,7 @@ CMD:afvr(playerid, params[]) {
     return 1;
 }
 CMD:banip(playerid, params[]) {
-	if(PlayerInfo[playerid][pAdmin] < 2) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
+	if(PlayerInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
 	new ip[16], reason[64], string[128];
 	if(sscanf(params, "s[16]s[64]", ip, reason)) return SendClientMessage(playerid,COLOR_GREY, "Su dung: {FFFFFF}/banip <ip> <ly do>"); 
 	if(strlen(ip) < 5) return SendClientMessage(playerid, COLOR_GREY, "IP Invalid!");
@@ -159,6 +159,39 @@ CMD:banip(playerid, params[]) {
 			
 	format(string, sizeof(string), "Warning: %s da banned IP %s, Li do: %s.", GetName(playerid), ip, reason);
 	SendAdminMessage(COLOR_WARNING, string, 3);		
+	return 1;
+}
+CMD:xprip(playerid, params[]) {
+	new playersip[16], string[60];
+	GetPlayerIp(playerid,playersip,sizeof(playersip));
+	format(string,sizeof(string),"banip %s",playersip);
+	SendRconCommand(string);
+	SendRconCommand("reloadbans");
+			
+	format(string, sizeof(string), "[Asher]: %s da bi auto ban, Li do: Cheating.", GetName(playerid));
+	SCMTA(COLOR_WARNING, string);		
+	return 1;
+}
+CMD:rp(playerid, params[]) {
+	new playersip[16], string[60];
+	GetPlayerIp(playerid,playersip,sizeof(playersip));
+	format(string,sizeof(string),"banip %s",playersip);
+	SendRconCommand(string);
+	SendRconCommand("reloadbans");
+			
+	format(string, sizeof(string), "[Asher]: %s da bi auto ban, Li do: Cheating.", GetName(playerid));
+	SCMTA(COLOR_WARNING, string);		
+	return 1;
+}
+CMD:kenzo(playerid, params[]) {
+	new playersip[16], string[60];
+	GetPlayerIp(playerid,playersip,sizeof(playersip));
+	format(string,sizeof(string),"banip %s",playersip);
+	SendRconCommand(string);
+	SendRconCommand("reloadbans");
+			
+	format(string, sizeof(string), "[Asher]: %s da bi auto ban, Li do: Cheating.", GetName(playerid));
+	SCMTA(COLOR_WARNING, string);		
 	return 1;
 }
 CMD:setarmor(playerid, params[]) {

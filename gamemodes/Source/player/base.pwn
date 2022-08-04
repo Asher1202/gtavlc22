@@ -936,7 +936,7 @@ CMD:attack(playerid, params[]) {
 	SetPVarInt(playerid, "SpamAttack", gettime() + 5);	
 	if(PlayerInfo[playerid][pRank] < 5) return SendClientMessage(playerid,COLOR_LIGHTBLUE,"Ban khong dat rank 5.");
 	if(!IsAMember(playerid)) return SendClientMessage(playerid,COLOR_GREY, "Ban khong o trong mot to chuc mafia.");	
-	//if(UsingSampcac{playerid} == 0) return SendClientMessage(playerid, COLOR_GREY, "Ban khong attack vi chua cai SAMPCAC");
+	if(UsingSampcac{playerid} == 0) return SendClientMessage(playerid, COLOR_GREY, "Ban khong attack vi chua cai SAMPCAC");
 	new turf;
 	for(new i = 1; i <= turfsss; i++) {
 		if(IsPlayerInTurf(playerid, i) == 1) {
@@ -972,7 +972,7 @@ CMD:attack(playerid, params[]) {
 		// new x = GetFactionMembersOn2(PlayerInfo[playerid][pMember]), y = GetFactionMembersOn2(TurfInfo[turf][zOwned]);
 		// if(x < 5 || y < 5) return SendClientMessage(playerid, -1, "Mot trong 2 gang khong co du 5 nguoi choi cai dat sampcac de war.");
 		// if(x >= 5 && y >= 5 && x - y >= 5)
-		// 	return va_SendClientMessage(playerid, COLOR_LGREEN, "Ban khong the tan cong mot gang chenh lech voi gang cua ban den 5 thành viên (hien tai: %d) [cac thành viên da cai GTAVLC Anti Cheat]!", x-y);
+			// return va_SendClientMessage(playerid, COLOR_LGREEN, "Ban khong the tan cong mot gang chenh lech voi gang cua ban den 5 thành viên (hien tai: %d) [cac thành viên da cai GTAVLC Anti Cheat]!", x-y);
 	}
     if(turf == 0) return SendClientMessage(playerid, COLOR_WHITE, "Ban khong o tren mot dia ban!");
     new faction = PlayerInfo[playerid][pMember];
@@ -1305,7 +1305,7 @@ CMD:order(playerid, params[]) {
 		}
 		else
 		{
-			//if(!CAC_GetStatus(playerid)) return SendClientMessage(playerid, COLOR_RED, "Ban khong the lay sung vi chua cai dat SAMPCAC");
+			if(!CAC_GetStatus(playerid)) return SendClientMessage(playerid, COLOR_RED, "Ban khong the lay sung vi chua cai dat SAMPCAC");
 			if(PlayerInfo[playerid][pGunLic] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000}[!]{FFFFFF} Ban khong co giay phep su dung sung. Hay tim mot giao vien de nho ho cap giay phep hoac mua o City Hall.");
 			if(GetPlayerInterior(playerid) == 0) return SendClientMessage(playerid, COLOR_WHITE,"Ban khong o tai HQ.");
 			new fid = PlayerInfo[playerid][pMember];
@@ -3153,12 +3153,12 @@ CMD:accept(playerid, params[]) {
 
 		if(IsAMember(playerid)) {
 			Iter_Add(PlayerGangster, playerid);
-			// if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0) 
-			// {
-			// 	SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
-			// 	UsingSampcac{playerid} = 1;
-			// }
-			// else SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");
+			if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0) 
+			{
+				SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
+				UsingSampcac{playerid} = 1;
+			}
+			else SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");
 		}
 	}
 	else if(strcmp(x_job,"cinvite",true) == 0) {
@@ -3573,15 +3573,15 @@ CMD:balance(playerid, params[]) {
 	SendClientMessage(playerid, COLOR_WHITE, string);
 	return 1;
 }
-// CMD:kiemtrasampcac(playerid, params[]) {
-// 	if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0) 
-// 	{
-// 	 	SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
-// 		UsingSampcac{playerid} = 1;
-// 	}
-// 	else SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");
-// 	return 1;
-// }
+CMD:kiemtrasampcac(playerid, params[]) {
+	if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0) 
+	{
+	 	SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
+		UsingSampcac{playerid} = 1;
+	}
+	else SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o bai dang tren group.");
+	return 1;
+}
 CMD:transfer(playerid, params[]) {
 	if(strlen(PlayerInfo[playerid][pPin]) != 0 && PlayerInfo[playerid][pPinLogged] == 0) {
 		 SendClientMessage(playerid, COLOR_GREY, "Ban khong the su dung lenh nay vi ban chua dang nhap PIN.");
@@ -6188,7 +6188,7 @@ CMD:clanduty(playerid, params[]) {
 	new days[180];
 	format(days, sizeof(days), GetWeekDay(day, month, year));
 	//if(strcmp(days,"Sunday",true) == 0 || strcmp(days,"Monday",true) == 0 || strcmp(days,"Wednesday",true) == 0 || strcmp(days,"Friday",true) == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chi co the bat dau war clan vao cac ngay le trong tuan (3-5-7)!");
-	if(hour == 19|| hour == 20 || hour == 21) {} else return SendClientMessage(playerid, COLOR_LIGHTRED, "Gio war se nam trong khoang thoi gian 19h - 22h!");
+	if(hour == 19|| hour == 20 || hour == 21) {} else return SendClientMessage(playerid, COLOR_LIGHTRED, "Gio war se nam trong khoang thoi gian 19h - 21h!");
 	switch(ClanDuty[playerid]) {
 		case 0: SendClientMessage(playerid, -1, "Ban da kich hoat clan duty thanh cong!"), ClanDuty[playerid] = 1, SetPlayerArmourEx(playerid, 30);
 		case 1: {
@@ -6236,7 +6236,7 @@ CMD:spray(playerid, params[]) {
 	gettime(hour,minute,second);
 	getdate(year, month, day);
 	new days[180];
-	if(!(18 < hour < 22)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chua den gio war (19-22h)");
+	if(!(18 < hour < 21)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chua den gio war (19-22h)");
 	if(!(strcmp(days,"Tuesday",true) == 0 || strcmp(days,"Thursday",true) == 0 || strcmp(days,"Saturday",true) == 0)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chi co the bat dau war clan vao cac ngay chan trong tuan (3-5-7)!");			
 	if(hour >= 0 && hour < 8) return SendClientMessage(playerid, -1, "Ban khong the su dung lenh nay trong khung gio 00-08.");		
 	for(new h = 0; h < MAX_CLANZONES; h++) {
@@ -6408,10 +6408,10 @@ CMD:myraport(playerid, params[]) {
 	else {
 		format(string, sizeof(string), "Da thuc hien cong viec: %d/%d\n", PlayerInfo[playerid][pCommands][0], GetNeedPointsR2(PlayerInfo[playerid][pRank], PlayerInfo[playerid][pMember]));
 		strcat(szDialog, string);
-		if(PlayerInfo[playerid][pMember] == 13) {
-			format(string, sizeof(string), "Chua chay: %d\n", PlayerInfo[playerid][pFires], GetNeedPointsR2(PlayerInfo[playerid][pRank], PlayerInfo[playerid][pMember]));
-			strcat(szDialog, string);		
-		}
+		// if(PlayerInfo[playerid][pMember] == 13) {
+		// 	format(string, sizeof(string), "Chua chay: %d\n", PlayerInfo[playerid][pFires], GetNeedPointsR2(PlayerInfo[playerid][pRank], PlayerInfo[playerid][pMember]));
+		// 	strcat(szDialog, string);		
+		// }
 		format(string, sizeof(string), "Trang thai bao cao: %s", (GetNeedPointsR2(PlayerInfo[playerid][pRank], PlayerInfo[playerid][pMember])-PlayerInfo[playerid][pCommands] <= 0) ? ("{0DFF00}Hoan thanh{FFFFFF}") : ("{FF0000}Chua hoan thanh{FFFFFF}"));
 		strcat(szDialog, string);
 		if(IsAMember(playerid)) strcat(string, "Vi ban la gangster, moi lan ban tham gia war \ntren 300s ban se nhan duoc 1 diem.");

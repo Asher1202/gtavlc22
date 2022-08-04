@@ -2,7 +2,7 @@
 
 #define MAX_TREE 40
 #define STOREHOUSE -1080.3639,-1195.3372,129.6956
-// new Text:TreeTD[15];
+new Text:TreeTD[15];
 
 enum enumGardenerTree {
     gntObject,
@@ -37,6 +37,7 @@ task GardenerTimer[60000]() {
 	}
 }
 
+// forward KStateChangeGardener(playerid, newkeys, oldkeys);
 hook OnPlayerKStateChange(playerid, newkeys, oldkeys) {
     if(GetPlayerState(playerid) == PLAYER_STATE_ONFOOT) {
 	    if(newkeys & KEY_SECONDARY_ATTACK) {
@@ -45,11 +46,11 @@ hook OnPlayerKStateChange(playerid, newkeys, oldkeys) {
 				for(new i = 0; i < MAX_TREE; i++) {
 					GetDynamicObjectPos(GardenerTree[i][gntStair], x,y,z);
 					if(IsPlayerInRangeOfPoint(playerid, 2.0, x,y,z)) {
-                        if(Gardener[playerid][gnApples] >= GetMaxPlayerApples(playerid)) return Info(playerid, "Trong kho da day, ban can di giao tao.");
+                        if(Gardener[playerid][gnApples] >= GetMaxPlayerApples(playerid)) return SendClientMessage(playerid, COLOR_GOLD, "Trong kho da day, ban can di giao tao.");
 						if(Gardener[playerid][gnTreeTaken] == -1) return 1;
-						if(GardenerTree[i][gntStatus] > 0) return Info(playerid, "Cay da duoc thu hoach");
-						if(Gardener[playerid][gnTreeApples] > 0) return Info(playerid, "Ban da lay mot hop tao!");
-						foreach(new p: Character) { if(Gardener[p][gnTreeTaken] == i) return Info(playerid, "Cay nay da duoc mot nguoi choi khac thu hoach."); }
+						if(GardenerTree[i][gntStatus] > 0) return SendClientMessage(playerid, COLOR_GOLD, "Cay da duoc thu hoach.");
+						if(Gardener[playerid][gnTreeApples] > 0) return SendClientMessage(playerid, COLOR_GOLD, "Ban da lay mot hop tao!");
+						foreach(new p: Character) { if(Gardener[p][gnTreeTaken] == i) return SendClientMessage(playerid, COLOR_GOLD, "Cay nay da duoc mot nguoi choi khac thu hoach."); }
 						SetPlayerFacingAngle(playerid, 90.0), 
 						SetPlayerPosEx(playerid, x,y,z), 
 						Gardener[playerid][gnTreeTaken] = i;
@@ -338,14 +339,13 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
 			if(clickedid == TreeTD[i]) {
 				TextDrawHideForPlayer(playerid, TreeTD[i]);
 				if(++Gardener[playerid][gnTreeApples] == 14) {
-                    // Gardener[playerid][gnApples] = 1;
                     SetPVarInt(playerid, "gnApples", 1);
 					GardenerTree[Gardener[playerid][gnTreeTaken]][gntStatus] = 300, Gardener[playerid][gnTreeTaken] = -1;
 					for(new x = 0; x < sizeof TreeTD; x++) TextDrawHideForPlayer(playerid, TreeTD[x]);
 					CancelSelectTextDraw(playerid), TogglePlayerControllable(playerid, true), SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 					SetPlayerAttachedObject(playerid, ATTACHMENT_ID_BALE,19637,1,-0.00,0.50,-0.03,0.0,86.0,83.0,1.00,1.00,1.00), 
-					Info(playerid, "Ban da lay tao tu cay, hay den checkpoint de cat tao vao kho.");
-					SetPlayerCheckpoint(playerid, -1080.3639,-1195.3372,129.6956, 2.5), 
+					SendClientMessage(playerid, COLOR_GOLD, "Ban da lay tao tu cay, hay den checkpoint de cat tao vao kho.");
+					SetPlayerCheckpointEx(playerid, -1080.3639,-1195.3372,129.6956, 2.5), 
 					CP[playerid] = 2018;
 					return 1;
 				}
@@ -361,10 +361,25 @@ hook OnPlayerEnterCheckpoint(playerid) {
             new gString[128];
             new maxSkill = GetMaxPlayerApples(playerid);
             if(Gardener[playerid][gnApples] < maxSkill){
+				CP[playerid] = 0,
                 Gardener[playerid][gnApples] += 1,
-                RemovePlayerAttachedObject(playerid, ATTACHMENT_ID_BALE),
+				Gardener[playerid][gnTreeApples] = 0, 
+				Gardener[playerid][gnTreeTaken] = 0, 
+				Gardener[playerid][gnTimer] = 120,
+                SetPlayerAttachedObject(playerid, ATTACHMENT_ID_BALE,19639,1,-0.00,0.50,-0.03,0.0,86.0,83.0,1.00,1.00,1.00),
                 DeletePVar(playerid, "gnApples");
-                format(gString, sizeof(gString), "Ban da cat tao vao kho [%d/%d]", Gardener[playerid][gnApples], maxSkill);
+				DisablePlayerCheckpointEx(playerid);
+                format(gString, sizeof(gString), "INFO: {FFFFFF}Ban da cat tao vao kho [%d/%d]", Gardener[playerid][gnApples], maxSkill);
+				SendClientMessage(playerid, COLOR_GOLD, gString);
+				if(Gardener[playerid][gnApples] == maxSkill){
+					DisablePlayerCheckpointEx(playerid);
+					SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban da thu hoach du so luong tao.");
+					SendClientMessage(playerid, COLOR_GOLD, "[NOTE] {FFFFFF}Bam [/laytraicay] de tiep tuc giao tao.");
+					RemovePlayerAttachedObject(playerid, ATTACHMENT_ID_BALE);
+					SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE); 
+					Gardener[playerid][gnTreeApples] = 0, 
+					Gardener[playerid][gnTreeTaken] = 0;
+				}
             }
         }
 	}
@@ -374,9 +389,12 @@ hook OnPlayerEnterCheckpoint(playerid) {
             Gardener[playerid][gnDeliveryApples] -=1;
             if(Gardener[playerid][gnDeliveryApples] > 0) {
                 new randcp = RandomEx(1,101);
+				new gString[128];
                 while(GetCity1(HouseInfo[randcp][hEntrancex],HouseInfo[randcp][hEntrancey]) != 3 || randcp == JobCP[playerid]) randcp = RandomEx(1,101);
                 SetPlayerCheckpointEx(playerid, HouseInfo[randcp][hEntrancex],HouseInfo[randcp][hEntrancey],HouseInfo[randcp][hEntrancez], 7.0);
                 // PlayerInfo[playerid][pGardener] ++;
+				format(gString, sizeof(gString), "INFO: {FFFFFF}Ban con %d tao can phai duoc giao", Gardener[playerid][gnApples]);
+				SendClientMessage(playerid, COLOR_GOLD, gString);
                 JobCP[playerid] = randcp;
                 CP[playerid] = 2022;
                 GiveJobSalary(playerid);
@@ -408,8 +426,13 @@ CMD:laytraicay(playerid, params[]) {
     if(Gardener[playerid][gnApples] < 4) return SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Ban khong co du tao trong kho de di giao [Toi thieu : 4].");
     Gardener[playerid][gnDeliveryApples] = Gardener[playerid][gnApples],
     Gardener[playerid][gnApples] = 0,
+	Gardener[playerid][gnTreeApples] = 0, 
+	Gardener[playerid][gnTreeTaken] = 0, 
+	DisablePlayerCheckpointEx(playerid);
     CP[playerid] = 2022;
-    Info(playerid, "Dia diem giao tao da duoc xac dinh tren ban do.");
+	RemovePlayerAttachedObject(playerid, ATTACHMENT_ID_BALE);
+	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE); 
+    SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Dia diem giao tao da duoc xac dinh tren ban do.");
     new randcp = RandomEx(1,101);
 	while(GetCity1(HouseInfo[randcp][hEntrancex],HouseInfo[randcp][hEntrancey]) != 3 || JobCP[playerid] == randcp) randcp = RandomEx(1,101);
 	JobCP[playerid] = randcp;
