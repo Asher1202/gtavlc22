@@ -3052,7 +3052,6 @@ SetPlayerSpawn(playerid) {
 	FactionsSpawns(playerid);		
 	TogglePlayerControllable(playerid, false);
 	defer UnFreezeStation[1500](playerid);	
-	
 	return 1;
 }
 // SavePlayerPosData(playerid, Float:x, Float:y, Float:z, Float:angle = 0.0, int = 0, local = 0) {
@@ -3130,6 +3129,12 @@ SetPlayerSpawn(playerid) {
 // 	// mysql_query(SQL, string, false);
 // 	return 1;
 // }
+Resetnametag(playerid) {
+	if(PlayerMobileInfo[playerid][isMobile] == false) {
+       foreach(new i: Player) ShowPlayerNameTagForPlayer(playerid, i, 0);
+    }
+	return 1;
+}
 FactionsSpawns(playerid) {
 	new fid = PlayerInfo[playerid][pMember];
 	if(fid == 0) {

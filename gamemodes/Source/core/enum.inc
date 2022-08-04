@@ -2109,3 +2109,9 @@ new Iterator:LoginQueue[2]<MAX_PLAYERS>;
 new gQuery[300];
 
 //new ServerGoal,TerminatJobGoal = 0, MAXGOAL = 20000000;
+enum pMobileInfo
+{
+    bool:isMobile,
+	MobileVersion
+}
+new PlayerMobileInfo[MAX_PLAYERS][pMobileInfo];

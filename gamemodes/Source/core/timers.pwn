@@ -1,5 +1,4 @@
 #include <YSI_Coding\y_timers>
-
 timer HideTextdraw[5000](playerid) {
 	PlayerTextDrawHide(playerid, InfosTD);
 	return 1;
@@ -1109,6 +1108,7 @@ task DecreaseTimer[1000]() {
 			if(playerArmour == 100 && PlayerInfo[i][pAdmin] == 0 && GetPVarInt(i, "Armour") == 0) {
 				if(ServerSystem[3] == 0) NightBot(i, "Cheats (armour-hack)");	
 			}
+			if(PlayerMobileInfo[i][isMobile] == false) Resetnametag(i);
 			// if(IsPlayerInRangeOfPoint(i, 40.0, 1116.1476,-1457.6807,13.8592)) {	
 			// 	if(GetPVarInt(i, "Listening") == 0) {
 			// 		PlayAudioStreamForPlayer(i, "https://steamcast.com/sbin/listen.m3u?id=6090911", 1116.1476,-1457.6807,13.8592, 40.0, 1);

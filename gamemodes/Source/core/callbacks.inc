@@ -70,7 +70,6 @@ public OnGameModeInit() {
 	Streamer_SetVisibleItems(STREAMER_TYPE_OBJECT, 800); // increase object limit
 	Iter_Init(LoginQueue);
 	CA_Init();
-	// ShowNameTags(0);
 	new Year, Month, Day, Hour, Minute, Second;
 	getdate(Year, Month, Day);
 	gettime(Hour, Minute, Second);
@@ -246,6 +245,22 @@ timer CheckAccount[3000](playerid) {
 	return true;
 }
 public OnPlayerConnect(playerid) {
+
+	new GPCI[128];
+	GetPlayerClientID(playerid, GPCI, 40);
+    PlayerMobileInfo[playerid][isMobile] = false;
+
+    if(strfind(GPCI, "5638413348335738345A4536524D4A524539334B") != -1 )
+    {
+		PlayerMobileInfo[playerid][isMobile] = true;
+        PlayerMobileInfo[playerid][MobileVersion] = 1; // APK Chen
+    }
+    else if(strfind(GPCI, "ED40ED0E8089CC44C08EE9580F4C8C44EE8EE990") != -1 )
+    {
+    	PlayerMobileInfo[playerid][isMobile] = true;
+        PlayerMobileInfo[playerid][MobileVersion] = 2; // CH Play
+    }
+
     logotd = TextDrawCreate(637.500000, 433.000000, "GTAVLC~r~.COM");
     TextDrawLetterSize(logotd, 0.346587, 1.407498);
     TextDrawAlignment(logotd, 3);
@@ -2322,6 +2337,7 @@ public OnPlayerSpawn(playerid)
 		SetPlayerSkinEx(playerid, 1+random(100));
 		SendClientMessage(playerid, COLOR_YELLOW, "Ban dang cai trang!");
 	}		
+	Resetnametag(playerid);
 	return 1;
 }
 public OnPlayerEnterRaceCheckpoint(playerid)
@@ -4689,11 +4705,14 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 }
 public OnPlayerStreamIn(playerid, forplayerid) {
 	
-	ShowPlayerNameTagForPlayer(playerid, forplayerid, 0);
-	ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
-	if(!IsPCPlayer(playerid)) {
-		ShowPlayerNameTagForPlayer(playerid, forplayerid, 1);
+	/*if(!IsPCPlayer(forplayerid)) {
+		ShowPlayerNameTagForPlayer(forplayerid, playerid, 1);
 	}
+	else {
+		ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
+	}*/
+	if(PlayerMobileInfo[playerid][isMobile] == false) ShowPlayerNameTagForPlayer(playerid, forplayerid, 0);
+	if(PlayerHit[playerid] != -1) ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
 	SetHitStreamIn(playerid, forplayerid);
 
 	return 1;
@@ -4702,7 +4721,12 @@ public OnPlayerStreamIn(playerid, forplayerid) {
 forward SetHitStreamIn(playerid, forplayerid);
 public SetHitStreamIn(playerid, forplayerid) {
 	new iswar = 0, attackers, defenders;
-	if(IsPCPlayer(playerid)) ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
+	/*if(!IsPCPlayer(forplayerid)) {
+		ShowPlayerNameTagForPlayer(forplayerid, playerid, 1);
+	}
+	else {
+		ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
+	}*/
 	if(PlayerHit[playerid] != -1) ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
     for(new i = 1; i < turfsss && iswar == 0; i++) {
 		attackers = WarInfo[i][wAttacker];
@@ -4748,6 +4772,12 @@ public SetHitStreamIn(playerid, forplayerid) {
 
 forward SetHitStreamOut(playerid, forplayerid);
 public SetHitStreamOut(playerid, forplayerid) {
+	/*if(!IsPCPlayer(forplayerid)) {
+		ShowPlayerNameTagForPlayer(forplayerid, playerid, 1);
+	}
+	else {
+		ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
+	}*/
 	if(PlayerHit[playerid] != -1) ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
     SetPlayerMarkerForPlayer( playerid, forplayerid, ( GetPlayerColor( forplayerid ) & 0xFFFFFF00 ) );
 	SetPlayerMarkerForPlayer( forplayerid, playerid, ( GetPlayerColor( playerid ) & 0xFFFFFF00 ) );
@@ -4755,12 +4785,8 @@ public SetHitStreamOut(playerid, forplayerid) {
 }
 
 public OnPlayerStreamOut(playerid, forplayerid) {
-	if(IsPCPlayer(playerid)) {
-		ShowPlayerNameTagForPlayer(forplayerid, playerid, 0);
-	}
-	else{
-		ShowPlayerNameTagForPlayer(playerid, forplayerid, 0);
-	}
+
+	if(PlayerMobileInfo[playerid][isMobile] == false) ShowPlayerNameTagForPlayer(playerid, forplayerid, 0);
 	SetHitStreamOut(playerid, forplayerid);	
 
 	return 1;

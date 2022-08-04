@@ -125,3 +125,4 @@ new SpecialWeek = 1;
 #define COL_FIREMAN                 "{A83434}"
 
 
+native GetPlayerClientID(playerid, buffer[], size = sizeof(buffer)) = gpci;
