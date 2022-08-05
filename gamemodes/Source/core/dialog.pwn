@@ -5292,7 +5292,9 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				for(new m; m < 5; m++) {
 					if(PlayerInfo[playerid][pDailyMission][m] == 13) CheckMission(playerid, m);	
 				}
-				Inventory_Remove(playerid, "Sativa");
+				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
+				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
+				//Inventory_Remove(playerid, "Sativa");
 			}
 			if(strmatch("Indica", invData[playerid][id][invItem])) {
 				if(gettime() < GetPVarInt(playerid, "ChoDoi")) return SCMf(playerid, COLOR_LGREEN, ">> Vui long doi %d giay!", GetPVarInt(playerid, "ChoDoi") - gettime());
@@ -5318,7 +5320,9 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				for(new m; m < 5; m++) {
 					if(PlayerInfo[playerid][pDailyMission][m] == 13) CheckMission(playerid, m);	
 				}
-				Inventory_Remove(playerid, "Sativa");
+				//Inventory_Remove(playerid, "Sativa");
+				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
+				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
 			if(strmatch("C.B.D", invData[playerid][id][invItem])) {
 				if(gettime() < GetPVarInt(playerid, "ChoDoi")) return SCMf(playerid, COLOR_LGREEN, ">> Vui long doi %d giay!", GetPVarInt(playerid, "ChoDoi") - gettime());
@@ -5344,13 +5348,17 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				for(new m; m < 5; m++) {
 					if(PlayerInfo[playerid][pDailyMission][m] == 13) CheckMission(playerid, m);	
 				}
-				Inventory_Remove(playerid, "Sativa");
+				//Inventory_Remove(playerid, "Sativa");
+				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
+				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}		
 			else if(strmatch("Burger", invData[playerid][id][invItem])) {
 				if(gettime() < GetPVarInt(playerid, "ChoDoi")) return SCMf(playerid, COLOR_LGREEN, ">> Vui long doi %d giay!", GetPVarInt(playerid, "ChoDoi") - gettime());
 				GetPlayerHealthEx(playerid, health);
 				if(PlayerInfo[playerid][pHunger] < 96) Stamina_SetValue(playerid, 5);
-				Inventory_Remove(playerid, "Burger");
+				//Inventory_Remove(playerid, "Burger");
+				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
+				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 				ApplyAnimation(playerid,"FOOD","EAT_Burger", 3.0, 0, 0, 0, 0, 0);
 				if(health < 85 && InWar[PlayerInfo[playerid][pMember]] == 1) {
 					SetPlayerHealthEx(playerid, health + 15);
@@ -5365,6 +5373,7 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				IsSmoking[playerid] = 60;
 				SetPlayerSpecialAction(playerid,SPECIAL_ACTION_SMOKE_CIGGY);
 				Inventory_Remove(playerid, "Smoke");
+				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
 				for(new m; m < (PlayerInfo[playerid][pVip] + 3); m++) {
 				if(PlayerInfo[playerid][pDailyMission][m] == 5) CheckMission(playerid, m);
 			}	
@@ -5376,6 +5385,7 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				{
 					//if(PlayerInfo[playerid][pJob] != 15 || PlayerInfo[playerid][pJob] != 11) return SendClientMessage(playerid, COLOR_YELLOW, "Ban khong phai la Fisherman");
 					Inventory_Remove(playerid, "Ca Thuong");
+					NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
 					pFishing[playerid] = 0;
 					if(yourskill == 1) x = 5000 + random(3000);
 					if(yourskill == 2) x = 10000 + random(2000);
@@ -5477,6 +5487,7 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				if(BizzInfo[InBussines[playerid]][bType] == 6)
 				{
 					Inventory_Remove(playerid, "Ca Hiem");
+					NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
 					if(yourskill == 1) x = 20000 + random(500);
 					if(yourskill == 2) x = 25000 + random(2000);
 					if(yourskill == 3) x = 30000 + random(3000);
@@ -5577,6 +5588,7 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				if(BizzInfo[InBussines[playerid]][bType] == 6)
 				{
 					Inventory_Remove(playerid, "Ca Vang");
+					NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
 					pFishing[playerid] = 0;
 					x = 20000 + random(45000);
 					format(strings, sizeof(strings), "{FF0000}>>{FFFFFF} %s (%d) da ban mot con {FFF400}Ca Vang{FFFFFF} voi gia ({15FF00}$%s{FFFFFF}).", GetName(playerid), playerid, FormatNumber(x));
@@ -5676,6 +5688,7 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				if(BizzInfo[InBussines[playerid]][bType] == 6)
 				{
 					Inventory_Remove(playerid, "Ca Map");
+					NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
 					x = 150000;
 					SetPVarInt(playerid, "Ban2Ca", gettime() + 25);
 					pFishing[playerid] = 0;
@@ -5798,8 +5811,6 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				PlayerInfo[playerid][pChar] = invData[playerid][id][invModel]; 
 				// pUpdateInt(playerid, "playerSkin", invData[playerid][id][invModel]);
 				SetPlayerSkin(playerid, invData[playerid][id][invModel]);
-			}
-			if(strmatch("Skins", invData[playerid][id][invItem])) {
 				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da thay doi trang phuc (%d)", GetName(playerid), invData[playerid][id][invModel]);
 				SetPVarInt(playerid, "ChoDoi", gettime() + 3);
 				if(isInInven[playerid] != 0) {
@@ -5808,11 +5819,7 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					CancelSelectTextDraw(playerid);
 				}
 			}
-			else {
-				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
-				SetPVarInt(playerid, "ChoDoi", gettime() + 3);
-				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
-			}
+			SetPVarInt(playerid, "ChoDoi", gettime() + 3);
 		}
 		case 1: {
 			if(strmatch("Skins", invData[playerid][id][invItem])) {
