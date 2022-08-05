@@ -5320,9 +5320,8 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				for(new m; m < 5; m++) {
 					if(PlayerInfo[playerid][pDailyMission][m] == 13) CheckMission(playerid, m);	
 				}
-				//Inventory_Remove(playerid, "Sativa");
+				Inventory_Remove(playerid, "Sativa");
 				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
-				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
 			if(strmatch("C.B.D", invData[playerid][id][invItem])) {
 				if(gettime() < GetPVarInt(playerid, "ChoDoi")) return SCMf(playerid, COLOR_LGREEN, ">> Vui long doi %d giay!", GetPVarInt(playerid, "ChoDoi") - gettime());
@@ -5348,17 +5347,15 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				for(new m; m < 5; m++) {
 					if(PlayerInfo[playerid][pDailyMission][m] == 13) CheckMission(playerid, m);	
 				}
-				//Inventory_Remove(playerid, "Sativa");
+				Inventory_Remove(playerid, "Sativa");
 				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
-				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}		
 			else if(strmatch("Burger", invData[playerid][id][invItem])) {
 				if(gettime() < GetPVarInt(playerid, "ChoDoi")) return SCMf(playerid, COLOR_LGREEN, ">> Vui long doi %d giay!", GetPVarInt(playerid, "ChoDoi") - gettime());
 				GetPlayerHealthEx(playerid, health);
 				if(PlayerInfo[playerid][pHunger] < 96) Stamina_SetValue(playerid, 5);
-				//Inventory_Remove(playerid, "Burger");
+				Inventory_Remove(playerid, "Burger");
 				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
-				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 				ApplyAnimation(playerid,"FOOD","EAT_Burger", 3.0, 0, 0, 0, 0, 0);
 				if(health < 85 && InWar[PlayerInfo[playerid][pMember]] == 1) {
 					SetPlayerHealthEx(playerid, health + 15);
