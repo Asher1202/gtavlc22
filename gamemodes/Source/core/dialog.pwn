@@ -524,6 +524,7 @@ Dialog:DIALOG_BETCASINO(playerid, response, listitem, inputtext[])
 	PlayerTextDrawShow(playerid, CasinoPTD[32]);	
 	return 1;
 }
+
 /*Dialog:DIALOG_EDITVEHICLE(playerid, response, listitem, inputtext[]) 
 {
 	if(!response) return SendClientMessage(playerid, COLOR_LGREEN, "Ban da dong dialog!");
@@ -5348,9 +5349,10 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 			}		
 			else if(strmatch("Burger", invData[playerid][id][invItem])) {
 				if(gettime() < GetPVarInt(playerid, "ChoDoi")) return SCMf(playerid, COLOR_LGREEN, ">> Vui long doi %d giay!", GetPVarInt(playerid, "ChoDoi") - gettime());
+				Dialog_Show(playerid, DIALOG_BETCASINO, DIALOG_STYLE_INPUT, "So luong burger muon dung", "Vui long nhap so luong burger ban muon dung\nSo luong tu 1 > 10", "An", "Dong");
 				GetPlayerHealthEx(playerid, health);
-				if(PlayerInfo[playerid][pHunger] < 96) Stamina_SetValue(playerid, 5);
-				Inventory_Remove(playerid, "Burger");
+				if(PlayerInfo[playerid][pHunger] < 96) Stamina_SetValue(playerid, 5*GetPVarInt(playerid, "UseNum"));
+				Inventory_Remove(playerid, "Burger", GetPVarInt(playerid, "UseNum"));
 				ApplyAnimation(playerid,"FOOD","EAT_Burger", 3.0, 0, 0, 0, 0, 0);
 				if(health < 85 && InWar[PlayerInfo[playerid][pMember]] == 1) {
 					SetPlayerHealthEx(playerid, health + 15);
@@ -5847,5 +5849,14 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 			}*/
 		}
 	}
+	return 1;
+}
+Dialog:DIALOG_USENUM(playerid, response, listitem, inputtext[]) 
+{
+	if(!response) return 1;			
+	if(strval(inputtext) < 1 || strval(inputtext) > 10) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: So banh khong hop le. Ban chi co the su dung tu 1 den 10 cai banh cung luc.");
+	if(Inventory_Count(playerid, "Burger") < strval(inputtext)) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Ban khong co du so burger nay!");
+	new string[100];
+	SetPVarInt(playerid, "UseNum", strval(inputtext));
 	return 1;
 }
