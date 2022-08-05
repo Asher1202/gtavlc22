@@ -7351,14 +7351,14 @@ CMD:skills(playerid, params[]) {
 CMD:nangcapjob(playerid, params[])
 {
 	if(PlayerInfo[playerid][pJob] == 0) return SendClientMessage(playerid, COLOR_YELLOW, "Ban khong co cong viec nao de nang cap!");
-	if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 3) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da dat cap do tuyet doi, ban khong the nang cap nua");
-
+	if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] >= 3) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da dat cap do tuyet doi, ban khong the nang cap nua");
+	if(GetPlayerSkill(playerid) < 5) return SendClientMessage(playerid, COLOR_YELLOW, "Ban chua dat den level 5 de nang cap len level 6!");
 	new needmoney, needkc;
-	switch(GetPlayerSkill(playerid))
+	switch(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]])
 	{
-		case 6: needmoney = 15000000, needkc = 50;
-		case 7: needmoney = 30000000, needkc = 75;
-		case 8: needmoney = 60000000, needkc = 100;
+		case 0: needmoney = 15000000, needkc = 50;
+		case 1: needmoney = 30000000, needkc = 75;
+		case 2: needmoney = 60000000, needkc = 100;
 	}
 	if(GetPlayerCash(playerid) < needmoney) return SCMf(playerid, COLOR_YELLOW, "Ban khong du %s tien de mo quyen loi job level", FormatNumber(needmoney));
 	if(PlayerInfo[playerid][pKC] < needkc) return SCMf(playerid, COLOR_YELLOW, "Ban khong du %d tien de mo quyen loi job level", needkc);
@@ -7366,7 +7366,7 @@ CMD:nangcapjob(playerid, params[])
 	// Update(playerid, pUpdateLevelx);
 	new string[128], name[32];
 	save_jobs(playerid);
-	SCMf(playerid, COLOR_GREEN, "Ban da mo quyen loi cua job %s thanh cong va ton %s$ va %d kim cuong de len job level %d", JobInfo[PlayerInfo[playerid][pJob]][jName],FormatNumber(needmoney), needkc,GetPlayerSkill(playerid));
+	SCMf(playerid, COLOR_GREEN, "Ban da mo quyen loi cua job %s thanh cong va ton %s$ va %d kim cuong de len job level %d", JobInfo[PlayerInfo[playerid][pJob]][jName],FormatNumber(needmoney), needkc,PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] + 5);
 	SendClientMessage(playerid, COLOR_YELLOW, "Su dung /quyenloi de xem nhung quyen loi cua job level");
 	switch(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]])
 	{
@@ -7374,7 +7374,7 @@ CMD:nangcapjob(playerid, params[])
 		case 2 : name = "Grand Master";
 		case 3 : name = "Challenge";
 	}
-	format(string, sizeof(string), "Nguoi choi %s da nang cap job level den level %d (%s)", GetName(playerid), GetPlayerSkill(playerid), name);
+	format(string, sizeof(string), "Nguoi choi %s da nang cap job level den level %d (%s)", GetName(playerid), PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] + 5, name);
 	SCMTA(COLOR_LIGHTRED, string);
 	return 1;
 }
@@ -7385,12 +7385,13 @@ CMD:setkynang(playerid, params[])
 	
 
 	new result,id,leveln, num;
-	if(sscanf(params, "ddd", id,result,leveln, num)) {
+	if(sscanf(params, "dddd", id,result,leveln, num)) {
 		SendClientMessage(playerid, COLOR_GREY, "Cu phap: {FFFFFF}/setkynang <playerid> <job id> <level ki nang> <so diem ki nang>");
 		SendClientMessage(playerid, -1, "Vi du ban muon set skill job trucker level 6 thi thuc hien cu phap nhu sau");
-		SendClientMessage(playerid, -1, "/setkynang [playerid] 2 6 2000");
+		SendClientMessage(playerid, -1, "/setkynang [playerid] 2 [1-3] 2000");
 		return 1;
 	}	
+	if ( 0 < leveln > 3) return SendClientMessage(playerid, COLOR_YELLOW, "Level ky nang khong hop le");
 	switch(result) {
 		case 1: PlayerInfo[playerid][pFarmerSkill]= num;
 		case 2: PlayerInfo[playerid][pTruckerSkill]= num;
@@ -7406,8 +7407,8 @@ CMD:setkynang(playerid, params[])
 		case 13: PlayerInfo[playerid][pStivuitorSkill]= num;
 		case 14: PlayerInfo[playerid][pNewsPaperSkill]= num;
 	}
-	if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]]  == 3) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da dat cap do tuyet doi, ban khong the nang cap nua");
-	PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] = result;
+	if(PlayerInfo[playerid][pUpdateLevel][result]  >= 3) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da dat cap do tuyet doi, ban khong the nang cap nua");
+	PlayerInfo[playerid][pUpdateLevel][result] = leveln;
 	save_jobs(playerid);
 	SendClientMessage(playerid, COLOR_YELLOW, "Ban da set cho minh quyen loi cua job level thanh cong");
 	return 1;

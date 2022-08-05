@@ -5765,30 +5765,33 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 			}
 			else if(strmatch("DE", invData[playerid][id][invItem])) {
 				ServerWeapon(playerid, getGunID(invData[playerid][id][invItem]), invData[playerid][id][invQuantity]);
+				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay Desert Eagle va %d vien dan tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invQuantity]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
+				
 			}
 			else if(strmatch("M4", invData[playerid][id][invItem])) {
 				ServerWeapon(playerid, getGunID(invData[playerid][id][invItem]), invData[playerid][id][invQuantity]);
+				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay M4 va %d vien dan tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invQuantity]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
 			else if(strmatch("Shotgun", invData[playerid][id][invItem])) {
 				ServerWeapon(playerid, getGunID(invData[playerid][id][invItem]), invData[playerid][id][invQuantity]);
+				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay Shotgun va %d vien dan tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invQuantity]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
 			else if(strmatch("AK47", invData[playerid][id][invItem])) {
 				ServerWeapon(playerid, getGunID(invData[playerid][id][invItem]), invData[playerid][id][invQuantity]);
-				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
-			}
-			else if(strmatch("Shotgun", invData[playerid][id][invItem])) {
-				ServerWeapon(playerid, getGunID(invData[playerid][id][invItem]), invData[playerid][id][invQuantity]);
+				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay AK47 va %d vien dan tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invQuantity]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
 			else if(strmatch("Baseballbat", invData[playerid][id][invItem])) {
 				ServerWeapon(playerid, getGunID(invData[playerid][id][invItem]), invData[playerid][id][invQuantity]);
+				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay Baseballbat va %d vien dan tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invQuantity]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
 			else if(strmatch("Uzi", invData[playerid][id][invItem])) {
 				ServerWeapon(playerid, getGunID(invData[playerid][id][invItem]), invData[playerid][id][invQuantity]);
+				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay AK47 va %d vien dan tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invQuantity]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
 			else if(strmatch("Skins", invData[playerid][id][invItem])) {
@@ -5808,6 +5811,7 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 			else {
 				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %s tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invItem]);
 				SetPVarInt(playerid, "ChoDoi", gettime() + 3);
+				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
 		}
 		case 1: {

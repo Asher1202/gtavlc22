@@ -140,15 +140,15 @@ CMD:ccatsung(playerid, params[])
 	if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000} [HE THONG] {FFFFFF}: Ban dang o trong mot xe!");
 	new weaponid = GetPlayerWeapon(playerid);
 	new ammo = GetPlayerAmmo(playerid);
-	new gunmodel;
+	new gunmodel, gunname[10];
 	switch(weaponid)
 	{
-		case 24 : gunmodel = 348;
-		case 31 : gunmodel = 356;
-		case 30 : gunmodel = 355;
-		case 28 : gunmodel = 352;
-		case 25 : gunmodel = 349;
-		case 5 : gunmodel = 336;
+		case 24 : gunmodel = 348, gunname = "DE";
+		case 31 : gunmodel = 356, gunname = "M4";
+		case 30 : gunmodel = 355, gunname = "Ak47";
+		case 28 : gunmodel = 352, gunname = "Uzi";
+		case 25 : gunmodel = 349, gunname = "Shotgun";
+		case 5 : gunmodel = 336, gunname = "Baseballbat";
 	}
 	// new idd, vid;
 	//new slotsung = GetWeaponSlot(weaponid);
@@ -177,12 +177,11 @@ CMD:ccatsung(playerid, params[])
 	// if(CarInfo[vid][cSlotSung][slot-1] != 0) return SendClientMessage(playerid,COLOR_GREY,"Slot nay da co sung");
 	// CarInfo[vid][cSlotSung][slot-1] = weaponid;
 	// CarInfo[vid][cSlotAmmo][slot-1] = ammo;
-	new gunname[32];
-	GetWeaponName(weaponid,gunname,sizeof(gunname));
-
-	if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,gunname, gunmodel, ammo, 2);
-	else Inventory_Add(playerid,gunname, gunmodel, ammo, 1);
-	ResetWeapons(playerid);
+	if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid, gunname, gunmodel, ammo, 2);
+	else Inventory_Add(playerid, gunname, gunmodel, ammo, 1);
+	// else Inventory_Add(playerid, "M4", 355, 100, 1);
+	printf("%s %d %d", gunname, gunmodel, ammo);
+	RemovePlayerWeapon(playerid, GetPlayerWeapon(playerid));
 	new str[128];
 	format(str,sizeof(str),"Ban da cat cay sung %s va %d vien dan",gunname, ammo);
 	SendClientMessage(playerid, COLOR_GREEN, str);

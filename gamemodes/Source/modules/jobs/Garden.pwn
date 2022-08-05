@@ -37,7 +37,7 @@ task GardenerTimer[60000]() {
 	}
 }
 
-// forward KStateChangeGardener(playerid, newkeys, oldkeys);
+// // forward KStateChangeGardener(playerid, newkeys, oldkeys);
 hook OnPlayerKStateChange(playerid, newkeys, oldkeys) {
     if(GetPlayerState(playerid) == PLAYER_STATE_ONFOOT) {
 	    if(newkeys & KEY_SECONDARY_ATTACK) {
