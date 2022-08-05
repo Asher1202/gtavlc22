@@ -1868,7 +1868,7 @@ Dialog:DIALOG_BUYGUN(playerid, response, listitem, inputtext[])
 			//ServerWeapon(playerid, 24, 50);
 			if(checkslotinv(playerid) == 24) return SendClientMessage(playerid, -1, "Tui do cua ban da day.");
 			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"DE", 348, 50, 2);
-			else Inventory_Add(playerid,"DE", 348, 50, 1);
+			else Inventory_Add(playerid,"Desert Eagle", 348, 50, 1);
 			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot Deagle voi gia $500,000.");
 			GivePlayerCash(playerid, -500000);
 			BizzInfo[InBussines[playerid]][bTill] += 500000;
@@ -1879,8 +1879,8 @@ Dialog:DIALOG_BUYGUN(playerid, response, listitem, inputtext[])
 			if(GetPlayerCash(playerid) < 1400000) return SendClientMessage(playerid, COLOR_GREY, "Ban khong du $1,400,000 de mua vu khi nay!");
 			//ServerWeapon(playerid, 31, 200);
 			if(checkslotinv(playerid) == 24) return SendClientMessage(playerid, -1, "Tui do cua ban da day.");
-			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"M4", 356, 230, 2);
-			else Inventory_Add(playerid,"M4", 356, 230, 1);
+			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"M4A1", 356, 230, 2);
+			else Inventory_Add(playerid,"M4A1", 356, 230, 1);
 			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot M4 voi gia $1,400,000.");
 			GivePlayerCash(playerid, -1400000);
 			BizzInfo[InBussines[playerid]][bTill] += 1400000;
@@ -1927,8 +1927,8 @@ Dialog:DIALOG_BUYGUN(playerid, response, listitem, inputtext[])
 			if(GetPlayerCash(playerid) < 50000) return SendClientMessage(playerid, COLOR_GREY, "Ban khong du $50,000 de mua vu khi nay!");
 			//ServerWeapon(playerid, 5, 20);
 			if(checkslotinv(playerid) == 24) return SendClientMessage(playerid, -1, "Tui do cua ban da day.");
-			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Baseballbat", 336, 1, 2);
-			else Inventory_Add(playerid,"Baseballbat", 336, 1, 1);
+			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Baseball Bat", 336, 1, 2);
+			else Inventory_Add(playerid,"Baseball Bat", 336, 1, 1);
 			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot Baseball Bat voi gia $50,000.");
 			GivePlayerCash(playerid, -50000);
 			BizzInfo[InBussines[playerid]][bTill] += 50000;
@@ -5293,7 +5293,8 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				for(new m; m < 5; m++) {
 					if(PlayerInfo[playerid][pDailyMission][m] == 13) CheckMission(playerid, m);	
 				}
-				Inventory_Remove(playerid, "Sativa");
+				Inventory_Remove(playerid, invData[playerid][id][invItem]);
+				//Inventory_Remove(playerid, "Sativa");
 			}
 			if(strmatch("Indica", invData[playerid][id][invItem])) {
 				if(gettime() < GetPVarInt(playerid, "ChoDoi")) return SCMf(playerid, COLOR_LGREEN, ">> Vui long doi %d giay!", GetPVarInt(playerid, "ChoDoi") - gettime());
@@ -5349,14 +5350,8 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 			}		
 			else if(strmatch("Burger", invData[playerid][id][invItem])) {
 				if(gettime() < GetPVarInt(playerid, "ChoDoi")) return SCMf(playerid, COLOR_LGREEN, ">> Vui long doi %d giay!", GetPVarInt(playerid, "ChoDoi") - gettime());
-				Dialog_Show(playerid, DIALOG_BETCASINO, DIALOG_STYLE_INPUT, "So luong burger muon dung", "Vui long nhap so luong burger ban muon dung\nSo luong tu 1 > 10", "An", "Dong");
-				GetPlayerHealthEx(playerid, health);
-				if(PlayerInfo[playerid][pHunger] < 96) Stamina_SetValue(playerid, 5*GetPVarInt(playerid, "UseNum"));
-				Inventory_Remove(playerid, "Burger", GetPVarInt(playerid, "UseNum"));
-				ApplyAnimation(playerid,"FOOD","EAT_Burger", 3.0, 0, 0, 0, 0, 0);
-				if(health < 85 && InWar[PlayerInfo[playerid][pMember]] == 1) {
-					SetPlayerHealthEx(playerid, health + 15);
-				}
+				return Dialog_Show(playerid, DIALOG_USENUM, DIALOG_STYLE_INPUT, "So luong burger muon dung", "Vui long nhap so luong burger ban muon dung\nSo luong tu 1 > 10", "An", "Dong");
+
 				//type = 1;
 			}
 			else if(strmatch("Smoke", invData[playerid][id][invItem])) {
@@ -5765,43 +5760,34 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				}
 				else SendClientMessage(playerid, COLOR_YELLOW, "Ban khong o tai 24/7");
 			}
-			else if(strmatch("DE", invData[playerid][id][invItem])) {
+			else if(strmatch("Desert Eagle", invData[playerid][id][invItem])) {
 				ServerWeapon(playerid, getGunID(invData[playerid][id][invItem]), invData[playerid][id][invQuantity]);
-				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay Desert Eagle va %d vien dan tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invQuantity]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
-				
 			}
-			else if(strmatch("M4", invData[playerid][id][invItem])) {
+			else if(strmatch("M4A1", invData[playerid][id][invItem])) {
 				ServerWeapon(playerid, getGunID(invData[playerid][id][invItem]), invData[playerid][id][invQuantity]);
-				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay M4 va %d vien dan tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invQuantity]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
 			else if(strmatch("Shotgun", invData[playerid][id][invItem])) {
 				ServerWeapon(playerid, getGunID(invData[playerid][id][invItem]), invData[playerid][id][invQuantity]);
-				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay Shotgun va %d vien dan tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invQuantity]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
 			else if(strmatch("AK47", invData[playerid][id][invItem])) {
 				ServerWeapon(playerid, getGunID(invData[playerid][id][invItem]), invData[playerid][id][invQuantity]);
-				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay AK47 va %d vien dan tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invQuantity]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
-			else if(strmatch("Baseballbat", invData[playerid][id][invItem])) {
+			else if(strmatch("Baseball Bat", invData[playerid][id][invItem])) {
 				ServerWeapon(playerid, getGunID(invData[playerid][id][invItem]), invData[playerid][id][invQuantity]);
-				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay Baseballbat va %d vien dan tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invQuantity]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
 			else if(strmatch("Uzi", invData[playerid][id][invItem])) {
 				ServerWeapon(playerid, getGunID(invData[playerid][id][invItem]), invData[playerid][id][invQuantity]);
-				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay AK47 va %d vien dan tu tui do ra va su dung.", GetName(playerid), invData[playerid][id][invQuantity]);
 				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
-			else if(strmatch("Skins", invData[playerid][id][invItem])) {
+			if(strmatch("Skins", invData[playerid][id][invItem])) {
 				PlayerInfo[playerid][pChar] = invData[playerid][id][invModel]; 
 				// pUpdateInt(playerid, "playerSkin", invData[playerid][id][invModel]);
 				SetPlayerSkin(playerid, invData[playerid][id][invModel]);
-			}
-			if(strmatch("Skins", invData[playerid][id][invItem])) {
 				NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da thay doi trang phuc (%d)", GetName(playerid), invData[playerid][id][invModel]);
 				SetPVarInt(playerid, "ChoDoi", gettime() + 3);
 				if(isInInven[playerid] != 0) {
@@ -5815,6 +5801,7 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 				SetPVarInt(playerid, "ChoDoi", gettime() + 3);
 				Inventory_Remove(playerid, invData[playerid][id][invItem], invData[playerid][id][invQuantity]);
 			}
+			SetPVarInt(playerid, "ChoDoi", gettime() + 3);
 		}
 		case 1: {
 			if(strmatch("Skins", invData[playerid][id][invItem])) {
@@ -5856,7 +5843,15 @@ Dialog:DIALOG_USENUM(playerid, response, listitem, inputtext[])
 	if(!response) return 1;			
 	if(strval(inputtext) < 1 || strval(inputtext) > 10) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: So banh khong hop le. Ban chi co the su dung tu 1 den 10 cai banh cung luc.");
 	if(Inventory_Count(playerid, "Burger") < strval(inputtext)) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Ban khong co du so burger nay!");
-	new string[100];
 	SetPVarInt(playerid, "UseNum", strval(inputtext));
+	new Float:health;
+	GetPlayerHealthEx(playerid, health);
+	if(PlayerInfo[playerid][pHunger] < 96) Stamina_SetValue(playerid, 5*GetPVarInt(playerid, "UseNum"));
+	Inventory_Remove(playerid, "Burger", GetPVarInt(playerid, "UseNum"));
+	NearMessage2(playerid, 25.0,COLOR_PURPLE, "** %s da lay %d cai Burger tu tui do ra va su dung.", GetName(playerid), GetPVarInt(playerid, "UseNum"));
+	ApplyAnimation(playerid,"FOOD","EAT_Burger", 3.0, 0, 0, 0, 0, 0);
+	if(health < 85 && InWar[PlayerInfo[playerid][pMember]] == 1) {
+	SetPlayerHealthEx(playerid, health + 15);
+	}
 	return 1;
 }

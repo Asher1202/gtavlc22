@@ -340,6 +340,24 @@ CMD:checktui(playerid, params[]) {
 	showSpecPlayerInventory(playerid, 1, id);
 	return 1; 
 }
+CMD:lucsoattui(playerid, params[]) {
+	new id;
+	if(!IsACop(playerid)) return SendClientMessage(playerid, -1, "ERROR: {FFFFFF} Ban khong o trong bo phan canh sat");
+	if(sscanf(params, "u",id)) return SendClientMessage(playerid, COLOR_GREY, "Cu phap: {FFFFFF}/lucsoattui <playerid/name>");
+	if(GetPVarInt(playerid, "checkinv") != 0) return true;
+	if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Vui long xuong xe!");
+	if(!ProxDetectorS(5.0, playerid, id)) return SendClientMessage(playerid, -1, "Nguoi choi do khong o gan ban.");
+	inventoryTextDraws(playerid, false);
+	isInInven[playerid] = 0;
+
+	SetPVarInt(playerid, "checkinv", 1);
+	SetPVarInt(playerid, "checkinvid", id);
+	inventoryTextDraws(playerid, true);
+
+	refreshdatainv(id);
+	showSpecPlayerInventory(playerid, 1, id);
+	return 1; 
+}
 function checktrungskin(playerid, modelid) {
 	new y = 0;
 	for(new itemid = 0; itemid < MAX_INVENTORY; itemid ++) {

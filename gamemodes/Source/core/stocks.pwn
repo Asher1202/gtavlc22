@@ -808,20 +808,20 @@ YoutubeStreamForPlayer(playerid, link[]) {
     PlayAudioStreamForPlayer(playerid, link);
     
 }
-// timer HideMoneyTD[4500](playerid) {
-//     PlayerTextDrawHide(playerid, ShowMoneyPlus);
-//     return 1;
-// }
+timer HideMoneyTD[4500](playerid) {
+    PlayerTextDrawHide(playerid, ShowMoneyPlus);
+    return 1;
+}
 GivePlayerCash(playerid, money) {
     Cash[playerid] += money;
-    // new string[22];
-    // if(money > 0) format(string, sizeof(string), "~g~~h~+$%s", FormatNumber(money));
-    // else format(string, sizeof(string), "~r~~h~-$%s",FormatNumber(-money));
-    // PlayerTextDrawSetString(playerid, ShowMoneyPlus, string);
-    // PlayerTextDrawShow(playerid, ShowMoneyPlus);
+    new string[22];
+    if(money > 0) format(string, sizeof(string), "~g~~h~+$%s", FormatNumber(money));
+    else format(string, sizeof(string), "~r~~h~-$%s",FormatNumber(-money));
+    PlayerTextDrawSetString(playerid, ShowMoneyPlus, string);
+    PlayerTextDrawShow(playerid, ShowMoneyPlus);
 
-    // stop TDCashTimer[playerid];
-    // TDCashTimer[playerid] = defer HideMoneyTD(playerid);
+    stop TDCashTimer[playerid];
+    TDCashTimer[playerid] = defer HideMoneyTD(playerid);
     return 1;
 }
 GetPlayerCash(playerid) return Cash[playerid];
@@ -2335,12 +2335,12 @@ stock getGunID(const name[]) {
     new id;
     if(strmatch("9mm Pistol", name)) id = 22;
     else if(strmatch("Silenced", name)) id = 23;
-    else if(strmatch("DE", name)) id = 24;
+    else if(strmatch("Desert Eagle", name)) id = 24;
     else if(strmatch("Shotgun", name)) id = 25;
     else if(strmatch("MP5", name)) id = 29;
     else if(strmatch("Ak47", name)) id = 30;
     else if(strmatch("Baseballbat", name)) id = 5;
-    else if(strmatch("M4", name)) id = 31;
+    else if(strmatch("M4A1", name)) id = 31;
     else if(strmatch("Uzi", name)) id = 28;
     else if(strmatch("Country rifle", name)) id = 33;
     return id;
