@@ -6,38 +6,35 @@ timer HideTextdraw[5000](playerid) {
 timer traoqua_spray[900000](clanid) {
 	new sodiaban = GetClanTurfs(clanid);
 	new string[100];
-	switch(sodiaban) 
-	{
-		case 3: {
-			ClanInfo[clanid][clVatLieu] += 15000;
-			ClanInfo[clanid][clMaTuy] += 20;
-			ClanInfo[clanid][clMoney] += 3000000;
-			format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 15,000 Vat Lieu, 20 Ma Tuy, $3.000.000 Ve Ket Sat");
-		}
-		case 6: {
-			ClanInfo[clanid][clVatLieu] += 35000;
-			ClanInfo[clanid][clMaTuy] += 40;
-			ClanInfo[clanid][clMoney] += 7000000;
-			format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 35,000 Vat Lieu, 50 Ma Tuy, $7.000.000 Ve Ket Sat");
-		}
-		case 10: {
-			ClanInfo[clanid][clVatLieu] += 55000;
-			ClanInfo[clanid][clMaTuy] += 60;
-			ClanInfo[clanid][clMoney] += 11000000;
-			format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 55,000 Vat Lieu, 60 Ma Tuy, $11.000.000 Ve Ket Sat");
-		}
-		case 15: {
-			ClanInfo[clanid][clVatLieu] += 100000;
-			ClanInfo[clanid][clMaTuy] += 100;
-			ClanInfo[clanid][clMoney] += 15000000;
-			format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 100,000 Vat Lieu, 100 Ma Tuy, $15.000.000 Ve Ket Sat");
-		}
-		case 20: {
-			ClanInfo[clanid][clVatLieu] += 150000;
-			ClanInfo[clanid][clMaTuy] += 150;
-			ClanInfo[clanid][clMoney] += 30000000;
-			format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 150,000 Vat Lieu, 150 Ma Tuy, $30.000.000 Ve Ket Sat");
-		}
+	if(sodiaban >= 3 && sodiaban < 6) {
+		ClanInfo[clanid][clVatLieu] += 15000;
+		ClanInfo[clanid][clMaTuy] += 20;
+		ClanInfo[clanid][clMoney] += 3000000;
+		format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 15,000 Vat Lieu, 20 Ma Tuy, $3.000.000 Ve Ket Sat");
+	}
+	else if(sodiaban >= 6 && sodiaban < 10) {
+		ClanInfo[clanid][clVatLieu] += 35000;
+		ClanInfo[clanid][clMaTuy] += 40;
+		ClanInfo[clanid][clMoney] += 7000000;
+		format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 35,000 Vat Lieu, 40 Ma Tuy, $7.000.000 Ve Ket Sat");
+	}
+	else if(sodiaban >= 10 && sodiaban < 15) {
+		ClanInfo[clanid][clVatLieu] += 55000;
+		ClanInfo[clanid][clMaTuy] += 60;
+		ClanInfo[clanid][clMoney] += 11000000;
+		format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 55,000 Vat Lieu, 60 Ma Tuy, $11.000.000 Ve Ket Sat");
+	}
+	else if(sodiaban >= 15 && sodiaban < 20) {
+		ClanInfo[clanid][clVatLieu] += 100000;
+		ClanInfo[clanid][clMaTuy] += 100;
+		ClanInfo[clanid][clMoney] += 15000000;
+		format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 100,000 Vat Lieu, 100 Ma Tuy, $15.000.000 Ve Ket Sat");
+	}
+	else if(sodiaban >= 20) {
+		ClanInfo[clanid][clVatLieu] += 150000;
+		ClanInfo[clanid][clMaTuy] += 150;
+		ClanInfo[clanid][clMoney] += 30000000;
+		format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 150,000 Vat Lieu, 150 Ma Tuy, $30.000.000 Ve Ket Sat");
 	}
 	SendClanMessage(clanid,string);
 	SendClanMessage(clanid,"[CLAN] Anh Em Vat Va Roi");
