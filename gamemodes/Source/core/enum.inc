@@ -923,9 +923,12 @@ enum clInfo {
 	clRegisterDate[22],		
 	clTags, 
 	clDays,
-	clPoints
+	clPoints,
+	clVatLieu,
+	clMaTuy,
+	clMoney
 }
-
+new clanss;
 enum vInfo {
 	vColorOne,
 	vColorTwo
