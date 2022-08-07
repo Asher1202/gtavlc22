@@ -1060,7 +1060,7 @@ CMD:startwork(playerid, params[]) {
 		else if(skill == 2) JobVehicle[playerid] = CreateVehicleEx(JobInfo[PlayerInfo[playerid][pJob]][jSkill2Veh], 1982.5657,-2493.7964,14.4719, CarAngle, -1, -1, -1);
 		else if(skill == 3) JobVehicle[playerid] = CreateVehicleEx(JobInfo[PlayerInfo[playerid][pJob]][jSkill3Veh], 1982.5657,-2493.7964,14.4719, CarAngle, -1, -1, -1);
 		else if(skill == 4) JobVehicle[playerid] = CreateVehicleEx(JobInfo[PlayerInfo[playerid][pJob]][jSkill4Veh], 1982.5657,-2493.7964,14.4719, CarAngle, -1, -1, -1);
-		else if(skill == 5) JobVehicle[playerid] = CreateVehicleEx(JobInfo[PlayerInfo[playerid][pJob]][jSkill5Veh], 1982.5657,-2493.7964,14.4719, CarAngle, -1, -1, -1);	
+		else if(skill >= 5) JobVehicle[playerid] = CreateVehicleEx(JobInfo[PlayerInfo[playerid][pJob]][jSkill5Veh], 1982.5657,-2493.7964,14.4719, CarAngle, -1, -1, -1);	
 	}
 	else {
 		if(PlayerInfo[playerid][pJob] == 3) {
@@ -1068,14 +1068,14 @@ CMD:startwork(playerid, params[]) {
 			else if(skill == 2) JobVehicle[playerid] = CreateVehicleEx(578, Pos[0], Pos[1], Pos[2], CarAngle, random(240), random(240), -1);
 			else if(skill == 3) JobVehicle[playerid] = CreateVehicleEx(578, Pos[0], Pos[1], Pos[2], CarAngle, random(240), random(240), -1);
 			else if(skill == 4) JobVehicle[playerid] = CreateVehicleEx(578, Pos[0], Pos[1], Pos[2], CarAngle, random(240), random(240), -1);
-			else if(skill == 5) JobVehicle[playerid] = CreateVehicleEx(578, Pos[0], Pos[1], Pos[2], CarAngle, random(240), random(240), -1);		
+			else if(skill >= 5) JobVehicle[playerid] = CreateVehicleEx(578, Pos[0], Pos[1], Pos[2], CarAngle, random(240), random(240), -1);		
 		}
 		else {
 			if(skill == 1) JobVehicle[playerid] = CreateVehicleEx(JobInfo[PlayerInfo[playerid][pJob]][jSkill1Veh], Pos[0], Pos[1], Pos[2], CarAngle, -1, -1, -1);
 			else if(skill == 2) JobVehicle[playerid] = CreateVehicleEx(JobInfo[PlayerInfo[playerid][pJob]][jSkill2Veh], Pos[0], Pos[1], Pos[2], CarAngle, -1, -1, -1);
 			else if(skill == 3) JobVehicle[playerid] = CreateVehicleEx(JobInfo[PlayerInfo[playerid][pJob]][jSkill3Veh], Pos[0], Pos[1], Pos[2], CarAngle, -1, -1, -1);
 			else if(skill == 4) JobVehicle[playerid] = CreateVehicleEx(JobInfo[PlayerInfo[playerid][pJob]][jSkill4Veh], Pos[0], Pos[1], Pos[2], CarAngle, -1, -1, -1);
-			else if(skill == 5) JobVehicle[playerid] = CreateVehicleEx(JobInfo[PlayerInfo[playerid][pJob]][jSkill5Veh], Pos[0], Pos[1], Pos[2], CarAngle, -1, -1, -1);
+			else if(skill >= 5) JobVehicle[playerid] = CreateVehicleEx(JobInfo[PlayerInfo[playerid][pJob]][jSkill5Veh], Pos[0], Pos[1], Pos[2], CarAngle, -1, -1, -1);
 		}	
 	}
 	if(PlayerInfo[playerid][pJob] == 16) {

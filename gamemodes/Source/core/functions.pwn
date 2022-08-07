@@ -1824,7 +1824,7 @@ IsInBlacklist(playerid, fid) {
 }
 JobProgress(playerid) {
 	new string[128];	
-	if(GetPlayerSkill(playerid) == 5) 
+	if(GetPlayerSkill(playerid) == 8) 
 		format(string, sizeof(string), "Tien do cong viec %s: %d (ky nang toi da)", 
 			JobInfo[PlayerInfo[playerid][pJob]][jName], JobPoints(playerid));
 	else 
@@ -2296,28 +2296,26 @@ case 1: {
 GetNeedPoints(playerid, jid) {
 	new x;
 	new skill = GetPlayerSkill2(playerid, jid);
-	if(skill == 1) x = 40;
-	else if(skill == 2) x = 120;
-	else if(skill == 3) x = 240;
-	else if(skill == 4) x = 480;
-	else if(skill == 5) x = 999;
-	else if(skill == 6) x = 2000;
-	else if(skill == 7) x = 3500;
-	else if(skill == 8) x = 5999;
+	if(skill == 1) x = 120;
+	else if(skill == 2) x = 240;
+	else if(skill == 3) x = 480;
+	else if(skill == 4) x = 999;
+	else if(skill == 5) x = 2000;
+	else if(skill == 6) x = 3500;
+	else if(skill == 7) x = 5999;
 	return x;
 }
 
 GetNeedPoints4(playerid, jid) {
 	new x;
 	new skill = GetPlayerSkill2(playerid, jid);
-	if(skill == 1) x = 30;
-	else if(skill == 2) x = 90;
-	else if(skill == 3) x = 240;
-	else if(skill == 4) x = 480;
-	else if(skill == 5) x = 999;
-	else if(skill == 6) x = 2000;
-	else if(skill == 7) x = 3500;
-	else if(skill == 8) x = 5999;
+	if(skill == 1) x = 120;
+	else if(skill == 2) x = 240;
+	else if(skill == 3) x = 480;
+	else if(skill == 4) x = 999;
+	else if(skill == 5) x = 2000;
+	else if(skill == 6) x = 3500;
+	else if(skill == 7) x = 5999;
 	return x;
 }
 
@@ -2391,27 +2389,27 @@ GiveJobSalary(playerid) {
 	}
 	if(PlayerInfo[playerid][pJobBonus50] > 0) bonus += money/2;
 	if(PlayerInfo[playerid][pJobBonus100] > 0) bonus += money;
-	if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] != 0) {
+	if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] >= 1 && JobPoints(playerid) >= 2000) {
+		
 		new updatenum = PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]];
 		bonus += updatenum*10000;
 		new luck;
-		luck = random(100);
+		luck = random(300);
 		if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5);
 		if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5);
 		if(55 <= luck < 55+(updatenum*5)) {
-			new giftrandom = random(1);
+			new giftrandom = random(10);
 			switch(giftrandom){
-				case 0 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
-				case 1 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][1] += 1, save_crates(playerid);
+				case 0..6 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
+				case 7..10 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][2] += 1, save_crates(playerid);
 			}
 		}
 		if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec");
-		if(75 <= luck < 75+((updatenum*2) -1)) {
+		if(75 <= luck < 75+((updatenum*1) -1)) {
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random car legend"); 
 			PlayerInfo[playerid][pCrates][4] += 1; 
 			save_crates(playerid);
 		}
-		
 	}
 	new vipbonus;
 	if(PlayerInfo[playerid][pVip] == 1) vipbonus += (money/100) * 15;

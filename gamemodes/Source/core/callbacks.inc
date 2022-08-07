@@ -181,7 +181,7 @@ public OnGameModeInit() {
 	tev = gettime()+1800;
 	gettime(ghour, gminute, gsecond);
 	new string[30];
-	format(string, sizeof(string), "GTAVLC v5.02, %02d/%02d [%02d:%02d]", Day, Month, ghour, gminute);
+	format(string, sizeof(string), "GTAVLC v5.05, %02d/%02d", Day, Month);
 	SetGameModeText(string);
 	ghour = FixHour(ghour);
 	if(!realtime) SetWorldTime(wotime);

@@ -1869,7 +1869,7 @@ Dialog:DIALOG_BUYGUN(playerid, response, listitem, inputtext[])
 			if(checkslotinv(playerid) == 24) return SendClientMessage(playerid, -1, "Tui do cua ban da day.");
 			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"DE", 348, 50, 2);
 			else Inventory_Add(playerid,"Desert Eagle", 348, 50, 1);
-			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot Deagle voi gia $500,000.");
+			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot Deagle voi gia $500,000 sung da duoc bo vao [/tuido].");
 			GivePlayerCash(playerid, -500000);
 			BizzInfo[InBussines[playerid]][bTill] += 500000;
 			format(query, sizeof(query),"UPDATE `bizz` SET `Till`='%d',`Products`='%d' WHERE `ID`='%d'",BizzInfo[InBussines[playerid]][bTill],BizzInfo[InBussines[playerid]][bProducts],InBussines[playerid]);
@@ -1881,7 +1881,7 @@ Dialog:DIALOG_BUYGUN(playerid, response, listitem, inputtext[])
 			if(checkslotinv(playerid) == 24) return SendClientMessage(playerid, -1, "Tui do cua ban da day.");
 			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"M4A1", 356, 230, 2);
 			else Inventory_Add(playerid,"M4A1", 356, 230, 1);
-			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot M4 voi gia $1,400,000.");
+			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot M4 voi gia $1,400,000 sung da duoc bo vao [/tuido].");
 			GivePlayerCash(playerid, -1400000);
 			BizzInfo[InBussines[playerid]][bTill] += 1400000;
 			format(query, sizeof(query),"UPDATE `bizz` SET `Till`='%d',`Products`='%d' WHERE `ID`='%d'",BizzInfo[InBussines[playerid]][bTill],BizzInfo[InBussines[playerid]][bProducts],InBussines[playerid]);
@@ -1893,7 +1893,7 @@ Dialog:DIALOG_BUYGUN(playerid, response, listitem, inputtext[])
 			if(checkslotinv(playerid) == 24) return SendClientMessage(playerid, -1, "Tui do cua ban da day.");
 			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"AK47", 355, 230, 2);
 			else Inventory_Add(playerid,"AK47", 355, 230, 1);
-			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot AK47 voi gia $1,000,000.");
+			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot AK47 voi gia $1,000,000 sung da duoc bo vao [/tuido].");
 			GivePlayerCash(playerid, -1000000);
 			BizzInfo[InBussines[playerid]][bTill] += 1000000;
 			format(query, sizeof(query),"UPDATE `bizz` SET `Till`='%d',`Products`='%d' WHERE `ID`='%d'",BizzInfo[InBussines[playerid]][bTill],BizzInfo[InBussines[playerid]][bProducts],InBussines[playerid]);
@@ -1905,7 +1905,7 @@ Dialog:DIALOG_BUYGUN(playerid, response, listitem, inputtext[])
 			if(checkslotinv(playerid) == 24) return SendClientMessage(playerid, -1, "Tui do cua ban da day.");
 			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Uzi", 352, 200, 2);
 			else Inventory_Add(playerid,"Uzi", 352, 200, 1);
-			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot Micro SMG voi gia $700,000.");
+			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot Micro SMG voi gia $700,000 sung da duoc bo vao [/tuido].");
 			GivePlayerCash(playerid, -700000);
 			BizzInfo[InBussines[playerid]][bTill] += 700000;
 			format(query, sizeof(query),"UPDATE `bizz` SET `Till`='%d',`Products`='%d' WHERE `ID`='%d'",BizzInfo[InBussines[playerid]][bTill],BizzInfo[InBussines[playerid]][bProducts],InBussines[playerid]);
@@ -1917,7 +1917,7 @@ Dialog:DIALOG_BUYGUN(playerid, response, listitem, inputtext[])
 			if(checkslotinv(playerid) == 24) return SendClientMessage(playerid, -1, "Tui do cua ban da day.");
 			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Shotgun", 349, 30, 2);
 			else Inventory_Add(playerid,"Shotgun", 349, 30, 1);
-			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot Shotgun voi gia $400,000.");
+			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot Shotgun voi gia $400,000 sung da duoc bo vao [/tuido].");
 			GivePlayerCash(playerid, -400000);
 			BizzInfo[InBussines[playerid]][bTill] += 400000;
 			format(query, sizeof(query),"UPDATE `bizz` SET `Till`='%d',`Products`='%d' WHERE `ID`='%d'",BizzInfo[InBussines[playerid]][bTill],BizzInfo[InBussines[playerid]][bProducts],InBussines[playerid]);
@@ -1929,7 +1929,7 @@ Dialog:DIALOG_BUYGUN(playerid, response, listitem, inputtext[])
 			if(checkslotinv(playerid) == 24) return SendClientMessage(playerid, -1, "Tui do cua ban da day.");
 			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Baseball Bat", 336, 1, 2);
 			else Inventory_Add(playerid,"Baseball Bat", 336, 1, 1);
-			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot Baseball Bat voi gia $50,000.");
+			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot Baseball Bat voi gia $50,000 vu khi da duoc bo vao [/tuido].");
 			GivePlayerCash(playerid, -50000);
 			BizzInfo[InBussines[playerid]][bTill] += 50000;
 			format(query, sizeof(query),"UPDATE `bizz` SET `Till`='%d',`Products`='%d' WHERE `ID`='%d'",BizzInfo[InBussines[playerid]][bTill],BizzInfo[InBussines[playerid]][bProducts],InBussines[playerid]);
@@ -5418,28 +5418,27 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 7. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
 					else if(PlayerInfo[playerid][pFishSkill] == 5900 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 3)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 8. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] != 0) {
-						new updatenum = PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]];
-						bonus += updatenum*10000;
-						new luck;
-						luck = random(100);
-						if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5);
-						if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5);
-						if(55 <= luck < 55+(updatenum*5)) {
-							new giftrandom = random(1);
-							switch(giftrandom){
-								case 0 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
-								case 1 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][1] += 1, save_crates(playerid);
-							}
+					if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] >= 1 && JobPoints(playerid) >= 2000) {
+					new updatenum = PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]];
+					bonus += updatenum*10000;
+					new luck;
+					luck = random(300);
+					if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5);
+					if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5);
+					if(55 <= luck < 55+(updatenum*5)) {
+						new giftrandom = random(10);
+						switch(giftrandom){
+							case 0..6 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
+							case 7..10 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][2] += 1, save_crates(playerid);
 						}
-						if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec");
-						if(75 <= luck < 75+((updatenum*2) -1)) {
-							SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random car legend"); 
-							PlayerInfo[playerid][pCrates][4] += 1; 
-							save_crates(playerid);
-						}
-						
-					}					
+					}
+					if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec");
+					if(75 <= luck < 75+((updatenum*1) -1)) {
+						SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random car legend"); 
+						PlayerInfo[playerid][pCrates][4] += 1; 
+						save_crates(playerid);
+					}
+				}		
 					if(togjob[playerid] == 0) {
 						JobProgress(playerid);
 					}
@@ -5518,28 +5517,27 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 7. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
 					else if(PlayerInfo[playerid][pFishSkill] == 5900 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 3)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 8. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] != 0) {
-						new updatenum = PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]];
-						bonus += updatenum*10000;
-						new luck;
-						luck = random(100);
-						if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5);
-						if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5);
-						if(55 <= luck < 55+(updatenum*5)) {
-							new giftrandom = random(1);
-							switch(giftrandom){
-								case 0 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
-								case 1 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][1] += 1, save_crates(playerid);
-							}
+					if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] >= 1 && JobPoints(playerid) >= 2000) {
+					new updatenum = PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]];
+					bonus += updatenum*10000;
+					new luck;
+					luck = random(300);
+					if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5);
+					if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5);
+					if(55 <= luck < 55+(updatenum*5)) {
+						new giftrandom = random(10);
+						switch(giftrandom){
+							case 0..6 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
+							case 7..10 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][2] += 1, save_crates(playerid);
 						}
-						if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec");
-						if(75 <= luck < 75+((updatenum*2) -1)) {
-							SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random car legend"); 
-							PlayerInfo[playerid][pCrates][4] += 1; 
-							save_crates(playerid);
-						}
-						
-					}					
+					}
+					if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec");
+					if(75 <= luck < 75+((updatenum*1) -1)) {
+						SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random car legend"); 
+						PlayerInfo[playerid][pCrates][4] += 1; 
+						save_crates(playerid);
+					}
+				}		
 					if(togjob[playerid] == 0) {
 						JobProgress(playerid);
 					}
@@ -5617,28 +5615,27 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 7. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
 					else if(PlayerInfo[playerid][pFishSkill] == 5900 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 3)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 8. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] != 0) {
+					if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] >= 1 && JobPoints(playerid) >= 2000) {
 						new updatenum = PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]];
 						bonus += updatenum*10000;
 						new luck;
-						luck = random(100);
+						luck = random(300);
 						if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5);
 						if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5);
 						if(55 <= luck < 55+(updatenum*5)) {
-							new giftrandom = random(1);
+							new giftrandom = random(10);
 							switch(giftrandom){
-								case 0 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
-								case 1 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][1] += 1, save_crates(playerid);
+								case 0..6 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
+								case 7..10 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][2] += 1, save_crates(playerid);
 							}
 						}
 						if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec");
-						if(75 <= luck < 75+((updatenum*2) -1)) {
+						if(75 <= luck < 75+((updatenum*1) -1)) {
 							SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random car legend"); 
 							PlayerInfo[playerid][pCrates][4] += 1; 
 							save_crates(playerid);
 						}
-						
-					}					
+					}		
 					if(togjob[playerid] == 0) {
 						JobProgress(playerid);
 					}
@@ -5712,7 +5709,7 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 7. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
 					else if(PlayerInfo[playerid][pFishSkill] == 5900 && PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 3)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 8. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
-					if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] != 0) {
+					if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] >= 1 && JobPoints(playerid) >= 2000) {
 						new updatenum = PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]];
 						bonus += updatenum*10000;
 						new luck;
@@ -5853,5 +5850,44 @@ Dialog:DIALOG_USENUM(playerid, response, listitem, inputtext[])
 	if(health < 85 && InWar[PlayerInfo[playerid][pMember]] == 1) {
 	SetPlayerHealthEx(playerid, health + 15);
 	}
+	return 1;
+}
+// Dialog:DIALOG_NANGCAPJOB(playerid, response, listitem, inputtext[]) 
+// {
+// 	if(!response) return 1;
+// 	new string[200];
+
+// }
+Dialog:DIALOG_NANGCAPJOB1(playerid, response, listitem, inputtext[]) 
+{
+	if(!response) return 1;
+	new needmoney, needkc;
+	switch(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]])
+	{
+		case 0: needmoney = 15000000, needkc = 50;
+		case 1: needmoney = 30000000, needkc = 75;
+		case 2: needmoney = 60000000, needkc = 100;
+	}
+	if(GetPlayerCash(playerid) < needmoney) return SCMf(playerid, COLOR_YELLOW, "Ban khong du %s tien de mo quyen loi job level", FormatNumber(needmoney));
+	if(PlayerInfo[playerid][pKC] < needkc) return SCMf(playerid, COLOR_YELLOW, "Ban khong du %d kim cuong de mo quyen loi job level", needkc);
+	PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] += 1;
+	// Update(playerid, pUpdateLevelx);
+	new string[128], name[32];
+	save_jobs(playerid);
+	SCMf(playerid, COLOR_GREEN, "Ban da mo quyen loi cua job %s thanh cong va ton %s$ va %d kim cuong de len job level %d", JobInfo[PlayerInfo[playerid][pJob]][jName],FormatNumber(needmoney), needkc,PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] + 5);
+	SendClientMessage(playerid, COLOR_YELLOW, "Su dung /quyenloi de xem nhung quyen loi cua job level");
+	switch(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]])
+	{
+		case 1 : name = "Master";
+		case 2 : name = "Grand Master";
+		case 3 : name = "Challenge";
+	}
+	if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 3) GiveReputation(playerid, 33);
+	format(string, sizeof(string), "Nguoi choi %s da nang cap level cua job %s den level %d (%s)", GetName(playerid), JobInfo[PlayerInfo[playerid][pJob]][jName], PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] + 5, name);
+	SCMTA(COLOR_LIGHTRED, string);
+	GivePlayerCash(playerid, -needmoney);
+	PlayerInfo[playerid][pKC] -= needkc;
+	Update(playerid, pCashx);
+	Update(playerid, pKCx);
 	return 1;
 }

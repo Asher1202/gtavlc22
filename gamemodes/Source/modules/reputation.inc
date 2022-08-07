@@ -36,7 +36,7 @@ new const DanhHieu[MAX_REPUTATION][] = {
 	{"{008DFF}Top 2 Level"},
 	{"{65FF00}Plunderer"},
 	{"{E80C0C}God Of Death"},
-	{"{B8FF04}Dev Mapping"},
+	{"{B8FF04}God Of Farm Job"},//33
 	{"{ff0066}SIEU CHIEN BINH"},
 	{"{66ff99}FARMER"},
 	{"{66ff99}THE BEST CLAN"},

@@ -953,7 +953,7 @@ CMD:attack(playerid, params[]) {
 		// if(strcmp(days,"Sunday",true) == 0 || strcmp(days,"Monday",true) == 0 || strcmp(days,"Wednesday",true) == 0 || strcmp(days,"Friday",true) == 0) {} else return SendClientMessage(playerid, COLOR_LIGHTRED, "Chi co the bat dau war vao cac ngay chan trong tuan (CN-2-4-6)!");
 		// else return SendClientMessage(playerid, COLOR_LIGHTRED, "Gio war se nam trong khoang thoi gian 18:00 - 22:00!");
 		// nếu giờ lớn hơn 19 và bé hơn 21
-		if(!(19 < hour < 21)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chua den gio war (19-21h30)"); 
+		if(!(18 < hour < 21)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chua den gio war (19-21h30)"); 
 		if(ServerSystem[20] == 1) {
 			if(!(strcmp(days,"Monday",true) == 0 || strcmp(days,"Sunday",true) == 0 || strcmp(days,"Wednesday",true) == 0 || strcmp(days,"Friday",true) == 0)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chi co the bat dau war vao cac ngay chan trong tuan (CN-2-4-6)!");			
 		}
@@ -7142,28 +7142,28 @@ Dialog:DIALOG_LEVELUPJOB(playerid, response, listitem, inputtext[])
 	switch(listitem) {
 		case 0: {
 			strcat(szDialog, "Quyen loi cho cac level job:\n");
-			strcat(szDialog, "-----------------Level 6------------------\n");
-			strcat(szDialog, "tang them 10% tien khi lam viec\n");
-			strcat(szDialog, "15% co hoi nhan xu khi farm\n");
-			strcat(szDialog, "10% nhan 2 kim cuong khi farm\n");
-			strcat(szDialog, "5% nhan duoc hop qua skin, car khi farm\n");
-			strcat(szDialog, "1% nhan 500 xu\n");			
-			strcat(szDialog, "1% hop qua xe huyen thoai\n");			
-			strcat(szDialog, "-----------------Level 7------------------\n");	
-			strcat(szDialog, "tang them 20% tien khi lam viec\n");
-			strcat(szDialog, "20% co hoi nhan xu khi farm\n");
-			strcat(szDialog, "15% nhan 4 kim cuong khi farm\n");
-			strcat(szDialog, "10% nhan duoc hop qua skin, car khi farm\n");
-			strcat(szDialog, "3% nhan 500 xu\n");			
-			strcat(szDialog, "3% hop qua xe huyen thoai\n");			
-			strcat(szDialog, "-----------------Level 8------------------\n");	
-			strcat(szDialog, "tang them 35% tien khi lam viec\n");
-			strcat(szDialog, "30% co hoi nhan xu khi farm\n");
-			strcat(szDialog, "20% nhan 7 kim cuong khi farm\n");
-			strcat(szDialog, "15% nhan duoc hop qua skin, car khi farm\n");
-			strcat(szDialog, "5% nhan 500 xu\n");			
-			strcat(szDialog, "5% hop qua xe huyen thoai\n");			
-			strcat(szDialog, "Danh hieu ky nang job dac biet\n");			
+			strcat(szDialog, "-------------------------Level 6-------------------------\n");
+			strcat(szDialog, "- Tang them 10% tien khi lam viec\n");
+			strcat(szDialog, "- 15% co hoi nhan xu khi farm\n");
+			strcat(szDialog, "- 10% nhan 2 kim cuong khi farm\n");
+			strcat(szDialog, "- 5% nhan duoc hop qua skin, car khi farm\n");
+			strcat(szDialog, "- 1% nhan 500 xu\n");			
+			strcat(szDialog, "- 1% hop qua xe huyen thoai\n");			
+			strcat(szDialog, "-------------------------Level 7-------------------------\n");	
+			strcat(szDialog, "- Tang them 20% tien khi lam viec\n");
+			strcat(szDialog, "- 20% co hoi nhan xu khi farm\n");
+			strcat(szDialog, "- 15% nhan 4 kim cuong khi farm\n");
+			strcat(szDialog, "- 10% nhan duoc hop qua skin, car khi farm\n");
+			strcat(szDialog, "- 3% nhan 500 xu\n");			
+			strcat(szDialog, "- 3% hop qua xe huyen thoai\n");			
+			strcat(szDialog, "-------------------------Level 8-------------------------\n");	
+			strcat(szDialog, "- Tang them 35% tien khi lam viec\n");
+			strcat(szDialog, "- 30% co hoi nhan xu khi farm\n");
+			strcat(szDialog, "- 20% nhan 7 kim cuong khi farm\n");
+			strcat(szDialog, "- 15% nhan duoc hop qua skin, car khi farm\n");
+			strcat(szDialog, "- 5% nhan 500 xu\n");			
+			strcat(szDialog, "- 5% hop qua xe huyen thoai\n");			
+			strcat(szDialog, "- Danh hieu God Of Job Farmer\n");			
 
 		}
 	}
@@ -7348,34 +7348,137 @@ CMD:skills(playerid, params[]) {
     }
     return 1;
 }
+CMD:askills(playerid, params[]) {
+	new string[180], needp[10], skill, id;
+	new szDialog[600];
+	if(sscanf(params, "u", id)) return SendClientMessage(playerid, COLOR_GREY, "Cu phap: {FFFFFF}/askills <playerid/name>");
+	if(id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi da chon khong dang nhap.");
+    if(IsPlayerConnected(id))
+    {
+		// job 1
+		skill = GetPlayerSkill2(id, 1);
+		if(skill < 8) format(needp, 10, "%d", GetNeedPoints(id, 1));
+		else needp = "-";
+		format(string, sizeof(string), "* Farmer: %d (%d/%s)\n", GetPlayerSkill2(id, 1), PlayerInfo[id][pFarmerSkill], needp);
+		strcat(szDialog, string);
+
+		// job 2
+		skill = GetPlayerSkill2(id, 2);
+		if(skill < 8) format(needp, 10, "%d", GetNeedPoints(id, 2));
+		else needp = "-";
+		format(string, sizeof(string), "* Trucker: %d (%d/%s)\n", GetPlayerSkill2(id, 2), PlayerInfo[id][pTruckerSkill], needp);
+		strcat(szDialog, string);
+
+		// job 3
+		skill = GetPlayerSkill2(id, 3);
+		if(skill < 8) format(needp, 10, "%d", GetNeedPoints(id, 3));
+		else needp = "-";
+		format(string, sizeof(string), "* Grass Mower: %d (%d/%s)\n", GetPlayerSkill2(id, 3), PlayerInfo[id][pWoodSkill], needp);
+		strcat(szDialog, string);
+
+		// job 4
+		skill = GetPlayerSkill2(id, 4);
+		if(skill < 8) format(needp, 10, "%d", GetNeedPoints(id, 4));
+		else needp = "-";
+		format(string, sizeof(string), "* Car Jacker: %d (%d/%s)\n", GetPlayerSkill2(id, 4), PlayerInfo[id][pJackerSkill], needp);
+		strcat(szDialog, string);
+
+		// job 5
+		skill = GetPlayerSkill2(id, 5);
+		if(skill < 8) format(needp, 10, "%d", GetNeedPoints(id, 5));
+		else needp = "-";
+		format(string, sizeof(string), "* Arms Dealer: %d (%d/%s)\n", GetPlayerSkill2(id, 5), PlayerInfo[id][pMatSkill], needp);
+		strcat(szDialog, string);
+/*
+		// job 6
+		skill = GetPlayerSkill2(id, 6);
+		if(skill == 1) format(needp, 10, "50");
+		else if(skill == 2) format(needp, 10, "100");
+		else if(skill == 3) format(needp, 10, "200");
+		else if(skill == 4) format(needp, 10, "400");
+		else if(skill == 5) format(needp, 10, "-");
+		format(string, sizeof(string), "* Drugs Dealer: %d (%d/%s)\n", GetPlayerSkill2(id, 6), PlayerInfo[id][pDrugsSkill], needp);
+		SendClientMessage(id, -1, string);*/
+
+		// job 7
+		skill = GetPlayerSkill2(id, 7);
+		if(skill < 8) format(needp, 10, "%d", GetNeedPoints(id, 7));
+		else needp = "-";
+		format(string, sizeof(string), "* Mechanic: %d (%d/%s)\n", GetPlayerSkill2(id, 7), PlayerInfo[id][pMechSkill], needp);
+		strcat(szDialog, string);
+
+		// job 9
+		skill = GetPlayerSkill2(id, 9);
+		if(skill < 8) format(needp, 10, "%d", GetNeedPoints(id, 9));
+		else needp = "-";
+		format(string, sizeof(string), "* Pizza Boy: %d (%d/%s)\n", GetPlayerSkill2(id, 9), PlayerInfo[id][pPizzaSkill], needp);
+		strcat(szDialog, string);
+		// job 10
+		skill = GetPlayerSkill2(id, 10);
+		if(skill < 8) format(needp, 10, "%d", GetNeedPoints(id, 10));
+		else needp = "-";
+		format(string, sizeof(string), "* Chuyen phat nhanh: %d (%d/%s)\n", GetPlayerSkill2(id, 10), PlayerInfo[id][pCurierSkill], needp);
+		strcat(szDialog, string);	
+		
+		// job 11
+		skill = GetPlayerSkill2(id, 11);
+		if(skill < 8) format(needp, 10, "%d", GetNeedPoints(id, 11));
+		else needp = "-";
+		format(string, sizeof(string), "* Cau ca: %d (%d/%s)\n", GetPlayerSkill2(id, 11), PlayerInfo[id][pFishSkill], needp);
+		strcat(szDialog, string);
+		
+		// job 12
+		/*
+		skill = GetPlayerSkill2(id, 12);
+		if(skill < 8) format(needp, 10, "%d", GetNeedPoints(id, 12));
+		else needp = "-";
+		format(string, sizeof(string), "* Phi cong: %d (%d/%s)\n", GetPlayerSkill2(id, 12), PlayerInfo[id][pPilotSkill], needp);
+		strcat(szDialog, string);
+		*/
+		// job 13
+		skill = GetPlayerSkill2(id, 13);
+		if(skill < 8) format(needp, 10, "%d", GetNeedPoints(id, 13));
+		else needp = "-";
+		format(string, sizeof(string), "* Forklift: %d (%d/%s)\n", GetPlayerSkill2(id, 13), PlayerInfo[id][pStivuitorSkill], needp);
+		strcat(szDialog, string);
+		
+		//job 15
+		skill = GetPlayerSkill2(id, 14);
+		if(skill < 8) format(needp, 10, "%d", GetNeedPoints(id, 14));
+		else needp = "-";
+		format(string, sizeof(string), "* Newspaper Boy: %d (%d/%s)\n", GetPlayerSkill2(id, 14), PlayerInfo[id][pNewsPaperSkill], needp);
+		strcat(szDialog, string);
+		
+		Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Skills", szDialog, "Ok", "");
+    }
+    return 1;
+}
 CMD:nangcapjob(playerid, params[])
 {
 	if(PlayerInfo[playerid][pJob] == 0) return SendClientMessage(playerid, COLOR_YELLOW, "Ban khong co cong viec nao de nang cap!");
 	if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] >= 3) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da dat cap do tuyet doi, ban khong the nang cap nua");
 	if(GetPlayerSkill(playerid) < 5) return SendClientMessage(playerid, COLOR_YELLOW, "Ban chua dat den level 5 de nang cap len level 6!");
-	new needmoney, needkc;
+	new needmoney, needkc, string[128];
 	switch(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]])
 	{
 		case 0: needmoney = 15000000, needkc = 50;
 		case 1: needmoney = 30000000, needkc = 75;
 		case 2: needmoney = 60000000, needkc = 100;
 	}
-	if(GetPlayerCash(playerid) < needmoney) return SCMf(playerid, COLOR_YELLOW, "Ban khong du %s tien de mo quyen loi job level", FormatNumber(needmoney));
-	if(PlayerInfo[playerid][pKC] < needkc) return SCMf(playerid, COLOR_YELLOW, "Ban khong du %d tien de mo quyen loi job level", needkc);
-	PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] += 1;
-	// Update(playerid, pUpdateLevelx);
-	new string[128], name[32];
-	save_jobs(playerid);
-	SCMf(playerid, COLOR_GREEN, "Ban da mo quyen loi cua job %s thanh cong va ton %s$ va %d kim cuong de len job level %d", JobInfo[PlayerInfo[playerid][pJob]][jName],FormatNumber(needmoney), needkc,PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] + 5);
-	SendClientMessage(playerid, COLOR_YELLOW, "Su dung /quyenloi de xem nhung quyen loi cua job level");
-	switch(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]])
+	if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 0)
 	{
-		case 1 : name = "Master";
-		case 2 : name = "Grand Master";
-		case 3 : name = "Challenge";
+		if(JobPoints(playerid) < 2000) return SCMf(playerid, COLOR_YELLOW, "Ban chua du diem de nang cap len level tiep theo, ban can %s diem nua", FormatNumber(2000 - JobPoints(playerid)));
+	}	
+	else if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 1)
+	{
+		if(JobPoints(playerid) < 3500) return SCMf(playerid, COLOR_YELLOW, "Ban chua du diem de nang cap len level tiep theo, ban can %s diem nua", FormatNumber(3500 - JobPoints(playerid)));
 	}
-	format(string, sizeof(string), "Nguoi choi %s da nang cap job level den level %d (%s)", GetName(playerid), PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] + 5, name);
-	SCMTA(COLOR_LIGHTRED, string);
+	else if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 2)
+	{
+		if(JobPoints(playerid) < 5999) return SCMf(playerid, COLOR_YELLOW, "Ban chua du diem de nang cap len level tiep theo, ban can %s diem nua", FormatNumber(5999-JobPoints(playerid)));
+	}
+	format(string, sizeof(string), "Ban co chac chan muon nang cap skill job len level %d khong?\nBan se ton %s$ va %d kim cuong", PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]]+6,FormatNumber(needmoney), needkc);
+	Dialog_Show(playerid, DIALOG_NANGCAPJOB1, DIALOG_STYLE_MSGBOX, "Nang cap skill job", string, "Chap nhan", "Huy Bo");
 	return 1;
 }
 CMD:setkynang(playerid, params[])
@@ -7410,6 +7513,15 @@ CMD:setkynang(playerid, params[])
 	if(PlayerInfo[playerid][pUpdateLevel][result]  >= 3) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da dat cap do tuyet doi, ban khong the nang cap nua");
 	PlayerInfo[playerid][pUpdateLevel][result] = leveln;
 	save_jobs(playerid);
+	Update(playerid, pPilotSkillx);
+	Update(playerid, pRobSkillx);
+	Update(playerid, pFarmerSkillx);
+	Update(playerid, pTruckerSkillx);
+	Update(playerid, pJackerSkillx);
+	Update(playerid, pFarmerSkillx);
+	Update(playerid, pCurierSkillx);
+	Update(playerid, pNewsPaperSkillx);
+	Update(playerid, pPizzaSkillx);
 	SendClientMessage(playerid, COLOR_YELLOW, "Ban da set cho minh quyen loi cua job level thanh cong");
 	return 1;
 }
