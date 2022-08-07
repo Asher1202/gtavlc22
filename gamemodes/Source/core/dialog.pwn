@@ -3292,8 +3292,147 @@ Dialog:DIALOG_CLAN_COMMAND(playerid, response, listitem, inputtext[])
 			Dialog_Show(playerid, DIALOG_CLANTAG, DIALOG_STYLE_LIST , "Clan TAG", string, "Ok", "Close");					
 		}
 		case 5: ShowClanVehicle(playerid);
+		case 6: {
+			Dialog_Show(playerid, DIALOG_CLANKETSAT, DIALOG_STYLE_LIST, "Clan Ket Sat:", "Vat Lieu\nMa Tuy\nMoney", "Select", "Back");
+		}
 	}
 	return 1;
+}
+Dialog:DIALOG_CLANKETSAT(playerid, response, listitem, inputtext[]) {
+	if(!response) return true;
+	switch(listitem) {
+		case 0: {
+			Dialog_Show(playerid, DIALOG_CVATLIEU, DIALOG_STYLE_LIST, "Clan Ket Sat:", "Rut Vat Lieu\nGui Vat Lieu", "Select", "Back");
+		}
+		case 1: {
+			Dialog_Show(playerid, DIALOG_CMATUY, DIALOG_STYLE_LIST, "Clan Ket Sat:", "Rut Ma Tuy\nGui Ma Tuy", "Select", "Back");
+		}
+		case 2: {
+			Dialog_Show(playerid, DIALOG_CMONEY, DIALOG_STYLE_LIST, "Clan Ket Sat:", "Rut Tien\nGui Tien", "Select", "Back");
+		}
+	}
+	return true;
+}
+Dialog:DIALOG_CVATLIEU(playerid, response, listitem, inputtext[]) {
+	if(!response) return true;
+	new string[64], id = PlayerInfo[playerid][pClan];
+	format(string, sizeof string, "So Vat Lieu Hien Co: %s", FormatNumber(ClanInfo[id][clVatLieu]));
+	switch(listitem) {
+		case 0: {
+			if(PlayerInfo[playerid][pClanRank] != 6) return SendClientMessage(playerid, COLOR_ERROR,"Chi Co Chu Clan Moi Rut Duoc");
+			else Dialog_Show(playerid, DIALOG_CVATLIEU2, DIALOG_STYLE_INPUT, "Clan Ket Sat:", string, "Select", "Back");
+		}
+		case 1: {
+			Dialog_Show(playerid, DIALOG_CVATLIEU3, DIALOG_STYLE_INPUT, "Clan Ket Sat:", string, "Select", "Back");
+		}
+	}
+	return true;
+}
+Dialog:DIALOG_CVATLIEU2(playerid, response, listitem, inputtext[]) {
+	if(!response) return true;
+	new id = PlayerInfo[playerid][pClan];
+	if(strval(inputtext) <= 0 || strval(inputtext) > ClanInfo[id][clVatLieu]) return SendClientMessage(playerid, COLOR_GREY,"So Luong Khong Hop Le");
+	ClanInfo[id][clVatLieu] -= strval(inputtext);
+	PlayerInfo[playerid][pMats] += strval(inputtext);
+	Update(playerid,pMatsx);
+	new string[64];
+	format(string, sizeof string, "[CLAN] %s Da Rut %s Vat Lieu, Ket Sat Con Lai %s Vat Lieu",GetName(playerid),FormatNumber(strval(inputtext)),FormatNumber(ClanInfo[id][clVatLieu]));
+	SendClanMessage(id, string);
+	save_ketclan(id);
+	return true;
+}
+Dialog:DIALOG_CVATLIEU3(playerid, response, listitem, inputtext[]) {
+	if(!response) return true;
+	new id = PlayerInfo[playerid][pClan];
+	if(strval(inputtext) <= 0 || strval(inputtext) > PlayerInfo[playerid][pMats]) return SendClientMessage(playerid, COLOR_GREY,"So Luong Khong Hop Le");
+	ClanInfo[id][clVatLieu] += strval(inputtext);
+	PlayerInfo[playerid][pMats] -= strval(inputtext);
+	Update(playerid,pMatsx);
+	new string[64];
+	format(string, sizeof string, "[CLAN] %s Da Gui %s Vat Lieu, Ket Sat Con Lai %s Vat Lieu",GetName(playerid),FormatNumber(strval(inputtext)),FormatNumber(ClanInfo[id][clVatLieu]));
+	SendClanMessage(id, string);
+	save_ketclan(id);
+	return true;
+}
+Dialog:DIALOG_CMATUY(playerid, response, listitem, inputtext[]) {
+	if(!response) return true;
+	new string[64], id = PlayerInfo[playerid][pClan];
+	format(string, sizeof string, "So Ma Tuy Hien Co: %s", FormatNumber(ClanInfo[id][clMaTuy]));
+	switch(listitem) {
+		case 0: {
+			if(PlayerInfo[playerid][pClanRank] != 6) return SendClientMessage(playerid, COLOR_ERROR,"Chi Co Chu Clan Moi Rut Duoc");
+			else Dialog_Show(playerid, DIALOG_CMATUY2, DIALOG_STYLE_INPUT, "Clan Ket Sat:", string, "Select", "Back");
+		}
+		case 1: {
+			Dialog_Show(playerid, DIALOG_CMATUY3, DIALOG_STYLE_INPUT, "Clan Ket Sat:", string, "Select", "Back");
+		}
+	}
+	return true;
+}
+Dialog:DIALOG_CMATUY2(playerid, response, listitem, inputtext[]) {
+	if(!response) return true;
+	new id = PlayerInfo[playerid][pClan];
+	if(strval(inputtext) <= 0 || strval(inputtext) > ClanInfo[id][clMaTuy]) return SendClientMessage(playerid, COLOR_GREY,"So Luong Khong Hop Le");
+	ClanInfo[id][clMaTuy] -= strval(inputtext);
+	PlayerInfo[playerid][pMatuy1] += strval(inputtext);
+	Update(playerid,pMatuy1x);
+	new string[64];
+	format(string, sizeof string, "[CLAN] %s Da Rut %s Ma Tuy, Ket Sat Con Lai %s Ma Tuy",GetName(playerid),FormatNumber(strval(inputtext)),FormatNumber(ClanInfo[id][clMaTuy]));
+	SendClanMessage(id, string);
+	save_ketclan(id);
+	return true;
+}
+Dialog:DIALOG_CMATUY3(playerid, response, listitem, inputtext[]) {
+	if(!response) return true;
+	new id = PlayerInfo[playerid][pClan];
+	if(strval(inputtext) <= 0 || strval(inputtext) > PlayerInfo[playerid][pMatuy1]) return SendClientMessage(playerid, COLOR_GREY,"So Luong Khong Hop Le");
+	ClanInfo[id][clMaTuy] += strval(inputtext);
+	PlayerInfo[playerid][pMatuy1] -= strval(inputtext);
+	Update(playerid,pMatuy1x);
+	new string[64];
+	format(string, sizeof string, "[CLAN] %s Da Gui %s Ma Tuy, Ket Sat Con Lai %s Ma Tuy",GetName(playerid),FormatNumber(strval(inputtext)),FormatNumber(ClanInfo[id][clMaTuy]));
+	SendClanMessage(id, string);
+	save_ketclan(id);
+	return true;
+}
+Dialog:DIALOG_CMONEY(playerid, response, listitem, inputtext[]) {
+	if(!response) return true;
+	new string[64], id = PlayerInfo[playerid][pClan];
+	format(string, sizeof string, "So Tien Hien Co: %s", FormatNumber(ClanInfo[id][clMoney]));
+	switch(listitem) {
+		case 0: {
+			if(PlayerInfo[playerid][pClanRank] != 6) return SendClientMessage(playerid, COLOR_ERROR,"Chi Co Chu Clan Moi Rut Duoc");
+			else Dialog_Show(playerid, DIALOG_CMONEY2, DIALOG_STYLE_INPUT, "Clan Ket Sat:", string, "Select", "Back");
+		}
+		case 1: {
+			Dialog_Show(playerid, DIALOG_CMONEY3, DIALOG_STYLE_INPUT, "Clan Ket Sat:", string, "Select", "Back");
+		}
+	}
+	return true;
+}
+Dialog:DIALOG_CMONEY2(playerid, response, listitem, inputtext[]) {
+	if(!response) return true;
+	new id = PlayerInfo[playerid][pClan];
+	if(strval(inputtext) <= 0 || strval(inputtext) > ClanInfo[id][clMoney]) return SendClientMessage(playerid, COLOR_GREY,"So Luong Khong Hop Le");
+	ClanInfo[id][clMoney] -= strval(inputtext);
+	GivePlayerCash(playerid, strval(inputtext));
+	new string[64];
+	format(string, sizeof string, "[CLAN] %s Da Rut $%s, Ket Sat Con Lai $%s",GetName(playerid),FormatNumber(strval(inputtext)),FormatNumber(ClanInfo[id][clMoney]));
+	SendClanMessage(id, string);
+	save_ketclan(id);
+	return true;
+}
+Dialog:DIALOG_CMONEY3(playerid, response, listitem, inputtext[]) {
+	if(!response) return true;
+	new id = PlayerInfo[playerid][pClan];
+	if(strval(inputtext) <= 0 || strval(inputtext) > GetPlayerCash(playerid)) return SendClientMessage(playerid, COLOR_GREY,"So Luong Khong Hop Le");
+	ClanInfo[id][clMoney] += strval(inputtext);
+	GivePlayerCash(playerid, -strval(inputtext));
+	new string[64];
+	format(string, sizeof string, "[CLAN] %s Da Gui $%s, Ket Sat Con Lai $%s",GetName(playerid),FormatNumber(strval(inputtext)),FormatNumber(ClanInfo[id][clMoney]));
+	SendClanMessage(id, string);
+	save_ketclan(id);
+	return true;
 }
 Dialog:DIALOG_CLANTAG(playerid, response, listitem, inputtext[]) 
 {
@@ -3516,7 +3655,7 @@ Dialog:DIALOG_CLAN_GRANK(playerid, response, listitem, inputtext[])
 		Dialog_Show(playerid, DIALOG_CLAN_MEMBERS, DIALOG_STYLE_TABLIST_HEADERS, "Clan members", szDialog2, "Ok", "Back");
 		return 1;
 	}
-	if(strval(inputtext) <= 0 || strval(inputtext) >= 6) return SendClientMessage(playerid, COLOR_GREY, "Rank-ul este khong hop le. Trebuie sa fie cuprins intre 1 si 5!");
+	if(strval(inputtext) <= 0 || strval(inputtext) >= 6) return SendClientMessage(playerid, COLOR_GREY, "Rank khong hop le Chi Duoc tu 1 den 5!");
 	new
 		userID = GetPlayerID(pName[playerid]),
 		clanid = PlayerInfo[playerid][pClan];

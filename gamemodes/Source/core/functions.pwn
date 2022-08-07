@@ -4051,7 +4051,11 @@ function LoadClans() {
 		cache_get_value_name_int(c, "Days", ClanInfo[id][clDays]); 
 		cache_get_value_name(c, "RegisterDate", ClanInfo[id][clRegisterDate], 22);
 		cache_get_value_name_int(c, "ActivePoints", ClanInfo[id][clPoints]);   
+		cache_get_value_name_int(c, "VatLieu", ClanInfo[id][clVatLieu]); 
+		cache_get_value_name_int(c, "MaTuy", ClanInfo[id][clMaTuy]); 
+		cache_get_value_name_int(c, "Money", ClanInfo[id][clMoney]); 
 	}
+	clanss = clans;
 	printf("Clans: %d", clans);
 	return 1;
 }
@@ -5212,7 +5216,12 @@ GetClanTurfs(clanid) {
 	}	
 	return x;
 }
-	
+save_ketclan(clanid) {
+	new query[128];
+	mysql_format(SQL, query, sizeof(query), "UPDATE `clans` SET `VatLieu`='%d', `MaTuy` = '%d', `Money` = '%d' WHERE `ID`='%d'",ClanInfo[clanid][clVatLieu],ClanInfo[clanid][clMaTuy],ClanInfo[clanid][clMoney], clanid);
+	mysql_tquery(SQL, query, "", "");
+	return 1;
+}
 GClanMembers() {
 	new szQuery[45];
 	for(new i = 0; i < MAX_CLANS; i++) {

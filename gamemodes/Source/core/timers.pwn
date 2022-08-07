@@ -3,6 +3,47 @@ timer HideTextdraw[5000](playerid) {
 	PlayerTextDrawHide(playerid, InfosTD);
 	return 1;
 }
+timer traoqua_spray[900000](clanid) {
+	new sodiaban = GetClanTurfs(clanid);
+	new string[100];
+	switch(sodiaban) 
+	{
+		case 3: {
+			ClanInfo[clanid][clVatLieu] += 15000;
+			ClanInfo[clanid][clMaTuy] += 20;
+			ClanInfo[clanid][clMoney] += 3000000;
+			format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 15,000 Vat Lieu, 20 Ma Tuy, $3.000.000 Ve Ket Sat");
+		}
+		case 6: {
+			ClanInfo[clanid][clVatLieu] += 35000;
+			ClanInfo[clanid][clMaTuy] += 40;
+			ClanInfo[clanid][clMoney] += 7000000;
+			format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 35,000 Vat Lieu, 50 Ma Tuy, $7.000.000 Ve Ket Sat");
+		}
+		case 10: {
+			ClanInfo[clanid][clVatLieu] += 55000;
+			ClanInfo[clanid][clMaTuy] += 60;
+			ClanInfo[clanid][clMoney] += 11000000;
+			format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 55,000 Vat Lieu, 60 Ma Tuy, $11.000.000 Ve Ket Sat");
+		}
+		case 15: {
+			ClanInfo[clanid][clVatLieu] += 100000;
+			ClanInfo[clanid][clMaTuy] += 100;
+			ClanInfo[clanid][clMoney] += 15000000;
+			format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 100,000 Vat Lieu, 100 Ma Tuy, $15.000.000 Ve Ket Sat");
+		}
+		case 20: {
+			ClanInfo[clanid][clVatLieu] += 150000;
+			ClanInfo[clanid][clMaTuy] += 150;
+			ClanInfo[clanid][clMoney] += 30000000;
+			format(string, sizeof string, "[CLAN] Anh Em Da Kiem Duoc 150,000 Vat Lieu, 150 Ma Tuy, $30.000.000 Ve Ket Sat");
+		}
+	}
+	SendClanMessage(clanid,string);
+	SendClanMessage(clanid,"[CLAN] Anh Em Vat Va Roi");
+	save_ketclan(clanid);
+	return 1;
+}
 timer Advertisment[60000](playerid) {
 	if(IsPlayerConnected(playerid) && AdTimer[playerid] != Timer:0) {
 		new string[1024];
@@ -3987,6 +4028,11 @@ task PayDay[10000]() {
 				BidaOn=0;
 				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Bida da dong, hay nghi ngoi thoi nao (Bida mo vao khung gio 8h-12h va 16h -> 3h ).");
 
+			}
+			if(hour == 13 || hour == 19) SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Spray Clan Da Bat Dau, Da Toi Luc Anh Em Xuat Phat.");
+			if(hour == 15 || hour == 21 && minn == 30) {
+				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Spray Clan Da Ket Thuc, Anh Em Rut Lui Thoi.");
+				for(new clansex = 0; clansex < clanss; clansex++) defer traoqua_spray[900000](clansex);
 			}
 
 			if(hour == 1)

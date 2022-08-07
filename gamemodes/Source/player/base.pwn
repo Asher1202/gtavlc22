@@ -6266,7 +6266,7 @@ CMD:spray(playerid, params[]) {
 }
 CMD:clan(playerid, params[]) {
 	if(PlayerInfo[playerid][pClan] == 0) return  SendClientMessage(playerid, COLOR_GREY, "Ban khong o trong mot clan!");
-	Dialog_Show(playerid, DIALOG_CLAN_COMMAND, DIALOG_STYLE_LIST, "Clan:", "Thong tin clan\nLenh cho clan\nThanh vien trong clan\nCai dat\nTag\nXe clan", "Chon", "Dong");
+	Dialog_Show(playerid, DIALOG_CLAN_COMMAND, DIALOG_STYLE_LIST, "Clan:", "Thong tin clan\nLenh cho clan\nThanh vien trong clan\nCai dat\nTag\nXe clan\nKet Sat", "Chon", "Dong");
 	return 1;
 }
 
