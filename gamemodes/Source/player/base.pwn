@@ -2193,7 +2193,7 @@ CMD:afklist(playerid, params[]) {
 	return 1;
 }
 CMD:admins(playerid, params[]) {
-	if(PlayerInfo[playerid][pLevel] < 3) return SendClientMessage(playerid, -1, "Lenh se mo khoa khi ban dat cap 3.");
+	if(PlayerInfo[playerid][pLevel] < 5) return SendClientMessage(playerid, -1, "Lenh se mo khoa khi ban dat cap 5.");
 	new string[128], count;
 	format(string, sizeof(string), "---------------- Admin dang online ----------------");
 	SendClientMessage(playerid, COLOR_WHITE, string);
@@ -6187,7 +6187,7 @@ CMD:clanduty(playerid, params[]) {
 	getdate(year, month, day);	
 	new days[180];
 	format(days, sizeof(days), GetWeekDay(day, month, year));
-	//if(strcmp(days,"Sunday",true) == 0 || strcmp(days,"Monday",true) == 0 || strcmp(days,"Wednesday",true) == 0 || strcmp(days,"Friday",true) == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chi co the bat dau war clan vao cac ngay le trong tuan (3-5-7)!");
+	if(strcmp(days,"Sunday",true) == 0 || strcmp(days,"Monday",true) == 0 || strcmp(days,"Wednesday",true) == 0 || strcmp(days,"Friday",true) == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chi co the bat dau war clan vao cac ngay le trong tuan (3-5-7)!");
 	if(hour == 19|| hour == 20 || hour == 21) {} else return SendClientMessage(playerid, COLOR_LIGHTRED, "Gio war se nam trong khoang thoi gian 19h - 21h!");
 	switch(ClanDuty[playerid]) {
 		case 0: SendClientMessage(playerid, -1, "Ban da kich hoat clan duty thanh cong!"), ClanDuty[playerid] = 1, SetPlayerArmourEx(playerid, 30);

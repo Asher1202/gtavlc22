@@ -130,7 +130,7 @@ stock SetVehicleTrunk(vehicleid, playerid)
 
 // }
 
-CMD:ccatsung(playerid, params[])
+CMD:catsung(playerid, params[])
 {
     if(OnDuty[playerid] == 1) return SendClientMessage(playerid, COLOR_WHITE, "Ban khong the cat sung khi dang onduty!");
     if(GetPlayerVirtualWorld(playerid) != 0 ) return SendClientMessage(playerid, COLOR_WHITE, "Ban khong the cat sung khi dang o trong mot VW!");

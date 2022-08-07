@@ -3787,8 +3787,16 @@ task SyncUp[60000]() {
 		else {
 			SetWorldTime(hour);
 		}
-
-
+		new days[180];
+		format(days, sizeof(days), GetWeekDay(Day, Month, Year));
+		if(strcmp(days,"Sunday",true) == 0 || strcmp(days,"Monday",true) == 0 || strcmp(days,"Wednesday",true) == 0 || strcmp(days,"Friday",true) == 0) {
+			if(hour == 13 || hour == 19) SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Spray Clan Da Bat Dau, Da Toi Luc Anh Em Xuat Phat.");
+			if(hour == 15 || hour == 21 && minn == 30) {
+				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Spray Clan Da Ket Thuc, Anh Em Rut Lui Thoi.");
+			}
+			if(hour == 21 && minn == 40)
+				for(new clansex = 0; clansex < clanss; clansex++) defer traoqua_spray[900000](clansex);
+		}
 
 	}
 	foreach(new i: Player) {
@@ -4028,11 +4036,6 @@ task PayDay[10000]() {
 				BidaOn=0;
 				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Bida da dong, hay nghi ngoi thoi nao (Bida mo vao khung gio 8h-12h va 16h -> 3h ).");
 
-			}
-			if(hour == 13 || hour == 19) SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Spray Clan Da Bat Dau, Da Toi Luc Anh Em Xuat Phat.");
-			if(hour == 15 || hour == 21 && minn == 30) {
-				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Spray Clan Da Ket Thuc, Anh Em Rut Lui Thoi.");
-				for(new clansex = 0; clansex < clanss; clansex++) defer traoqua_spray[900000](clansex);
 			}
 
 			if(hour == 1)
