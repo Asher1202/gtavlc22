@@ -398,13 +398,13 @@ Dialog:DIALOG_SKIN1(playerid, response, listitem, inputtext[]) {
     DeletePVar(playerid, "skin");
     return 1;
 }
-total_skins(playerid) {
+/*total_skins(playerid) {
     new x;
     for (new i; i < 10; i++) {
         if(PlayerInfo[playerid][pSkins][i] != -1) x++;
     }
     return x;
-}
+}*/
 // are_acest_skin(playerid, model) {
 //     for (new i; i < 10; i++) {
 //         if(PlayerInfo[playerid][pSkins][i] == model) return true;

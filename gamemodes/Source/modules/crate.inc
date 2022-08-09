@@ -391,7 +391,7 @@ function TatQuayGuong(playerid) {
 // }
 CMD:moruong(playerid ,params[]) {
 	if(CheckMoGuong[playerid] == 1) return SendClientMessage(playerid, COLOR_YELLOW, "Ban khong the mo guong");
-	if(total_skins(playerid) ==  10) return SendClientMessage(playerid, COLOR_GREY, "Ban da co max skin khong the mo hom nua hay xoa bot");
+	if(checkslotskin(playerid) == 10) return SendClientMessage(playerid, COLOR_GREY, "Ban da full slot skin.");
     DeletePVar(playerid, "VoucherType");
 	ShowMoGuongTD(playerid);
 	CheckMoGuong[playerid] = 1;
