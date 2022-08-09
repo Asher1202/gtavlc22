@@ -2395,27 +2395,50 @@ GiveJobSalary(playerid) {
 		bonus += updatenum*10000;
 		new luck;
 		luck = random(300);
-		if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5);
-		if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5);
+		if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5), format(string, sizeof(string), "[!] %s da nhan duoc %d xu tu cong viec", GetName(playerid), updatenum * 5), Log("logs/Bonus.log", string);
+		if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5), format(string, sizeof(string), "[!] %s da nhan duoc %d kim cuong tu cong viec", GetName(playerid), updatenum * 5), Log("logs/Bonus.log", string);
 		if(55 <= luck < 55+(updatenum*5)) {
 			new giftrandom = random(10);
 			switch(giftrandom){
-				case 0..6 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid);
-				case 7..10 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][2] += 1, save_crates(playerid);
+				case 0..6 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid), format(string, sizeof(string), "[!] %s da nhan hop qua random skin", GetName(playerid)), Log("logs/Bonus.log", string);
+				case 7..10 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][2] += 1, save_crates(playerid), format(string, sizeof(string), "[!] %s da nhan hop qua random", GetName(playerid)), Log("logs/Bonus.log", string);
 			}
 		}
-		if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec");
+		if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec"), format(string, sizeof(string), "[!] %s da nhan 500 xu tu cong viec", GetName(playerid)), Log("logs/Bonus.log", string);	
 		if(75 <= luck < 75+((updatenum*1) -1)) {
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random car legend"); 
 			PlayerInfo[playerid][pCrates][4] += 1; 
 			save_crates(playerid);
+			format(string, sizeof(string), "[!] %s hop qua car legend", GetName(playerid));
+			Log("logs/Bonus.log", string);	
 		}
 	}
 	new vipbonus;
 	if(PlayerInfo[playerid][pVip] == 1) vipbonus += (money/100) * 15;
     else if(PlayerInfo[playerid][pVip] == 2) vipbonus += (money/100) * 25;
     else if(PlayerInfo[playerid][pVip] == 3) vipbonus += (money/100) * 40;
-
+	//qua tan thu
+	if(PlayerInfo[playerid][pQuaTanThu] == 0 && PlayerInfo[playerid][pJob] == 2 && PlayerInfo[playerid][pTruckerSkill] < 5)
+	{ 
+		SCMf(playerid, COLOR_YELLOW, "De nhan qua tan thu ban can hoan thanh them %d chuyen trucker va %d chuyen pizza", 5 - PlayerInfo[playerid][pTruckerSkill], 5 - PlayerInfo[playerid][pPizzaSkill] );
+		
+	}
+	else if(PlayerInfo[playerid][pQuaTanThu] == 0 && PlayerInfo[playerid][pJob] == 9 && PlayerInfo[playerid][pPizzaSkill] < 5)
+	{
+		SCMf(playerid, COLOR_YELLOW, "De nhan qua tan thu ban can hoan thanh them %d chuyen trucker va %d chuyen pizza", 5 - PlayerInfo[playerid][pTruckerSkill], 5 - PlayerInfo[playerid][pPizzaSkill] );
+	}
+	else if(PlayerInfo[playerid][pJob] == 9 && PlayerInfo[playerid][pPizzaSkill] >= 5 &&  PlayerInfo[playerid][pJob] == 2 && PlayerInfo[playerid][pTruckerSkill] >= 5)
+	{
+		SendClientMessage(playerid, COLOR_YELLOW, "Chuc mung ban da hoan thanh nhiem vu tan thu va nhan duoc 50.000$ va 50 banh hamburger [/tuido]");
+		PlayerInfo[playerid][pQuaTanThu] = 1;
+		if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Burger", 2703, 50, 2);
+		else Inventory_Add(playerid,"Burger", 2703, 50, 1);
+		GivePlayerCash(playerid, 50000);
+		Update(playerid, pCashx);
+		new sql[128];
+		format(sql, sizeof(sql), "UPDATE users SET `QuaTanThu`='1' WHERE `ID`='%d'", PlayerInfo[playerid][pSQLID]);
+        mysql_tquery(SQL, sql, "", "");
+	}
 	// info
 	JobDeelay[playerid][PlayerInfo[playerid][pJob]] = 45;
 	
@@ -4797,7 +4820,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 		cache_get_value_name_int(0, "PizzaSkill", PlayerInfo[playerid][pPizzaSkill]);
 		cache_get_value_name_int(0, "CurierSkill", PlayerInfo[playerid][pCurierSkill]);
 		cache_get_value_name_int(0, "GasCan", PlayerInfo[playerid][pGasCan]);
-		
+		cache_get_value_name_int(0, "QuaTanThu", PlayerInfo[playerid][pQuaTanThu]);
 		cache_get_value_name_int(0, "ShowHP", PlayerInfo[playerid][pShowHP]);
 		cache_get_value_name_int(0, "ShowCP", PlayerInfo[playerid][pShowCP]);
 		cache_get_value_name_int(0, "ShowAP", PlayerInfo[playerid][pShowAP]);

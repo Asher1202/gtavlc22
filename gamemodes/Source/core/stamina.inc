@@ -91,7 +91,34 @@ hook OnPlayerSpawn(playerid)
 	SetPlayerStamina(playerid, 100);
 }
 /* ** Functions ** */
+CMD:cuutoivoi(playerid, params[]) {
+	
+	staminaProgressBar[playerid] = CreatePlayerProgressBar(playerid, 548.000000, 58.000000, 62.500000, 4.500000, -764862721, 100.000000, 0);
+	SetPlayerProgressBarValue(playerid, staminaProgressBar[playerid], 50.000000);
 
+	//Player Textdraws
+	staminaText[playerid] = CreatePlayerTextDraw(playerid, 578.000000, 55.000000, "100%");
+	PlayerTextDrawFont(playerid, staminaText[playerid], 2);
+	PlayerTextDrawLetterSize(playerid, staminaText[playerid], 0.212497, 0.899998);
+	PlayerTextDrawTextSize(playerid, staminaText[playerid], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, staminaText[playerid], 1);
+	PlayerTextDrawSetShadow(playerid, staminaText[playerid], 0);
+	PlayerTextDrawAlignment(playerid, staminaText[playerid], 2);
+	PlayerTextDrawColor(playerid, staminaText[playerid], -1);
+	PlayerTextDrawBackgroundColor(playerid, staminaText[playerid], 255);
+	PlayerTextDrawBoxColor(playerid, staminaText[playerid], 50);
+	PlayerTextDrawUseBox(playerid, staminaText[playerid], 0);
+	PlayerTextDrawSetProportional(playerid, staminaText[playerid], 1);
+	PlayerTextDrawSetSelectable(playerid, staminaText[playerid], 0);
+	ShowPlayerProgressBar(playerid, staminaProgressBar[playerid]);
+	PlayerTextDrawShow(playerid, staminaText[playerid]);
+	TextDrawShowForPlayer(playerid, staminaIcon);
+	TextDrawShowForPlayer(playerid, armorIcon); // Nếu check player có armour thì mới show sẽ hay hơn và nhìn ít rối hơn.
+	
+	SetPlayerMaxStamina(playerid, 100);
+	SetPlayerProgressBarValue(playerid, staminaProgressBar[playerid], PlayerInfo[playerid][pHunger]);
+	return 1;
+}
 //						minus?, JUWOV
 // Remember to put a - if you want to minus. 
 Stamina_SetValue(playerid, num) {

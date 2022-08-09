@@ -108,6 +108,7 @@ timer FinishTutorial[5000](playerid) {
 	for(new i = 0; i < 20; i++) SendClientMessage(playerid, COLOR_WHITE, ""); 
 	SendClientMessage(playerid, COLOR_PURPLE, "{00FF00}[!] {FFFFFF} Phan huong dan da ket thuc!");
 	SendClientMessage(playerid, COLOR_PURPLE, "{00FF00}[!] {FFFFFF} LENH NEWBIE: /n (hoi dap) /timvieclam /nhiemvu /gps /banbe /trogiup");
+	SendClientMessage(playerid, COLOR_PURPLE, "{00FF00}[!] {FFFFFF} Server dang co goi qua tan thu [/quatanthu] de nhan");
 	PlayerInfo[playerid][pShowProgress][0] = 1 + random(11);
 	UpdateVar(playerid, "ShowProgress1", PlayerInfo[playerid][pShowProgress][0]);
 	UpdateProgress(playerid, 0);

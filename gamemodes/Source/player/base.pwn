@@ -3550,6 +3550,14 @@ CMD:withdraw(playerid, params[]) {
 	ConsumingMoney[playerid] = 1;
 	return 1;
 }
+CMD:quatanthu(playerid, params[]) {
+    if(PlayerInfo[playerid][pQuaTanThu] == 1) return SendClientMessage(playerid, COLOR_GREY, "Ban da hoan thanh nhiem vu tan thu roi.");
+	SendClientMessage(playerid, COLOR_YELLOW, "Ban co nhiem vu tan thu nhu sau:");
+	SendClientMessage(playerid, COLOR_YELLOW, "Hoan thanh 5 chuyen trucker, 5 chuyen pizza de nhan vat pham sau:");
+	SendClientMessage(playerid, COLOR_YELLOW, "50.000$ va 50 cai banh burger.");
+
+	return 1;
+}
 
 CMD:deposit(playerid, params[]) {
     if(!IsAtBank(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Ban khong o tai ngan hang!");
@@ -7463,7 +7471,7 @@ CMD:nangcapjob(playerid, params[])
 	{
 		case 0: needmoney = 15000000, needkc = 50;
 		case 1: needmoney = 30000000, needkc = 75;
-		case 2: needmoney = 60000000, needkc = 100;
+		case 2: needmoney = 60000000, needkc = 200;
 	}
 	if(PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]] == 0)
 	{

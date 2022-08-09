@@ -26,7 +26,7 @@ enum pInfo {
 	pNewsPaperSkill,
 	pUsername[36], 	pKey[32],
 	pLevel, 		pAdmin,
-	pHelper,
+	pHelper,		pQuaTanThu,
 	pReg, 			pSex,
 	pAge, 			pMuted,
 	pMuteTime, 		pExp,

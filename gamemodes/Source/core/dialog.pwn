@@ -6005,7 +6005,7 @@ Dialog:DIALOG_NANGCAPJOB1(playerid, response, listitem, inputtext[])
 	{
 		case 0: needmoney = 15000000, needkc = 50;
 		case 1: needmoney = 30000000, needkc = 75;
-		case 2: needmoney = 60000000, needkc = 100;
+		case 2: needmoney = 60000000, needkc = 200;
 	}
 	if(GetPlayerCash(playerid) < needmoney) return SCMf(playerid, COLOR_YELLOW, "Ban khong du %s tien de mo quyen loi job level", FormatNumber(needmoney));
 	if(PlayerInfo[playerid][pKC] < needkc) return SCMf(playerid, COLOR_YELLOW, "Ban khong du %d kim cuong de mo quyen loi job level", needkc);
