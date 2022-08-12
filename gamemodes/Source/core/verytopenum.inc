@@ -135,3 +135,4 @@ enum pInfo {
 new 
 	PlayerInfo[MAX_PLAYERS + 1][pInfo],
 	InDealer[MAX_PLAYERS];
+new cauhoihuman[MAX_PLAYERS][124],dapanhuman[MAX_PLAYERS], toghuman = 0;

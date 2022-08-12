@@ -1,3 +1,18 @@
+CMD:togcaptcha(playerid,params[]) {
+	if(PlayerInfo[playerid][pAdmin] < 6) return 1;
+	new string[90];
+	if(toghuman == 0) {
+		toghuman = 1;
+		format(string, sizeof(string), "INFO: %s Da Bat Captcha Khi Farm", GetName(playerid));		
+		SendStaffMessage(COLOR_YELLOW, string);
+	}
+	else if(toghuman == 1) {
+		toghuman = 0;
+		format(string, sizeof(string), "INFO: %s Da Tat Captcha Khi Farm", GetName(playerid));		
+		SendStaffMessage(COLOR_YELLOW, string);
+	}
+	return 1;
+}
 CMD:movefactioninterior(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 6) return 1;
 	new id;

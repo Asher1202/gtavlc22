@@ -3472,6 +3472,12 @@ Dialog:DIALOG_CLAN_MEMBERS(playerid, response, listitem, inputtext[])
 	Dialog_Show(playerid, DIALOG_CLAN_MANAGE2, DIALOG_STYLE_LIST, "Thiet lap:", "Uninvite\nGive rank\nClan warn\nUn Clan warn", "Ok" ,"Back");
 	return 1;
 }
+Dialog:DIALOG_HUMAN(playerid, response, listitem, inputtext[]) {
+	if(!response) return true;
+	if(strval(inputtext) != dapanhuman[playerid]) return Dialog_Show(playerid, DIALOG_HUMAN, DIALOG_STYLE_INPUT, "Ban da tra loi sai", cauhoihuman[playerid], "Dong y", "Cancel");
+	GiveJobSalary(playerid);
+	return true;
+}
 Dialog:DIALOG_THUYSAN(playerid, response, listitem, inputtext[]) 
 {
 	if(!response) return 1;
