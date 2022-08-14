@@ -1646,6 +1646,23 @@ new RaceCars[][2] = {
 // 	{1607.3521,1817.3278,10.8203},
 // 	{2287.2034,2431.5264,10.8203}
 // };
+TrungThuJobName(id) {
+	new string[44];
+	switch(id) {
+		case 0: string = "Cau ca 'Sailor Moon'";
+		case 1: string = "Giao pizza";
+		case 2: string = "Giao trucker vat pham 'Banh Trung Thu'";
+		case 3: string = "Giao nguyen lieu 'Banh Dau Xanh'";
+		case 4: string = "Find nguoi choi khac";
+		case 5: string = "Giao trai cay";
+		case 6: string = "Dua xe trong dau truong";
+		case 7: string = "Giet nguoi choi trong paintball";
+		case 8: string = "Che tao banh trung thu";
+		case 9: string = "Dat tai xiu";
+	}	
+	return string;
+}	
+
 stock ticketName(id) {
 	new string[43];
 	switch(id) {

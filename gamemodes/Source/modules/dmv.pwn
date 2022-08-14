@@ -686,7 +686,7 @@ DMV_End(playerid, failed) {
 			PlayerInfo[playerid][pTutorial] = 1;
 			Tutorial(playerid);
 		}
-		finishAchievement(playerid, 6);	
+		// finishAchievement(playerid, 6);	
 
 		SendClientMessage(playerid, COLOR_YELLOW, "* Xin chuc mung, ban da vuot qua ki thi bang lai va nhan duoc giay phep lai xe.");
 		GameTextForPlayer( playerid, "Mission passed!~n~~w~Driving license acquired!", 5000, 0 );

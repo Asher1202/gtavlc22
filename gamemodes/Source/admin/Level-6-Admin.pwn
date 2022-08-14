@@ -392,10 +392,10 @@ CMD:setleader(playerid, params[]) {
 	format(ftext, sizeof(ftext), FactionName(level));
 	PlayerInfo[id][pMember] = level;
 	
-	if(PlayerInfo[playerid][pMember] == 11) finishAchievement(id, 29);	
-	else if(IsACop(playerid)) finishAchievement(id, 30);	
-	else if(IsAMember(playerid)) finishAchievement(id, 31);	
-	else finishAchievement(id, 28);	
+	// if(PlayerInfo[playerid][pMember] == 11) finishAchievement(id, 29);	
+	// else if(IsACop(playerid)) finishAchievement(id, 30);	
+	// else if(IsAMember(playerid)) finishAchievement(id, 31);	
+	// else finishAchievement(id, 28);	
 	
 	
 	PlayerInfo[id][pLeader] = level;
@@ -939,7 +939,7 @@ CMD:setadmin(playerid, params[]) {
 		Iter_Remove(PlayerAdmins, id);
 	}
 	else {
-		finishAchievement(id, 27);
+		// finishAchievement(id, 27);
 		Iter_Add(PlayerAdmins, id);
 	}
 	PlayerInfo[id][pAdmin] = adminlevel;

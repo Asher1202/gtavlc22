@@ -2395,16 +2395,16 @@ GiveJobSalary(playerid) {
 		bonus += updatenum*10000;
 		new luck;
 		luck = random(300);
-		if(0 <= luck < updatenum*10) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5), format(string, sizeof(string), "[!] %s da nhan duoc %d xu tu cong viec", GetName(playerid), updatenum * 5), Log("logs/Bonus.log", string);
-		if(30 <= luck < 30+(updatenum*10)-5) PlayerInfo[playerid][pKC] += updatenum *5, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5), format(string, sizeof(string), "[!] %s da nhan duoc %d kim cuong tu cong viec", GetName(playerid), updatenum * 5), Log("logs/Bonus.log", string);
-		if(55 <= luck < 55+(updatenum*5)) {
+		if(0 <= luck < updatenum*7) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5), format(string, sizeof(string), "[!] %s da nhan duoc %d xu tu cong viec", GetName(playerid), updatenum * 5), Log("logs/Bonus.log", string);
+		if(30 <= luck < 30+(updatenum*5)-5) PlayerInfo[playerid][pKC] += (updatenum *5)-2, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5), format(string, sizeof(string), "[!] %s da nhan duoc %d kim cuong tu cong viec", GetName(playerid), updatenum * 5), Log("logs/Bonus.log", string);
+		if(55 <= luck < 55+(updatenum*3)) {
 			new giftrandom = random(10);
 			switch(giftrandom){
 				case 0..6 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid), format(string, sizeof(string), "[!] %s da nhan hop qua random skin", GetName(playerid)), Log("logs/Bonus.log", string);
 				case 7..10 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][2] += 1, save_crates(playerid), format(string, sizeof(string), "[!] %s da nhan hop qua random", GetName(playerid)), Log("logs/Bonus.log", string);
 			}
 		}
-		if(70 <= luck < 70+((updatenum*2) -1)) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec"), format(string, sizeof(string), "[!] %s da nhan 500 xu tu cong viec", GetName(playerid)), Log("logs/Bonus.log", string);	
+		if(101 <= luck < 103) PlayerInfo[playerid][pPremiumPoints] += 500, Update(playerid, pPremiumPointsx), SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc 500 xu vi hoan thanh cong viec"), format(string, sizeof(string), "[!] %s da nhan 500 xu tu cong viec", GetName(playerid)), Log("logs/Bonus.log", string);	
 		if(75 <= luck < 75+((updatenum*1) -1)) {
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random car legend"); 
 			PlayerInfo[playerid][pCrates][4] += 1; 
@@ -2497,7 +2497,7 @@ GiveJobSalary(playerid) {
 	else {
 		if(togjob[playerid] == 0) JobProgress(playerid);	
 	}	
-	if(GetPlayerSkill(playerid) == 5) finishAchievement(playerid, 0);	
+	// if(GetPlayerSkill(playerid) == 5) finishAchievement(playerid, 0);	
 	UpdateProgress(playerid, 1);
 	return 1;
 }
@@ -4710,9 +4710,9 @@ OnPlayerLoginEx(playerid, const password[]) {
 	    sscanf(somayman, "p<|>iiiii", PlayerInfo[playerid][plottonumber][0],PlayerInfo[playerid][plottonumber][1],PlayerInfo[playerid][plottonumber][2],PlayerInfo[playerid][plottonumber][3],PlayerInfo[playerid][plottonumber][4]);
 
 	    new skin[64];
-		cache_get_value_name(0, "Skin", result); format(skin, 64, result);
-        sscanf(skin, "p<|>iiiiiiiiii", PlayerInfo[playerid][pSkins][0], PlayerInfo[playerid][pSkins][1], PlayerInfo[playerid][pSkins][2], PlayerInfo[playerid][pSkins][3], PlayerInfo[playerid][pSkins][4],
-        PlayerInfo[playerid][pSkins][5], PlayerInfo[playerid][pSkins][6], PlayerInfo[playerid][pSkins][7], PlayerInfo[playerid][pSkins][8], PlayerInfo[playerid][pSkins][9]);
+		cache_get_value_name(0, "TrungThuJob", result); format(skin, 64, result);
+        sscanf(skin, "p<|>iiiiiiiiii", PlayerInfo[playerid][TrungThuJob][0], PlayerInfo[playerid][TrungThuJob][1], PlayerInfo[playerid][TrungThuJob][2], PlayerInfo[playerid][TrungThuJob][3], PlayerInfo[playerid][TrungThuJob][4],
+        PlayerInfo[playerid][TrungThuJob][5], PlayerInfo[playerid][TrungThuJob][6], PlayerInfo[playerid][TrungThuJob][7], PlayerInfo[playerid][TrungThuJob][8], PlayerInfo[playerid][TrungThuJob][9]);
         
 	    new UpdateLevel[64];
 		cache_get_value_name(0, "UpdateLevel", result); format(UpdateLevel, 64, result);
@@ -5054,7 +5054,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 		// }
 
 		// if(PlayerInfo[playerid][pDailyLogin] == 0) SendClientMessage(playerid, -1, "O lan payday dau tien, ban nhan gap doi diem RP. Chuc ban online vui ve.");
-		if(PlayerInfo[playerid][pBizz] != 255) finishAchievement(playerid, 2);
+		// if(PlayerInfo[playerid][pBizz] != 255) finishAchievement(playerid, 2);
 		if(PlayerInfo[playerid][pHouse] != 999 && strcmp(GetName(playerid), HouseInfo[PlayerInfo[playerid][pHouse]][hOwner], true) == 0) finishAchievement(playerid, 3);
 
 		new string2[128];
@@ -5502,7 +5502,7 @@ FinishMap(playerid) {
 	for(new m; m < (PlayerInfo[playerid][pVip] + 3); m++) {
 		if(PlayerInfo[playerid][pDailyMission][m] == 17) CheckMission(playerid, m);
 	}
-	finishAchievement(playerid, 11);		
+	// finishAchievement(playerid, 11);		
 	return 1;
 }
 

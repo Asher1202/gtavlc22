@@ -261,12 +261,12 @@ timer Fish[15000](playerid) {
     stop FishTimer[playerid];
     FishTimer[playerid] = Timer:0;
     if(!(PlayerInfo[playerid][pJob] == 11 || PlayerInfo[playerid][pJob] == 15)) return 1;
-	new randnr = random(100),strings[120];    
+	new randnr = random(105),strings[120];    
     StartFish[playerid] = 0;
 	Freezed[playerid] = 0;			
 	TimpMateriale[playerid] = 1;    
 	defer telecauca(playerid);
-    new cathuong = 77, cahiem = 97; 
+    new cathuong = 77, cahiem = 97, sailormoon = 105; 
     if(randnr > 0 && randnr <= cathuong)
     {
     	format(strings, sizeof(strings), "{FF0000}>> {FFFFFF}Ban Da Cau Duoc {FFF400}Ca Thuong{FFFFFF} !");
@@ -292,7 +292,19 @@ timer Fish[15000](playerid) {
 		if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Ca Hiem", 1600, 1, 2);
 		else Inventory_Add(playerid,"Ca Hiem", 1600, 1, 1);
 		//pFishess[playerid] = 1;
-    } else {
+    } 
+	else if(randnr > cahiem && randnr <= sailormoon){
+		format(strings, sizeof(strings), "{FF0000}>> {FFFFFF}Ban Da Cau Duoc {34eb86}Sailor Moon{FFFFFF} !");
+		SendClientMessage(playerid, COLOR_WHITE, strings);
+		SendClientMessage(playerid, -1, "{FF0000}>> {FFFFFF}Sailor Moon da duoc cho vao tui do cua ban [/tuido].");
+		SendClientMessage(playerid, -1, "{FF0000}>> {FFFFFF}Ca Sailor Moon se khong co gia tri, no se duoc quy doi khi ban hoan thanh nhiem vu trung thu.");
+		SendClientMessage(playerid, COLOR_WHITE, "{FFFFFF}-------------------------------------------");	
+		format(strings, sizeof(strings), "{FF0000}>>{FFFFFF} %s (%d) Da Cau Duoc {34eb86}Sailor Moon{FFFFFF}.", GetName(playerid), playerid);
+		NearMessage(playerid, COLOR_YELLOW, strings);	
+		if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Sailor Moon", 953, 1, 2);
+		else Inventory_Add(playerid,"Sailor Moon", 953, 1, 1);
+		//pFishess[playerid] = 1;
+    }else {
 		new k = random(4);
 		if(k == 1) {
 			format(strings, sizeof(strings), "{FF0000}>>{FFFFFF} %s Da Cau Duoc Mot Con Ca Map.", GetName(playerid));
@@ -990,7 +1002,7 @@ task LocalTimer[1000]() {
 							InsertEmail(HouseInfo[IDLicitatie][hOwner], "AdmBot", string, 0);
 							format(string, sizeof(string), "Ban nhan duoc House %d thanh cong. Chuc mung!", IDLicitatie);
 							SendClientMessage(LastPlayer, COLOR_YELLOW, string);
-							finishAchievement(LastPlayer, 3);	
+							// finishAchievement(LastPlayer, 3);	
 							format(query, sizeof(query), "UPDATE `users` SET `House`='999' WHERE `House`='%d'", IDLicitatie);
 							mysql_query(SQL, query, false);
 							foreach(new i: Player) {
@@ -1016,7 +1028,7 @@ task LocalTimer[1000]() {
 							InsertEmail(BizzInfo[IDLicitatie][bOwner], "AdmBot", string, 0);					
 							format(string, sizeof(string), "Ban nhan duoc Bizz %d thanh cong. Chuc mung!", IDLicitatie);
 							SendClientMessage(LastPlayer, COLOR_YELLOW, string);
-							finishAchievement(LastPlayer, 2);	
+							// finishAchievement(LastPlayer, 2);	
 							format(query, sizeof(query), "UPDATE `users` SET `Bizz`='255' WHERE `Bizz`='%d'", IDLicitatie);
 							mysql_query(SQL, query, false);
 							foreach(new i: Player) {
@@ -1070,7 +1082,7 @@ task DecreaseTimer[1000]() {
 		    	SendClientMessage(i, COLOR_YELLOW, "Ban khong con bi truy na nua vi canh sat da de mat dau ban!");
 		    	PlayerTextDrawHide(i, WantedTD[i]);
 				ClearCrime(i);
-				finishAchievement(i, 15);
+				// finishAchievement(i, 15);
 		    }
 		    else va_SendClientMessage(i, COLOR_YELLOW, "Canh sat dang mat dau ban! Truy na thuc te: %d", PlayerInfo[i][pWantedLevel]);
 
@@ -2807,7 +2819,7 @@ task Timers[1000]() {
 					PaintballWinnerScore[pp] = 0;					
 					SendPaintMessage(PaintType[i], COLOR_YELLOW, swinner);
 					PaintballWinner[pp] = -1;
-					finishAchievement(i, 12); //round	
+					// finishAchievement(i, 12); //round	
 				}
 				if(PaintTime[pp] != 0 && PaintText[pp] == 0) {
 					PlayerTextDrawSetString(i, PaintTD, string);
@@ -3679,10 +3691,15 @@ task SyncUp[60000]() {
 	if((tmphour > ghour) || (tmphour == 0 && ghour == 23)) {	
 		ghour = tmphour;
 		if(hour == 7 && tmpminute == 0) {
-			ResetQuest();
+			ResetQuest();			
 		}
 		if(hour == 0 && tmpminute == 0) {
 			SetTodayJob();
+			if(hour == 0)
+			{
+				ServerSystem[22] = 1;
+				SCMTA(COLOR_GOLD, "CUA HANG PIZZA: {FFFFFF}Chung toi da dong cua cho nen ban se khong the lam viec. Ban co the lam viec vao 7 gio sang hom nay.");
+			}
 			// ResetDailyBonus();
 			ResetQuest();
 			if(Day == 1) {
@@ -3774,6 +3791,7 @@ task SyncUp[60000]() {
 				}
 			}	
 		}
+		if (hour == 7 ) ServerSystem[22] = 0;
 		// if(realtime) SetWorldTimeEx(hour);
 		if(hour == 19 || hour == 20) {
 			SetWorldTime(23);
@@ -4034,7 +4052,6 @@ task PayDay[10000]() {
 				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Bida da dong, hay nghi ngoi thoi nao (Bida mo vao khung gio 8h-12h va 16h -> 3h ).");
 
 			}
-
 			if(hour == 1)
 			{
 				RestartTime = 5*60;

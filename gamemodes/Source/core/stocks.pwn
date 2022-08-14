@@ -698,6 +698,7 @@ SystemName(id) {
         case 19: string = "Khoa farm 24-6h sang SAMPCAC";
         case 20: string = "War bu";
         case 21: string = "X2 Payday";
+        case 22: string = "Tat pizza 12h-7h";
     }
     return string;
 }

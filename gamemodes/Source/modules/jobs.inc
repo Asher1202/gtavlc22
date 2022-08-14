@@ -884,6 +884,7 @@ CMD:startwork(playerid, params[]) {
 		case 8: return 1;
 		case 9: {
 			if(IsPlayerInRangeOfPoint(playerid, 7.0, Pizza[0], Pizza[1], Pizza[2])) {
+				if(ServerSystem[22] == 1) return SendClientMessage(playerid, COLOR_YELLOW, "Cua hang pizza da dong cua, hay tro lai vao luc 7 gio sang de lam viec");
 				if(PlayerInfo[playerid][pCarLic] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Ban khong co giay phep lai xe de nhan cong viec nay!");
 				CarAngle = 0;
 				CP[playerid] = 155;

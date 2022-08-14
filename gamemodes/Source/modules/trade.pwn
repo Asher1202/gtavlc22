@@ -105,7 +105,7 @@ FinishTrade(playerid) {
 		}
 		
 		GiveHouse(id, GetPVarInt(playerid, "HouseTrade"));
-		finishAchievement(id, 3);	
+		// finishAchievement(id, 3);	
 	}	
 	if(GetPVarInt(playerid, "BusinessTrade") != 0) {
 		format(string89, sizeof(string89), "Business %d ", GetPVarInt(playerid, "BusinessTrade"));
@@ -117,7 +117,7 @@ FinishTrade(playerid) {
 			UpdateVar(playerid, "Bizz", 255);
 		}	
 		GiveBiz(id, GetPVarInt(playerid, "BusinessTrade"));
-		finishAchievement(id, 2);
+		// finishAchievement(id, 2);
 	}	
 	if(GetPVarInt(playerid, "CarTrade") != -1) {
 		new x = GetPVarInt(playerid, "CarTrade");
@@ -168,7 +168,7 @@ FinishTrade(playerid) {
 		}
 		
 		GiveHouse(playerid, GetPVarInt(id, "HouseTrade"));
-		finishAchievement(playerid, 3);
+		// finishAchievement(playerid, 3);
 	}	
 	if(GetPVarInt(id, "BusinessTrade") != 0) {
 		format(string89, sizeof(string89), "Business %d ", GetPVarInt(id, "BusinessTrade"));
@@ -181,7 +181,7 @@ FinishTrade(playerid) {
 		}
 		
 		GiveBiz(playerid, GetPVarInt(id, "BusinessTrade"));
-		finishAchievement(playerid, 2);
+		// finishAchievement(playerid, 2);
 	}				
 	if(GetPVarInt(id, "CarTrade") != -1) {
 		new x = GetPVarInt(id, "CarTrade");

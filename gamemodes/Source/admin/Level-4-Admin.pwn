@@ -218,7 +218,7 @@ CMD:sethelper(playerid, params[]) {
 		format(string, sizeof(string), "Ban da thiet lap %s tro thanh level %d helper.", GetName(id));
 		SendClientMessage(playerid, -1, string);
 		if(!Iter_Contains(PlayerHelpers, playerid)) Iter_Add(PlayerHelpers, playerid);
-		finishAchievement(id, 26);
+		// finishAchievement(id, 26);
 	}
 	else {
 		HelperDuty[playerid] = 0, HaveHelp[playerid] = -1;

@@ -262,7 +262,7 @@ Dialog:DIALOG_BUYLICENSE(playerid, response, listitem, inputtext[])
 			Update(playerid, pCashx);
 			format(string, sizeof(string), "%s da mua 1 giay phep sung voi gia $1,500,000.", GetName(playerid));
 			Log("logs/shop.log", string);
-			finishAchievement(playerid, 7); //sung					
+			// finishAchievement(playerid, 7); //sung					
 		}
 		case 1: {
 			if(GetPlayerCash(playerid) < 1000000) return SendClientMessage(playerid, -1, "Ban khong co du tien");					
@@ -275,7 +275,7 @@ Dialog:DIALOG_BUYLICENSE(playerid, response, listitem, inputtext[])
 			GivePlayerCash(playerid, -1000000);
 			Update(playerid, pCashx);
 			format(string, sizeof(string), "%s da mua giay phep may bay voi gia $1,000,000.", GetName(playerid));
-			finishAchievement(playerid, 9); //may bay
+			// finishAchievement(playerid, 9); //may bay
 		}
 		case 2: {
 			if(GetPlayerCash(playerid) < 1000000) return SendClientMessage(playerid, -1, "Ban khong co du tien");					
@@ -288,7 +288,7 @@ Dialog:DIALOG_BUYLICENSE(playerid, response, listitem, inputtext[])
 			GivePlayerCash(playerid, -1000000);
 			Update(playerid, pCashx);
 			format(string, sizeof(string), "%s da mua giay phep thuyen voi gia $1,000,000.", GetName(playerid));
-			finishAchievement(playerid, 8); //thuyen			
+			// finishAchievement(playerid, 8); //thuyen			
 		}				
 	}	
 	return 1;

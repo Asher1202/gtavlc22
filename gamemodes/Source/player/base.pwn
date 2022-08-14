@@ -1755,7 +1755,7 @@ CMD:buyhouse(playerid, params[]) {
 			format(szQuery,sizeof(szQuery),"UPDATE `houses` SET `Owned`='1',`Owner`='%s',`Value`='0' WHERE `ID`='%d'",GetName(playerid),HouseInfo[h][hID]);
 			mysql_query(SQL,szQuery,false);
 			OnPropTextdrawUpdate(1,h);
-			finishAchievement(playerid, 3);	
+			// finishAchievement(playerid, 3);	
 		}
 	}
 	return 1;
@@ -2872,8 +2872,8 @@ CMD:accept(playerid, params[]) {
 		mysql_query(SQL, query,false);	
 		format(query, sizeof(query), "UPDATE `users` SET `Propose`='%s' WHERE `ID`='%d'", PlayerInfo[id][pPropose], PlayerInfo[id][pSQLID]);
 		mysql_query(SQL, query,false);
-		finishAchievement(playerid, 17);
-		finishAchievement(id, 17);		
+		// finishAchievement(playerid, 17);
+		// finishAchievement(id, 17);		
 		return 1;
 	}
 	else if(strcmp(x_job,"clan",true) == 0) {
@@ -2952,7 +2952,7 @@ CMD:accept(playerid, params[]) {
 
 				format(string, sizeof(string), "**(( SI Dispatch: %s (%d) cap cho %s (%d) mot giay phep su dung may bay voi gia %d$ %d ngay. ))**", GetName(id), id, GetName(playerid), playerid, money, date);
 				SendFactionMessage(PlayerInfo[id][pMember], COLOR_LIGHTBLUE, string);
-				finishAchievement(playerid, 9);	
+				// finishAchievement(playerid, 9);	
 			}
 			case 2: {
 				switch(days)
@@ -2972,7 +2972,7 @@ CMD:accept(playerid, params[]) {
 
 				format(string, sizeof(string), "**(( SI Dispatch: %s (%d) cap cho %s (%d) mot giay phep su dung thuyen voi gia %d$ %d ngay. ))**", GetName(id), id, GetName(playerid), playerid, FormatNumber(money), days);
 				SendFactionMessage(PlayerInfo[id][pMember], COLOR_LIGHTBLUE, string);	
-				finishAchievement(playerid, 8);	
+				// finishAchievement(playerid, 8);	
 			}
 		}
 		UpdateFactionRaport(id, 0);				
@@ -3013,7 +3013,7 @@ CMD:accept(playerid, params[]) {
 
 				format(string, sizeof(string), "**(( HQ Dispatch: %s (%d) cap cho %s (%d) mot giay phep su dung sung voi gia %d$ %d ngay. ))**", GetName(id), id, GetName(playerid), playerid, money, date);
 				SendFactionMessage(PlayerInfo[id][pMember], COLOR_LIGHTBLUE, string);
-				finishAchievement(playerid, 9);	
+				// finishAchievement(playerid, 9);	
 			}
 		}
 		format(string, sizeof(string), "Ban chap nhan yeu cau cua %s, va anh ta da nhan duoc giay phep.", GetName(id));
@@ -3129,10 +3129,10 @@ CMD:accept(playerid, params[]) {
 		mysql_format(SQL, query, sizeof(query), "INSERT INTO faction_logs (`text`, `player`,`leader`) VALUES ('%s','%d','%d')", string, PlayerInfo[playerid][pSQLID],PlayerInfo[id][pSQLID]);
 		mysql_tquery(SQL,query,"","");			
 		
-		if(PlayerInfo[playerid][pMember] == 11) finishAchievement(playerid, 19);	
-		else if(IsACop(playerid)) finishAchievement(playerid, 20);	
-		else if(IsAMember(playerid)) finishAchievement(playerid, 21);	
-		else finishAchievement(playerid, 18);	
+		// if(PlayerInfo[playerid][pMember] == 11) finishAchievement(playerid, 19);	
+		// else if(IsACop(playerid)) finishAchievement(playerid, 20);	
+		// else if(IsAMember(playerid)) finishAchievement(playerid, 21);	
+		// else finishAchievement(playerid, 18);	
 		
 		ShowModelSelectionMenu(playerid, fskins[PlayerInfo[playerid][pMember]-1], "Trang phuc");	
 		SetPlayerToTeamColor(playerid);
@@ -4732,7 +4732,7 @@ CMD:rob(playerid, params[]) {
     WantedTime[playerid] = 0;
     Update(playerid,pWantedLevelx);
 	ShowWanted[playerid] = 1;
-	finishAchievement(playerid, 13);
+	// finishAchievement(playerid, 13);
 	return 1;
 }
 	
@@ -6196,7 +6196,7 @@ CMD:clanduty(playerid, params[]) {
 	new days[180];
 	format(days, sizeof(days), GetWeekDay(day, month, year));
 	if(strcmp(days,"Sunday",true) == 0 || strcmp(days,"Monday",true) == 0 || strcmp(days,"Wednesday",true) == 0 || strcmp(days,"Friday",true) == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Chi co the bat dau war clan vao cac ngay le trong tuan (3-5-7)!");
-	if(hour == 19|| hour == 20 || hour == 21) {} else return SendClientMessage(playerid, COLOR_LIGHTRED, "Gio war se nam trong khoang thoi gian 19h - 21h!");
+	if(hour == 13|| hour == 14 || hour == 15|| hour == 19|| hour == 20 || hour == 21) {} else return SendClientMessage(playerid, COLOR_LIGHTRED, "Gio war se nam trong khoang thoi gian 13h - 15h va 19h - 21h!");
 	switch(ClanDuty[playerid]) {
 		case 0: SendClientMessage(playerid, -1, "Ban da kich hoat clan duty thanh cong!"), ClanDuty[playerid] = 1, SetPlayerArmourEx(playerid, 30);
 		case 1: {
@@ -7717,7 +7717,7 @@ CMD:clothes(playerid, params[]) {
 		SetPlayerWantedLevel(playerid, 0);
 		ClearCrime(playerid);
 		Update(playerid,pWantedLevelx);	
-		finishAchievement(playerid, 16);		
+		// finishAchievement(playerid, 16);		
 		return 1;
 	}
 	if(PlayerInfo[playerid][pMember] >= 1 || PlayerInfo[playerid][pLeader] >= 1)  {
@@ -7821,7 +7821,7 @@ CMD:buybiz(playerid, params[]) {
 			format(szQuery,sizeof(szQuery),"UPDATE `bizz` SET `Owned`='1',`Owner`='%s',`BuyPrice`='0' WHERE `ID`='%d'",BizzInfo[b][bOwner],b);
 			mysql_query(SQL,szQuery);
 			OnPropTextdrawUpdate(2,b);
-			finishAchievement(playerid, 2);	
+			// finishAchievement(playerid, 2);	
 			SendClientMessage(playerid, COLOR_MONEY, "Xin chuc mung! Ban da so huu mot doanh nghiep.");
 			format(string, sizeof(string), "%s da mua doanh nghiep %d voi gia $%s.", GetName(playerid), b, FormatNumber(BizzInfo[b][bBuyPrice]));
 			//InsertLog(playerid, string, LOG_BIZ);

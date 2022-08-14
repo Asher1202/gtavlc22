@@ -619,7 +619,7 @@ GiveVehicle(playerid, modelid, bool:buyatDealership = false) {
 			CarInfo[idd][cAngle] = 180.0;
 			SetPlayerCheckpointEx(playerid,1269.0233+(5.0*float(rand)),-1424.9340,13.2330,5.0);
 		}
-		finishAchievement(playerid, 1);
+		// finishAchievement(playerid, 1);
 	}
 
 	CarInfo[idd][cColorOne] = 1;	CarInfo[idd][cColorTwo] = 1;

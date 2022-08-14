@@ -420,6 +420,7 @@ save_skin(playerid) {
 
     mysql_query(SQL, string, false);
 }
+
 give_skin(playerid, model) {
     for (new i; i < 10; i++) {
         if(PlayerInfo[playerid][pSkins][i] == -1) {

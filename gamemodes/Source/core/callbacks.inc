@@ -220,6 +220,7 @@ public OnGameModeInit() {
 	ApplyDynamicActorAnimation(Actor2, "DEALER","DEALER_IDLE",4.0,1,0,0,0,0);
 
 	cadoumort = 1;
+	if(ghour == 0) ServerSystem[22] = 1;
 	ServerSystem[10] = 1; // đấu giá
 	// ServerSystem[12] = 1; // tắt AUTOKICK cho nex-ac
 	// ServerSystem[14] = 1; // tắt AUTOKICK anti fakekill
@@ -1861,7 +1862,7 @@ public OnPlayerDeathEx(playerid, killerid, reason) {
 				new wantedlevel = PlayerInfo[killerid][pWantedLevel];
 				if(wantedlevel < 6)
 				{
-					finishAchievement(killerid, 14);
+					// finishAchievement(killerid, 14);
 					SetPlayerWantedLevel(killerid, wantedlevel+2);
 					PlayerInfo[killerid][pWantedLevel] = wantedlevel+2;
 					SetPlayerCriminal(killerid, 255, "Giet canh sat");
@@ -2877,7 +2878,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	        SetPlayerWantedLevel(playerid, 0);
 	        ClearCrime(playerid);
 	        Update(playerid,pWantedLevelx);
-	        finishAchievement(playerid, 16);
+	        // finishAchievement(playerid, 16);
 		}
 		case 177: {
 			DisablePlayerCheckpoint(playerid);
