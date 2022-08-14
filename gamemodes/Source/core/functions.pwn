@@ -2318,7 +2318,60 @@ GetNeedPoints4(playerid, jid) {
 	else if(skill == 7) x = 5999;
 	return x;
 }
-
+function givejobsalaryhuman(playerid) {
+	new string[124];
+	new x = random(8);
+	switch (x) {
+		case 0: {
+			new s1 = 50 + random(100),
+			s2 = 50 + random(100);
+			format(string, 20,"%d + %d = ?", s1,s2);
+			dapanhuman[playerid] = s1+s2;
+			cauhoihuman[playerid] = string;
+		}
+		case 1: {
+			new s1 = 5 + random(5),
+			s2 = 2 + random(4);
+			format(string, 20,"%d * %d = ?", s1,s2);
+			dapanhuman[playerid] = s1*s2;
+			cauhoihuman[playerid] = string;
+		}
+		case 2: {
+			new s1 = 50 + random(50),
+			s2 = 50 + random(50);
+			format(string, 20,"%d - %d = ?", s1,s2);
+			dapanhuman[playerid] = s1-s2;
+			cauhoihuman[playerid] = string;
+		}
+		case 3: {
+		
+			format(string, sizeof(string),"2 Con Vit Di Truoc 2 Con Vit, 2 con vit di sau 2 con vit\n2 con vit di giua 2 con vit, hoi co may con vit?");
+			dapanhuman[playerid] = 4;
+			cauhoihuman[playerid] = string;
+		}
+		case 4: {
+		
+			format(string, sizeof(string),"Co 1 con chim dau tren canh, nguoi tho san ban cai ram, hoi chet bao nhieu con?");
+			dapanhuman[playerid] = 15;
+			cauhoihuman[playerid] = string;
+		}
+		case 5: {
+		
+			format(string, sizeof(string),"Hai nguoi dao trong hai gio thi duoc 1 cai ho\nVay mot nguoi dao trong mot gio thi duoc may cai ho?");
+			dapanhuman[playerid] = 1;
+			cauhoihuman[playerid] = string;
+		}
+		default: {
+			new s1 = 50 + random(50),
+			s2 = 50 + random(50);
+			format(string, 20,"%d + %d = ?", s1,s2);
+			dapanhuman[playerid] = s1+s2;
+			cauhoihuman[playerid] = string;
+		}
+	}
+	Dialog_Show(playerid, DIALOG_HUMAN, DIALOG_STYLE_INPUT, "Ban khong phai la nguoi may", string, "Dong y", "Cancel");
+	return true;
+}
 GiveJobSalary(playerid) {
 	new string[200], skill = GetPlayerSkill(playerid), money, bonus;
 	

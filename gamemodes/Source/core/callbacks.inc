@@ -2450,7 +2450,8 @@ public OnPlayerEnterRaceCheckpoint(playerid)
 			DisablePlayerCheckpointEx(playerid);
 			DisablePlayerRaceCheckpointEx(playerid);
 			CP[playerid] = 0;
-			GiveJobSalary(playerid);
+			if(toghuman == 1) givejobsalaryhuman(playerid);
+			else GiveJobSalary(playerid);
 			PlayerInfo[playerid][pPilotSkill] ++;
 			Update(playerid, pPilotSkillx);
 			DestroyVehicle(JobVehicle[playerid]);
@@ -2656,12 +2657,14 @@ public OnPlayerEnterCheckpoint(playerid)
 				format(string2, sizeof(string2), "[A-ANTI]: %s[%d] co the dang treo de duoc nhieu tien job trucker vui long check!", GetName(playerid),playerid);
                 GuiDenAdminVaHelper(COLOR_YELLOW, string2, 1); 
 			}
-			GiveJobSalary(playerid);
+			if(toghuman == 1) givejobsalaryhuman(playerid);
+			else GiveJobSalary(playerid);
 		}
 		case 60: {
 			PlayerInfo[playerid][pJackerSkill] ++;
 			Update(playerid, pJackerSkillx);
-			GiveJobSalary(playerid);
+			if(toghuman == 1) givejobsalaryhuman(playerid);
+			else GiveJobSalary(playerid);
 			DisablePlayerCheckpointEx(playerid);
 			CP[playerid] = 0;
 			JobWorking[playerid] = 0;			
@@ -2713,7 +2716,8 @@ public OnPlayerEnterCheckpoint(playerid)
 			PlayerTextDrawShow(playerid, InfosTD);	
 			PlayerInfo[playerid][pCurierSkill] ++;
 			Update(playerid, pCurierSkillx);
-			GiveJobSalary(playerid);
+			if(toghuman == 1) givejobsalaryhuman(playerid);
+			else GiveJobSalary(playerid);
 			RemovePlayerAttachedObject(playerid, 6);
 			SetPlayerSpecialAction(playerid, 0);
 			ClearAnimations(playerid);			
@@ -2727,7 +2731,8 @@ public OnPlayerEnterCheckpoint(playerid)
 			DisablePlayerCheckpointEx(playerid);
 			PlayerInfo[playerid][pWoodSkill] ++;
 			UpdateVar(playerid, "MowerSkill", PlayerInfo[playerid][pWoodSkill]);
-			GiveJobSalary(playerid);
+			if(toghuman == 1) givejobsalaryhuman(playerid);
+			else GiveJobSalary(playerid);
 			DestroyWoodObject(playerid);
 			CP[playerid] = 53;
 			SendClientMessage(playerid, COLOR_YELLOW, "Quay lai va lam viec tiep neu ban muon lam viec lai.");
@@ -2750,7 +2755,8 @@ public OnPlayerEnterCheckpoint(playerid)
 			PlayerTextDrawShow(playerid, InfosTD);	
 			PlayerInfo[playerid][pNewsPaperSkill] ++;
 			Update(playerid, pNewsPaperSkillx);
-			GiveJobSalary(playerid);
+			if(toghuman == 1) givejobsalaryhuman(playerid);
+			else GiveJobSalary(playerid);
 			RemovePlayerAttachedObject(playerid, 6);
 			SetPlayerSpecialAction(playerid, 0);
 			ClearAnimations(playerid);
@@ -2794,7 +2800,8 @@ public OnPlayerEnterCheckpoint(playerid)
 			SCMf(playerid, COLOR_YELLOW, "%d", pizzamoney[playerid]);
 			PlayerInfo[playerid][pPizzaSkill] ++;
 			Update(playerid, pPizzaSkillx);
-			GiveJobSalary(playerid);
+			if(toghuman == 1) givejobsalaryhuman(playerid);
+			else GiveJobSalary(playerid);
 			if(WorkingTime[playerid] > 90) {
 			format(string2, sizeof(string2), "[A-ANTI]: %s[%d] co the dang treo de duoc nhieu tien job pizza vui long check!", GetName(playerid),playerid);
 			GuiDenAdminVaHelper(COLOR_YELLOW, string2, 1); 
@@ -2852,7 +2859,8 @@ public OnPlayerEnterCheckpoint(playerid)
 			}
 			PlayerInfo[playerid][pStivuitorSkill] ++;
 			UpdateVar(playerid, "StivuitorSkill", PlayerInfo[playerid][pStivuitorSkill]);
-			GiveJobSalary(playerid);
+			if(toghuman == 1) givejobsalaryhuman(playerid);
+			else GiveJobSalary(playerid);
 		}
 		case 172: {
 			DisablePlayerCheckpointEx(playerid);
