@@ -1,7 +1,7 @@
 	// Boombox command - Usage: /boombox [URL]
 CMD:boombox(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pVip] == 0) return SendClientMessage(playerid, 0xFFFFCCFF, AdminOnly);
+	if(PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pVip] == 0 && PlayerInfo[playerid][pBoombox]== 0) return SendClientMessage(playerid, 0xFFFFCCFF, AdminOnly);
 	new string[128];
 	if(!GetPVarType(playerid, "BoomboxObject"))
 	{

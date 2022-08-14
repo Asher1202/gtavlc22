@@ -1939,7 +1939,10 @@ new Float:TruckStolenCar[][] = {
 #define pProgress6x   		100
 #define pKCx   				101
 #define pTutorialx			102
-
+#define pBoomboxx			103
+#define pBanhTrungThux		104
+#define pHopTrungThux		105
+#define pDauXanhx			106
 //HOUSE
 #define hExitxx             1
 #define hExityx             2
