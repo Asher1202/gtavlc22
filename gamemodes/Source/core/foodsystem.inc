@@ -48,6 +48,39 @@ hook OnProgressCompleted(playerid, progressid, params)
             }
         }
     }
+    if (progressid == PROGRESS_CHEBANHTRUNGTHU)
+    {
+        if(KG[playerid] != 0) {
+            if(IsPlayerInRangeOfPoint(playerid, 3.0, 378.6745,-58.1840,1001.5078)) {
+                GiveJobSalary(playerid);
+                if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Banh Trung Thu", 2766, 1, 2);
+			    else Inventory_Add(playerid,"Banh Trung Thu", 2766, 1, 2);
+                SendClientMessage(playerid, COLOR_GREEN, "Ban da che tao thanh cong 1 cai banh trung thu");
+                Inventory_Remove(playerid, "Sailor Moon");
+                if(pFishing[playerid] == 1) pFishing[playerid] = 0;
+                PlayerInfo[playerid][pTrungThuJob][8] += 1;
+		        save_ttj(playerid);
+                //DisablePlayerCheckpointEx(playerid);
+                CP[playerid] = 0;
+                // GunoiKG[playerid] = 0;
+                // KG[playerid] = 0;
+                // PlayerInfo[playerid][pFarmerSkill]++;
+                // Update(playerid, pFarmerSkillx);
+                // for (new m; m < 2; m++) {
+                //     if(PlayerInfo[playerid][pDailyMission][m] == 4) CheckMission(playerid, m);
+                // }
+                // DestroyVehicle(JobVehicle[playerid]);
+                // JobVehicle[playerid] = 0, JobWorking[playerid] = 0;
+                // PlayerTextDrawHide(playerid, JobTD);
+            }
+            else {
+                SendClientMessage(playerid, COLOR_GREEN, "Che tao bot that bai vi ban da di chuyen khi dang che tao bot, ban se mat tui bot cua minh");
+                CP[playerid] = 0;
+                GunoiKG[playerid] = 0;
+                KG[playerid] = 0;
+            }
+        }
+    }
     if (progressid == PROGRESS_STUFF)
     {
         SendClientMessage(playerid, COLOR_GREEN, "Cong viec cua ban da hoan thanh");
@@ -168,8 +201,8 @@ task resetFoodMoney[60000]()
 
 CMD:chetao(playerid, params[]) {
 	new item[50];
-	if(sscanf(params, "s[10]", item)) {
-		SendClientMessage(playerid, COLOR_WHITE, "Loai thuc pham : {32a852}hamburger.");
+	if(sscanf(params, "s[15]", item)) {
+		SendClientMessage(playerid, COLOR_WHITE, "Loai thuc pham : {32a852}hamburger, banhtrungthu.");
 		return 1;
 	}	
 
@@ -182,8 +215,17 @@ CMD:chetao(playerid, params[]) {
         ShowProgressBar(playerid, "Dang Che Tao Hamburger", PROGRESS_CHEBOT, RandomMinMax(ftimeCT[0], 100000), 0xfcba03FF);
         
 	}		
+	if(strcmp(item, "banhtrungthu", true) == 0) {
+        if(PlayerInfo[playerid][pJob] != 1) return SendClientMessage(playerid, COLOR_GREY, "Ban khong phai la nong dan!");
+        if(Inventory_Count(playerid, "Sailor Moon") <= 0) return SendClientMessage(playerid, COLOR_GREY, "Ban khong co ca Sailor Moon de che tao banh trung thu, hay cau ca de co Sailor Moon");
+        if(!IsPlayerInRangeOfPoint(playerid, 3.0, 378.6745,-58.1840,1001.5078)) return SendClientMessage(playerid , COLOR_GREY, "Ban khong dung o noi che tao bot.");
+        DisablePlayerCheckpointEx(playerid);
+        LoopingAnim(playerid,"BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0);
+        ShowProgressBar(playerid, "Dang Che Tao Banh Trung Thu", PROGRESS_CHEBANHTRUNGTHU, RandomMinMax(ftimeCT[0]+2000, 150000), 0xfcba03FF);
+        
+	}		
 	else {
-		SendClientMessage(playerid, COLOR_WHITE, "Loai thuc pham : {34cceb} hamburger.");
+		SendClientMessage(playerid, COLOR_WHITE, "Loai thuc pham : {34cceb} hamburger, banhtrungthu.");
 		return 1;
 	}
 	return 1;
@@ -246,7 +288,7 @@ CMD:traodoi(playerid, params[]) {
     
 	if(sscanf(params, "us[50]ii", id, item, valoare, money)) {
 		SendClientMessage(playerid, COLOR_GREY, "Su dung: {FFFFFF}/traodoi <ten day du> <item> <so luong> <so tien>");
-		SendClientMessage(playerid, COLOR_WHITE, "Lenh kha dung : hamburger.");
+		SendClientMessage(playerid, COLOR_WHITE, "Lenh kha dung : hamburger, banhtrungthu.");
 		return 1;
 	}	
     if(id == playerid) return SendClientMessage(playerid,-1, "Ban khong tu trao doi cho chinh ban.");
@@ -256,14 +298,12 @@ CMD:traodoi(playerid, params[]) {
 	if(id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi da chon khong dang nhap.");
     if(valoare < 0) return SendClientMessage(playerid, COLOR_GREY, "[ASHER] : Bug nua ha may ong noi");
     if(money < 0) return SendClientMessage(playerid, COLOR_GREY, "[ASHER] : Bug nua ha may ong noi");
-    if(Inventory_Count(id, "Burger") >= 100) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi kia co nhieu hon 100 cai burger nen khong the trao doi");
-
-    if(Inventory_Count(playerid, "Burger") < valoare) return SCMf(playerid, COLOR_GREY, "Ban khong co du %d cai hamburger nen khong the ban", valoare);
 	if(!ProxDetectorS(9.0, playerid, id)) return SendClientMessage(playerid, -1, "Ban khong o gan nguoi choi do!");
     if(GetPlayerCash(id) < money) return SendClientMessage(playerid, COLOR_YELLOW, "Nguoi choi do khong du tien de thuc hien trao doi");
     if(isInInven[playerid] != 0) return SendClientMessage(playerid, COLOR_YELLOW, "Vui long tat tui do de thuc hien lenh nay");
 	if(strcmp(item,"hamburger",true) == 0) {
-        
+        if(Inventory_Count(id, "Burger") >= 100) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi kia co nhieu hon 100 cai burger nen khong the trao doi");
+        if(Inventory_Count(playerid, "Burger") < valoare) return SCMf(playerid, COLOR_GREY, "Ban khong co du %d cai hamburger nen khong the ban", valoare);
         if(Inventory_Count(playerid, "Burger") < valoare) return SCMf(playerid, -1, "Ban khong co du %d burger de dua cho nguoi khac.", valoare);
 		format(string, sizeof(string), "* Ban da de nghi trao doi burger voi %s so luong %d voi gia $%s.",GetName(id), valoare, FormatNumber(money));
 		SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
@@ -272,11 +312,28 @@ CMD:traodoi(playerid, params[]) {
 		BurgerAmount[id] = valoare;
         BurgerOffer[id] = playerid;
         BurgerMoney[id] = money;
+        SetPVarInt(id, "TDBurger", 1);
+        SetPVarInt(playerid, "TDBurger", 1);
+        //printf("1 %d [ %d ] ( %d )",BurgerAmount[id], BurgerOffer[id], BurgerMoney[id]);
+	}
+	if(strcmp(item,"banhtrungthu",true) == 0) {
+        if(Inventory_Count(id, "banhtrungthu") >= 25) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi kia co nhieu hon 25 banh trung thu nen khong the trao doi");
+        if(Inventory_Count(playerid, "banhtrungthu") < valoare) return SCMf(playerid, COLOR_GREY, "Ban khong co du %d cai banh trung thu nen khong the ban", valoare);
+        if(Inventory_Count(playerid, "banhtrungthu") < valoare) return SCMf(playerid, -1, "Ban khong co du %d banh trung thu de dua cho nguoi khac.", valoare);
+		format(string, sizeof(string), "* Ban da de nghi trao doi banh trung thu voi %s so luong %d voi gia $%s.",GetName(id), valoare, FormatNumber(money));
+		SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+		format(string, sizeof(string), "* Nguoi choi %s muon trao doi %d cai banh trung thu cho ban voi gia $%s (/chapnhan traodoi %d)",GetName(playerid),valoare, FormatNumber(money), playerid);
+		SendClientMessage(id, COLOR_LIGHTBLUE, string);
+		BurgerAmount[id] = valoare;
+        BurgerOffer[id] = playerid;
+        BurgerMoney[id] = money;
+        SetPVarInt(id, "TDBanhTrungThu", 1);
+        SetPVarInt(playerid, "TDBanhTrungThu", 1);
         //printf("1 %d [ %d ] ( %d )",BurgerAmount[id], BurgerOffer[id], BurgerMoney[id]);
 	}
     else {
         SendClientMessage(playerid, COLOR_GREY, "Su dung: {FFFFFF}/traodoi <ten day du> <item> <so luong> <so tien>");
-		SendClientMessage(playerid, COLOR_WHITE, "Lenh kha dung : hamburger.");
+		SendClientMessage(playerid, COLOR_WHITE, "Lenh kha dung : hamburger, banhtrungthu.");
     }
     return 1;
 }

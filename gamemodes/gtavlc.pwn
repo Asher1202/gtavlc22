@@ -131,7 +131,7 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 // #include "Source/modules/future.pwn"
 // #include "Source/modules/zombie.pwn"
 // #include "Source/modules/vehcontainer.pwn"
-#include "Source/modules/systemskin.inc"
+// #include "Source/modules/systemskin.inc"
 //#include "Source/modules/levelMission.pwn" disabled cause of bugs.
 #include "Source/core/physics_dynamic.pwn"// for bida
 #include "Source/modules/pool.pwn"
@@ -147,6 +147,7 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 #include "Source/modules/paintball.pwn"
 #include "Source/modules/bizz.pwn"
 #include "Source/modules/bangxephang"
+#include "Source/modules/trungthusystems.pwn"
 // #include "Source/modules/refund"
 // #include "Source/modules/acccheck.pwn"
 // #include "Source/modules/ghidanhboxing"

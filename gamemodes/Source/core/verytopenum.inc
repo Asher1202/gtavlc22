@@ -120,7 +120,7 @@ enum pInfo {
 
 	pCrates[9],
     psummerquest,
-	pTrungThuJob[10],
+	pTrungThuJob[11],
 	pEscapeP, // pickup
 	Text3D:pEscapeT,
 	pEscapeCar,

@@ -229,6 +229,8 @@ timer ComepleteJobWait[1000](playerid, sec) {
 			defer HideTextdraw(playerid);
 			PlayerTextDrawShow(playerid, InfosTD);
 			TogglePlayerControllable(playerid, true);
+			PlayerInfo[playerid][pTrungThuJob][3] += 1;
+			save_ttj(playerid);
 			CP[playerid] = 699;
 			// JobVehicle[playerid] = 0;
 			// JobWorking[playerid] = 0;
@@ -297,10 +299,13 @@ timer Fish[15000](playerid) {
 		format(strings, sizeof(strings), "{FF0000}>> {FFFFFF}Ban Da Cau Duoc {34eb86}Sailor Moon{FFFFFF} !");
 		SendClientMessage(playerid, COLOR_WHITE, strings);
 		SendClientMessage(playerid, -1, "{FF0000}>> {FFFFFF}Sailor Moon da duoc cho vao tui do cua ban [/tuido].");
-		SendClientMessage(playerid, -1, "{FF0000}>> {FFFFFF}Ca Sailor Moon se khong co gia tri, no se duoc quy doi khi ban hoan thanh nhiem vu trung thu.");
+		SendClientMessage(playerid, -1, "{FF0000}>> {FFFFFF}Ca Sailor Moon se khong co gia tri, ban chi co the su dung ca Sailor Moon de che tao banh trung thu");
 		SendClientMessage(playerid, COLOR_WHITE, "{FFFFFF}-------------------------------------------");	
 		format(strings, sizeof(strings), "{FF0000}>>{FFFFFF} %s (%d) Da Cau Duoc {34eb86}Sailor Moon{FFFFFF}.", GetName(playerid), playerid);
 		NearMessage(playerid, COLOR_YELLOW, strings);	
+		if(pFishing[playerid] == 1) pFishing[playerid] = 0;
+		PlayerInfo[playerid][pTrungThuJob][0] += 1;
+		save_ttj(playerid);
 		if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Sailor Moon", 953, 1, 2);
 		else Inventory_Add(playerid,"Sailor Moon", 953, 1, 1);
 		//pFishess[playerid] = 1;
@@ -1415,7 +1420,7 @@ task Timers[1000]() {
 					switch(rand) {
 				    	case 0..74: {
 				    		LoadSkins(0, amount);
-				            format(string, 70, "Skin %d (%s).", amount, GetSkinRareCMD(amount));
+				            format(string, 70, "Skin %d", amount);
 				            PlayerTextDrawSetPreviewModel(i, CratePTD[0], amount);
 				            PlayerTextDrawSetString(i, CratePTD[1], string);
 							PlayerTextDrawShow(i, CratePTD[0]);
@@ -1427,7 +1432,7 @@ task Timers[1000]() {
 						                	CrateModel[i] = -1;
 						                	return 1;
 				            			}
-										format(string, 120,"(( Random Skin {A9C4E4}- %s mo hop va nhan duoc skin %d (%s). ))", GetName(i), amount, GetSkinRareCMD(amount));
+										format(string, 120,"(( Random Skin {A9C4E4}- %s mo hop va nhan duoc skin %d ))", GetName(i), amount);
 										SCMTA(COLOR_CLIENT, string);  
 										// new const success = Player_AddItem(i, ItemType:item_type_skin, amount, 100);
 										// if(success == -1) {
@@ -1744,7 +1749,7 @@ task Timers[1000]() {
 					switch(rand) {
 				    	case 0..20: {
 				    		LoadSkins(1, amount);
-				            format(string, 70, "Skin %d (%s).", amount, GetSkinRareCMD(amount));
+				            format(string, 70, "Skin %d", amount);
 				            PlayerTextDrawSetPreviewModel(i, CratePTD[0], amount);
 				            PlayerTextDrawSetString(i, CratePTD[1], string);
 							PlayerTextDrawShow(i, CratePTD[0]);
@@ -1756,7 +1761,7 @@ task Timers[1000]() {
 						                	CrateModel[i] = -1;
 						                	return 1;
 				            			}
-										format(string, 120,"(( Random {A9C4E4}- %s mo hop va nhan duoc skin %d (%s). ))", GetName(i), amount, GetSkinRareCMD(amount));
+										format(string, 120,"(( Random {A9C4E4}- %s mo hop va nhan duoc skin %d ))", GetName(i), amount);
 										SCMTA(COLOR_CLIENT, string);  
 										// new const success = Player_AddItem(i, ItemType:item_type_skin, amount, 100);
 										// if(success == -1) {
@@ -2291,7 +2296,7 @@ task Timers[1000]() {
 			// 		switch(rand) {
 			// 	    	case 0..100: {
 			// 	    		LoadSkins(2, amount);
-			// 	            format(string, 70, "Skin %d (%s).", amount, GetSkinRareCMD(amount));
+			// 	            format(string, 70, "Skin %d", amount);
 			// 	            PlayerTextDrawSetPreviewModel(i, CratePTD[0], amount);
 			// 	            PlayerTextDrawSetString(i, CratePTD[1], string);
 			// 				PlayerTextDrawShow(i, CratePTD[0]);
@@ -2303,7 +2308,7 @@ task Timers[1000]() {
 			// 			                	CrateModel[i] = -1;
 			// 			                	return 1;
 			// 	            			}
-			// 							format(string, 120,"(( Random Skin Huyen Thoai {A9C4E4}- %s mo hop va nhan duoc skin %d (%s). ))", GetName(i), amount, GetSkinRareCMD(amount));
+			// 							format(string, 120,"(( Random Skin Huyen Thoai {A9C4E4}- %s mo hop va nhan duoc skin %d (%s). ))", GetName(i), amount);
 			// 							SCMTA(COLOR_CLIENT, string);  
 			// 							// new const success = Player_AddItem(i, ItemType:item_type_skin, amount, 100);
 			// 							// if(success == -1) {

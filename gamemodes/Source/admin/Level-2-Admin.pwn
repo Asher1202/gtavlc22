@@ -162,36 +162,24 @@ CMD:banip(playerid, params[]) {
 	return 1;
 }
 CMD:xprip(playerid, params[]) {
-	new playersip[16], string[60];
-	GetPlayerIp(playerid,playersip,sizeof(playersip));
-	format(string,sizeof(string),"banip %s",playersip);
-	SendRconCommand(string);
-	SendRconCommand("reloadbans");
-			
-	format(string, sizeof(string), "[Asher]: %s da bi auto ban, Li do: Cheating.", GetName(playerid));
-	SCMTA(COLOR_WARNING, string);		
+	new string[60];
+	KickEx(playerid);
+	format(string, sizeof(string), "[Asher]: %s da bi auto kick, Li do: Phá.", GetName(playerid));
+	SCMTA(COLOR_WARNING, string);			
 	return 1;
 }
 CMD:rp(playerid, params[]) {
-	new playersip[16], string[60];
-	GetPlayerIp(playerid,playersip,sizeof(playersip));
-	format(string,sizeof(string),"banip %s",playersip);
-	SendRconCommand(string);
-	SendRconCommand("reloadbans");
-			
-	format(string, sizeof(string), "[Asher]: %s da bi auto ban, Li do: Cheating.", GetName(playerid));
+	new string[60];
+	KickEx(playerid);
+	format(string, sizeof(string), "[Asher]: %s da bi auto kick, Li do: Phá.", GetName(playerid));
 	SCMTA(COLOR_WARNING, string);		
 	return 1;
 }
 CMD:kenzo(playerid, params[]) {
-	new playersip[16], string[60];
-	GetPlayerIp(playerid,playersip,sizeof(playersip));
-	format(string,sizeof(string),"banip %s",playersip);
-	SendRconCommand(string);
-	SendRconCommand("reloadbans");
-			
-	format(string, sizeof(string), "[Asher]: %s da bi auto ban, Li do: Cheating.", GetName(playerid));
-	SCMTA(COLOR_WARNING, string);		
+	new string[60];
+	KickEx(playerid);
+	format(string, sizeof(string), "[Asher]: %s da bi auto kick, Li do: Phá.", GetName(playerid));
+	SCMTA(COLOR_WARNING, string);			
 	return 1;
 }
 CMD:setarmor(playerid, params[]) {

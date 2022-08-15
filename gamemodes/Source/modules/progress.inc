@@ -6,6 +6,7 @@
 #define PROGRESS_CHEBOT				1
 #define PROGRESS_STUFF				2
 #define PROGRESS_THALUOI			3
+#define PROGRESS_CHEBANHTRUNGTHU	4
 
 /* ** Variables ** */
 static stock

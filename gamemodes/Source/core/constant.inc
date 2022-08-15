@@ -23,7 +23,7 @@
 #define AC_MIN_TIME_RECONNECT 5
 
 // IMPORTANT
-#define MAX_REPUTATION    38
+#define MAX_REPUTATION    39
 #define MAX_CARS 		3000 //default is 10000
 #define MAX_BLOCKED_USER 20
 // Change the MAX_CARS when players increase, because the car ID 

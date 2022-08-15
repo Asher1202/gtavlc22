@@ -76,6 +76,8 @@ Dialog:DIALOG_CUOCTAI(playerid, response, listitem, inputtext[]) {
         cuoctai[playerid]=chipcuoc;
         format(string, sizeof(string), "Ban da dat cuoc %s chip vao {FF0000}Tai!", FormatNumber(chipcuoc));
         SendClientMessage(playerid, COLOR_WHITE, string);
+		PlayerInfo[playerid][pTrungThuJob][9] += 1;
+		save_ttj(playerid);
         Iter_Add(InTaixiu, playerid);
         Iter_Add(ChonTai, playerid);
         tongtai++;
@@ -99,6 +101,8 @@ Dialog:DIALOG_CUOCXIU(playerid, response, listitem, inputtext[]) {
         cuocxiu[playerid]=chipcuoc;
         format(string, sizeof(string), "Ban da dat cuoc %s chip vao {FF0000}Xiu!", FormatNumber(chipcuoc));
         SendClientMessage(playerid, COLOR_WHITE, string);
+		PlayerInfo[playerid][pTrungThuJob][9] += 1;
+		save_ttj(playerid);
         Iter_Add(InTaixiu, playerid);
         Iter_Add(ChonXiu, playerid);
         tongxiu++;

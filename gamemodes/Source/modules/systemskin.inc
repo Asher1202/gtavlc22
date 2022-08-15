@@ -365,14 +365,14 @@
 //     DeletePVar(playerid, "skin");
 //     return 1;
 // }
-Dialog:DIALOG_SKIN(playerid, response, listitem, inputtext[]) {
-    if(!response) return true;
-    new id = listitem;
-    if(PlayerInfo[playerid][pSkins][id] == -1) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co skin trong slot nay");
-    Dialog_Show(playerid, DIALOG_SKIN1, DIALOG_STYLE_MSGBOX,  "My Skins",  "Chon skin ma ban muon mac",  "Chon", "Xoa");
-    SetPVarInt(playerid, "skin", id);
-    return 1;
-}
+// Dialog:DIALOG_SKIN(playerid, response, listitem, inputtext[]) {
+//     if(!response) return true;
+//     new id = listitem;
+//     if(PlayerInfo[playerid][pSkins][id] == -1) return SendClientMessage(playerid, COLOR_LGREEN, "Ban khong co skin trong slot nay");
+//     Dialog_Show(playerid, DIALOG_SKIN1, DIALOG_STYLE_MSGBOX,  "My Skins",  "Chon skin ma ban muon mac",  "Chon", "Xoa");
+//     SetPVarInt(playerid, "skin", id);
+//     return 1;
+// }
 Dialog:DIALOG_SKIN1(playerid, response, listitem, inputtext[]) {
     new id = PlayerInfo[playerid][pSkins][GetPVarInt(playerid, "skin")];
     switch(response) {

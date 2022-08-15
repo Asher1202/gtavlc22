@@ -2266,6 +2266,8 @@ CMD:find(playerid, params[]) {
 	if(BizRobbed[playerid] != 0) return 1;
 	if(togfind[id] == 1 && OnDuty[playerid] == 0 && PlayerHit[playerid] == -1) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000}[!]{FFFFFF} Ban khong the tim kiem nguoi choi nay!"); 
 	UsedFind[playerid] = 1;
+	PlayerInfo[playerid][pTrungThuJob][4] += 1;
+	save_ttj(playerid);
 	GetPlayerName(id, giveplayer, sizeof(giveplayer));
 	new Float:X,Float:Y,Float:Z;
 	GetPlayerPos(id, X,Y,Z);
@@ -2668,8 +2670,8 @@ CMD:startevent(playerid, params[]) {
 		return 1;
 	}
 	if(PlayerInfo[playerid][pAdmin] < 1) return 1;
-	if(PlayerInfo[playerid][pAdmin] == 1 && EventMoney > 20000) return SendClientMessage(playerid, -1, "So tien khong hop le! (10,000-20,000)");
-	if(EventMoney < 10000 || EventMoney > 200000) return SendClientMessage(playerid, -1, "So tien khong hop le! (10,000-200,000)");
+	if(PlayerInfo[playerid][pAdmin] == 1 && EventMoney > 50000) return SendClientMessage(playerid, -1, "So tien khong hop le! (10,000-50,000)");
+	if(EventMoney < 10000 || EventMoney > 500000) return SendClientMessage(playerid, -1, "So tien khong hop le! (10,000-500,000)");
 	if(GetPlayerCash(playerid) < EventMoney) return SendClientMessage(playerid, -1, "Ban khong co du tien.");
 	if(strcmp(event, "lms", true) == 0) {
 		format(string, sizeof(string), "(( Admin %s: Event {FF9696}LMS (Giai thuong: $%s){A9C4E4}. De tham gia su kien nay, su dung '/joinevent'! ))", GetName(playerid), FormatNumber(EventMoney));
@@ -3025,23 +3027,45 @@ CMD:accept(playerid, params[]) {
 	if(strcmp(x_job, "traodoi", true) == 0) {
 		// printf("2 %d [ %d ] ( %d )",BurgerAmount[playerid], BurgerOffer[playerid], BurgerMoney[playerid]);
 		// printf("3 %d [ %d ] ( %d )",BurgerAmount[id], BurgerOffer[id], BurgerMoney[id]);
-		if(BurgerOffer[playerid] == -1) return SendClientMessage(playerid, -1, "Ban khong o trong mot cuoc giao dich!");
-		if(BurgerOffer[playerid] != id)	return SendClientMessage(playerid, -1, "Ban khong giao dich voi nguoi do!");
-		BurgerMoney[playerid] = PayTax(playerid, BurgerMoney[playerid], e_TRAO_DOI);
-		if(GetPlayerCash(playerid) < BurgerMoney[playerid]) return SendClientMessage(playerid, COLOR_YELLOW, "Bug nua ha ong noi");
+		if(GetPVarInt(id, "TDBurger") == 1 && GetPVarInt(playerid, "TDBurger") == 1) {
+			if(BurgerOffer[playerid] == -1) return SendClientMessage(playerid, -1, "Ban khong o trong mot cuoc giao dich!");
+			if(BurgerOffer[playerid] != id)	return SendClientMessage(playerid, -1, "Ban khong giao dich voi nguoi do!");
+			BurgerMoney[playerid] = PayTax(playerid, BurgerMoney[playerid], e_TRAO_DOI);
+			if(GetPlayerCash(playerid) < BurgerMoney[playerid]) return SendClientMessage(playerid, COLOR_YELLOW, "Bug nua ha ong noi");
 
-		Inventory_Add(playerid,"Burger", 2703, BurgerAmount[playerid], 1);
-		Inventory_Remove(BurgerOffer[playerid], "Burger", BurgerAmount[playerid]);
-		GivePlayerCash(playerid, -BurgerMoney[playerid]);
-		GivePlayerCash(id, BurgerMoney[playerid]);
-		Update(playerid, pCashx);
-		Update(id, pCashx);
-		BurgerOffer[playerid] = -1;
-		format(string, sizeof(string), "%s da mua %d cai burger cua ban voi gia $%s.", GetName(playerid), BurgerAmount[playerid], FormatNumber(BurgerMoney[playerid]));
-		SendClientMessage(id, COLOR_MONEY, string);	
-		format(string, sizeof(string), "Ban da mua %d burger cua %s,voi gia $%s.", BurgerAmount[playerid], GetName(id), FormatNumber(BurgerMoney[playerid]));
-		SendClientMessage(playerid, COLOR_MONEY, string);
-		
+			if(Inventory_GetFreeID(id, 1) == -1) Inventory_Add(id,"Burger", 2703, BurgerAmount[playerid], 2);
+			else Inventory_Add(id,"Burger", 2703, BurgerAmount[playerid], 1);
+			Inventory_Remove(BurgerOffer[playerid], "Burger", BurgerAmount[playerid]);
+			GivePlayerCash(playerid, -BurgerMoney[playerid]);
+			GivePlayerCash(id, BurgerMoney[playerid]);
+			Update(playerid, pCashx);
+			Update(id, pCashx);
+			BurgerOffer[playerid] = -1;
+			format(string, sizeof(string), "%s da mua %d cai burger cua ban voi gia $%s.", GetName(playerid), BurgerAmount[playerid], FormatNumber(BurgerMoney[playerid]));
+			SendClientMessage(id, COLOR_MONEY, string);	
+			format(string, sizeof(string), "Ban da mua %d burger cua %s,voi gia $%s.", BurgerAmount[playerid], GetName(id), FormatNumber(BurgerMoney[playerid]));
+			SendClientMessage(playerid, COLOR_MONEY, string);
+		}
+		else if(GetPVarInt(id, "TDBanhTrungThu") == 1 && GetPVarInt(playerid, "TDBanhTrungThu") == 1) {
+			if(BurgerOffer[playerid] == -1) return SendClientMessage(playerid, -1, "Ban khong o trong mot cuoc giao dich!");
+			if(BurgerOffer[playerid] != id)	return SendClientMessage(playerid, -1, "Ban khong giao dich voi nguoi do!");
+			BurgerMoney[playerid] = PayTax(playerid, BurgerMoney[playerid], e_TRAO_DOI);
+			if(GetPlayerCash(playerid) < BurgerMoney[playerid]) return SendClientMessage(playerid, COLOR_YELLOW, "Bug nua ha ong noi");
+
+			if(Inventory_GetFreeID(id, 1) == -1) Inventory_Add(id,"Banh Trung Thu", 2766, BurgerAmount[playerid], 2);
+			else Inventory_Add(id,"Banh Trung Thu", 2703, BurgerAmount[playerid], 1);
+			Inventory_Remove(BurgerOffer[playerid], "Banh Trung Thu", BurgerAmount[playerid]);
+			GivePlayerCash(playerid, -BurgerMoney[playerid]);
+			GivePlayerCash(id, BurgerMoney[playerid]);
+			Update(playerid, pCashx);
+			Update(id, pCashx);
+			BurgerOffer[playerid] = -1;
+			format(string, sizeof(string), "%s da mua %d cai banh trung thu cua ban voi gia $%s.", GetName(playerid), BurgerAmount[playerid], FormatNumber(BurgerMoney[playerid]));
+			SendClientMessage(id, COLOR_MONEY, string);	
+			format(string, sizeof(string), "Ban da mua %d banh trung thu cua %s,voi gia $%s.", BurgerAmount[playerid], GetName(id), FormatNumber(BurgerMoney[playerid]));
+			SendClientMessage(playerid, COLOR_MONEY, string);
+		}
+
 		for(new m; m < (PlayerInfo[playerid][pVip] + 3); m++) {
 			if(PlayerInfo[playerid][pDailyMission][m] == 12 || PlayerInfo[id][pDailyMission][m] == 12) CheckMission(playerid, m);
 		}	

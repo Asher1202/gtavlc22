@@ -433,9 +433,12 @@ CMD:laytraicay(playerid, params[]) {
 	RemovePlayerAttachedObject(playerid, ATTACHMENT_ID_BALE);
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE); 
     SendClientMessage(playerid, COLOR_GOLD, "INFO: {FFFFFF}Dia diem giao tao da duoc xac dinh tren ban do.");
-    new randcp = RandomEx(1,101);
-	while(GetCity1(HouseInfo[randcp][hEntrancex],HouseInfo[randcp][hEntrancey]) != 3 || JobCP[playerid] == randcp) randcp = RandomEx(1,101);
+    new randcp = RandomEx(1, Iter_Count(House) + 1);
+	while(GetCity1(HouseInfo[randcp][hEntrancex],HouseInfo[randcp][hEntrancey]) != 3 || GetPlayerDistanceFromPoint(playerid, HouseInfo[randcp][hEntrancex], HouseInfo[randcp][hEntrancey], HouseInfo[randcp][hEntrancez]) < 200.0) {
+		randcp = RandomEx(1, Iter_Count(House) + 1);
+	}
 	JobCP[playerid] = randcp;
 	SetPlayerCheckpointEx(playerid, HouseInfo[JobCP[playerid]][hEntrancex], HouseInfo[JobCP[playerid]][hEntrancey], HouseInfo[JobCP[playerid]][hEntrancez], 5.0);
+	CP[playerid] = 113;
     return 1;
 }

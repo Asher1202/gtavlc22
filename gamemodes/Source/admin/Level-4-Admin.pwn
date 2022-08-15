@@ -44,34 +44,6 @@ CMD:setskin(playerid, params[]) {
 	mysql_query(SQL,query);
 	return 1;
 }
-CMD:setskinasher(playerid, params[]) {
-    if(PlayerInfo[playerid][pAdmin] < 7) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
-	new id,model,string[180];
-	if(sscanf(params, "ud",id,model)) return SendClientMessage(playerid, COLOR_GREY, "Cu phap: {FFFFFF}/setskin <playerid/name> <Skin ID>");	
-	if(model < 1 || model > 310) return SendClientMessage(playerid, -1, "Wrong skin ID.");
-	if(!IsPlayerConnected(id) || id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi da chon khong dang nhap.");
-
-	// if(Player_GetSkinSlot(id, model) != -1) return SendClientMessage(playerid, -1, "Nguoi choi da so huu skin nay.");
-	// new const success = Player_AddItem(id, ItemType:item_type_skin, model, 100);
-	// if(success == -1) {
-	// 	return SendClientMessage(playerid,COLOR_LGREEN, "ERROR: Nguoi choi do da su dung het inventory slot!");
-	// }
-
-	PlayerInfo[id][pChar] = model;
-	SetPlayerSkinEx(id, PlayerInfo[id][pChar]);
-	give_skin(playerid, model);
-	format(string, sizeof(string), "%s da set skin %d cho %s.", GetName(playerid), model, GetName(id));
-	if(GetPVarInt(playerid, "Cover") == 0) SendAdminMessage(COLOR_LOGS, string, 1);
-	format(string, sizeof(string), "Ban da set cho %s(%d) skin %d.", GetName(id), id, model);
-	SendClientMessage(playerid, COLOR_WHITE, string);
-	format(string, sizeof(string), "Admin %s da set cho ban skin %d.", GetName(playerid), model);
-
-	SendClientMessage(id, COLOR_WHITE, string);	
-	new query[128];
-	format(query,sizeof(query),"UPDATE users SET `CChar`='%d' WHERE `ID`='%d'",PlayerInfo[id][pChar],PlayerInfo[id][pSQLID]);
-	mysql_query(SQL,query);
-	return 1;
-}
 CMD:carcolortemp(playerid, params[]) {
     if(PlayerInfo[playerid][pAdmin] < 2) return 1;
 	new color1,color2;

@@ -339,6 +339,7 @@ function Kick_Ban ( playerid, bool: kickban ) return ( !kickban ) ? Kick ( playe
 #define COLOR_DEPART2 		0xff3535FF
 #define COLOR_LOGS 			0xE6833CFF
 #define COLOR_GAMEGTA		0xFF3A3AFF
+#define COLOR_NEUTRALGREEN		0x42f593FF
 // WALKSTYLE
 // #define WALK_DEFAULT    0
 // #define WALK_NORMAL     1
@@ -1652,7 +1653,7 @@ TrungThuJobName(id) {
 		case 0: string = "Cau ca 'Sailor Moon'";
 		case 1: string = "Giao pizza";
 		case 2: string = "Giao trucker vat pham 'Banh Trung Thu'";
-		case 3: string = "Giao nguyen lieu 'Banh Dau Xanh'";
+		case 3: string = "Giao vat lieu";
 		case 4: string = "Find nguoi choi khac";
 		case 5: string = "Giao trai cay";
 		case 6: string = "Dua xe trong dau truong";
@@ -1862,6 +1863,16 @@ new Float:TruckStolenCar[][] = {
 	{2386.1792,-1474.1869,23.8195},
 	{2717.3513,-2224.1147,13.6100},
 	{1073.0592,1269.8995,10.8659}		
+};
+new Float:TruckTrungThuPos[][] = {
+	{1535.8776,-1653.6265,13.1249},
+	{2772.5193,-1864.5629,9.3709},
+	{2597.4785,-1105.7522,67.7383},
+	{2150.2729,-1184.7357,23.4410},
+	{485.1046,-1785.8589,5.9882},
+	{262.8742,-1233.8521,73.2509},
+	{633.3420,-572.1094,15.9603},
+	{1828.8575,-1846.6476,13.2090}
 };
 
 // SAVE

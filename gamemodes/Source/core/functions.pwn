@@ -2447,11 +2447,11 @@ GiveJobSalary(playerid) {
 		new updatenum = PlayerInfo[playerid][pUpdateLevel][PlayerInfo[playerid][pJob]];
 		bonus += updatenum*10000;
 		new luck;
-		luck = random(300);
+		luck = random(450);
 		if(0 <= luck < updatenum*7) PlayerInfo[playerid][pPremiumPoints] += updatenum *5, Update(playerid, pPremiumPointsx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d xu vi hoan thanh cong viec", updatenum*5), format(string, sizeof(string), "[!] %s da nhan duoc %d xu tu cong viec", GetName(playerid), updatenum * 5), Log("logs/Bonus.log", string);
 		if(30 <= luck < 30+(updatenum*5)-5) PlayerInfo[playerid][pKC] += (updatenum *5)-2, Update(playerid, pKCx), SCMf(playerid, COLOR_YELLOW, "Ban nhan duoc %d kim cuong vi hoan thanh cong viec", updatenum*5), format(string, sizeof(string), "[!] %s da nhan duoc %d kim cuong tu cong viec", GetName(playerid), updatenum * 5), Log("logs/Bonus.log", string);
 		if(55 <= luck < 55+(updatenum*3)) {
-			new giftrandom = random(10);
+			new giftrandom = random(20);
 			switch(giftrandom){
 				case 0..6 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random skin"), PlayerInfo[playerid][pCrates][0] += 1, save_crates(playerid), format(string, sizeof(string), "[!] %s da nhan hop qua random skin", GetName(playerid)), Log("logs/Bonus.log", string);
 				case 7..10 : SendClientMessage(playerid, COLOR_YELLOW, "Ban nhan duoc hop qua random"), PlayerInfo[playerid][pCrates][2] += 1, save_crates(playerid), format(string, sizeof(string), "[!] %s da nhan hop qua random", GetName(playerid)), Log("logs/Bonus.log", string);
@@ -2491,6 +2491,11 @@ GiveJobSalary(playerid) {
 		new sql[128];
 		format(sql, sizeof(sql), "UPDATE users SET `QuaTanThu`='1' WHERE `ID`='%d'", PlayerInfo[playerid][pSQLID]);
         mysql_tquery(SQL, sql, "", "");
+	}
+	if(PlayerInfo[playerid][pJob] == 9)
+	{
+		PlayerInfo[playerid][pTrungThuJob][1] += 1;
+		save_ttj(playerid);
 	}
 	// info
 	JobDeelay[playerid][PlayerInfo[playerid][pJob]] = 45;
@@ -4764,8 +4769,8 @@ OnPlayerLoginEx(playerid, const password[]) {
 
 	    new skin[64];
 		cache_get_value_name(0, "TrungThuJob", result); format(skin, 64, result);
-        sscanf(skin, "p<|>iiiiiiiiii", PlayerInfo[playerid][TrungThuJob][0], PlayerInfo[playerid][TrungThuJob][1], PlayerInfo[playerid][TrungThuJob][2], PlayerInfo[playerid][TrungThuJob][3], PlayerInfo[playerid][TrungThuJob][4],
-        PlayerInfo[playerid][TrungThuJob][5], PlayerInfo[playerid][TrungThuJob][6], PlayerInfo[playerid][TrungThuJob][7], PlayerInfo[playerid][TrungThuJob][8], PlayerInfo[playerid][TrungThuJob][9]);
+        sscanf(skin, "p<|>iiiiiiiiiii", PlayerInfo[playerid][pTrungThuJob][0], PlayerInfo[playerid][pTrungThuJob][1], PlayerInfo[playerid][pTrungThuJob][2], PlayerInfo[playerid][pTrungThuJob][3], PlayerInfo[playerid][pTrungThuJob][4],
+        PlayerInfo[playerid][pTrungThuJob][5], PlayerInfo[playerid][pTrungThuJob][6], PlayerInfo[playerid][pTrungThuJob][7], PlayerInfo[playerid][pTrungThuJob][8], PlayerInfo[playerid][pTrungThuJob][9], PlayerInfo[playerid][pTrungThuJob][10]);
         
 	    new UpdateLevel[64];
 		cache_get_value_name(0, "UpdateLevel", result); format(UpdateLevel, 64, result);
@@ -5548,6 +5553,8 @@ FinishMap(playerid) {
 	DisablePlayerCheckpointEx(playerid);
 	DisablePlayerRaceCheckpointEx(playerid);
 	DestroyVehicle(RaceVehicle[playerid]);
+	PlayerInfo[playerid][pTrungThuJob][6] += 1;
+	save_ttj(playerid);
 	SetPlayerVirtualWorld(playerid, 0);
 	PlayerTextDrawHide(playerid, CpTD);
 	DisableRemoteVehicleCollisions(playerid, 0);

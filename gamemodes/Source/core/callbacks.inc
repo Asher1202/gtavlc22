@@ -181,7 +181,7 @@ public OnGameModeInit() {
 	tev = gettime()+1800;
 	gettime(ghour, gminute, gsecond);
 	new string[30];
-	format(string, sizeof(string), "GTAVLC v5.05, %02d/%02d", Day, Month);
+	format(string, sizeof(string), "GTAVLC v5.06, %02d/%02d", Day, Month);
 	SetGameModeText(string);
 	ghour = FixHour(ghour);
 	if(!realtime) SetWorldTime(wotime);
@@ -628,8 +628,8 @@ public OnPlayerDisconnect(playerid, reason)
 	if(JobWorking[playerid] == 1) {
 		JobWorking[playerid] = 0;
 		PlayerTextDrawHide(playerid, JobTD);
-		if(JobVehicle[playerid] != 0) { DestroyVehicle(JobVehicle[playerid]); JobVehicle[playerid] = 0; }
-		if(Trailer[playerid] != 0) { DestroyVehicle(Trailer[playerid]); Trailer[playerid] = 0;  }
+		// if(JobVehicle[playerid] != 0) { DestroyVehicle(JobVehicle[playerid]); JobVehicle[playerid] = 0; }
+		// if(Trailer[playerid] != 0) { DestroyVehicle(Trailer[playerid]); Trailer[playerid] = 0;  }
 		PlayerTextDrawHide(playerid, InfosTD);
 		DisablePlayerCheckpointEx(playerid);
 		CP[playerid] = 0;
@@ -1830,6 +1830,8 @@ public OnPlayerDeathEx(playerid, killerid, reason) {
 				case 2:	UpdateVar(playerid, "PaintDeaths3", PlayerInfo[playerid][pPaintDeaths][PaintType[playerid]-1]);			
 			}	
 			PKills[killerid] ++;
+			PlayerInfo[playerid][pTrungThuJob][7] += 1;
+			save_ttj(playerid);
 			PDeaths[playerid] ++;
 			if(PaintType[killerid] == 3 && PaintType[playerid] == 3) {
 				if(GetPaintLevel(playerid) == 8) {
@@ -2209,7 +2211,9 @@ public OnPlayerSpawn(playerid)
 	PlayRadio[playerid] = 0;
 	InEvent[playerid] = 0;
 	playerDeath[playerid] = 0;
-	
+	SetPlayerAttachedObject(playerid, 7, 3534, 6,  -0.139999, -0.049000, 0.504998,  0.000000, -89.199508, 49.200016,  0.246001, 0.304001, 0.269003); // 265
+	SetPlayerAttachedObject(playerid, 8, 18632, 6,  0.085999, 0.034999, 0.042999,  0.000000, 155.999877, -46.100006,  0.998000, 1.000000, 0.339999); // 265
+
 	for(new i = 0; i<= 6; i++)
 	{
 		PlayerInfo[playerid][pSungGang][i] = 0;
@@ -2642,8 +2646,10 @@ public OnPlayerEnterCheckpoint(playerid)
 			strcat(szDialog2, "Chat no\t{35DE1F}Hop phap\t2+\n");
 			strcat(szDialog2, "Sung\t{F31313}Bat hop phap\t3+\n");
 			strcat(szDialog2, "Xe bi trom\t{F31313}Bat hop phap\t3+\n");
+			strcat(szDialog2, "Banh Trung Thu\t{35DE1F}Hop phap\t1+\n");
 			Dialog_Show(playerid, DIALOG_TRUCKER, DIALOG_STYLE_TABLIST_HEADERS, "Chon diem den", szDialog2, "Select", "Cancel");
-			
+			PlayerInfo[playerid][pTrungThuJob][2] += 1;
+			save_ttj(playerid);
 			CP[playerid] = 0;
 			if(WorkingTime[playerid] > 20) {
 				PlayerInfo[playerid][pTruckerSkill] ++;
@@ -2761,6 +2767,22 @@ public OnPlayerEnterCheckpoint(playerid)
 			SetPlayerSpecialAction(playerid, 0);
 			ClearAnimations(playerid);
 		}
+		case 113: {
+			if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Ban khong the gui buu kien tu mot chiec xe!");
+			SetPlayerCheckpointEx(playerid, STOREHOUSE, 5.0);
+			CP[playerid] = 53;
+			format(string, sizeof(string), "Di den diem mau ~r~~h~do~w~~h~ tren ban do de giao tao.~n~Khoang cach: ~y~%0.1fm.", GetPlayerDistanceFromPoint(playerid, STOREHOUSE));
+			PlayerTextDrawSetString(playerid, InfosTD, string);
+			defer HideTextdraw(playerid);
+			PlayerTextDrawShow(playerid, InfosTD);	
+			PlayerInfo[playerid][pTrungThuJob][5] += 1;
+			save_ttj(playerid);
+			if(toghuman == 1) givejobsalaryhuman(playerid);
+			else GiveJobSalary(playerid);
+			RemovePlayerAttachedObject(playerid, 6);
+			SetPlayerSpecialAction(playerid, 0);
+			ClearAnimations(playerid);
+		}
 		case 169: {	
 			DisablePlayerCheckpointEx(playerid);
 			CP[playerid] = 0;
@@ -2781,10 +2803,15 @@ public OnPlayerEnterCheckpoint(playerid)
 			BagTime[playerid] = 0;			
 		}	
 		case 155: {
+			if(ServerSystem[22] == 1) {
+				SendClientMessage(playerid, COLOR_YELLOW, "Cua hang pizza da dong cua, hay tro lai vao luc 7 gio sang de lam viec");
+				DisablePlayerCheckpointEx(playerid);
+				CP[playerid] = 0;
+				return 1;
+			}
 			SetPlayerCheckpointEx(playerid, 0,0,0, 0.0);
 			TogglePlayerControllable(playerid, false);
-			DisablePlayerCheckpointEx(playerid);
-			CP[playerid] = 0;
+			
 			new car = GetClosestVehicle(playerid);
 			new string2[128];
         	if(!IsPlayerNearVehicle(playerid, car, 30) || GetVehicleModel(car) != 448) {
@@ -4848,9 +4875,9 @@ public OnPlayerModelSelection(playerid, response, listid, modelid) {
 			if(checkslotskin(playerid) == 10) return SendClientMessage(playerid, -1, "Ban da full slot skin.");
 			if(checktrungskin(playerid,modelid) != 0) return SendClientMessage(playerid, -1, "Ban da so huu skin nay.");
 			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Skins", modelid, 1, 2);
-				else Inventory_Add(playerid,"Skins", modelid, 1, 1);
+			else Inventory_Add(playerid,"Skins", modelid, 1, 1);
 			//if(total_skins(playerid) ==  10) return SendClientMessage(playerid, COLOR_GREY, "Ban co qua nhieu skin! Hay xoa bot!");
-			if(are_acest_skin(playerid, modelid)) return SendClientMessage(playerid, COLOR_GREY, "Ban da co skin nay!");
+			// if(are_acest_skin(playerid, modelid)) return SendClientMessage(playerid, COLOR_GREY, "Ban da co skin nay!");
 			//give_skin(playerid, modelid);
 			PlayerInfo[playerid][pChar] = modelid;
             SetPlayerSkinEx(playerid, PlayerInfo[playerid][pChar]);

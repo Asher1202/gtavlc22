@@ -796,6 +796,7 @@ CMD:startwork(playerid, params[]) {
 				strcat(szDialog2, "Chat no\t{35DE1F}Hop phap\t2+\n");
 				strcat(szDialog2, "Sung\t{F21313}Bat hop phap\t3+\n");
 				strcat(szDialog2, "Xe bi trom\t{F21313}Bat hop phap\t3+\n");
+				strcat(szDialog2, "Banh Trung Thu\t{35DE1F}Hop phap\t1+\n");
 				Dialog_Show(playerid, DIALOG_TRUCKER, DIALOG_STYLE_TABLIST_HEADERS, "Chon diem den", szDialog2, "Select", "Cancel");			
 			}
 			else {

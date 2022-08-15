@@ -40,7 +40,8 @@ new const DanhHieu[MAX_REPUTATION][] = {
 	{"{ff0066}SIEU CHIEN BINH"},
 	{"{66ff99}FARMER"},
 	{"{66ff99}THE BEST CLAN"},
-	{"{FF0000}KING DE"}
+	{"{FF0000}KING DE"},
+	{"{42f593}VUI LA CHINH"}
 
 	
 

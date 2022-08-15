@@ -7363,7 +7363,7 @@ LoadPickups() {
 	CreateDynamic3DTextLabel("Yard", COLOR_LIGHTBLUE, 1918.2250,-1619.8477,1770.74690,5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
 	CreateDynamicPickup(1318, 23, 1918.2250,-1619.8477,1770.74690, -1);
 	CreateDynamic3DTextLabel("{0066FF}Asher{FFFFFF} Nguoi Giao Nhiem Vu",0xFFFFFFFF,1804.9772, -1847.8226, 13.5739,20.0);
-	// CreateDynamic3DTextLabel("{32a852} Dia diem spawn xe newbie{FFFFFF}\n[/spawnxe]",0xFFFFFFFF,1796.6306,-1846.5983,13.5781,20.0);
+	CreateDynamic3DTextLabel("{32a852} Dia diem tra nhiem vu{FFFFFF}\n[/tranhiemvu]",0xFFFFFFFF,1796.6306,-1846.5983,13.5781,20.0);
 	CreateDynamic3DTextLabel("{0066FF}De kiem tra nhiem vu\n{FFFFFF}[bam 'Y'{FFFFFF}].",0xFFFFFFFF,1804.9772, -1847.8226, 13.0000,20.0);
 	CreateDynamic3DTextLabel("{34cceb}Khu vuc tai xiu\n{FFFFFF}[/taixiu].",0xFFFFFFFF,1116.1476,-1457.6807,13.8592,60.0);
 
