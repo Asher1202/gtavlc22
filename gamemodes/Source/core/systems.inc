@@ -7367,7 +7367,13 @@ LoadPickups() {
 	CreateDynamic3DTextLabel("{0066FF}De kiem tra nhiem vu\n{FFFFFF}[bam 'Y'{FFFFFF}].",0xFFFFFFFF,1804.9772, -1847.8226, 13.0000,20.0);
 	CreateDynamic3DTextLabel("{34cceb}Khu vuc tai xiu\n{FFFFFF}[/taixiu].",0xFFFFFFFF,1116.1476,-1457.6807,13.8592,60.0);
 
-
+	CreateDynamic3DTextLabel("{0066FF}Tho Lam Banh\n{FFFFFF}Su Dung /trungthu de trao doi voi tho lam banh.",0xFFFFFFFF,1091.3512,-1362.8875,14.2813,60.0);
+	CreateDynamicObject(19632, 332.4916,-1798.3594,3.6545,0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19632, 333.1476,-1798.4153,3.6545,0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19632, 333.7820,-1798.5034,3.6545,0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19632, 332.4843,-1798.8851,3.6545,0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19632, 333.0760,-1798.6843,3.6545,0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(19632, 333.5865,-1798.4568,3.6545,0.00000, 0.00000, 0.00000);
 	for(new i; i < sizeof(dealershipPos); i++) {
 		CreateDynamicPickup(1277, 23, dealershipPos[i][0], dealershipPos[i][1], dealershipPos[i][2], -1, -1,-1, 100.0);
 		CreateDynamic3DTextLabel("Dealership\n{FFFFFF}Su dung /buycar de mua xe.", COLOR_GOLD, dealershipPos[i][0], dealershipPos[i][1], dealershipPos[i][2], 6.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
@@ -10593,6 +10599,10 @@ Update(playerid, type) {
 			case pProgress6x: format(var, sizeof(var), "UPDATE users SET `Progress6`='%d' WHERE ID=%i",PlayerInfo[playerid][pProgress][5], PlayerInfo[playerid][pSQLID]);
 			case pKCx: format(var, sizeof(var), "UPDATE users SET `KC`='%d' WHERE ID=%i",PlayerInfo[playerid][pKC], PlayerInfo[playerid][pSQLID]);
 			case pTutorialx: format(var, sizeof(var), "UPDATE users SET `huongdan`='%d' WHERE ID=%i",PlayerInfo[playerid][pTutorial], PlayerInfo[playerid][pSQLID]);
+			case pBanhTrungThux: format(var, sizeof(var), "UPDATE users SET `BanhTrungThu`='%d' WHERE ID=%i",PlayerInfo[playerid][pBanhTrungThu], PlayerInfo[playerid][pSQLID]);
+			case pBoomboxx: format(var, sizeof(var), "UPDATE users SET `Boombox`='%d' WHERE ID=%i",PlayerInfo[playerid][pBoombox], PlayerInfo[playerid][pSQLID]);
+			case pHopTrungThux: format(var, sizeof(var), "UPDATE users SET `HopTrungThu`='%d' WHERE ID=%i",PlayerInfo[playerid][pHopTrungThu], PlayerInfo[playerid][pSQLID]);
+			case pDauXanhx: format(var, sizeof(var), "UPDATE users SET `DauXanh`='%d' WHERE ID=%i",PlayerInfo[playerid][pDauXanh], PlayerInfo[playerid][pSQLID]);
 			// case pUpdateLevelx: format(var, sizeof(var), "UPDATE users SET `UpdateLevel`='%d' WHERE ID=%i",PlayerInfo[playerid][pUpdateLevel], PlayerInfo[playerid][pSQLID]);
 
 			default: return SendClientMessage(playerid, -1, sprintf("Loi: %d, F8 cai nay lai va bao cho Admin cap cao.", type)), printf("[002] Update(playerid, %d)",type);

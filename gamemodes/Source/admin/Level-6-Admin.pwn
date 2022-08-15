@@ -13,6 +13,21 @@ CMD:togcaptcha(playerid,params[]) {
 	}
 	return 1;
 }
+CMD:togtrungthu(playerid,params[]) {
+	if(PlayerInfo[playerid][pAdmin] < 6) return 1;
+	new string[90];
+	if(togtrungthu == 0) {
+		togtrungthu = 1;
+		format(string, sizeof(string), "INFO: %s Da Bat Trung Thu", GetName(playerid));		
+		SendStaffMessage(COLOR_YELLOW, string);
+	}
+	else if(togtrungthu == 1) {
+		togtrungthu = 0;
+		format(string, sizeof(string), "INFO: %s Da Tat Trung Thu", GetName(playerid));		
+		SendStaffMessage(COLOR_YELLOW, string);
+	}
+	return 1;
+}
 CMD:movefactioninterior(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 6) return 1;
 	new id;

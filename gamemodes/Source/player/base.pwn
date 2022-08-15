@@ -130,6 +130,27 @@ CMD:puthelmet(playerid, params[]) {
 	}
 	return 1;
 }
+CMD:trungthu(playerid, params[]) {
+	if(!IsPlayerInRangeOfPoint(playerid, 3.0, 1091.3512,-1362.8875,14.2813)) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o noi tho lam banh");
+	if(togtrungthu == 0) return SendClientMessage(playerid, COLOR_GREY, "Chuc Nang Trung Thu Hien Tai Da Bi Tat.");
+	Dialog_Show(playerid, DIALOG_TRUNGTHU, DIALOG_STYLE_LIST, "Trung Thu", "Lam Le Trung Thu\nDoi Qua\nMo Qua Trung Thu", "Ok", "Close");
+	return true;
+}
+CMD:traloi(playerid, params[]) {
+	new string[126];
+	if(cauhoixuathien != 1) return 1;
+	if(togtrungthu == 0) return SendClientMessage(playerid, COLOR_GREY, "Chuc Nang Trung Thu Hien Tai Da Bi Tat.");
+	if(InLeTrungThu[playerid] == 0) return SendClientMessage(playerid, COLOR_GREY,"Ban khong trong le hoi");
+	if(!IsPlayerInRangeOfPoint(playerid, 20, 332.4916,-1798.3594,4.7045)) return SendClientMessage(playerid, COLOR_GREY,"Ban khong o quanh khu vuc lua trai");
+	if(DaTraLoi[playerid] != 0) return SendClientMessage(playerid, COLOR_GREY,"Ban da tra loi roi");
+	format(string, sizeof string, "%s\n%s\n%s",dapantrungthu1,dapantrungthu2,dapantrungthu3);
+	Dialog_Show(playerid, DIALOG_TRALOITRUNGTHU, DIALOG_STYLE_LIST, "Hay Chon Dap An Dung", string, "Ok", "Close");
+	return true;
+}
+/*CMD:loadcauhoi(playerid, params[]) {
+	cauhoitrungthu();
+	return true;
+}*/
 CMD:firework(playerid, params[])
 {
     if(isnull(params)) return SendClientMessage(playerid, COLOR_LIGHTRED, "/firework [dat / ban]");

@@ -1930,6 +1930,7 @@ CMD:respawn(playerid, params[]) {
 	if(sscanf(params, "u", id)) return SendClientMessage(playerid,COLOR_GREY, "Su dung: {FFFFFF}/respawn <playerid/name>");
 	if(!IsPlayerConnected(id) || id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi do khong dang nhap.");
 	if(PlayerInfo[id][pAdmin] > PlayerInfo[playerid][pAdmin]) return SendClientMessage(playerid, -1, "Ban khong the su dung lenh nay len nguoi choi do.");	
+	if(InLeTrungThu[id] != 0) return SendClientMessage(playerid, -1, "Nguoi Nay Dang Tham Gia Le Trung Thu.");	
 	format(string, sizeof(string), "[{B81616}AdmWarning{FFFFFF}]: %s da respawn %s.", GetName(playerid), GetName(id));
 	if(GetPVarInt(playerid, "Cover") == 0) SendAdminMessage(-1, string,4);
 	format(string, sizeof(string), "* Admin %s da respawn ban.", GetName(playerid));

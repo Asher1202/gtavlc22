@@ -2851,7 +2851,13 @@ task Timers[1000]() {
 						if(JobVehicle[i] != 0) { DestroyVehicle(JobVehicle[i]); JobVehicle[i] = 0; }
 						PlayerTextDrawHide(i, InfosTD);
 						DisablePlayerCheckpointEx(i);
-						JobVehicle[i] = 0;						
+						JobVehicle[i] = 0;			
+						if(PlayerInfo[i][pDauXanh] < 10)
+						{
+							PlayerInfo[i][pDauXanh] += 1;
+							Update(i, pDauXanhx);
+							SendClientMessage(i, COLOR_YELLOW, "Ban Nhan Duoc 1 Dau Xanh");
+						}			
 					}
 				}
 			}
@@ -3806,6 +3812,92 @@ task SyncUp[60000]() {
 		}
 		else {
 			SetWorldTime(hour);
+		}
+		if(togtrungthu == 1)
+		{
+			if(hour == 20 && minn == 5) {
+				cauhoitrungthu();
+			}
+			if(hour == 20 && minn == 7) {
+				cauhoitrungthu();
+			}
+			if(hour == 20 && minn == 9) {
+				cauhoitrungthu();
+			}
+			if(hour == 20 && minn == 11) {
+				cauhoitrungthu();
+			}
+			if(hour == 20 && minn == 13) {
+				cauhoitrungthu();
+			}
+			if(hour == 20 && minn == 15) {
+				cauhoixuathien = 0;
+				new xxx;
+				for(new s = 0; s < MAX_PLAYERS; s++) {
+					if(InLeTrungThu[s] == 1) xxx++;
+				}
+				foreach(new i: Player) 
+				{
+					if(InLeTrungThu[i] == 1 && SoDapAnDung[i] >= 2) 
+					{
+						if(IsPlayerInRangeOfPoint(i, 20, 332.4916,-1798.3594,4.7045)) {
+							if(xxx >= 10) PlayerInfo[i][pBanhTrungThu] += 100;
+							else if(xxx >= 20) PlayerInfo[i][pBanhTrungThu] += 200;
+							else if(xxx >= 30) PlayerInfo[i][pBanhTrungThu] += 300;
+							else if(xxx >= 40) PlayerInfo[i][pBanhTrungThu] += 400;
+							else if(xxx >= 50) PlayerInfo[i][pBanhTrungThu] += 500;
+							else PlayerInfo[i][pBanhTrungThu] += 50;
+							if(SoDapAnDung[i] == 5) {
+								SendClientMessage(i, COLOR_YELLOW,"Ban Nhan Duoc Them 20 Banh Vi Tra Loi Dung 5 Cau");
+								PlayerInfo[i][pBanhTrungThu] += 30;
+							}
+							Update(i, pBanhTrungThux);
+						}
+						new rand = random(4);
+						switch (rand) {
+							case 0 : {
+								SetPlayerPosEx(i,1087.3450,-1363.1055,13.7813);
+							}
+							case 1: {
+								SetPlayerPosEx(i,1085.3999,-1363.2069,13.7813);
+							}
+							case 2: {
+								SetPlayerPosEx(i,1083.7870,-1363.5781,13.7813);
+							}
+							case 3: {
+								SetPlayerPosEx(i,1085.8542,-1358.6213,13.6622);
+							}
+						}
+						SetPlayerVirtualWorld(i, 0);
+						InLeTrungThu[i] = 0;
+						SoDapAnDung[i] = 0;
+						DaTraLoi[i] = 0;
+					}
+					else if(InLeTrungThu[i] == 1 && SoDapAnDung[i] < 2) {
+						SendClientMessage(i, COLOR_YELLOW,"Ban Khong Nhan Duoc Banh Vi Tra Loi Dung Duoi 4 Cau");
+						SoDapAnDung[i] = 0;
+						InLeTrungThu[i] = 0;
+						DaTraLoi[i] = 0;
+						new rand = random(4);
+						switch (rand) {
+							case 0 : {
+								SetPlayerPosEx(i,1087.3450,-1363.1055,13.7813);
+							}
+							case 1: {
+								SetPlayerPosEx(i,1085.3999,-1363.2069,13.7813);
+							}
+							case 2: {
+								SetPlayerPosEx(i,1083.7870,-1363.5781,13.7813);
+							}
+							case 3: {
+								SetPlayerPosEx(i,1085.8542,-1358.6213,13.6622);
+							}
+						}
+						SetPlayerVirtualWorld(i, 0);
+					}
+				}
+				SCMTA(COLOR_CLIENT,"(( Tho Lam Banh: Le Trung Thu Da Ket Thuc Va Da Trao Thuong Cho Nhung Ai Tham Gia,Hay Quay Lai Vao Hom Sau ))");
+			}
 		}
 		new days[180];
 		format(days, sizeof(days), GetWeekDay(Day, Month, Year));

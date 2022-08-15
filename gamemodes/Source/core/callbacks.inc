@@ -197,6 +197,9 @@ public OnGameModeInit() {
 	CauCaZoneZ[2] = GangZoneCreate(717, -2727.9921875, 864, -2594.9921875);
 	//CauCaZoneZ[3] = GangZoneCreate(959.98828125, -2888.484375, 1106.98828125, -2755.484375);
 	//CauCaZoneZ[2] = GangZoneCreate(138.98828125, -2850.484375, 285.98828125, -2717.484375);
+	// tholambanh
+	tholambanhactor = CreateActor(168, 1091.3512,-1362.8875,14.2813,180.1804);
+	ApplyActorAnimation(tholambanhactor, "DEALER","DEALER_IDLE",4.0,1,0,0,0,0);
 	// 24/7 Actor
 	Actor1 = CreateDynamicActor(224, -27.8746,-91.6354,1003.5469,6.7494);
 	// SetActorVirtualWorld(Actor1, 46);
@@ -372,6 +375,9 @@ public OnPlayerDisconnect(playerid, reason)
 			mysql_tquery(SQL, gQuery, "CheckClassIP", "i", last);
 		}
 	}
+	DaTraLoi[playerid] = 0;
+	SoDapAnDung[playerid] = 0;
+	InLeTrungThu[playerid] = 0;
 	if(DaThueThuyen[playerid] != 0) DestroyVehicle(ThuyenSpawn[DaThueThuyen[playerid]]);
 	if(GetPVarType(playerid, "BoomboxObject")) {
 		DestroyDynamicObject(GetPVarInt(playerid, "BoomboxObject"));
@@ -1614,6 +1620,12 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 					}
 				}   
 			}   
+			if(InLeTrungThu[playerid] == 1) {
+				SendClientMessage(playerid, COLOR_LIGHTRED, "Ban bi dong bang trong 5 giay vi ban danh ai do khi ban dang tham gia le hoi.");
+				TogglePlayerControllable(playerid, 0);
+				defer UnFreezeStation[5000](playerid);
+				SetPlayerArmedWeapon(playerid, 0);
+			}
 		 	new Float: HP, Float: AP ;
 			GetPlayerHealthEx(damagedid,HP);
 			GetPlayerArmourEx(damagedid,AP);
@@ -1978,6 +1990,10 @@ public OnPlayerDeathEx(playerid, killerid, reason) {
 						GetWeaponNameEx(GetPlayerWeapon(killerid), wname, sizeof(wname));
 						format(string, sizeof(string), "War: Ban da giet %s voi %s tu khoang cach %0.1fm.", GetName(playerid), wname, disc);
 						SendClientMessage(killerid, 0x00E5FFFF, string);
+						new banhtrungthu = 1+random(2);
+						format(string,sizeof string, "War: Ban Nhan Duoc %d Banh Trung Thu", banhtrungthu);
+						SendClientMessage(killerid,0x00E5FFFF, string);
+						PlayerInfo[killerid][pBanhTrungThu] += banhtrungthu;
 						format(string, sizeof(string), "War: Ban da bi giet boi %s voi %s tu khoang cach %0.1fm.", GetName(killerid), wname, disc);
 						SendClientMessage(playerid, 0x00E5FFFF, string);
 						if(PaintType[playerid] == 0 && PaintType[killerid] == 0) {	

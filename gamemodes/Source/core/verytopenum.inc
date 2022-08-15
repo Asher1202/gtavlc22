@@ -131,7 +131,14 @@ enum pInfo {
 	pHunger,
 	pGrowthPoints,
 	pTutorial,
+	pBoombox,
+	pHopTrungThu,
+	pBanhTrungThu,
+	pDauXanh
 };
+new InLeTrungThu[MAX_PLAYERS], dapantrungthu1[64],dapantrungthu2[64],togtrungthu = 1, cauhoixuathien,tholambanhactor,
+	dapantrungthu3[64],hoitrungthu[264],dapandung, DaTraLoi[MAX_PLAYERS], SoDapAnDung[MAX_PLAYERS];
+
 new 
 	PlayerInfo[MAX_PLAYERS + 1][pInfo],
 	InDealer[MAX_PLAYERS];

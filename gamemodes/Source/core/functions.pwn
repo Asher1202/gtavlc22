@@ -2376,7 +2376,9 @@ GiveJobSalary(playerid) {
 	new string[200], skill = GetPlayerSkill(playerid), money, bonus;
 	
 	switch(PlayerInfo[playerid][pJob]) { 
-		case 1: money = skill*125*KG[playerid] + 10000 + random(1000);
+		case 1: {
+			money = skill*125*KG[playerid] + 10000 + random(1000);
+		}
 		case 2: {
 			new category = GetPVarInt(playerid, "Category");
 			switch(category) {
@@ -2532,8 +2534,11 @@ GiveJobSalary(playerid) {
 		SendClientMessage(playerid, COLOR_GRAD2, string);
 	}
 	//CheckNhiemVuCapDo(playerid);
-
 	SendClientMessage(playerid, COLOR_GRAD2, string);
+	new banhtrungthu = 2+random(5);
+	format(string,sizeof string, "Ban da nhat duoc %d banh trung thu",banhtrungthu);
+	SendClientMessage(playerid, COLOR_YELLOW, string);
+	PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
 	if(PlayerInfo[playerid][pClan]!=0) {
 		new ran=1+random(3),sql[200],cid=PlayerInfo[playerid][pClan];
 		ClanInfo[cid][clPoints]+=ran;
@@ -4357,6 +4362,10 @@ CheckMission(playerid, id) {
 			SendClientMessage(playerid, COLOR_YELLOW, string);
 			format(string, sizeof(string), "Ban nhan duoc $%s va RP.", FormatNumber(money));
 			SendClientMessage(playerid, COLOR_YELLOW, string);
+			new banhtrungthu = 15+ random(10);
+			format(string, sizeof(string), "Ban nhan duoc %d banh trung thu.", banhtrungthu);
+			SendClientMessage(playerid, COLOR_YELLOW, string);
+			PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
 			PlayerInfo[playerid][pExp] ++;
 			GivePlayerCash(playerid, money);
 			PlayerInfo[playerid][pProgress][id] ++;
@@ -4758,6 +4767,11 @@ OnPlayerLoginEx(playerid, const password[]) {
 		cache_get_value_name_int(0, "GrowthPoints", 	PlayerInfo[playerid][pGrowthPoints]);
 
 		cache_get_value_name_int(0, "huongdan", 	PlayerInfo[playerid][pTutorial]);
+
+		cache_get_value_name_int(0, "BanhTrungThu", 	PlayerInfo[playerid][pBanhTrungThu]);
+		cache_get_value_name_int(0, "Boombox", 	PlayerInfo[playerid][pBoombox]);
+		cache_get_value_name_int(0, "HopTrungThu", 	PlayerInfo[playerid][pHopTrungThu]);
+		cache_get_value_name_int(0, "DauXanh", 	PlayerInfo[playerid][pDauXanh]);
 
 		new questsvar[256];
 		cache_get_value_name(0, "SpecialQuest", result); format(questsvar, sizeof(questsvar), result);
@@ -6242,4 +6256,88 @@ save_jobs(playerid) {
         PlayerInfo[playerid][pSQLID]);
 
     mysql_query(SQL, string, false);
+}
+cauhoitrungthu() {
+	foreach(new i: Player) {
+		DaTraLoi[i] = 0;
+	}
+	new idquestion = random(10);
+	switch(idquestion) {
+		case 0: {
+			format(hoitrungthu, sizeof hoitrungthu, "Tet Trung Thu Co Nguoc Goc Tu Dau?");
+			format(dapantrungthu1, sizeof dapantrungthu1, "A.Trung Quoc");
+			format(dapantrungthu2, sizeof dapantrungthu2, "B.Nhat Ban");
+			format(dapantrungthu3, sizeof dapantrungthu3, "C. Hoa Ky");
+			dapandung = 0;
+		}
+		case 1: {
+			format(hoitrungthu, sizeof hoitrungthu, "Trong Truyen Thuyet, Chi Hang o cung nao tren Thien Dinh?");
+			format(dapantrungthu1, sizeof dapantrungthu1, "A.Thien Cuc Bac");
+			format(dapantrungthu2, sizeof dapantrungthu2, "B.Quang Han");
+			format(dapantrungthu3, sizeof dapantrungthu3, "C. Con Luan");
+			dapandung = 1;
+		}
+		case 2: {
+			format(hoitrungthu, sizeof hoitrungthu, "Bai Hat Chiec Den Ong Sao La Cua Nhac Si Nao?");
+			format(dapantrungthu1, sizeof dapantrungthu1, "A.Pham Tuyen");
+			format(dapantrungthu2, sizeof dapantrungthu2, "B. Trinh Cong Son");
+			format(dapantrungthu3, sizeof dapantrungthu3, "C. Hoang Lan");
+			dapandung = 0;
+		}
+		case 3: {
+			format(hoitrungthu, sizeof hoitrungthu, "Loai Den Nao Tre Em Viet Nam Hay Choi Khi Tet Trung Thu Den?");
+			format(dapantrungthu1, sizeof dapantrungthu1, "A.Den Cay");
+			format(dapantrungthu2, sizeof dapantrungthu2, "B. Den Xe");
+			format(dapantrungthu3, sizeof dapantrungthu3, "C. Den Ong Sao");
+			dapandung = 2;
+		}
+		case 4: {
+			format(hoitrungthu, sizeof hoitrungthu, "Tet Trung Thu La Ngay Tet Danh Rieng Cho Ai?");
+			format(dapantrungthu1, sizeof dapantrungthu1, "A.Thieu Nien Nhi Dong");
+			format(dapantrungthu2, sizeof dapantrungthu2, "B. Tat Ca Moi Nguoi");
+			format(dapantrungthu3, sizeof dapantrungthu3, "C. Cho Tat Ca Thanh Thieu Nien");
+			dapandung = 0;
+		}
+		case 5: {
+			format(hoitrungthu, sizeof hoitrungthu, "Trong Truyen Co Tich Viet Nam, Ai La Nguoi Len Mat Trang Dau Tien?");
+			format(dapantrungthu1, sizeof dapantrungthu1, "A.Chi Hang");
+			format(dapantrungthu2, sizeof dapantrungthu2, "B. Chu Cuoi");
+			format(dapantrungthu3, sizeof dapantrungthu3, "C. Neil Armstrong");
+			dapandung = 1;
+		}
+		case 6: {
+			format(hoitrungthu, sizeof hoitrungthu, "Tet Trung Thu Trung Voi Thoi Diem Thu Hoach Gi?");
+			format(dapantrungthu1, sizeof dapantrungthu1, "A. Thu Hoach Ca");
+			format(dapantrungthu2, sizeof dapantrungthu2, "B. Thu Hoach Lua");
+			format(dapantrungthu3, sizeof dapantrungthu3, "C. Thu Hoach Trai Cay");
+			dapandung = 1;
+		}
+		case 7: {
+			format(hoitrungthu, sizeof hoitrungthu, "Tre Em Lam Gi Vao Ngay Tet Trung Thu?");
+			format(dapantrungthu1, sizeof dapantrungthu1, "A. Ruoc Den");
+			format(dapantrungthu2, sizeof dapantrungthu2, "B. Dua Xe");
+			format(dapantrungthu3, sizeof dapantrungthu3, "C. Hoc Bai");
+			dapandung = 0;
+		}
+		case 8: {
+			format(hoitrungthu, sizeof hoitrungthu, "Tren Mat Trang Co Nuoc Khong?");
+			format(dapantrungthu1, sizeof dapantrungthu1, "A. Co");
+			format(dapantrungthu2, sizeof dapantrungthu2, "B. Khong");
+			format(dapantrungthu3, sizeof dapantrungthu3, "C. Hien Tai Van Chua Biet");
+			dapandung = 1;
+		}
+		case 9: {
+			format(hoitrungthu, sizeof hoitrungthu, "Bai Hat Nao Ve Tet Trung Thu Duoc Hat Nhieu Nhat?");
+			format(dapantrungthu1, sizeof dapantrungthu1, "A. Chieu Den Ong Sao");
+			format(dapantrungthu2, sizeof dapantrungthu2, "B. Mua Su Tu");
+			format(dapantrungthu3, sizeof dapantrungthu3, "C. Ruoc Den Thang Tam");
+			dapandung = 1;
+		}
+	}
+	cauhoixuathien = 1;
+	new string[128];
+	format(string, sizeof string,"(( Tho Lam Banh: Cau Hoi: %s ))", hoitrungthu);
+	SCMTA(COLOR_CLIENT,string);
+	SCMTA(COLOR_CLIENT,"(( Tho Lam Banh: Nhung Ai Dang Tham Gia Le Hay Su Dung /traloi de tra loi ))");
+	return true;
 }
