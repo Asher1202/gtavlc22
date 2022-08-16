@@ -2193,6 +2193,7 @@ public OnPlayerSpawn(playerid)
 		PlayerInfo[playerid][pEscapeTime] = 0;
 		SendClientMessage(playerid, 0xffc301ff, "Ban da roi khoi xe, vuot nguc that bai va ban bi truy na 5 sao.");
 	} 	
+	SendClientMessage(playerid, COLOR_NEUTRALGREEN, "Hien tai server dang co 2 event [/trungthu] va [/1thang]!");
 	Iter_Remove(IsSpeed, playerid);	
 	Team[playerid] = 0;
 	SetPlayerHealthEx(playerid, 99);

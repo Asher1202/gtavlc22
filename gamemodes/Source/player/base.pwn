@@ -131,7 +131,13 @@ CMD:puthelmet(playerid, params[]) {
 	return 1;
 }
 CMD:trungthu(playerid, params[]) {
-	if(!IsPlayerInRangeOfPoint(playerid, 3.0, 1091.3512,-1362.8875,14.2813)) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o noi tho lam banh");
+	if(!IsPlayerInRangeOfPoint(playerid, 3.0, 1091.3512,-1362.8875,14.2813)) {
+		SendClientMessage(playerid, COLOR_GREY, "Ban khong o noi tho lam banh, hay den cham do de tuong tac voi tho lam banh");
+		SetPlayerCheckpointEx(playerid, 1091.3512,-1362.8875,14.2813, 5.0);
+		CP[playerid] = 53;
+		return 1;
+	} 
+	
 	if(togtrungthu == 0) return SendClientMessage(playerid, COLOR_GREY, "Chuc Nang Trung Thu Hien Tai Da Bi Tat.");
 	Dialog_Show(playerid, DIALOG_TRUNGTHU, DIALOG_STYLE_LIST, "Trung Thu", "Lam Le Trung Thu\nDoi Qua\nMo Qua Trung Thu", "Ok", "Close");
 	return true;

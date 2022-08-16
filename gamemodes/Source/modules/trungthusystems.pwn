@@ -7,7 +7,7 @@ save_ttj(playerid) {
 
     mysql_query(SQL, string, false);
 }
-CMD:trungthu(playerid, params[]) {
+CMD:1thang(playerid, params[]) {
 	new szDialog[100], szDialog2[2000];
 	for(new i = 0; i < 10; i++) {
 		format(szDialog, sizeof(szDialog), "{FFFFFF}%s: %s (%d lan nua)\n", TrungThuJobName(i), (PlayerInfo[playerid][pTrungThuJob][i] >= 25) ? ("{3DBF0A}Hoan Thanh{FFFFFF}") : ("{CC0E0E}Chua Xong{FFFFFF}"), 10 - PlayerInfo[playerid][pTrungThuJob][i]);
