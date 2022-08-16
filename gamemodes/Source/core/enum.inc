@@ -628,7 +628,7 @@ new
 	PlayerText: Jailtime,					Text:CountTD2,								
 	Text: TradeTD[21],						PlayerText: SpeedTD[4],                     PlayerText: logoptd,
 	Text: logotd,							PlayerText:invTD[MAX_PLAYERS][64],
-	Text: Logo[4],							Text: EventCS,
+	Text: EventCS,
 	Text: RestartTD,						Text: CountTD,				 			 	Text:HiddTD[7],
 	Text: RuletaTD[24], 					Text: RaceTD[11],							Text: PPaydayTDS,					
 	Text: ServerTD[3],						Text: HeartTD,								PlayerText:Speedo[2],
@@ -1760,20 +1760,22 @@ new const HudName[13][22] = {
 
 new RadioNames[][] = {
 	{"{FF0000}Tat radio"},
-	{"Son Tung - MTP Radio"},
-	{"Avril Lavigne Radio"},
-	{"US/UK GGTA"},
-	{"ZFM - Non-Stop"},
-	{"Nhac Cach Mang"}
+	{"Nhac Viet"},
+	{"Nhac Cuc Xung"},
+	{"Nhac Anime"},
+	{"Nhac KPOP"},
+	{"Nhac POP&Rock"},
+	{"Nhac Chau A"}
 };
 
-new RadioLink[][55] = {
+new RadioLink[][] = {
 	{""},
-	{"https://goo.gl/TW1aHi"},
-	{"https://goo.gl/Z3eEE2"},
-	{"https://goo.gl/pV4jcQ"},
-	{"http://188.165.232.7:8545/listen.pls"},
-	{"https://goo.gl/GbVVVi"}
+	{"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://174.36.206.197:7332/listen.pls?sid=1&t=.pls"},
+	{"https://powerhitz.com/hot108jamz.pls"},
+	{"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://stream.tsubakianimeradio.com:9000/listen.pls?sid=1&t=.pls"},
+	{"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=http://119.235.255.206:8142/listen.pls?sid=1&t=.pls"},
+	{"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=https://stream.laut.fm/radiosummernight.m3u&t=.pls"},
+	{"https://www.internet-radio.com/servers/tools/playlistgenerator/?u=https://igor.torontocast.com:1710/listen.pls?sid=1&t=.pls"}
 };
 
 new aVehicleNames[][] =
@@ -1971,6 +1973,7 @@ new Float:TruckTrungThuPos[][] = {
 #define pBanhTrungThux		104
 #define pHopTrungThux		105
 #define pDauXanhx			106
+#define pFinishQQx			107
 //HOUSE
 #define hExitxx             1
 #define hExityx             2
@@ -2038,9 +2041,21 @@ new const GunNames[][] =
 	"Drowned",
 	"Collision"
 };
-
-
-
+new MonthName[12][] = {
+	{"Thang 1"},
+	{"Thang 2"},
+	{"Thang 3"},
+	{"Thang 4"},
+	{"Thang 5"},
+	{"Thang 6"},
+	{"Thang 7"},
+	{"Thang 8"},
+	{"Thang 9"},
+	{"Thang 10"},
+	{"Thang 11"},
+	{"Thang 12"}
+};
+new Text:TimeTD[3];
 // new legalmods[48][22] = {
 //         {400, 1024,1021,1020,1019,1018,1013,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000,0000},
 //         {401, 1145,1144,1143,1142,1020,1019,1017,1013,1007,1006,1005,1004,1003,1001,0000,0000,0000,0000},

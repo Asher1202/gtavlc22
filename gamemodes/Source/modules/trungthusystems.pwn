@@ -21,6 +21,7 @@ CMD:1thang(playerid, params[]) {
 CMD:tranhiemvu(playerid, params[]) {
     if(!IsPlayerInRangeOfPoint(playerid, 5.0, 1796.6306,-1846.5983,13.5781)) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o dia diem tra nhiem vu.");
     if(PlayerInfo[playerid][pLevel] < 4) return SendClientMessage(playerid, COLOR_GREY, "Ban can level 5 moi co the tra nhiem vu");
+    if(PlayerInfo[playerid][pFinishQQ] == 1) return SendClientMessage(playerid, COLOR_GREY, "Ban da tra nhiem vu roi");
     if(PlayerInfo[playerid][pTrungThuJob][0] >= 10 && PlayerInfo[playerid][pTrungThuJob][1] >= 10 && PlayerInfo[playerid][pTrungThuJob][2] >= 10 && PlayerInfo[playerid][pTrungThuJob][3] >= 10 && PlayerInfo[playerid][pTrungThuJob][4] >= 10 && PlayerInfo[playerid][pTrungThuJob][5] >= 10 && PlayerInfo[playerid][pTrungThuJob][6] >= 10 && 
     PlayerInfo[playerid][pTrungThuJob][7] >= 10 && PlayerInfo[playerid][pTrungThuJob][8] >= 10 && PlayerInfo[playerid][pTrungThuJob][9] >= 10 && PlayerInfo[playerid][pTrungThuJob][10] == 0)
     {
@@ -54,6 +55,8 @@ CMD:tranhiemvu(playerid, params[]) {
         new string[128];
         format(string, sizeof(string), "%s da hoan thanh event trung thu va nhan duoc cac vat pham su kien [/trungthu]", GetName(playerid));
         SCMTA(COLOR_LGREEN, string);
+        PlayerInfo[playerid][pFinishQQ] = 1;
+        Update(playerid, pFinishQQx);
         Log("logs/nhanquatrungthu.log", string);
     }
     else SendClientMessage(playerid, COLOR_NEUTRALGREEN, "Ban da nhan qua event hoac chua hoan thanh nhiem vu [/trungthu]");
