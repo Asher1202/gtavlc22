@@ -264,7 +264,7 @@ public OnPlayerConnect(playerid) {
     	PlayerMobileInfo[playerid][isMobile] = true;
         PlayerMobileInfo[playerid][MobileVersion] = 2; // CH Play
     }
-
+	PlayAudioStreamForPlayer(playerid, "https://steamcast.com/sbin/listen.m3u?id=6104227", 1116.1476,-1457.6807,13.8592, 40.0, 1);
 	logotd = TextDrawCreate(637.174133, 430.333404, "gtavlc.com");
 	TextDrawLetterSize(logotd, 0.400000, 1.600000);
 	TextDrawAlignment(logotd, 3);
@@ -1185,6 +1185,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid) {
 			switch(TradeReady[playerid]) {
 				case 0: {
 					if(TradeItems[playerid] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Ban can them it nhat mot vat pham!");
+					if(GetPVarInt(playerid, "MoneyTrade") <= 0) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Vui long khong bug");
 					if(GetPVarInt(playerid, "MoneyTrade") > GetPlayerCash(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Ban khong co so tien ma ban vua dua vao giao dich!");
 					PlayerTextDrawSetString(playerid, TradePTD[4], "~g~da khoa");
 					PlayerTextDrawSetString(id, TradePTD[4], "~g~da khoa");
@@ -1229,6 +1230,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid) {
 				case 0: {
 					if(TradeItems[playerid] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Ban can them it nhat mot vat pham!");
 					if(GetPVarInt(playerid, "MoneyTrade") > GetPlayerCash(playerid)) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Ban khong co so tien ma ban vua dua vao giao dich!");
+					if(GetPVarInt(playerid, "MoneyTrade") <= 0) return SendClientMessage(playerid, COLOR_LGREEN, "ERROR: Vui long khong bug");
 					PlayerTextDrawSetString(playerid, TradePTD[5], "~g~da khoa");
 					PlayerTextDrawSetString(id, TradePTD[5], "~g~da khoa");
 					PlayerTextDrawShow(playerid, TradePTD[5]);

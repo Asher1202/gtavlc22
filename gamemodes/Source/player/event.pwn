@@ -31,7 +31,7 @@ CMD:stopevent(playerid, params[]) {
 	new string[128];
 	format(string, sizeof(string), "Su kien da ket thuc! %s da ket thuc su kien.", GetName(playerid));
 	SendEventChat(COLOR_YELLOW, string);
-	activeevent = 0;
+	ActiveEvent = 0;
 	return 1;
 }
 

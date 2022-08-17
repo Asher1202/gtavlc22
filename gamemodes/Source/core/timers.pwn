@@ -1168,7 +1168,7 @@ task DecreaseTimer[1000]() {
 			if(PlayerMobileInfo[i][isMobile] == false) Resetnametag(i);
 			// if(IsPlayerInRangeOfPoint(i, 40.0, 1116.1476,-1457.6807,13.8592)) {	
 			// 	if(GetPVarInt(i, "Listening") == 0) {
-			// 		PlayAudioStreamForPlayer(i, "https://steamcast.com/sbin/listen.m3u?id=6090911", 1116.1476,-1457.6807,13.8592, 40.0, 1);
+			// 		PlayAudioStreamForPlayer(i, "https://steamcast.com/sbin/listen.m3u?id=6104334", 1116.1476,-1457.6807,13.8592, 40.0, 1);
 			// 		SetPVarInt(i, "Listening", 1);
 			// 		SendClientMessage(i, COLOR_YELLOW, "{32a852}Ban da vao khu vuc {ff0000}tai xiu, {32a852}chuc ban co nhung giay phut tuyet voi nhat");
 			// 	}	

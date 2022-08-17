@@ -2697,7 +2697,8 @@ CMD:startevent(playerid, params[]) {
 		return 1;
 	}
 	if(PlayerInfo[playerid][pAdmin] < 1) return 1;
-	if(PlayerInfo[playerid][pAdmin] == 1 && EventMoney > 50000) return SendClientMessage(playerid, -1, "So tien khong hop le! (10,000-50,000)");
+	if(PlayerInfo[playerid][pAdmin] <= 3 && EventMoney > 200000) return SendClientMessage(playerid, -1, "So tien khong hop le! (10,000-200,000)");
+	if(PlayerInfo[playerid][pAdmin] == 7 && EventMoney > 500000) return SendClientMessage(playerid, -1, "So tien khong hop le! (10,000-500,000)");
 	if(EventMoney < 10000 || EventMoney > 500000) return SendClientMessage(playerid, -1, "So tien khong hop le! (10,000-500,000)");
 	if(GetPlayerCash(playerid) < EventMoney) return SendClientMessage(playerid, -1, "Ban khong co du tien.");
 	if(strcmp(event, "lms", true) == 0) {
