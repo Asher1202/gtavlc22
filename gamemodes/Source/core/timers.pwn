@@ -3072,35 +3072,35 @@ task Timers[1000]() {
 					}
 				}
 			}
-			if(InWar[PlayerInfo[i][pMember]] == 0) {
-				new bool:test = false, bool:isInClanZone = false;
-				for(new sf = 0; sf < MAX_SAFEZONES; sf++) {
-					if(IsPlayerInRangeOfPoint(i, SafeZone[sf][szRange], SafeZone[sf][szX], SafeZone[sf][szY], SafeZone[sf][szZ]) && SafeZone[sf][szRange] > 15) {
-						Showed[i] = 1;
-						SFID[i] = sf;
-						PlayerTextDrawSetString(i, SafeTD, "SAFE-ZONE");
-						PlayerTextDrawShow(i, SafeTD);
-						test = true;
-						break;
-					}
-				}
-				if(!test) {
-					for(new sf = 0; sf < MAX_CLANZONES; sf++) {
-						if(IsPlayerInRangeOfPoint(i, 20.0, GraffitiInfo[sf][gfX], GraffitiInfo[sf][gfY], GraffitiInfo[sf][gfZ])) {
-							PlayerTextDrawSetString(i, SafeTD, "CLAN-ZONE");
-							PlayerTextDrawShow(i, SafeTD);
-							SFID[i] = sf;
-							isInClanZone = test = true;
-							break;
-						}
-					}					
-				}
-				if(!test && !isInClanZone) {
-					Showed[i] = 0;
-					SFID[i] = 0;
-				 	PlayerTextDrawHide(i, SafeTD);
-				}
-			}
+			// if(InWar[PlayerInfo[i][pMember]] == 0) {
+			// 	new bool:test = false, bool:isInClanZone = false;
+			// 	for(new sf = 0; sf < MAX_SAFEZONES; sf++) {
+			// 		if(IsPlayerInRangeOfPoint(i, SafeZone[sf][szRange], SafeZone[sf][szX], SafeZone[sf][szY], SafeZone[sf][szZ]) && SafeZone[sf][szRange] > 15) {
+			// 			Showed[i] = 1;
+			// 			SFID[i] = sf;
+			// 			PlayerTextDrawSetString(i, SafeTD, "SAFE-ZONE");
+			// 			PlayerTextDrawShow(i, SafeTD);
+			// 			test = true;
+			// 			break;
+			// 		}
+			// 	}
+			// 	if(!test) {
+			// 		for(new sf = 0; sf < MAX_CLANZONES; sf++) {
+			// 			if(IsPlayerInRangeOfPoint(i, 20.0, GraffitiInfo[sf][gfX], GraffitiInfo[sf][gfY], GraffitiInfo[sf][gfZ])) {
+			// 				PlayerTextDrawSetString(i, SafeTD, "CLAN-ZONE");
+			// 				PlayerTextDrawShow(i, SafeTD);
+			// 				SFID[i] = sf;
+			// 				isInClanZone = test = true;
+			// 				break;
+			// 			}
+			// 		}					
+			// 	}
+			// 	if(!test && !isInClanZone) {
+			// 		Showed[i] = 0;
+			// 		SFID[i] = 0;
+			// 	 	PlayerTextDrawHide(i, SafeTD);
+			// 	}
+			// }
 			if(PlayerStoned[i] > 1) SetPlayerDrunkLevel (i, 5000);
 			if(IsSmoking[i] > 0) {
 				if(IsSmoking[i] == 0) {

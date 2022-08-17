@@ -99,7 +99,7 @@ stock Dialog_Open(playerid, function[], style, caption[], info[], button1[], but
 		ShowPlayerDialog(playerid, 32700, style, caption, info, button1, button2);
 	}
 	s_DialogOpened[playerid] = true;
-
+	printf("%d, %s", function, s_DialogName[playerid]);
 	strpack(s_DialogName[playerid], function, 32 char);
 
 	return 1;

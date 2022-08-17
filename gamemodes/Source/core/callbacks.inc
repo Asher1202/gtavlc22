@@ -634,8 +634,8 @@ public OnPlayerDisconnect(playerid, reason)
 	if(JobWorking[playerid] == 1) {
 		JobWorking[playerid] = 0;
 		PlayerTextDrawHide(playerid, JobTD);
-		// if(JobVehicle[playerid] != 0) { DestroyVehicle(JobVehicle[playerid]); JobVehicle[playerid] = 0; }
-		// if(Trailer[playerid] != 0) { DestroyVehicle(Trailer[playerid]); Trailer[playerid] = 0;  }
+		if(JobVehicle[playerid] != 0) { DestroyVehicle(JobVehicle[playerid]); JobVehicle[playerid] = 0; }
+		if(Trailer[playerid] != 0) { DestroyVehicle(Trailer[playerid]); Trailer[playerid] = 0;  }
 		PlayerTextDrawHide(playerid, InfosTD);
 		DisablePlayerCheckpointEx(playerid);
 		CP[playerid] = 0;
@@ -2341,10 +2341,6 @@ public OnPlayerSpawn(playerid)
 		TextDrawShowForPlayer(playerid, TimeTD[1]);
 		TextDrawShowForPlayer(playerid, TimeTD[2]);
 		// TextDrawShowForPlayer(playerid, Logo[3]);
-	}
-	if(!gPlayerAnimLibsPreloaded[playerid]) {
-		PreloadAnimLib(playerid);
-		gPlayerAnimLibsPreloaded[playerid] = 1;
 	}
 	gTeam[playerid] = PlayerInfo[playerid][pTeam];
 	if(gTeam[playerid] == 4) gTeam[playerid] = 4;

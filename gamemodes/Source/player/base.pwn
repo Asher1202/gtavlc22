@@ -8318,56 +8318,56 @@ CMD:restartmissions(playerid, params[]) {
 	ResetQuest();
 	return 1;
 }
-CMD:vcar(playerid, params[])
-{
-	new string[128];
-	if(PlayerInfo[playerid][pVip] < 1) return SendClientMessage(playerid, -1, "Ban can phai co VIP moi su dung duoc lenh");
-	if(timeVCarSpawn[playerid] >= 1) {
-		format(string, 56, "Ban phai doi %d giay de co the su dung lenh /vcar!", timeVCarSpawn[playerid]);
-		SendClientMessage(playerid, -1, string);
-		return 1;
-	}
-	if(lastVCarSpawn[playerid] != -1)
-	{
-		DestroyVehicle(lastVCarSpawn[playerid]);
-		Carspawn[lastVCarSpawn[playerid]] = -1;
-		lastVCarSpawn[playerid] = -1;
-	}
-	new
-		Float:x,
-		Float:y,
-		Float:z,
-		Float:a,
-		carid;
+// CMD:vcar(playerid, params[])
+// {
+// 	new string[128];
+// 	if(PlayerInfo[playerid][pVip] < 1) return SendClientMessage(playerid, -1, "Ban can phai co VIP moi su dung duoc lenh");
+// 	if(timeVCarSpawn[playerid] >= 1) {
+// 		format(string, 56, "Ban phai doi %d giay de co the su dung lenh /vcar!", timeVCarSpawn[playerid]);
+// 		SendClientMessage(playerid, -1, string);
+// 		return 1;
+// 	}
+// 	if(lastVCarSpawn[playerid] != -1)
+// 	{
+// 		DestroyVehicle(lastVCarSpawn[playerid]);
+// 		Carspawn[lastVCarSpawn[playerid]] = -1;
+// 		lastVCarSpawn[playerid] = -1;
+// 	}
+// 	new
+// 		Float:x,
+// 		Float:y,
+// 		Float:z,
+// 		Float:a,
+// 		carid;
 
-	GetPlayerPos(playerid, x, y, z);
-	GetPlayerFacingAngle(playerid, a);
+// 	GetPlayerPos(playerid, x, y, z);
+// 	GetPlayerFacingAngle(playerid, a);
 
-	switch(PlayerInfo[playerid][pVip])
-	{
-		case 1 : {
-			carid = CreateVehicle(461, x, y + 2, z, a, 0, 0, 0);
-		}
-		case 2:{
-			carid = CreateVehicle(562, x, y + 2, z, a, 0, 0, 0);
-		}
-		case 3: {
-			carid = CreateVehicle(560, x, y + 2, z, a, 0, 0, 0);
+// 	switch(PlayerInfo[playerid][pVip])
+// 	{
+// 		case 1 : {
+// 			carid = CreateVehicle(461, x, y + 2, z, a, 0, 0, 0);
+// 		}
+// 		case 2:{
+// 			carid = CreateVehicle(562, x, y + 2, z, a, 0, 0, 0);
+// 		}
+// 		case 3: {
+// 			carid = CreateVehicle(560, x, y + 2, z, a, 0, 0, 0);
 			
-		}
-	}
-	Gas[carid] = 100;
-	Carspawn[carid] = carid;
-	lastVCarSpawn[playerid] = carid;
+// 		}
+// 	}
+// 	Gas[carid] = 100;
+// 	Carspawn[carid] = carid;
+// 	lastVCarSpawn[playerid] = carid;
 
-	if(GetPlayerInterior(playerid) != 0)
-		LinkVehicleToInterior(carid, GetPlayerInterior(playerid));
+// 	if(GetPlayerInterior(playerid) != 0)
+// 		LinkVehicleToInterior(carid, GetPlayerInterior(playerid));
 
-	if(GetPlayerVirtualWorld(playerid) != 0)
-		SetVehicleVirtualWorld(carid, GetPlayerVirtualWorld(playerid));
-	timeVCarSpawn[playerid] = 5;
-	return 1;
-}
+// 	if(GetPlayerVirtualWorld(playerid) != 0)
+// 		SetVehicleVirtualWorld(carid, GetPlayerVirtualWorld(playerid));
+// 	timeVCarSpawn[playerid] = 5;
+// 	return 1;
+// }
 
 
 

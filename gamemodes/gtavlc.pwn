@@ -73,7 +73,7 @@ new Text3D:adminLabel[MAX_PLAYERS];
 #include <strlib>
 #include <fly>
 #include <progress2>
-// #include <AutoAFK>
+#include <AutoAFK>
 #include <sampcac>
 #include <EVF> //for vehiclespeedcap and stufsf
 // #include <td-streamer-player> 
