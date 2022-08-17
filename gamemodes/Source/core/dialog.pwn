@@ -278,19 +278,19 @@ Dialog:GOTOJOB(playerid, response, listitem, inputtext[])
 	SendAdminMessage(COLOR_LOGS, string, 1);
 	return 1;
 }
-Dialog:DIALOG_ADMINPASSWORD(playerid, response, listitem, inputtext[])
-{
-	if(response){
-		if(strfind(ADMIN_PASSWORD, inputtext, true) == 0){
-			SendClientMessage(playerid, COLOR_GREY, "{00FF00}[!] {FFFFFF}Xac minh danh tinh thanh cong.");
-			// stop logina[playerid];
-		} else {
-			// stop logina[playerid];
-			KickEx(playerid);
-		}
-	} else return KickEx(playerid);
-	return 1;
-}
+// Dialog:DIALOG_ADMINPASSWORD(playerid, response, listitem, inputtext[])
+// {
+// 	if(response){
+// 		if(strfind(ADMIN_PASSWORD, inputtext, true) == 0){
+// 			SendClientMessage(playerid, COLOR_GREY, "{00FF00}[!] {FFFFFF}Xac minh danh tinh thanh cong.");
+// 			// stop logina[playerid];
+// 		} else {
+// 			// stop logina[playerid];
+// 			KickEx(playerid);
+// 		}
+// 	} else return KickEx(playerid);
+// 	return 1;
+// }
 Dialog:DIALOG_CUSTOMGAME(playerid, response, listitem, inputtext[])
 {
 	if(!response) return 1;
