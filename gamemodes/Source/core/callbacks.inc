@@ -2342,7 +2342,7 @@ public OnPlayerSpawn(playerid)
 		// TextDrawShowForPlayer(playerid, Logo[3]);
 	}
 	if(!gPlayerAnimLibsPreloaded[playerid]) {
-		PreloadAnimLib(playerid);
+		//PreloadAnimLib(playerid);
 		gPlayerAnimLibsPreloaded[playerid] = 1;
 	}
 	gTeam[playerid] = PlayerInfo[playerid][pTeam];

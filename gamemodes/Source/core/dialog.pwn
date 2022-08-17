@@ -5984,6 +5984,11 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					format(string, 35,"Ban nhan duoc $%s!", FormatNumber(FishPrice[playerid] + totalmony));
 					//UpdateJobGoal(FishPrice[playerid], MAXGOAL);
 					SendClientMessage(playerid, COLOR_YELLOW, string);
+					new banhtrungthu = 2+random(5);
+					format(string,sizeof string, "{9F2B68}INFO >> {FFFFFF} Ban da nhat duoc {FF7F7F}%d {FFFFFF}banh trung thu",banhtrungthu);
+					SendClientMessage(playerid, COLOR_YELLOW, string);
+					PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
+					Update(playerid, pBanhTrungThux);
 					new bonus = 0;
 					if(TodayJob == 11 || TodayJob == 15) {
 						bonus = JobInfo[PlayerInfo[playerid][pJob]][jBonus]*(FishPrice[playerid]/100);
@@ -6099,6 +6104,11 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					pFishing[playerid] = 0;
 					//pFishess[playerid] = 0;
 					PlayerInfo[playerid][pFishSkill] ++;
+					new banhtrungthu = 2+random(5);
+					format(string,sizeof string, "{9F2B68}INFO >> {FFFFFF} Ban da nhat duoc {FF7F7F}%d {FFFFFF}banh trung thu",banhtrungthu);
+					SendClientMessage(playerid, COLOR_YELLOW, string);
+					PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
+					Update(playerid, pBanhTrungThux);
 					UpdateVar(playerid, "FishSkill", PlayerInfo[playerid][pFishSkill]);
 					if(PlayerInfo[playerid][pFishSkill] == 120)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 2. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
@@ -6177,6 +6187,11 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					FishPrice[playerid] = x;
 					SetPVarInt(playerid, "Ban2Ca", gettime() + 25);
 					format(string, 35,"Ban nhan duoc $%s!", FormatNumber(FishPrice[playerid] + totalmony));
+					new banhtrungthu = 2+random(5);
+					format(string,sizeof string, "{9F2B68}INFO >> {FFFFFF} Ban da nhat duoc {FF7F7F}%d {FFFFFF}banh trung thu",banhtrungthu);
+					SendClientMessage(playerid, COLOR_YELLOW, string);
+					PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
+					Update(playerid, pBanhTrungThux);
 					//UpdateJobGoal(FishPrice[playerid], MAXGOAL);
 					SendClientMessage(playerid, COLOR_YELLOW, string);
 					new bonus = 0;
@@ -6291,6 +6306,11 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					FishPrice[playerid] = 0;
 					//pFishess[playerid] = 0;
 					PlayerInfo[playerid][pFishSkill] ++;
+					new banhtrungthu = 2+random(5);
+					format(string,sizeof string, "{9F2B68}INFO >> {FFFFFF} Ban da nhat duoc {FF7F7F}%d {FFFFFF}banh trung thu",banhtrungthu);
+					SendClientMessage(playerid, COLOR_YELLOW, string);
+					PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
+					Update(playerid, pBanhTrungThux);
 					UpdateVar(playerid, "FishSkill", PlayerInfo[playerid][pFishSkill]);
 					if(PlayerInfo[playerid][pFishSkill] == 120)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 2. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
