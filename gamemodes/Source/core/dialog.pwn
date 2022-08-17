@@ -3462,7 +3462,7 @@ Dialog:DIALOG_CLANTAG(playerid, response, listitem, inputtext[])
 	}
 	new str[41],name[30];
 	GetPlayerName(playerid, name, sizeof(name));
-	format(str,sizeof(str),"%s (ID: %d)",name, playerid);
+	format(str,sizeof(str),"%s",name);
 	PlayerTextDrawSetString(playerid, logoptd, str);
 	PlayerTextDrawShow(playerid, logoptd);
 	TextDrawShowForPlayer(playerid, logotd);
@@ -3522,11 +3522,15 @@ Dialog:DIALOG_TRUNGTHU(playerid, response, listitem ,inputtext[]) {
 		case 1: {
 			new szDialog2[1000],szDialog[500];
 			strcat(szDialog2, "Phan Thuong\tSo Banh\n");
-			format(szDialog, sizeof szDialog, "$2.000.000\t50 Banh\n500 Xu\t3000 Banh\nXe Trung Cap Ngau Nhien\t3000 Banh\n");
+			format(szDialog, sizeof szDialog, "$2.000.000\t150 Banh\n500 Xu\t3000 Banh\nXe Trung Cap Ngau Nhien\t5000 Banh\n");
 			strcat(szDialog2, szDialog);
-			format(szDialog, sizeof szDialog, "1 Chiec Xe Trung Cap Tuy Chon\t5000 Banh\nBOOMBOX\t1500 Banh\n100 Banh Hamburger\t50 Banh\n");
+			format(szDialog, sizeof szDialog, "1 Chiec Xe Trung Cap Tuy Chon\t7500 Banh\nBOOMBOX\t1500 Banh\n100 Banh Hamburger\t50 Banh\n");
 			strcat(szDialog2, szDialog);
-			format(szDialog, sizeof szDialog, "50 XU\t300 Banh\n10.000 Vat Lieu\t1000 Banh\nThe Doi Ten\t200 Banh\nHop Qua Trung Thu\t500 Banh");
+			format(szDialog, sizeof szDialog, "50 XU\t300 Banh\n10.000 Vat Lieu\t1000 Banh\nThe Doi Ten\t200 Banh\nHop Qua Trung Thu\t500 Banh\n");
+			strcat(szDialog2, szDialog);
+			format(szDialog, sizeof szDialog, "Hop Qua Epic Car\t5500 Banh\nHop Qua Legend Car\t11500 Banh\nHop Qua Random\t500 Banh\nMau Vip Xe\t200 Banh\n");
+			strcat(szDialog2, szDialog);
+			format(szDialog, sizeof szDialog, "Sung 200 Vien Dan\t500 Banh\n1 Chiec Xe Cao Cap Ngau Nhien\t12000 Banh\nMot Chiec Xe Cao Cap Tuy Chon\t19999 Banh");
 			strcat(szDialog2, szDialog);
 			Dialog_Show(playerid, DIALOG_TRUNGTHU2, DIALOG_STYLE_TABLIST_HEADERS, "Doi Banh Trung Thu", szDialog2, "Ok", "Close");
 		}
@@ -3587,8 +3591,8 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 	new string[128];
 	switch (listitem) {
 		case 0: {
-			if(PlayerInfo[playerid][pBanhTrungThu] < 50) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
-			PlayerInfo[playerid][pBanhTrungThu] -= 50;
+			if(PlayerInfo[playerid][pBanhTrungThu] < 150) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
+			PlayerInfo[playerid][pBanhTrungThu] -= 150;
 			GivePlayerCash(playerid, 2000000);
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc $2,000,000");
 			format(string ,sizeof string, "%s Da Nhan $2,000,000 Tu Tho Lam Banh",GetName(playerid));
@@ -3603,19 +3607,19 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 		case 2: {
-			if(PlayerInfo[playerid][pBanhTrungThu] < 3000) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
+			if(PlayerInfo[playerid][pBanhTrungThu] < 5000) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
 			if(GetSlots(playerid) <= GetVehicles(playerid)) return SendClientMessage(playerid, -1, "Ban da het slot xe! Hay mua mot slot tai /shop.");
 			new x = 0;
 			foreach(new id: Cars<1>) x++;
 			new rand = random(x);
 			new id = Iter_Index(Cars<1>, rand);
 			GiveVehicle(playerid, D_Vehicles[id][dModel], true);
-			format(string ,sizeof string, "%s Da Nhan Xe %s Tu Tho Lam Banh (Ngau Nhien)",GetName(playerid),aVehicleNames[D_Vehicles[id][dModel]-400]);
+			format(string ,sizeof string, "%s Da Nhan Xe %s Trung Cap Tu Tho Lam Banh (Ngau Nhien)",GetName(playerid),aVehicleNames[D_Vehicles[id][dModel]-400]);
 			SendAdminMessage(COLOR_YELLOW, string, 1);
-			PlayerInfo[playerid][pBanhTrungThu] -= 3000;
+			PlayerInfo[playerid][pBanhTrungThu] -= 5000;
 		}
 		case 3: {
-			if(PlayerInfo[playerid][pBanhTrungThu] < 5000) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
+			if(PlayerInfo[playerid][pBanhTrungThu] < 7500) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
 			if(GetSlots(playerid) <= GetVehicles(playerid)) return SendClientMessage(playerid, -1, "Ban da het slot xe! Hay mua mot slot tai /shop.");
 			new temp[100], strings[4000], price[50], vehname[50];
 			strcat(strings, "Model\tPrice\n");
@@ -3641,9 +3645,9 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 		case 5: {
-			if(PlayerInfo[playerid][pBanhTrungThu] < 100) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
+			if(PlayerInfo[playerid][pBanhTrungThu] < 200) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
 			Inventory_Add(playerid,"Burger", 2703, 100, 1);
-			PlayerInfo[playerid][pBanhTrungThu] -= 100;
+			PlayerInfo[playerid][pBanhTrungThu] -= 200;
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc 100 Burger");
 			format(string ,sizeof string, "%s Da Nhan 100 Burger Tu Tho Lam Banh",GetName(playerid));
 			SendAdminMessage(COLOR_YELLOW, string, 1);
@@ -3675,6 +3679,139 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 			PlayerInfo[playerid][pBanhTrungThu] -= 500;
 			PlayerInfo[playerid][pHopTrungThu] += 1;
 			Update(playerid, pHopTrungThux);
+			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc Hop Trung Thu");
+			format(string ,sizeof string, "%s Da Nhan Hop Trung Thu Tu Tho Lam Banh",GetName(playerid));
+			SendAdminMessage(COLOR_YELLOW, string, 1);
+		}
+		case 10: {
+			if(PlayerInfo[playerid][pBanhTrungThu] < 5500) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
+			PlayerInfo[playerid][pBanhTrungThu] -= 5500;
+			PlayerInfo[playerid][pCrates][3] +=1;
+			save_crates(playerid);
+			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc Hop Qua Epic Car");
+			format(string ,sizeof string, "%s Da Nhan Hop Qua Epic Car Tu Tho Lam Banh",GetName(playerid));
+			SendAdminMessage(COLOR_YELLOW, string, 1);
+		}
+		case 11: {
+			if(PlayerInfo[playerid][pBanhTrungThu] < 11500) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
+			PlayerInfo[playerid][pBanhTrungThu] -= 11500;
+			PlayerInfo[playerid][pCrates][4] +=1;
+			save_crates(playerid);
+			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc Hop Qua Legend Car");
+			format(string ,sizeof string, "%s Da Nhan Hop Qua Legend Car Tu Tho Lam Banh",GetName(playerid));
+			SendAdminMessage(COLOR_YELLOW, string, 1);
+		}
+		case 12: {
+			if(PlayerInfo[playerid][pBanhTrungThu] < 500) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
+			PlayerInfo[playerid][pBanhTrungThu] -= 500;
+			PlayerInfo[playerid][pCrates][1] +=1;
+			save_crates(playerid);
+			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc Hop Qua Random");
+			format(string ,sizeof string, "%s Da Nhan Hop Qua Random Tu Tho Lam Banh",GetName(playerid));
+			SendAdminMessage(COLOR_YELLOW, string, 1);
+		}
+		case 13: {
+			if(PlayerInfo[playerid][pBanhTrungThu] < 200) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
+			if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o trong xe!");
+			new idd;
+			if(GetVehicles(playerid) == 0) return SendClientMessage(playerid, COLOR_WHITE, "Chiec xe nay khong phai cua ban!");
+			SetPVarInt(playerid, "tholambanh", 1);
+			new car = GetPlayerVehicleID(playerid);
+			new car1 = PlayerInfo[playerid][pCarKey][0], car2 = PlayerInfo[playerid][pCarKey][1], car3 = PlayerInfo[playerid][pCarKey][2], car4 = PlayerInfo[playerid][pCarKey][3], car5 = PlayerInfo[playerid][pCarKey][4],
+			car6 = PlayerInfo[playerid][pCarKey][5], car7 = PlayerInfo[playerid][pCarKey][6], car8 = PlayerInfo[playerid][pCarKey][7], car9 = PlayerInfo[playerid][pCarKey][8], car10 = PlayerInfo[playerid][pCarKey][9];
+			if(car == CarInfo[car1][Spawned]) idd = PlayerInfo[playerid][pCarKey][0];
+			if(car == CarInfo[car2][Spawned]) idd = PlayerInfo[playerid][pCarKey][1];
+			if(car == CarInfo[car3][Spawned]) idd = PlayerInfo[playerid][pCarKey][2];
+			if(car == CarInfo[car4][Spawned]) idd = PlayerInfo[playerid][pCarKey][3];
+			if(car == CarInfo[car5][Spawned]) idd = PlayerInfo[playerid][pCarKey][4];
+			if(car == CarInfo[car6][Spawned]) idd = PlayerInfo[playerid][pCarKey][5];
+			if(car == CarInfo[car7][Spawned]) idd = PlayerInfo[playerid][pCarKey][6];
+			if(car == CarInfo[car8][Spawned]) idd = PlayerInfo[playerid][pCarKey][7];
+			if(car == CarInfo[car9][Spawned]) idd = PlayerInfo[playerid][pCarKey][8];
+			if(car == CarInfo[car10][Spawned]) idd = PlayerInfo[playerid][pCarKey][9];
+			if(idd == 0) return SendClientMessage(playerid, COLOR_WHITE, "Chiec xe nay khong phai cua ban!");
+			if(CarInfo[idd][Spawned] != car) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o trong xe ca nhan cua ban");
+			pCarID[playerid] = CarInfo[idd][Spawned];
+			GetPlayerPos(playerid, pPos[playerid][0], pPos[playerid][1], pPos[playerid][2]);
+			pInteriorID[playerid] = GetPlayerInterior(playerid), pVirtual[playerid] = GetPlayerVirtualWorld(playerid);
+			SetVehiclePosEx(playerid, car, -1948.0808, 258.7329, 40.7669);
+			SetVehicleVirtualWorld(car, playerid+1);
+			SetPlayerVirtualWorld(playerid, playerid+1);
+			SetPlayerCameraPos(playerid, -1956.2145, 261.2427, 42.3533);
+			SetPlayerCameraLookAt(playerid, -1955.2532, 260.9547, 42.1530);
+			SetVehicleZAngleEx(car, 46.4705);
+			InShop[playerid] = 1;
+			pCar[playerid] = idd;
+			TextDrawShowForPlayer(playerid, HiddTD[0]);
+			TextDrawShowForPlayer(playerid, HiddTD[1]);
+			TextDrawShowForPlayer(playerid, HiddTD[2]);
+			TextDrawShowForPlayer(playerid, HiddTD[3]);
+			TextDrawShowForPlayer(playerid, HiddTD[4]);
+			PlayerTextDrawShow(playerid, HiddTDs[0]);
+			PlayerTextDrawShow(playerid, HiddTDs[1]);
+			PlayerTextDrawShow(playerid, HiddTDs[2]);
+			SelectTextDraw(playerid, 0xFF0000FF);
+			PlayerTextDrawSetString(playerid, HiddTDs[0], "Color 1: 128");
+			PlayerTextDrawSetString(playerid, HiddTDs[2], "Color 2: 128");
+			pColor1[playerid] = 128;
+			pColor2[playerid] = 128;
+			ChangeVehicleColorEx(GetPlayerVehicleID(playerid), pColor2[playerid], pColor2[playerid]);
+		}
+		case 14: {
+			if(PlayerInfo[playerid][pBanhTrungThu] < 500) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
+			Dialog_Show(playerid,DIALOG_ChonSung,DIALOG_STYLE_TABLIST_HEADERS,"Nhan Sung Tu Tho Lam Banh", "Sung\tDan\nM4\t200 Vien\nAK47\t200 Vien","OK","Cancel");
+		}
+		case 15: {
+			if(PlayerInfo[playerid][pBanhTrungThu] < 12000) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
+			if(GetSlots(playerid) <= GetVehicles(playerid)) return SendClientMessage(playerid, -1, "Ban da het slot xe! Hay mua mot slot tai /shop.");
+			new x = 0;
+			foreach(new id: Cars<2>) x++;
+			new rand = random(x);
+			new id = Iter_Index(Cars<2>, rand);
+			GiveVehicle(playerid, D_Vehicles[id][dModel], true);
+			format(string ,sizeof string, "%s Da Nhan Xe %s Cao Cap Tu Tho Lam Banh (Ngau Nhien)",GetName(playerid),aVehicleNames[D_Vehicles[id][dModel]-400]);
+			SendAdminMessage(COLOR_YELLOW, string, 1);
+			PlayerInfo[playerid][pBanhTrungThu] -= 12000;
+		}
+		case 16: {
+			if(PlayerInfo[playerid][pBanhTrungThu] < 19999) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
+			if(GetSlots(playerid) <= GetVehicles(playerid)) return SendClientMessage(playerid, -1, "Ban da het slot xe! Hay mua mot slot tai /shop.");
+			new temp[100], strings[4000], price[50], vehname[50];
+			strcat(strings, "Model\tPrice\n");
+			foreach(new id: Cars<2>) {
+				if(D_Vehicles[id][dCoins] > 0) format(price, sizeof(price), "%s "GOLD"Coins"WHITE"", FormatNumber(D_Vehicles[id][dCoins]));
+				else format(price, sizeof(price), ""GOLD"$"WHITE"%s", FormatNumber(D_Vehicles[id][dPrice]));
+				if(D_Vehicles[id][dLevel] > 0) format(vehname, sizeof(vehname), "%s "GREY_70"[Level %d]"WHITE"", aVehicleNames[D_Vehicles[id][dModel]-400], D_Vehicles[id][dLevel]);
+				else format(vehname, sizeof(vehname), "%s", aVehicleNames[D_Vehicles[id][dModel]-400]);
+
+				format(temp, sizeof(temp), "%s\t%s\n", vehname, price);
+				strcat(strings, temp);
+			}	
+			Dialog_Show(playerid, DIALOG_TRUNGTHUNHANXE2, DIALOG_STYLE_TABLIST_HEADERS, "Product List", strings, "Nhan Xe", "Tro ve"); 
+		}
+	}
+	Update(playerid, pBanhTrungThux);
+	return true;
+}
+Dialog:DIALOG_ChonSung(playerid,response,listitem,inputtext[]) {
+	if(!response) return true;
+	new string[120];
+	switch(listitem) {
+		case 0: {
+			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"M4A1", 356, 200, 2);
+			else Inventory_Add(playerid,"M4A1", 356, 200, 1);
+			PlayerInfo[playerid][pBanhTrungThu] -= 500;
+			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc M4A1 200 vien dan (/tuido)");
+			format(string ,sizeof string, "%s Da Nhan M4A1 200 vien dan Tu Tho Lam Banh",GetName(playerid));
+			SendAdminMessage(COLOR_YELLOW, string, 1);
+		}
+		case 1: {
+			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"AK47", 355, 200, 2);
+			else Inventory_Add(playerid,"AK47", 355, 200, 1);
+			PlayerInfo[playerid][pBanhTrungThu] -= 500;
+			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc AK47 200 vien dan (/tuido)");
+			format(string ,sizeof string, "%s Da Nhan AK47 200 vien dan Tu Tho Lam Banh",GetName(playerid));
+			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 	}
 	Update(playerid, pBanhTrungThux);
@@ -3721,7 +3858,7 @@ Dialog:DIALOG_DoitenTrungThu(playerid, response, listitem, inputtext[]) {
 	Update(playerid, pBanhTrungThux);
 	format(string, sizeof(string), "Chuc mung! Ban da doi ten thanh %s.", name);  
 	SendClientMessage(playerid, COLOR_GOLD, string);
-	format(string,sizeof(string),"%s (ID: %d)",name, playerid);
+	format(string,sizeof(string),"%s",name);
 	PlayerTextDrawSetString(playerid, logoptd, string);		
 	PlayerTextDrawShow(playerid, logoptd);
 	TextDrawShowForPlayer(playerid, logotd);	
@@ -3746,14 +3883,25 @@ Dialog:DIALOG_DoitenTrungThu(playerid, response, listitem, inputtext[]) {
 	KickEx(playerid);
 	return 1;
 }
+Dialog:DIALOG_TRUNGTHUNHANXE2(playerid,response,listitem,inputtext[]) {
+	if(!response) return true;
+	new id = Iter_Index(Cars<2>, listitem);
+	GiveVehicle(playerid, D_Vehicles[id][dModel], true);
+	new string[80];
+	format(string ,sizeof string, "%s Da Nhan Xe %s Cao Cap Tu Tho Lam Banh",GetName(playerid),aVehicleNames[D_Vehicles[id][dModel]-400]);
+	SendAdminMessage(COLOR_YELLOW, string, 1);
+	PlayerInfo[playerid][pBanhTrungThu] -= 19999;
+	Update(playerid, pBanhTrungThux);
+	return true;
+}
 Dialog:DIALOG_TRUNGTHUNHANXE(playerid,response,listitem,inputtext[]) {
 	if(!response) return true;
 	new id = Iter_Index(Cars<1>, listitem);
 	GiveVehicle(playerid, D_Vehicles[id][dModel], true);
 	new string[80];
-	format(string ,sizeof string, "%s Da Nhan Xe %s Tu Tho Lam Banh",GetName(playerid),aVehicleNames[D_Vehicles[id][dModel]-400]);
+	format(string ,sizeof string, "%s Da Nhan Xe %s Trung Cap Tu Tho Lam Banh",GetName(playerid),aVehicleNames[D_Vehicles[id][dModel]-400]);
 	SendAdminMessage(COLOR_YELLOW, string, 1);
-	PlayerInfo[playerid][pBanhTrungThu] -= 5000;
+	PlayerInfo[playerid][pBanhTrungThu] -= 7500;
 	Update(playerid, pBanhTrungThux);
 	return true;
 }
@@ -4343,8 +4491,9 @@ Dialog:DIALOG_SHOW(playerid, response, listitem, inputtext[])
 			if(PlayerInfo[playerid][pShowCeas] == 0) {
 				SendClientMessage(playerid, COLOR_WHITE, "Ban da kich hoat tuy chon de xem dong ho.");
 				PlayerInfo[playerid][pShowCeas] = 1;
-				TextDrawShowForPlayer(playerid, Logo[0]);
-				TextDrawShowForPlayer(playerid, Logo[1]);
+				TextDrawShowForPlayer(playerid, TimeTD[0]);
+				TextDrawShowForPlayer(playerid, TimeTD[1]);
+				TextDrawShowForPlayer(playerid, TimeTD[2]);
 				new str[41],name[30];
 	            GetPlayerName(playerid, name, sizeof(name));
 		        format(str,sizeof(str),"%s",name);
@@ -4355,8 +4504,9 @@ Dialog:DIALOG_SHOW(playerid, response, listitem, inputtext[])
 			else {
 				SendClientMessage(playerid, COLOR_WHITE, "Ban da tat tuy chon de xem dong ho.");
 				PlayerInfo[playerid][pShowCeas] = 0;
-				TextDrawHideForPlayer(playerid, Logo[0]);
-				TextDrawHideForPlayer(playerid, Logo[1]);
+				TextDrawHideForPlayer(playerid, TimeTD[0]);
+				TextDrawHideForPlayer(playerid, TimeTD[1]);
+				TextDrawHideForPlayer(playerid, TimeTD[2]);
 				PlayerTextDrawHide(playerid, logoptd);
 				TextDrawHideForPlayer(playerid, logotd);
 			}

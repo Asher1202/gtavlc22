@@ -265,24 +265,24 @@ public OnPlayerConnect(playerid) {
         PlayerMobileInfo[playerid][MobileVersion] = 2; // CH Play
     }
 
-    logotd = TextDrawCreate(637.500000, 433.000000, "GTAVLC~r~.COM");
-    TextDrawLetterSize(logotd, 0.346587, 1.407498);
-    TextDrawAlignment(logotd, 3);
-    TextDrawColor(logotd, -1);
-    TextDrawSetShadow(logotd, 0);
-    TextDrawSetOutline(logotd, 1);
-    TextDrawBackgroundColor(logotd, 227);
-    TextDrawFont(logotd, 3);
-    TextDrawSetProportional(logotd, 1);
-    TextDrawSetShadow(logotd, 0);
+	logotd = TextDrawCreate(637.174133, 430.333404, "gtavlc.com");
+	TextDrawLetterSize(logotd, 0.400000, 1.600000);
+	TextDrawAlignment(logotd, 3);
+	TextDrawColor(logotd, -1);
+	TextDrawSetShadow(logotd, 0);
+	TextDrawSetOutline(logotd, 1);
+	TextDrawBackgroundColor(logotd, 255);
+	TextDrawFont(logotd, 3);
+	TextDrawSetProportional(logotd, 1);
+	TextDrawSetShadow(logotd, 0);
 
-	logoptd = CreatePlayerTextDraw(playerid, 639.000000, 421.000000, "tin (id: 544)");
-	PlayerTextDrawLetterSize(playerid, logoptd, 0.195005, 1.301040);
+	logoptd = CreatePlayerTextDraw(playerid, 107.603614, 432.950347, "anhdu");
+	PlayerTextDrawLetterSize(playerid, logoptd, 0.227115, 1.454166);
 	PlayerTextDrawAlignment(playerid, logoptd, 3);
 	PlayerTextDrawColor(playerid, logoptd, -1);
 	PlayerTextDrawSetShadow(playerid, logoptd, 0);
 	PlayerTextDrawSetOutline(playerid, logoptd, 1);
-	PlayerTextDrawBackgroundColor(playerid, logoptd, 130);
+	PlayerTextDrawBackgroundColor(playerid, logoptd, 255);
 	PlayerTextDrawFont(playerid, logoptd, 2);
 	PlayerTextDrawSetProportional(playerid, logoptd, 1);
 	PlayerTextDrawSetShadow(playerid, logoptd, 0);
@@ -1276,9 +1276,20 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid) {
 	}	
 	else if(playertextid == TradePTD[2] && TradeReady[playerid] == 0) Dialog_Show(playerid, DIALOG_TRADE, DIALOG_STYLE_LIST, "Giao dich", "Money\nHouse\nBusiness\nVehicle", "Ok", "Cancel");
 	else if(playertextid == HiddTDs[1]) {
-		if(PlayerInfo[playerid][pPremiumPoints] < 30) return SendClientMessage(playerid, COLOR_GREY, "Ban can 30 "#DIEMCAOCAP" de mua san pham nay.");
-		PlayerInfo[playerid][pPremiumPoints] -= 30;
-		Update(playerid, pPremiumPointsx);
+		if(GetPVarInt(playerid, "tholambanh") != 0)
+		{
+			if(PlayerInfo[playerid][pBanhTrungThu] < 200) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
+			PlayerInfo[playerid][pBanhTrungThu] -= 200;	
+			Update(playerid, pBanhTrungThux);	
+			SetPVarInt(playerid, "tholambanh", 0);
+			format(string ,sizeof string, "%s Da Nhan Hidden Color Tu Tho Lam Banh",GetName(playerid));
+			SendAdminMessage(COLOR_YELLOW, string, 1);
+		}
+		else {
+			if(PlayerInfo[playerid][pPremiumPoints] < 30) return SendClientMessage(playerid, COLOR_GREY, "Ban can 30 "#DIEMCAOCAP" de mua san pham nay.");
+			PlayerInfo[playerid][pPremiumPoints] -= 30;
+			Update(playerid, pPremiumPointsx);
+		}
 		va_SendClientMessage(playerid, COLOR_GOLD, "Chuc mung! Ban da mua mau sac (%d, %d) tu cua hang cho chiec xe ca nhan cua ban.", pColor1[playerid], pColor2[playerid]);
 		format(string, sizeof(string), "%s (SQL-ID: %d) da mua mau sac (%d, %d) tu cua hang cho chiec xe ca nhan cua ban.", GetName(playerid), PlayerInfo[playerid][pSQLID], pColor1[playerid], pColor2[playerid]);
 		////InsertLog(playerid, string, LOG_SHOP);
@@ -2287,8 +2298,9 @@ public OnPlayerSpawn(playerid)
 		DisablePlayerCheckpointEx(playerid);
 	}
 	if(PlayerInfo[playerid][pShowHud] == 0) {
-		TextDrawShowForPlayer(playerid, Logo[0]);
-		TextDrawShowForPlayer(playerid, Logo[1]);
+		TextDrawShowForPlayer(playerid, TimeTD[0]);
+		TextDrawShowForPlayer(playerid, TimeTD[1]);
+		TextDrawShowForPlayer(playerid, TimeTD[2]);
 		// TextDrawShowForPlayer(playerid, Logo[3]);
 		TextDrawShowForPlayer(playerid, HeartTD);
 	}
@@ -2325,8 +2337,9 @@ public OnPlayerSpawn(playerid)
 		GraffitiInfo[StartedSprayOn[playerid]][gfAttacked] = 0;
 	}
 	if(PlayerInfo[playerid][pShowCeas] == 1 && PlayerInfo[playerid][pReg] != 0) {
-		TextDrawShowForPlayer(playerid, Logo[0]);
-		TextDrawShowForPlayer(playerid, Logo[1]);
+		TextDrawShowForPlayer(playerid, TimeTD[0]);
+		TextDrawShowForPlayer(playerid, TimeTD[1]);
+		TextDrawShowForPlayer(playerid, TimeTD[2]);
 		// TextDrawShowForPlayer(playerid, Logo[3]);
 	}
 	if(!gPlayerAnimLibsPreloaded[playerid]) {

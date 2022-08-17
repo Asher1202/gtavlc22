@@ -3,6 +3,48 @@ CMD:sound(playerid, params[]) {
 	PlayerPlaySound(playerid, strval(params), 0, 0, 0);
 	return 1;
 }
+CMD:givedauxanh(playerid, params[]) {
+	if(PlayerInfo[playerid][pAdmin] < 7) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
+	new money,id,string[120],sendername[25],giveplayer[25];
+	if(sscanf(params, "ui",id,money)) return SendClientMessage(playerid,COLOR_GREY, "Cu phap: {FFFFFF}/givedauxanh <playerid/name> <So Luong>");
+	if(!IsPlayerConnected(id) || id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi da chon khong dang nhap.");
+	if(money < 1) return SendClientMessage(playerid, -1, "So dau xanh khong duoc it hon 1.");
+	PlayerInfo[id][pDauXanh] += money;
+	Update(id,pDauXanhx);
+	GetPlayerName(id, giveplayer, sizeof(giveplayer));
+	GetPlayerName(playerid, sendername, sizeof(sendername));
+	format(string, sizeof(string), "AdmCmd: %s da gui %s dau xanh cho %s.", sendername,FormatNumber(money),giveplayer);
+	if(GetPVarInt(playerid, "Cover") == 0) SendAdminMessage(COLOR_LOGS, string,5);
+	format(string, sizeof(string), "Ban da gui %s(%d) %s dau xanh.", GetName(id), id, FormatNumber(money));
+	SendClientMessage(playerid, COLOR_WHITE, string);
+	format(string, sizeof(string), "Admin %s da gui cho ban %s dau xanh.", GetName(playerid), FormatNumber(money));
+	SendClientMessage(id, COLOR_WHITE, string);
+	Update(id, pDauXanhx);	
+	format(string, sizeof(string), "%s da nhan duoc %s dau xanh tu %s (/givedauxanh)", GetName(id), FormatNumber(money), GetName(playerid));
+	Log("logs/nhanquatrungthu.log", string);
+	return 1;
+}
+CMD:givebanhtrungthu(playerid, params[]) {
+	if(PlayerInfo[playerid][pAdmin] < 7) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
+	new money,id,string[120],sendername[25],giveplayer[25];
+	if(sscanf(params, "ui",id,money)) return SendClientMessage(playerid,COLOR_GREY, "Cu phap: {FFFFFF}/givebanhtrungthu <playerid/name> <So Luong>");
+	if(!IsPlayerConnected(id) || id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi da chon khong dang nhap.");
+	if(money < 1) return SendClientMessage(playerid, -1, "So banh khong duoc it hon 1.");
+	PlayerInfo[id][pBanhTrungThu] += money;
+	Update(id,pBanhTrungThux);
+	GetPlayerName(id, giveplayer, sizeof(giveplayer));
+	GetPlayerName(playerid, sendername, sizeof(sendername));
+	format(string, sizeof(string), "AdmCmd: %s da gui %s banh trung thu cho %s.", sendername,FormatNumber(money),giveplayer);
+	if(GetPVarInt(playerid, "Cover") == 0) SendAdminMessage(COLOR_LOGS, string,5);
+	format(string, sizeof(string), "Ban da gui %s(%d) %s banh trung thu.", GetName(id), id, FormatNumber(money));
+	SendClientMessage(playerid, COLOR_WHITE, string);
+	format(string, sizeof(string), "Admin %s da gui cho ban %s banh trung thu.", GetName(playerid), FormatNumber(money));
+	SendClientMessage(id, COLOR_WHITE, string);
+	Update(id, pBanhTrungThux);	
+	format(string, sizeof(string), "%s da nhan duoc %s banh trung thu tu %s (/givebanhtrungthu)", GetName(id), FormatNumber(money), GetName(playerid));
+	Log("logs/nhanquatrungthu.log", string);
+	return 1;
+}
 CMD:createcode(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 7) return 1;
     new 

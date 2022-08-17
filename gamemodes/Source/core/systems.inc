@@ -5734,8 +5734,9 @@ LoadTDs() {
 	// TextDrawUseBox(Logo[3], 0);
 	// TextDrawSetProportional(Logo[3], 1);
 	// TextDrawSetSelectable(Logo[3], 0);
+
 		 
-	Logo[1] = TextDrawCreate(576.666443, 7.481531, "06.05.2018");
+	/*Logo[1] = TextDrawCreate(576.666443, 7.481531, "06.05.2018");
 	TextDrawLetterSize(Logo[1], 0.289999, 1.434074);
 	TextDrawTextSize(Logo[1], 1280.000000, 1280.000000);
 	TextDrawAlignment(Logo[1], 2);
@@ -5761,7 +5762,40 @@ LoadTDs() {
 	TextDrawBackgroundColor(Logo[0], 0x000000FF);
 	TextDrawFont(Logo[0], 3);
 	TextDrawSetProportional(Logo[0], 1);
-	TextDrawSetSelectable(Logo[0], 0);
+	TextDrawSetSelectable(Logo[0], 0);*/
+
+	TimeTD[0] = TextDrawCreate(557.525756, 15.583331, "24~p~:~w~59");
+	TextDrawLetterSize(TimeTD[0], 0.362049, 1.518332);
+	TextDrawAlignment(TimeTD[0], 1);
+	TextDrawColor(TimeTD[0], -1);
+	TextDrawSetShadow(TimeTD[0], 0);
+	TextDrawSetOutline(TimeTD[0], 1);
+	TextDrawBackgroundColor(TimeTD[0], 255);
+	TextDrawFont(TimeTD[0], 3);
+	TextDrawSetProportional(TimeTD[0], 1);
+	TextDrawSetShadow(TimeTD[0], 0);
+
+	TimeTD[1] = TextDrawCreate(595.944641, 20.250009, ":60");
+	TextDrawLetterSize(TimeTD[1], 0.149340, 0.806666);
+	TextDrawAlignment(TimeTD[1], 1);
+	TextDrawColor(TimeTD[1], -1);
+	TextDrawSetShadow(TimeTD[1], 0);
+	TextDrawSetOutline(TimeTD[1], 1);
+	TextDrawBackgroundColor(TimeTD[1], 255);
+	TextDrawFont(TimeTD[1], 2);
+	TextDrawSetProportional(TimeTD[1], 1);
+	TextDrawSetShadow(TimeTD[1], 0);
+
+	TimeTD[2] = TextDrawCreate(606.720764, 28.416681, "~p~30~w~ thang 7 2022");
+	TextDrawLetterSize(TimeTD[2], 0.171830, 1.215000);
+	TextDrawAlignment(TimeTD[2], 3);
+	TextDrawColor(TimeTD[2], -1);
+	TextDrawSetShadow(TimeTD[2], 0);
+	TextDrawSetOutline(TimeTD[2], 1);
+	TextDrawBackgroundColor(TimeTD[2], 255);
+	TextDrawFont(TimeTD[2], 2);
+	TextDrawSetProportional(TimeTD[2], 1);
+	TextDrawSetShadow(TimeTD[2], 0);
 
 	Speedo4 = TextDrawCreate(548.567993, 356.011230, "  KM/H");
 	TextDrawLetterSize(Speedo4, 0.196666, 1.039999);
@@ -10603,6 +10637,7 @@ Update(playerid, type) {
 			case pBoomboxx: format(var, sizeof(var), "UPDATE users SET `Boombox`='%d' WHERE ID=%i",PlayerInfo[playerid][pBoombox], PlayerInfo[playerid][pSQLID]);
 			case pHopTrungThux: format(var, sizeof(var), "UPDATE users SET `HopTrungThu`='%d' WHERE ID=%i",PlayerInfo[playerid][pHopTrungThu], PlayerInfo[playerid][pSQLID]);
 			case pDauXanhx: format(var, sizeof(var), "UPDATE users SET `DauXanh`='%d' WHERE ID=%i",PlayerInfo[playerid][pDauXanh], PlayerInfo[playerid][pSQLID]);
+			case pFinishQQx: format(var, sizeof(var), "UPDATE users SET `FinishQQ`='%d' WHERE ID=%i",PlayerInfo[playerid][pFinishQQ], PlayerInfo[playerid][pSQLID]);
 			// case pUpdateLevelx: format(var, sizeof(var), "UPDATE users SET `UpdateLevel`='%d' WHERE ID=%i",PlayerInfo[playerid][pUpdateLevel], PlayerInfo[playerid][pSQLID]);
 
 			default: return SendClientMessage(playerid, -1, sprintf("Loi: %d, F8 cai nay lai va bao cho Admin cap cao.", type)), printf("[002] Update(playerid, %d)",type);

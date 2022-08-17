@@ -296,8 +296,8 @@ CMD:traodoi(playerid, params[]) {
 
 	//if(GetPVarInt(id, "InLesson") != playerid) return SendClientMessage(playerid, -1, "Nguoi choi nay khong o trong mot bai hoc.");
 	if(id == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Nguoi choi da chon khong dang nhap.");
-    if(valoare < 0) return SendClientMessage(playerid, COLOR_GREY, "[ASHER] : Bug nua ha may ong noi");
-    if(money < 0) return SendClientMessage(playerid, COLOR_GREY, "[ASHER] : Bug nua ha may ong noi");
+    if(valoare <= 0) return SendClientMessage(playerid, COLOR_GREY, "[ASHER] : Bug nua ha may ong noi");
+    if(money <= 0) return SendClientMessage(playerid, COLOR_GREY, "[ASHER] : Bug nua ha may ong noi");
 	if(!ProxDetectorS(9.0, playerid, id)) return SendClientMessage(playerid, -1, "Ban khong o gan nguoi choi do!");
     if(GetPlayerCash(id) < money) return SendClientMessage(playerid, COLOR_YELLOW, "Nguoi choi do khong du tien de thuc hien trao doi");
     if(isInInven[playerid] != 0) return SendClientMessage(playerid, COLOR_YELLOW, "Vui long tat tui do de thuc hien lenh nay");

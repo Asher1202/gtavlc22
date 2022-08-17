@@ -46,23 +46,30 @@ CMD:shop(playerid, params[]) {
 		SendClientMessage(playerid, COLOR_GREY, "De xac thuc, su dung '/loginpin'!");
 		return 1;
 	}
-	va_SendClientMessage(playerid, -1, "{ccffcc}SHOP: Ban co %d "DIEMCAOCAP".",PlayerInfo[playerid][pPremiumPoints]);
-	Dialog_Show(playerid, DIALOG_SHOPMENU, DIALOG_STYLE_TABLIST_HEADERS, "Shop Menu", 
+	//va_SendClientMessage(playerid, -1, "{ccffcc}SHOP: Ban co %d "DIEMCAOCAP".",PlayerInfo[playerid][pPremiumPoints]);
+	new string[64], sstring[128];
+	strcat(sstring, "Type\tExtra\n");
+	format(string ,sizeof string, "1.Regular shop\t{FCD482}ban co %d "DIEMCAOCAP"{FFFFFF}\n",PlayerInfo[playerid][pPremiumPoints]);
+	strcat(sstring,string);
+	format(string ,sizeof string, "2.Kim cuong shop\t{FCD482}ban co %d kim cuong{FFFFFF}",PlayerInfo[playerid][pKC]);
+	strcat(sstring,string);
+	/*Dialog_Show(playerid, DIALOG_SHOPMENU, DIALOG_STYLE_TABLIST_HEADERS, "Shop Menu", 
 		"Shop Type\tItem\n\
 		{FFEA3B}[+] Shop Info{FFFFFF}\n\
 		Normal Shop\t16 items\n\
 		Shop Kim Cuong\t8 items\n\
 		Extra Packs\t0 items", "Select", "Cancel"
-	);
+	);*/
+	Dialog_Show(playerid, DIALOG_SHOPMENU, DIALOG_STYLE_TABLIST_HEADERS, "Shop Menu",sstring,"Select","Cancel");
 	return 1;
 }
 Dialog:DIALOG_SHOPMENU(playerid, response, listitem, inputtext[]) {
 	if(!response) return 1;
 	switch(listitem) {
-		case 1: {
+		case 0: {
 			ShowNormalShop(playerid);
 		}
-		case 2: {
+		case 1: {
 			ShowKCShop(playerid);
 		}
 		default: {
@@ -73,14 +80,13 @@ Dialog:DIALOG_SHOPMENU(playerid, response, listitem, inputtext[]) {
 }
 ShowNormalShop(playerid) {
 	new
-		premiumpoints = PlayerInfo[playerid][pPremiumPoints],
 		string[80], szDialog[2500];
 
-	strcat(szDialog, "Num\tInfo\n{FFE100}(!) HUONG DAN NAP TIEN (MOMO/CHUYEN KHOAN){FFFFFF}\n");
+	strcat(szDialog, "No.\tItem\tCost\n>>\tthong tin cach kiem xu hay nap the\t\n");
 	
 	for(new i; i < sizeof(NormalShopInfo); i++) {
 		if(NormalShopInfo[i][SHOP_ITEM_UNIT] == TYPE_PREMIUM_POINTS) {
-			format(string, sizeof(string), "%s - %s%s "#DIEMCAOCAP"\n", NormalShopInfo[i][SHOP_ITEM_NAME], premiumpoints >= 300 ? "{1ECC14}" : "{FF0000}", FormatNumber(NormalShopInfo[i][SHOP_ITEM_PRICE]));
+			format(string, sizeof(string), "%d.\t%s\t{FCD482}%s "#DIEMCAOCAP"{FFFFFF}\n",i, NormalShopInfo[i][SHOP_ITEM_NAME], FormatNumber(NormalShopInfo[i][SHOP_ITEM_PRICE]));
 			strcat(szDialog, string);	
 		}
 		else if(NormalShopInfo[i][SHOP_ITEM_UNIT] == TYPE_MONEY) {
@@ -143,21 +149,18 @@ ShowNormalShop(playerid) {
 	// strcat(szDialog, string);
 
 	
-	new title[50];
-	format(title, 50, "Shop: [Ban co %d xu]", premiumpoints);
-	Dialog_Show(playerid, DIALOG_SHOP, DIALOG_STYLE_TABLIST_HEADERS, title, szDialog, "Select", "Close");
+	Dialog_Show(playerid, DIALOG_SHOP, DIALOG_STYLE_TABLIST_HEADERS, "Regular shop", szDialog, "Select", "Close");
 	return 1;
 }
 ShowKCShop(playerid) {
 	new
-		kc = PlayerInfo[playerid][pKC],
 		string[80], szDialog[2500];
 
-	strcat(szDialog, "Num\tInfo\n{FFE100}(!) HUONG DAN NAP TIEN (MOMO/CHUYEN KHOAN){FFFFFF}\n");
+	strcat(szDialog, "No.\tItem\tCost\n>>\tthong tin cach nap the\t\n");
 	
 	for(new i; i < sizeof(KimCuongShop); i++) {
 		if(KimCuongShop[i][SHOP_ITEM_UNIT] == TYPE_KC) {
-			format(string, sizeof(string), "%s - %s%s "#DIEMCAOCAP"\n", KimCuongShop[i][SHOP_ITEM_NAME], kc >= 45 ? "{1ECC14}" : "{FF0000}", FormatNumber(KimCuongShop[i][SHOP_ITEM_PRICE]));
+			format(string, sizeof(string), "%d.\t%s\t{FCD482}%s{FFFFFF}"#DIEMCAOCAP"\n",i, KimCuongShop[i][SHOP_ITEM_NAME], FormatNumber(KimCuongShop[i][SHOP_ITEM_PRICE]));
 			strcat(szDialog, string);	
 		}
 		else if(KimCuongShop[i][SHOP_ITEM_UNIT] == TYPE_MONEY) {
@@ -165,9 +168,7 @@ ShowKCShop(playerid) {
 			strcat(szDialog, string);
 		}
 	}
-	new title[50];
-	format(title, 50, "Shop: [Ban co %d kim cuong]", kc);
-	Dialog_Show(playerid, DIALOG_SHOPKC, DIALOG_STYLE_TABLIST_HEADERS, title, szDialog, "Select", "Close");
+	Dialog_Show(playerid, DIALOG_SHOPKC, DIALOG_STYLE_TABLIST_HEADERS, "Kim cuong shop", szDialog, "Select", "Close");
 	return 1;
 }
 

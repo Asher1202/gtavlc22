@@ -642,11 +642,11 @@ OnPropTextdrawUpdate(update, h)
 			HouseIcon[h] = CreateDynamicMapIcon(HouseInfo[h][hEntrancex],HouseInfo[h][hEntrancey],HouseInfo[h][hEntrancez],31,0,-1,-1,-1,200.0);
 		else HouseIcon[h] = CreateDynamicMapIcon(HouseInfo[h][hEntrancex],HouseInfo[h][hEntrancey],HouseInfo[h][hEntrancez],32,0,-1,-1,-1,200.0);
 
-		if(HouseInfo[h][hValue] > 0) format(selltext, sizeof(selltext),"\n{FFFFFF}Price {008080}$%s (/buyhouse)",FormatNumber(HouseInfo[h][hValue]));
+		if(HouseInfo[h][hValue] > 0) format(selltext, sizeof(selltext),"\n{FFFFFF}Price {9F2B68}$%s (/buyhouse)",FormatNumber(HouseInfo[h][hValue]));
 		if(HouseInfo[h][hOwned] == 0)
 		{
 			DestroyDynamic3DTextLabel(HouseLabel[h]);
-			format(Propertystring, sizeof(Propertystring),"{FFFFFF}House {008080}%d \n{008080}%s \n{FFFFFF}Size: {008080}%s \n{FFFFFF}Price: {008080}$%s (/buyhouse) \n{FFFFFF}Level: {008080}%d %s",h,HouseInfo[h][hDiscription],type,FormatNumber(HouseInfo[h][hValue]),HouseInfo[h][hLevel],locked);
+			format(Propertystring, sizeof(Propertystring),"{FFFFFF}House {9F2B68}%d \n{9F2B68}%s \n{FFFFFF}Size: {9F2B68}%s \n{FFFFFF}Price: {9F2B68}$%s (/buyhouse) \n{FFFFFF}Level: {9F2B68}%d %s",h,HouseInfo[h][hDiscription],type,FormatNumber(HouseInfo[h][hValue]),HouseInfo[h][hLevel],locked);
 			HouseLabel[h] = CreateDynamic3DTextLabel(Propertystring, 0xFFFFFFFF, HouseInfo[h][hEntrancex], HouseInfo[h][hEntrancey], HouseInfo[h][hEntrancez], 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
 			DestroyDynamicPickup(HousePickup[h]);
 			HousePickup[h] = CreateDynamicPickup(1273, 23, HouseInfo[h][hEntrancex], HouseInfo[h][hEntrancey], HouseInfo[h][hEntrancez]);
@@ -661,14 +661,14 @@ OnPropTextdrawUpdate(update, h)
 			if(HouseInfo[h][hRentabil] == 1)
 			{
 				DestroyDynamic3DTextLabel(HouseLabel[h]);
-				format(Propertystring, sizeof(Propertystring),"{FFFFFF}House {008080}%d \n{008080}%s \n{FFFFFF}So huu: {008080}%s \n{FFFFFF}Nguoi thue nha: {008080}%d \n{FFFFFF}Kich thuoc: {008080}%s \n{FFFFFF}Thue phong: {008080}$%d (/rentroom) %s %s",h,HouseInfo[h][hDiscription],HouseInfo[h][hOwner],tenants,type,HouseInfo[h][hRent],selltext,locked);
+				format(Propertystring, sizeof(Propertystring),"{FFFFFF}House {9F2B68}%d \n{9F2B68}%s \n{FFFFFF}So huu: {9F2B68}%s \n{FFFFFF}Nguoi thue nha: {9F2B68}%d \n{FFFFFF}Kich thuoc: {9F2B68}%s \n{FFFFFF}Thue phong: {9F2B68}$%d (/rentroom) %s %s",h,HouseInfo[h][hDiscription],HouseInfo[h][hOwner],tenants,type,HouseInfo[h][hRent],selltext,locked);
 				HouseLabel[h] = CreateDynamic3DTextLabel(Propertystring, 0xFFFFFFFF, HouseInfo[h][hEntrancex], HouseInfo[h][hEntrancey], HouseInfo[h][hEntrancez], 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
 				DestroyDynamicPickup(HousePickup[h]);
 				HousePickup[h] = CreateDynamicPickup(1272, 23, HouseInfo[h][hEntrancex], HouseInfo[h][hEntrancey], HouseInfo[h][hEntrancez]);
 			}
 			else {
 				DestroyDynamic3DTextLabel(HouseLabel[h]);
-				format(Propertystring, sizeof(Propertystring),"{FFFFFF}House {008080}%d \n{008080}%s \n{FFFFFF}So huu: {008080}%s \n{FFFFFF}Nguoi thue nha: {008080}%d \n{FFFFFF}Kich thuoc: {008080}%s %s %s",h,HouseInfo[h][hDiscription],HouseInfo[h][hOwner], tenants, type, selltext, locked);
+				format(Propertystring, sizeof(Propertystring),"{FFFFFF}House {9F2B68}%d \n{9F2B68}%s \n{FFFFFF}So huu: {9F2B68}%s \n{FFFFFF}Nguoi thue nha: {9F2B68}%d \n{FFFFFF}Kich thuoc: {9F2B68}%s %s %s",h,HouseInfo[h][hDiscription],HouseInfo[h][hOwner], tenants, type, selltext, locked);
 				HouseLabel[h] = CreateDynamic3DTextLabel(Propertystring, 0xFFFFFFFF, HouseInfo[h][hEntrancex], HouseInfo[h][hEntrancey], HouseInfo[h][hEntrancez], 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 100.0);
 				DestroyDynamicPickup(HousePickup[h]);
 				HousePickup[h] = CreateDynamicPickup(1272, 23, HouseInfo[h][hEntrancex], HouseInfo[h][hEntrancey], HouseInfo[h][hEntrancez]);
@@ -678,17 +678,17 @@ OnPropTextdrawUpdate(update, h)
 	else if(update == 2)
 	{
 		new pret[55];
-		if(BizzInfo[h][bBuyPrice] > 0) format(pret, 55, "\n{FFFFFF}Gia: {40A6FF}$%s (/buybiz)", FormatNumber(BizzInfo[h][bBuyPrice]));
+		if(BizzInfo[h][bBuyPrice] > 0) format(pret, 55, "\n{FFFFFF}Gia: {9F2B68}$%s (/buybiz)", FormatNumber(BizzInfo[h][bBuyPrice]));
 		if(BizzInfo[h][bOwned] == 0) {
 			DestroyDynamic3DTextLabel(BizzLabel[h]);
-			format(Propertystring, sizeof(Propertystring),"{40A6FF}%s{FFFFFF}\n{FFFFFF}Business {40A6FF}#%d\n{FFFFFF}Doanh nghiep nay dang duoc treo ban \n {FFFFFF}Gia: {40A6FF}%s \n{FFFFFF}Level: {40A6FF}%d",BizzInfo[h][bMessage],h,FormatNumber(BizzInfo[h][bBuyPrice]),BizzInfo[h][bLevelNeeded]);
+			format(Propertystring, sizeof(Propertystring),"{9F2B68}%s{FFFFFF}\n{FFFFFF}Business {9F2B68}#%d\n{FFFFFF}Doanh nghiep nay dang duoc treo ban \n {FFFFFF}Gia: {9F2B68}%s \n{FFFFFF}Level: {9F2B68}%d",BizzInfo[h][bMessage],h,FormatNumber(BizzInfo[h][bBuyPrice]),BizzInfo[h][bLevelNeeded]);
 			BizzLabel[h] = CreateDynamic3DTextLabel(Propertystring ,0x0066FFFF,BizzInfo[h][bEntranceX], BizzInfo[h][bEntranceY], BizzInfo[h][bEntranceZ],25, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, -1, -1, 100.0);
 			DestroyDynamicPickup(BizzPickup[h]);
 			BizzPickup[h] = CreateDynamicPickup(1272, 23, BizzInfo[h][bEntranceX], BizzInfo[h][bEntranceY], BizzInfo[h][bEntranceZ]);
 		}
 		else if(BizzInfo[h][bOwned] == 1) {
 			DestroyDynamic3DTextLabel(BizzLabel[h]);
-			format(Propertystring, sizeof(Propertystring),"{40A6FF}%s{FFFFFF}\n{FFFFFF}Business {40A6FF}#%d\n{FFFFFF}So huu: {40A6FF}%s \n{FFFFFF}Phi vao cua: {40A6FF}$%s\n{FFFFFF}Level:{40A6FF} %d%s",BizzInfo[h][bMessage],h,BizzInfo[h][bOwner],FormatNumber(BizzInfo[h][bEntranceCost]),BizzInfo[h][bLevelNeeded],pret);
+			format(Propertystring, sizeof(Propertystring),"{9F2B68}%s{FFFFFF}\n{FFFFFF}Business {9F2B68}#%d\n{FFFFFF}So huu: {9F2B68}%s \n{FFFFFF}Phi vao cua: {9F2B68}$%s\n{FFFFFF}Level:{9F2B68} %d%s",BizzInfo[h][bMessage],h,BizzInfo[h][bOwner],FormatNumber(BizzInfo[h][bEntranceCost]),BizzInfo[h][bLevelNeeded],pret);
 			BizzLabel[h] = CreateDynamic3DTextLabel(Propertystring ,0x0066FFFF,BizzInfo[h][bEntranceX], BizzInfo[h][bEntranceY], BizzInfo[h][bEntranceZ],25, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, -1, -1, 100.0);
 			DestroyDynamicPickup(BizzPickup[h]);
 			BizzPickup[h] = CreateDynamicPickup(1272, 23, BizzInfo[h][bEntranceX], BizzInfo[h][bEntranceY], BizzInfo[h][bEntranceZ]);
@@ -2522,7 +2522,7 @@ GiveJobSalary(playerid) {
 			Log("logs/jobmoney.log", string);	
 		}
 	}
-	format(string, sizeof(string), "{ffb3ba}%s {B6EEBD} -> {FDE6CC}$%s {FFFFFF}(%s).", GetName(playerid), FormatNumber(money+bonus), JobInfo[PlayerInfo[playerid][pJob]][jName]);
+	format(string, sizeof(string), "{9F2B68}Jobs >> %s +$%s %s",GetName(playerid), FormatNumber(money+bonus), JobInfo[PlayerInfo[playerid][pJob]][jName]);
 	Log("logs/jobmoney.log", string);	
 	GuiDenAdminVaHelper(COLOR_YELLOW, string, 1); 
 	format(string, sizeof(string), "Tong thu nhap: $%s", FormatNumber(money+bonus));
@@ -2844,7 +2844,7 @@ InvalidClanTag(text[]) {
 }
 
 FaceReclama(text[]) {	
-	if(strfind(text, "gtafun", true) != -1 || strfind(text, "vn-rpg", true) != -1) return 1;
+	if(strfind(text, "gtafun", true) != -1 || strfind(text, "vn-rpg", true) != -1 || strfind(text, "gtafc", true) != -1) return 1;
 	return 0;
 }
 
@@ -3714,17 +3714,18 @@ GameTextForRace(const string[]) {
 ShowStats(playerid,targetid) {
     if(!IsPlayerConnected(playerid) || !IsPlayerConnected(targetid)) return 1;
 	new
+		SString[1080],
 		string[256],
 		atext[20],
 		ttext[180],
 		rtext[180],
 		jtext[100],
 		vtext[20],
-		infostring89[180],
+		//infostring89[180],
 		playersip[180],
 		radios[64],
 
-		infostring[180],
+	//	infostring[180],
 	
 		account = PlayerInfo[targetid][pAccount],
 		cash = GetPlayerCash(targetid),
@@ -3773,85 +3774,106 @@ ShowStats(playerid,targetid) {
 	else format(radios, sizeof(radios), "#%d khz", WTChannel[targetid]);
 	
 	
-	format(string, sizeof(string), "Ten: %s (%d) | Gio choi: %0.2f | Money: $%s | Bank: $%s | Phone: %d | ID gioi thieu: %d ", GetNameEx(targetid), targetid, PlayerInfo[targetid][pConnectTime], FormatNumber(cash),FormatNumber(account), pnumber, PlayerInfo[targetid][pSQLID]);
-	SendClientMessage(playerid, COLOR_WHITE,string);
-	format(string, sizeof(string), "Level: %d | Respect Points: %d/%d | Cap do tiep thao: $%s | Vip: %s {ffffff} | VIP XU: %d", level,exp,expamount,FormatNumber(costlevel),vtext,PlayerInfo[targetid][pPremiumPoints]);
-	SendClientMessage(playerid, COLOR_WHITE,string);
-	format(string, sizeof(string), "Pham toi: %d | Ngoi tu: %d | Thuoc phien [/usedrugs] | Vat lieu: %d | Radio: %s | Rob: %d/10 | Vuot nguc: %d/20 | Phao hoa: %d", crimes,arrests,mats,radios, rob,PlayerInfo[targetid][pEscapePoints],PlayerInfo[targetid][pFire]);
-	SendClientMessage(playerid, COLOR_WHITE,string);
-	format(string, sizeof(string), "Job: %s | Faction: %s | Faction Warns: %d/3 | Faction Punish: %d/20 | Warns: %d/3",jtext,ttext,PlayerInfo[targetid][pFACWarns],PlayerInfo[targetid][pFpunish],warn);
-	SendClientMessage(playerid, COLOR_WHITE,string);
-	format(string, sizeof(string), "Casino Chip: %s | Growth Points: %s", FormatNumber(PlayerInfo[targetid][pCasinoChip]), FormatNumber(PlayerInfo[targetid][pGrowthPoints]));
-	SendClientMessage(playerid, COLOR_WHITE,string);
+	format(string, sizeof(string), "{FFFFFF}Ten: %s (%d) | Gio choi: %0.2f | Money: $%s | Bank: $%s | Phone: %d | ID gioi thieu: %d \n", GetNameEx(targetid), targetid, PlayerInfo[targetid][pConnectTime], FormatNumber(cash),FormatNumber(account), pnumber, PlayerInfo[targetid][pSQLID]);
+	//SendClientMessage(playerid, COLOR_WHITE,string);
+	strcat(SString, string);
+	format(string, sizeof(string), "Level: %d | Respect Points: %d/%d | Cap do tiep thao: $%s | Vip: %s {ffffff} | VIP XU: %d\n", level,exp,expamount,FormatNumber(costlevel),vtext,PlayerInfo[targetid][pPremiumPoints]);
+	//SendClientMessage(playerid, COLOR_WHITE,string);
+	strcat(SString, string);
+	format(string, sizeof(string), "Pham toi: %d | Ngoi tu: %d | Thuoc phien [/usedrugs] | Vat lieu: %d | Radio: %s | Rob: %d/10 | Vuot nguc: %d/20 | Phao hoa: %d\n", crimes,arrests,mats,radios, rob,PlayerInfo[targetid][pEscapePoints],PlayerInfo[targetid][pFire]);
+	//SendClientMessage(playerid, COLOR_WHITE,string);
+	strcat(SString, string);
+	format(string, sizeof(string), "Job: %s | Faction: %s | Faction Warns: %d/3 | Faction Punish: %d/20 | Warns: %d/3\n",jtext,ttext,PlayerInfo[targetid][pFACWarns],PlayerInfo[targetid][pFpunish],warn);
+	//SendClientMessage(playerid, COLOR_WHITE,string);
+	strcat(SString, string);
+	format(string, sizeof(string), "Casino Chip: %s | Growth Points: %s | Banh Trung Thu: %s | Dau Xanh: %s\n", FormatNumber(PlayerInfo[targetid][pCasinoChip]), FormatNumber(PlayerInfo[targetid][pGrowthPoints]), FormatNumber(PlayerInfo[targetid][pBanhTrungThu]), FormatNumber(PlayerInfo[targetid][pDauXanh]));
+	//SendClientMessage(playerid, COLOR_WHITE,string);
+	strcat(SString, string);
 	
 	if(clan != 0) {
-		if(PlayerInfo[targetid][pClanRank] < 6) format(string, sizeof(string), "Clan: %s (%d) | Tag: %s | Rank: %d | Clan Warns: %d/3", ClanInfo[clan][clName], clan, ClanInfo[clan][clTag], PlayerInfo[targetid][pClanRank], PlayerInfo[targetid][pClanWarn]);
-		else format(string, sizeof(string), "Clan: %s (%d) | Tag: %s | Rank: %d | Clan Warns: %d/3 | Clan Days: %d| Diem: %d", ClanInfo[clan][clName], clan, ClanInfo[clan][clTag], PlayerInfo[targetid][pClanRank], PlayerInfo[targetid][pClanWarn], ClanInfo[clan][clDays], points);
-		SendClientMessage(playerid, -1, string);
+		if(PlayerInfo[targetid][pClanRank] < 6) format(string, sizeof(string), "Clan: %s (%d) | Tag: %s | Rank: %d | Clan Warns: %d/3\n", ClanInfo[clan][clName], clan, ClanInfo[clan][clTag], PlayerInfo[targetid][pClanRank], PlayerInfo[targetid][pClanWarn]);
+		else format(string, sizeof(string), "Clan: %s (%d) | Tag: %s | Rank: %d | Clan Warns: %d/3 | Clan Days: %d| Diem: %d\n", ClanInfo[clan][clName], clan, ClanInfo[clan][clTag], PlayerInfo[targetid][pClanRank], PlayerInfo[targetid][pClanWarn], ClanInfo[clan][clDays], points);
+		//SendClientMessage(playerid, -1, string);
+		strcat(SString, string);
 	}
 
 	if(GetVehicles(targetid) >= 0) {
-		format(string, sizeof(string), "Phuong tien: %d/%d | ", GetVehicles(targetid), TotalSlots(targetid));
-		strcat(infostring, string);		
+		format(string, sizeof(string), "Phuong tien: %d/%d \n", GetVehicles(targetid), TotalSlots(targetid));
+		//strcat(infostring, string);		
+		strcat(SString, string);
 	}
 	if(PlayerInfo[targetid][pRentedApartment] != 0) {
-		format(string, sizeof(string), "Thue can ho: %d | ", PlayerInfo[targetid][pRentedApartment]);
-		strcat(infostring, string);		
+		format(string, sizeof(string), "Thue can ho: %d \n", PlayerInfo[targetid][pRentedApartment]);
+		//strcat(infostring, string);	
+		strcat(SString, string);	
 	}
+
 	if(have_apartament(targetid) > 0) {
-		format(string, sizeof(string), "Can ho: %d | ", have_apartament(targetid));
-		strcat(infostring, string);
+		format(string, sizeof(string), "Can ho: %d \n", have_apartament(targetid));
+		//strcat(infostring, string);
+		strcat(SString, string);
 	}
 	if(hkey != 999) {
 		if(hkey != 999 && strcmp(GetName(targetid), HouseInfo[hkey][hOwner], true) == 0) format(string, sizeof(string), "House: %d | ", hkey);
-		else format(string, sizeof(string), "Thue nha: %d | ", hkey);
-		strcat(infostring, string);
+		else format(string, sizeof(string), "Thue nha: %d \n", hkey);
+		//strcat(infostring, string);
+		strcat(SString, string);
 	}
 	if(bkey != 255) {
-		if(BizzInfo[targetid][bSbiz] > 0) format(string, sizeof(string), "Static Business: %d | ", bkey-100);
-		else  format(string, sizeof(string), "Business: %d | ", bkey);
-		strcat(infostring, string);
+		if(BizzInfo[targetid][bSbiz] > 0) format(string, sizeof(string), "Static Business: %d \n", bkey-100);
+		else  format(string, sizeof(string), "Business: %d \n", bkey);
+		//strcat(infostring, string);
+		strcat(SString, string);
 	}	
 	if(PlayerInfo[targetid][pAdmin] != 0) {
-		format(string, sizeof(string), "Admin warns: %d/3 | ", PlayerInfo[targetid][pAW]);
-		strcat(infostring, string);		
+		format(string, sizeof(string), "Admin warns: %d/3 \n", PlayerInfo[targetid][pAW]);
+		//strcat(infostring, string);		
+		strcat(SString, string);
 	}		
 	if(PlayerInfo[targetid][pHelper] != 0) {
-		format(string, sizeof(string), "Helper warns: %d/3 | ", PlayerInfo[targetid][pHW]);
-		strcat(infostring, string);		
+		format(string, sizeof(string), "Helper warns: %d/3 \n", PlayerInfo[targetid][pHW]);
+		//strcat(infostring, string);	
+		strcat(SString, string);	
 	}		
 	if(PlayerInfo[targetid][pLeader] != 0) {
-		format(string, sizeof(string), "Leader warns: %d/3 | ", PlayerInfo[targetid][pLW]);
-		strcat(infostring, string);		
+		format(string, sizeof(string), "Leader warns: %d/3 \n", PlayerInfo[targetid][pLW]);
+		//strcat(infostring, string);	
+		strcat(SString, string);	
 	}					
-	format(infostring89, strlen(infostring)-1, "%s", infostring);
-	SendClientMessage(playerid, -1, infostring89);
+	//format(infostring89, strlen(infostring)-1, "%s", infostring);
+	//SendClientMessage(playerid, -1, infostring89);
 	
 	if(strcmp(PlayerInfo[targetid][pPropose], "Khong ai", true) == 0) { }
 	else {
 		new userid = GetPlayerID(PlayerInfo[targetid][pPropose]);
-		if(userid == INVALID_PLAYER_ID) format(string, sizeof(string), "Ban da ket hon voi %s, nguoi yeu cua ban hien tai da {FFA3A3}offline{FFFFFF}.", PlayerInfo[targetid][pPropose]);
-		else format(string, sizeof(string), "Ban da ket hon voi %s, nguoi yeu cua ban hien tai dang {BCFFA3}online{FFFFFF} va co ID la %d.", PlayerInfo[targetid][pPropose], userid);
-		SendClientMessage(targetid, COLOR_WHITE,string);		
+		if(userid == INVALID_PLAYER_ID) format(string, sizeof(string), "Ban da ket hon voi %s, nguoi yeu cua ban hien tai da {FFA3A3}offline{FFFFFF}.\n", PlayerInfo[targetid][pPropose]);
+		else format(string, sizeof(string), "Ban da ket hon voi %s, nguoi yeu cua ban hien tai dang {BCFFA3}online{FFFFFF} va co ID la %d.\n", PlayerInfo[targetid][pPropose], userid);
+		//SendClientMessage(targetid, COLOR_WHITE,string);	
+		strcat(SString, string);	
 	}
 		
 	if(PlayerInfo[targetid][pAdmin] >= 1 || PlayerInfo[targetid][pHelper] >= 1) {
 		if(PlayerInfo[targetid][pAdmin] != 0) {
-			if(targetid == playerid) format(string, sizeof(string), "{008080}Raport: {FFFFFF}Ban da giup %d nguoi trong tuan nay. Hom nay giup: %d", PlayerInfo[targetid][pHelpedPlayers], PlayerInfo[targetid][pHelpedPlayersToday]);
-			else format(string, sizeof(string), "Nguoi nay da giup %d nguoi trong tuan nay. Hom nay giup: %d", PlayerInfo[targetid][pHelpedPlayers], PlayerInfo[targetid][pHelpedPlayersToday]);
+			if(targetid == playerid) format(string, sizeof(string), "{9F2B68}Raport: {FFFFFF}Ban da giup %d nguoi trong tuan nay. Hom nay giup: %d\n", PlayerInfo[targetid][pHelpedPlayers], PlayerInfo[targetid][pHelpedPlayersToday]);
+			else format(string, sizeof(string), "Nguoi nay da giup %d nguoi trong tuan nay. Hom nay giup: %d\n", PlayerInfo[targetid][pHelpedPlayers], PlayerInfo[targetid][pHelpedPlayersToday]);
 		}
 		else {
-			if(targetid == playerid) format(string, sizeof(string), "{008080}Raport: {FFFFFF}Ban da check bao cao cua %d nguoi tuan nay. Hom nay: %d", PlayerInfo[targetid][pHelpedPlayers], PlayerInfo[targetid][pHelpedPlayersToday]);
-			else format(string, sizeof(string), "Nguoi nay da check bao cao cua %d nguoi tuan nay. Hom nay: %d", PlayerInfo[targetid][pHelpedPlayers], PlayerInfo[targetid][pHelpedPlayersToday]);
+			if(targetid == playerid) format(string, sizeof(string), "{9F2B68}Raport: {FFFFFF}Ban da check bao cao cua %d nguoi tuan nay. Hom nay: %d\n", PlayerInfo[targetid][pHelpedPlayers], PlayerInfo[targetid][pHelpedPlayersToday]);
+			else format(string, sizeof(string), "Nguoi nay da check bao cao cua %d nguoi tuan nay. Hom nay: %d\n", PlayerInfo[targetid][pHelpedPlayers], PlayerInfo[targetid][pHelpedPlayersToday]);
 		}		
 		
-		SendClientMessage(playerid, COLOR_GOLD, string);	
+		//SendClientMessage(playerid, COLOR_GOLD, string);	
+		strcat(SString, string);
 	}	
 	if(PlayerInfo[playerid][pAdmin] >= 1) {
 		GetPlayerIp(targetid,playersip,sizeof(playersip));
-		format(string, sizeof(string), "Giay: %.0f | AFK: %d | Interior ID: %d | Virtual World: %d | SQLID: %d",PlayerInfo[targetid][pSeconds],AFKSeconds[targetid],GetPlayerInterior(targetid),GetPlayerVirtualWorld(targetid),PlayerInfo[targetid][pSQLID]);
-		SendClientMessage(playerid, COLOR_LIGHTRED,string);
+		format(string, sizeof(string), "Giay: %.0f | AFK: %d | Interior ID: %d | Virtual World: %d | SQLID: %d\n",PlayerInfo[targetid][pSeconds],AFKSeconds[targetid],GetPlayerInterior(targetid),GetPlayerVirtualWorld(targetid),PlayerInfo[targetid][pSQLID]);
+		//SendClientMessage(playerid, COLOR_LIGHTRED,string);
+		strcat(SString, string);
 	}
+	if(targetid == playerid) format(string, sizeof string, "Thong Tin Cua Ban");
+	else format(string, sizeof string, "Thong Tin Cua %s",GetName(targetid));
+	Dialog_Show(playerid,0,DIALOG_STYLE_MSGBOX,string,SString,"OK","");
 	return 1;
 }
 
@@ -4772,6 +4794,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 		cache_get_value_name_int(0, "Boombox", 	PlayerInfo[playerid][pBoombox]);
 		cache_get_value_name_int(0, "HopTrungThu", 	PlayerInfo[playerid][pHopTrungThu]);
 		cache_get_value_name_int(0, "DauXanh", 	PlayerInfo[playerid][pDauXanh]);
+		cache_get_value_name_int(0, "FinishQQ", 	PlayerInfo[playerid][pFinishQQ]);
 
 		new questsvar[256];
 		cache_get_value_name(0, "SpecialQuest", result); format(questsvar, sizeof(questsvar), result);
@@ -4936,7 +4959,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 
 		SetPlayerToTeamColor(playerid);
 		if(PlayerInfo[playerid][pAdmin] > 0) {
-			format(string, sizeof(string), "{00FF00}[!]{FFFFFF} HelloBot: %s da dang nhap vao.", GetName(playerid));
+			format(string, sizeof(string), "{9F2B68}AdmBot >>{FFFFFF} %s da dang nhap vao.", GetName(playerid));
 			SendAdminMessage(0xA37718FF, string, 1);
 		}
 		
@@ -4947,7 +4970,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 		TextDrawHideForPlayer(playerid, ServerTD[0]);
 		TextDrawHideForPlayer(playerid, ServerTD[1]);
 		TextDrawHideForPlayer(playerid, ServerTD[2]);
-		GameTextForPlayer(playerid, " ", 1000, 4);
+		//GameTextForPlayer(playerid, " ", 1000, 4);
 		if(PlayerInfo[playerid][pAdmin] > 0) Iter_Add(PlayerAdmins, playerid); 
 		if(PlayerInfo[playerid][pHelper] > 0) Iter_Add(PlayerHelpers, playerid); 
 		if(PlayerInfo[playerid][pYT] > 0) Iter_Add(PlayerYoutuber, playerid);
@@ -5051,7 +5074,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 		new string89[65];
 		format(string89, sizeof(string89), "Ban da dat cap do truy na %d trong lan cuoi cung ban roi game.",PlayerInfo[playerid][pWantedLevel]);
 		SetPlayerWantedLevel(playerid, PlayerInfo[playerid][pWantedLevel]);
-		SendClientMessage(playerid, COLOR_LIGHTRED, string89);
+		SendClientMessage(playerid, COLOR_WHITE, string89);
 	}
 	if(gTeam[playerid] == 0) 
 		gTeam[playerid] = 3; 
@@ -5059,7 +5082,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 		gTeam[playerid] = PlayerInfo[playerid][pTeam];
 	if(PlayerInfo[playerid][pMember] != 0 && PlayerInfo[playerid][pTut] != 0) {
 		new disc[50+MAX_PLAYER_NAME];
-		format(disc,sizeof(disc),"[TO CHUC] %s da dang nhap vao may chu.",GetName(playerid));
+		format(disc,sizeof(disc),"{9F2B68}Faction >>{FFFFFF} %s da dang nhap vao may chu.",GetName(playerid));
 		SendFactionMessage(PlayerInfo[playerid][pMember], COLOR_CLIENT, disc);
 	}
 	new sendername[25], playersip[16];
@@ -5076,23 +5099,23 @@ OnPlayerLoginEx(playerid, const password[]) {
 	}
 	if(PlayerInfo[playerid][pTut] != 0) {
 	    if(PlayerInfo[playerid][pVip] != 0) {
-			SendClientMessage(playerid, COLOR_GOLD, "INFO >> {FFFFFF}Ban la VIP Account.");
+			SendClientMessage(playerid, COLOR_WHITE, "{9F2B68}INFO >> {FFFFFF}Ban la VIP Account.");
 			GiveReputation(playerid, PlayerInfo[playerid][pVip] - 1); // give reputation base on player vip level
 		}
 	    //showMissions(playerid, 1);
 		if(PlayerInfo[playerid][pLevel] < 10) {
-			SendClientMessage(playerid, COLOR_GOLD, "TIP >> {FFFFFF}Hay lam nhiem vu de nhan RP va cac phan qua gia tri khac (/nhiemvu).");
+			SendClientMessage(playerid, COLOR_WHITE, "{9F2B68}TIP >> {FFFFFF}Hay lam nhiem vu de nhan RP va cac phan qua gia tri khac (/nhiemvu).");
 		}
 		new clanid = PlayerInfo[playerid][pClan], string[180];
 		if(clanid != 0) {
-			format(string, sizeof(string), "{%s}[CLAN]: %s.", ClanInfo[PlayerInfo[playerid][pClan]][clColor], ClanInfo[PlayerInfo[playerid][pClan]][clMotd]);
+			format(string, sizeof(string), "{%s}CLAN >> %s.", ClanInfo[PlayerInfo[playerid][pClan]][clColor], ClanInfo[PlayerInfo[playerid][pClan]][clMotd]);
 			MesajLung(playerid, -1, string);
 		}
 		if(PlayerInfo[playerid][pMember] != 0) {
 			if(strlen(DynamicFactions[PlayerInfo[playerid][pMember]][fAnn]) > 0)
 			{
 				new factioninfo[128];
-				format(factioninfo,sizeof(factioninfo), "[FACTION]: %s",DynamicFactions[PlayerInfo[playerid][pMember]][fAnn]);
+				format(factioninfo,sizeof(factioninfo), "{9F2B68}Faction >> {FFFFFF}%s",DynamicFactions[PlayerInfo[playerid][pMember]][fAnn]);
 				MesajLung(playerid,COLOR_YELLOW,factioninfo);
 			}
 		}
@@ -5108,7 +5131,7 @@ OnPlayerLoginEx(playerid, const password[]) {
 		cache_delete(results);
 		
 		if(onf != 0) {
-			format(string, sizeof(string), "%d ban be cua ban dang online.", onf);
+			format(string, sizeof(string), "{9F2B68}info >> {FFFFFF}%d ban be cua ban dang online.", onf);
 			PlayerTextDrawSetString(playerid, FriendTD, string);
 			PlayerTextDrawShow(playerid, FriendTD);
 			defer HideFriendTD[3000](playerid);			
@@ -5129,14 +5152,22 @@ OnPlayerLoginEx(playerid, const password[]) {
 		// if(PlayerInfo[playerid][pBizz] != 255) finishAchievement(playerid, 2);
 		if(PlayerInfo[playerid][pHouse] != 999 && strcmp(GetName(playerid), HouseInfo[PlayerInfo[playerid][pHouse]][hOwner], true) == 0) finishAchievement(playerid, 3);
 
-		new string2[128];
-		format(string, sizeof(string), "{EEE0C9}%s[%d]{FFFFFF} {FFFF00}(%s){FFFFFF} {32a852}(%s).", GetName(playerid), playerid, playersip, IsPlayerAndroid(playerid) ? "Dien Thoai" : "PC");
-		GuiDenAdminVaHelper(COLOR_WHITE, string, 1);
-		format(string2, sizeof(string2), "{FF7FF0}Tien{FFFFFF} : [%s] | {CAFFBE}Level{FFFFFF} : [%d] | {B6EEBD}Ping{FFFFFF} : [%d].", FormatNumber(GetPlayerCash(playerid)), PlayerInfo[playerid][pLevel],GetPlayerPing(playerid));
-		GuiDenAdminVaHelper(COLOR_WHITE, string2, 1);
+		new string2[128],online[10];
+		if(PlayerMobileInfo[playerid][isMobile] != false) format(online,10,"Mobile");
+		else format(online,10,"PC");
+		if(PlayerInfo[playerid][pClan] != 0) {
+			format(string,120, "{9F2B68}>> {FFFFFF}(ID: %d) %s | Level: %d| IP: %s | Money: $%s ($%s) | %s",playerid, GetName(playerid),PlayerInfo[playerid][pLevel],playersip,FormatNumber(GetPlayerCash(playerid)), FormatNumber(PlayerInfo[playerid][pAccount]), online);
+			format(string2,120, "{9F2B68}>> {FFFFFF}Faction: %s | Clan: %s", FactionName(PlayerInfo[playerid][pMember]), ClanInfo[PlayerInfo[playerid][pClan]][clName]);
+		}
+		else {
+			format(string,120, "{9F2B68}>> {FFFFFF}(ID: %d) %s | Level: %d| IP: %s | Money: $%s ($%s) | %s",playerid, GetName(playerid),PlayerInfo[playerid][pLevel],playersip,FormatNumber(GetPlayerCash(playerid)), FormatNumber(PlayerInfo[playerid][pAccount]), online);
+			format(string2,120, "{9F2B68}>> {FFFFFF}Faction: %s", FactionName(PlayerInfo[playerid][pMember]));
+		}
+		GuiDenAdminVaHelper(0xFCD482FF, string, 1);
+		GuiDenAdminVaHelper(0xFCD482FF, string2, 1);
 		if(PlayerInfo[playerid][pAdmin]+PlayerInfo[playerid][pHelper] != 0) {
 			new strings[180];
-			format(strings, sizeof(strings), "[STAFF]: {FFFFFF}%s",StaffMotd);
+			format(strings, sizeof(strings), "{9F2B68}STAFF >> {FFFFFF}%s",StaffMotd);
 			SendClientMessage(playerid, COLOR_WARNING, strings);
 		}
 		// if exist player in other friend list
@@ -5189,9 +5220,11 @@ OnPlayerLoginEx(playerid, const password[]) {
 		}
 		//(playerid, MAXGOAL);
 
+		SendClientMessage(playerid, COLOR_WHITE, "{9F2B68}STAFF >> {FFFFFF}Hien tai server dang co 2 event [/trungthu] va [/1thang]!");
+
 		new str[41],name[30];
 		GetPlayerName(playerid, name, sizeof(name));
-		format(str,sizeof(str),"%s (ID: %d)",name, playerid);
+		format(str,sizeof(str),"%s",name);
 		PlayerTextDrawSetString(playerid, logoptd, str);
 		PlayerTextDrawShow(playerid, logoptd);
 		TextDrawShowForPlayer(playerid, logotd);
@@ -5202,9 +5235,9 @@ OnPlayerLoginEx(playerid, const password[]) {
 			if(CAC_GetStatus(playerid) || GetPVarInt(playerid, "NotAndroid") == 0)
 			{
 			 	UsingSampcac{playerid} = 1;
-				SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
+				SendClientMessage(playerid, COLOR_GOLD, "{9F2B68}SAMPCAC >> {FFFFFF}Ban dang su dung SAMPCAC phien ban moi nhat. Chuc vui ve.");
 			}
-			else SendClientMessage(playerid, COLOR_GOLD, "SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");
+			else SendClientMessage(playerid, COLOR_GOLD, "{9F2B68}SAMPCAC >> {FFFFFF}Ban chua cai dat SAMPCAC nen ban khong the tham gia war. Hay tai SAMPCAC o discord.");
 		}
 	}
 	return 1;
@@ -6258,6 +6291,7 @@ save_jobs(playerid) {
     mysql_query(SQL, string, false);
 }
 cauhoitrungthu() {
+	if(togtrungthu == 0) return true;
 	foreach(new i: Player) {
 		DaTraLoi[i] = 0;
 	}
