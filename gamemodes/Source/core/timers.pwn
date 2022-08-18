@@ -1166,9 +1166,9 @@ task DecreaseTimer[1000]() {
 				if(ServerSystem[3] == 0) NightBot(i, "Cheats (armour-hack)");	
 			}
 			if(PlayerMobileInfo[i][isMobile] == false) Resetnametag(i);
-			if(IsPlayerInRangeOfPoint(i, 40.0, 1116.1476,-1457.6807,13.8592)) {	
-				PlayAudioStreamForPlayer(i, "https://steamcast.com/sbin/listen.m3u?id=6105239", 1116.1476,-1457.6807,13.8592, 100.0, 1);
-			}	
+			// if(IsPlayerInRangeOfPoint(i, 40.0, 1116.1476,-1457.6807,13.8592)) {	
+			// 	PlayAudioStreamForPlayer(i, "https://steamcast.com/sbin/listen.m3u?id=6105239", 1116.1476,-1457.6807,13.8592, 100.0, 1);
+			// }	
 			// }
 			// else {
 			// 	if(GetPVarInt(i, "Listening") == 1) SetPVarInt(i, "Listening", 0);
