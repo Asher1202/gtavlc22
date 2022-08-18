@@ -2005,6 +2005,7 @@ public OnPlayerDeathEx(playerid, killerid, reason) {
 						format(string,sizeof string, "War: Ban Nhan Duoc %d Banh Trung Thu", banhtrungthu);
 						SendClientMessage(killerid,0x00E5FFFF, string);
 						PlayerInfo[killerid][pBanhTrungThu] += banhtrungthu;
+						Update(playerid,pBanhTrungThux);
 						format(string, sizeof(string), "War: Ban da bi giet boi %s voi %s tu khoang cach %0.1fm.", GetName(killerid), wname, disc);
 						SendClientMessage(playerid, 0x00E5FFFF, string);
 						if(PaintType[playerid] == 0 && PaintType[killerid] == 0) {	
