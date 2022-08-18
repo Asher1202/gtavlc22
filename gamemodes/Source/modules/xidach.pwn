@@ -12,7 +12,7 @@
 #define TRANG_THAI_TIEP 		(1)
 #define TRANG_THAI_THUA 		(2)
 #define TRANG_THAI_DAN 		(3)
-#define TRANG_THAI_DUMAVAILOZ 		(4)
+#define TRANG_THAI_THANG 		(4)
 
 stock const g_cardTextdrawData[52][] = {
     "LD_CARD:cd1c", // A Clubs - 0
@@ -195,7 +195,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	                if (PlayerInfo[playerid][pCasinoChip] < g_xidachthongtin[id][E_TIEN])
 	                    return SendError(playerid, "Ban khong co du chip de choi.");
                     if (XiDachOn == 0){
-                        return SendError(playerid, "Song bac da dong, hay tro lai vao luc (13h-16h) va (19h- 23h)");
+                        return SendError(playerid, "Song bac da dong, hay tro lai vao luc (8-15h) va (18h-5h)");
                     }
                     if (PlayerInfo[playerid][pDelayXiDach] != 0){
                         return SendError(playerid, "Hay nghi ngoi va quay lai sau 10 phut");
@@ -394,7 +394,8 @@ function BatDauXiDach(tableid)
                 continue;
             }
             bet_amount += g_xidachthongtin[tableid][E_TIEN];
-            PlayerInfo[gamerid][pCasinoChip] -= -g_xidachthongtin[tableid][E_TIEN];
+            PlayerInfo[gamerid][pCasinoChip] -= g_xidachthongtin[tableid][E_TIEN];
+            PayTax(gamerid, g_xidachthongtin[tableid][E_TIEN], e_XI_DACH);
             UpdateVar(gamerid, "CasinoChip", PlayerInfo[gamerid][pCasinoChip]);
             RutBai(tableid, player_index);
             PlayerInfo[gamerid][pCountXiDach]++;
@@ -425,7 +426,7 @@ function BatDauXiDach(tableid)
         g_xidachthongtin[tableid][E_GAME_TIMER] = SetTimerEx("BatDauXiDach", THOIGIANCHOCUACAI, false, "d", tableid);
 
     if (dealer_score >= 17) {
-        SendClientMessageToXiD(tableid, COLOR_GREY, "[XI DACH] > >"COL_WHITE" Ban se reset sau 5  giay.");
+        SendClientMessageToXiD(tableid, COLOR_GREY, "[XI DACH] > >"COL_WHITE" Ban se reset sau 5 giay.");
         g_xidachthongtin[tableid][E_RESET_TIMER] =  SetTimerEx("ResetXiDach", 5000, false, "d", tableid);
     }
 }
@@ -470,7 +471,7 @@ function LuotChoi(tableid, playerid, seconds_left)
             new
                 next_player_index  = KiemTraBanCuaNguoiChoi(tableid, next_player);
 
-            if (player_index != -1 && g_xidachtrangthai[tableid][player_index] != TRANG_THAI_DUMAVAILOZ && g_xidachtrangthai[tableid][player_index] != TRANG_THAI_THUA)
+            if (player_index != -1 && g_xidachtrangthai[tableid][player_index] != TRANG_THAI_THANG && g_xidachtrangthai[tableid][player_index] != TRANG_THAI_THUA)
             	g_xidachtrangthai[tableid][player_index] = TRANG_THAI_DAN;
 
             g_xidachtrangthai[tableid][next_player_index] = TRANG_THAI_TIEP;
@@ -552,25 +553,25 @@ stock KiemTraXiDach(tableid)
 
         SetGiaTriXiDach(tableid, player_index, player_score);
 
-        if (g_xidachtrangthai[tableid][player_index] != TRANG_THAI_THUA && g_xidachtrangthai[tableid][player_index] != TRANG_THAI_DUMAVAILOZ )
+        if (g_xidachtrangthai[tableid][player_index] != TRANG_THAI_THUA && g_xidachtrangthai[tableid][player_index] != TRANG_THAI_THANG )
         {
             new
-                payout = payTaxTaiXiu(playerid, floatround(float(g_xidachthongtin[tableid][E_TIEN]) * 2.0) * 2);
+                payout = floatround(float(g_xidachthongtin[tableid][E_TIEN]) * 2.0);
 
             // kiem tra win
        		if (dealer_score == player_score && dealer_score >= 17) {
-       			payout = payTaxTaiXiu(playerid, g_xidachthongtin[tableid][E_TIEN]* 2);
-                g_xidachtrangthai[tableid][player_index] = TRANG_THAI_DUMAVAILOZ;
+       			payout = g_xidachthongtin[ tableid ] [ E_TIEN ];
+                g_xidachtrangthai[tableid][player_index] = TRANG_THAI_THANG;
                 SendClientMessageToXiD(tableid, COLOR_GREY, "[XI DACH] >"COL_WHITE" %s(%d) da duoc hoan %s vi bang diem cai.", GetName(playerid), playerid, FormatNumber(payout));
                 PlayerInfo[playerid][pCasinoChip] += payout;
                 UpdateVar(playerid, "CasinoChip", PlayerInfo[playerid][pCasinoChip]);
-                GameTextForPlayer(playerid, sprintf("~n~~n~~y~HOA TIEN $%s !", FormatNumber(payout)), 4000, 3);
+                GameTextForPlayer(playerid, sprintf("~n~~n~~y~CHAY $%s !", FormatNumber(payout)), 4000, 3);
             }
             else if (p_socardrut[tableid][player_index] == 5 && player_score <= 21)
             {
-                g_xidachtrangthai[tableid][player_index] = TRANG_THAI_DUMAVAILOZ;
+                g_xidachtrangthai[tableid][player_index] = TRANG_THAI_THANG;
                 if (KiemTraXemCo21Khong(tableid, player_index, player_score)) {
-                    payout = payTaxTaiXiu(playerid, floatround(float(g_xidachthongtin[tableid][E_TIEN]) * 2.5)*2);
+                    payout = floatround( float( g_xidachthongtin[ tableid ] [ E_TIEN ] ) * 2.5 );
                     SendClientMessageToXiD(tableid, COLOR_GREY, "[XI DACH] >"COL_WHITE" NGU LINH! %s(%d) da thang %s!", GetName(playerid), playerid, FormatNumber(payout));
                 } else {
                     SendClientMessageToXiD(tableid, COLOR_GREY, "[XI DACH] >"COL_WHITE" %s(%d) da thang %s vi duoc ngu linh!", GetName(playerid), playerid, FormatNumber(payout));
@@ -580,9 +581,9 @@ stock KiemTraXiDach(tableid)
                 GameTextForPlayer(playerid, sprintf("~n~~n~~g~NGU LINH $%s!", FormatNumber(payout)), 4000, 3);
             }
             else if (player_score == 21) {
-                g_xidachtrangthai[tableid][player_index] = TRANG_THAI_DUMAVAILOZ;
+                g_xidachtrangthai[tableid][player_index] = TRANG_THAI_THANG;
                 if (KiemTraXemCo21Khong(tableid, player_index, player_score)) {
-	                payout = payTaxTaiXiu(playerid, floatround(float(g_xidachthongtin[tableid][E_TIEN]) * 2.5)*2);
+	                payout = floatround( float( g_xidachthongtin[ tableid ] [ E_TIEN ] ) * 2.5 );
 	                SendClientMessageToXiD(tableid, COLOR_GREY, "[XI DACH] >"COL_WHITE" Xi dach! %s(%d) da thang %s!", GetName(playerid), playerid, FormatNumber(payout));
                 } else {
 	                SendClientMessageToXiD(tableid, COLOR_GREY, "[XI DACH] >"COL_WHITE" %s(%d) da thang %s vi duoc 21 diem!", GetName(playerid), playerid, FormatNumber(payout));
@@ -602,7 +603,7 @@ stock KiemTraXiDach(tableid)
 		 		GameTextForPlayer(playerid, "~n~~n~~r~THUA!", 4000, 3);
             }
             else if (dealer_score > 21) {
-                g_xidachtrangthai[tableid][player_index] = TRANG_THAI_DUMAVAILOZ;
+                g_xidachtrangthai[tableid][player_index] = TRANG_THAI_THANG;
                 SendClientMessageToXiD(tableid, COLOR_GREY, "[XI DACH] >"COL_WHITE" %s(%d) da thang %s vi cai quac.", GetName(playerid), playerid, FormatNumber(payout));
 		 		GameTextForPlayer(playerid, sprintf("~n~~n~~g~THANG $%s!", FormatNumber(payout)), 4000, 3);
                 PlayerInfo[playerid][pCasinoChip] += payout;
@@ -614,7 +615,7 @@ stock KiemTraXiDach(tableid)
 		 		GameTextForPlayer(playerid, "~n~~n~~r~THUA!", 4000, 3);
             }
             else if (player_score > dealer_score && dealer_score >= 17) {
-                g_xidachtrangthai[tableid][player_index] = TRANG_THAI_DUMAVAILOZ;
+                g_xidachtrangthai[tableid][player_index] = TRANG_THAI_THANG;
                 SendClientMessageToXiD(tableid, COLOR_GREY, "[XI DACH] >"COL_WHITE" %s(%d) da thang %s vi cai it diem hon.", GetName(playerid), playerid, FormatNumber(g_xidachthongtin[tableid][E_TIEN]));
 		 		GameTextForPlayer(playerid, sprintf("~n~~n~~g~THANG $%s!", FormatNumber(payout)), 4000, 3);
                 PlayerInfo[playerid][pCasinoChip] += payout;
@@ -803,7 +804,7 @@ stock SetGiaTriXiDach(tableid, player_index, score) {
 
 stock SetGiaTriXiDachChoCai(tableid, score) {
     if (score != -1) {
-        UpdateDynamic3DTextLabelText(g_xidachthongtin[tableid][E_LABEL_CAI], COLOR_GREY, sprintf(""COL_GREEN"Cái\nDiem:"COL_LRED" %d", score));
+        UpdateDynamic3DTextLabelText(g_xidachthongtin[tableid][E_LABEL_CAI], COLOR_GREY, sprintf(""COL_GREEN"Cái\nDiem:"COL_RED" %d", score));
     } else {
         UpdateDynamic3DTextLabelText(g_xidachthongtin[tableid][E_LABEL_CAI], COLOR_WHITE, sprintf(""COL_PLATINUM"XI DACH\nBam nut 'F' de tham gia\n"COL_WHITE"Muc cuoc : "COL_RED"%s ", FormatNumber(g_xidachthongtin[tableid][E_TIEN])));
     }

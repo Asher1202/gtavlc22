@@ -171,10 +171,6 @@ public OnGameModeInit() {
 			CasinoOn=0;
 			SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Tai xiu da dong, se mo lai cac khung gio 13h-16h va 18h-22h.");
 		}	
-		if(tmphour<8||15<tmphour<18||5<tmphour) {
-			XiDachOn=0;
-			SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Xi dach da dong, xi dach se mo lai vao cac khung gio 8-15h va 18h-5h.");
-		}	
 		tmphour = FixHour(tmphour);
 		new worldt = tmphour+1;
 		SetWorldTime(worldt);
@@ -268,7 +264,7 @@ public OnPlayerConnect(playerid) {
     	PlayerMobileInfo[playerid][isMobile] = true;
         PlayerMobileInfo[playerid][MobileVersion] = 2; // CH Play
     }
-	PlayAudioStreamForPlayer(playerid, "https://steamcast.com/sbin/listen.m3u?id=6104227", 1116.1476,-1457.6807,13.8592, 40.0, 1);
+	
 	logotd = TextDrawCreate(637.174133, 430.333404, "gtavlc.com");
 	TextDrawLetterSize(logotd, 0.400000, 1.600000);
 	TextDrawAlignment(logotd, 3);

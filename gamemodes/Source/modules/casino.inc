@@ -237,10 +237,10 @@ timer PlayDice[1000](playerid, id) {
 }
 
 hook OnGameModeInit() {
-	new _actor = CreateDynamicActor(98, 1949.3138, 1041.4014, 992.8594, 270);
-	SetDynamicActorVirtualWorld(_actor, 1);
+	new _actor = CreateDynamicActor(98, 1117.5402,-1453.8088,13.7376, 360);
+	SetDynamicActorVirtualWorld(_actor, 0);
 
-	CreateDynamic3DTextLabel("[Bam Y de tuong tac]", X11_WHITE, 1949.3138, 1041.4014, 993, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 10.0);
+	CreateDynamic3DTextLabel("[Bam Y de tuong tac]", X11_WHITE, 1117.5402,-1453.8088,13.7376, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, 10.0);
 	new g_Object[14];
 	g_Object[0] = CreateDynamicObject(2180, 1948.2283, 1040.3646, 991.8654, 0.0000, 0.0000, 0.0000, -1, -1, -1, 100.00, 100.00); //MED_OFFICE5_DESK_3
 	SetDynamicObjectMaterial(g_Object[0], 0, 14581, "ab_mafiasuitea", "cof_wood2", 0xFFFFFFFF);
@@ -267,7 +267,7 @@ hook OnGameModeInit() {
 
 hook OnPlayerKStateChange(playerid, newkeys, oldkeys) {
 	if(newkeys & KEY_YES) {	
-		if(IsPlayerInRangeOfPoint(playerid, 4.0, 1949.3138, 1041.4014, 992.8594)) {
+		if(IsPlayerInRangeOfPoint(playerid, 4.0, 1117.5402,-1453.8088,13.7376)) {
 			new str[300];
 
 			format(str, sizeof(str), "No\tOption\tExtra\n\

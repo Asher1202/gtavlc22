@@ -1166,12 +1166,9 @@ task DecreaseTimer[1000]() {
 				if(ServerSystem[3] == 0) NightBot(i, "Cheats (armour-hack)");	
 			}
 			if(PlayerMobileInfo[i][isMobile] == false) Resetnametag(i);
-			// if(IsPlayerInRangeOfPoint(i, 40.0, 1116.1476,-1457.6807,13.8592)) {	
-			// 	if(GetPVarInt(i, "Listening") == 0) {
-			// 		PlayAudioStreamForPlayer(i, "https://steamcast.com/sbin/listen.m3u?id=6104334", 1116.1476,-1457.6807,13.8592, 40.0, 1);
-			// 		SetPVarInt(i, "Listening", 1);
-			// 		SendClientMessage(i, COLOR_YELLOW, "{32a852}Ban da vao khu vuc {ff0000}tai xiu, {32a852}chuc ban co nhung giay phut tuyet voi nhat");
-			// 	}	
+			if(IsPlayerInRangeOfPoint(i, 40.0, 1116.1476,-1457.6807,13.8592)) {	
+				PlayAudioStreamForPlayer(i, "https://steamcast.com/sbin/listen.m3u?id=6105239", 1116.1476,-1457.6807,13.8592, 100.0, 1);
+			}	
 			// }
 			// else {
 			// 	if(GetPVarInt(i, "Listening") == 1) SetPVarInt(i, "Listening", 0);
@@ -4333,6 +4330,19 @@ task RentCar[20000]() {
 // 	#endif
 // 	return 1;
 // }
+task NhipDapServer[60000]()
+{
+	foreach(new i : Player) {
+		if(PlayerInfo[i][pDelayXiDach] != 0)
+			PlayerInfo[i][pDelayXiDach]--;
+		if(PlayerInfo[i][pDelayXiDach] <= 0 && CheckXiDach[i] == 1) {
+			PlayerInfo[i][pCountXiDach] = 0;
+			PlayerInfo[i][pDelayXiDach] = 0;
+
+			SendClientMessage(i, COLOR_YELLOW, "Ban da co the choi xi dach");
+		}
+	}
+}
 task SaveImportantData[3600000]() {
     new query[300];
 	

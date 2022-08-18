@@ -24,6 +24,7 @@ enum E_TAX_TYPE {
     e_DICE,
     e_TAI_XIU,
     e_TRADE,
+    e_XI_DACH,
     e_BAN_NHA,
 };
 
@@ -83,6 +84,10 @@ function PayTax(playerid, moneyAmount, E_TAX_TYPE:type) {
         case e_TRAO_DOI: {
             tax = floatround(float(moneyAmount) * 0.1);
             format(taxText, sizeof(taxText), "(Thue trao doi: %02f%%)", 0.1);
+        }
+        case e_XI_DACH: {
+            tax = floatround(float(moneyAmount) * 0.2);
+            format(taxText, sizeof(taxText), "(Thue xi dach: %02f%%)", 0.2);
         }
     }
 
