@@ -3297,6 +3297,7 @@ Dialog:DIALOG_CLAN_COMMAND(playerid, response, listitem, inputtext[])
 		}
 		case 5: ShowClanVehicle(playerid);
 		case 6: {
+			if(TradeID[playerid] != -1) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000}[!]{FFFFFF} Ban khong the su dung thao tac nay khi ban dang trong mot cuoc giao dich!");
 			Dialog_Show(playerid, DIALOG_CLANKETSAT, DIALOG_STYLE_LIST, "Clan Ket Sat:", "Vat Lieu\nMa Tuy\nMoney", "Select", "Back");
 		}
 	}
@@ -3508,9 +3509,8 @@ Dialog:DIALOG_TRUNGTHU(playerid, response, listitem ,inputtext[]) {
 		case 0: {
 			new hour,minute,second;
 			gettime(hour,minute,second);
-			if(hour != 20 && minute > 5) {
-				return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Le Trung Thu Bat Dau Tu 20h Va 5 Phut Sau Se Dong\nVa Ban Can Co 10 Dau Xanh De Tham Gia(Farm Nong Dan)", "Dong y", "Cancel");
-			}
+			if(hour != 20) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Le Trung Thu Bat Dau Tu 20h Va 5 Phut Sau Se Dong\nVa Ban Can Co 10 Dau Xanh De Tham Gia(Farm Nong Dan)", "Dong y", "Cancel");
+			if(minute > 5) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Le Trung Thu Bat Dau Tu 20h Va 5 Phut Sau Se Dong\nVa Ban Can Co 10 Dau Xanh De Tham Gia(Farm Nong Dan)", "Dong y", "Cancel");
 			if(PlayerInfo[playerid][pWantedLevel] != 0 || PlayerInfo[playerid][pJailTime] != 0) return SendClientMessage(playerid, COLOR_LGREEN, "Ban dang bi truy na hoac ngoi tu.");
 			if(InLeTrungThu[playerid] == 1) return SendClientMessage(playerid, COLOR_WHITE, "Ban dang tham gia le.");
 			if(OnDuty[playerid] == 1) return SendClientMessage(playerid, COLOR_WHITE, "Ban dang onduty.");

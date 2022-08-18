@@ -4389,6 +4389,7 @@ CheckMission(playerid, id) {
 			format(string, sizeof(string), "Ban nhan duoc %d banh trung thu.", banhtrungthu);
 			SendClientMessage(playerid, COLOR_YELLOW, string);
 			PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
+			Update(playerid,pBanhTrungThux);
 			PlayerInfo[playerid][pExp] ++;
 			GivePlayerCash(playerid, money);
 			PlayerInfo[playerid][pProgress][id] ++;

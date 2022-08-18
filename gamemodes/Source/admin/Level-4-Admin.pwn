@@ -1,3 +1,14 @@
+CMD:audio(playerid, params[]) {
+	if(PlayerInfo[playerid][pAdmin] < 4) return SendClientMessage(playerid, COLOR_LIGHTRED, AdminOnly);
+	new link[150];
+	if(sscanf(params, "s[150]", link))
+		return SendClientMessage(playerid, COLOR_WHITE, "{008080}Usage: {FFFFFF}/music [link]");
+	foreach(new i : Player) {
+		StopAudioStreamForPlayer(i);
+		PlayAudioStreamForPlayer(i, link);
+	}
+	return true;
+}
 CMD:gotoxyz(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 4) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
 	new string[128],interior,vw;
