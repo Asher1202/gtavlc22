@@ -135,6 +135,8 @@ enum pInfo {
 	pHopTrungThu,
 	pBanhTrungThu,
 	pDauXanh,
+	pDelayXiDach,
+	pCountXiDach,
 	pFinishQQ
 };
 new InLeTrungThu[MAX_PLAYERS], dapantrungthu1[64],dapantrungthu2[64],togtrungthu = 1, cauhoixuathien,tholambanhactor,
@@ -144,3 +146,4 @@ new
 	PlayerInfo[MAX_PLAYERS + 1][pInfo],
 	InDealer[MAX_PLAYERS];
 new cauhoihuman[MAX_PLAYERS][124],dapanhuman[MAX_PLAYERS], toghuman = 0;
+new CheckXiDach[MAX_PLAYERS];

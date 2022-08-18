@@ -13,6 +13,7 @@
 
 new CasinoOn=1;
 new BidaOn = 1;
+new XiDachOn = 1;
 CMD:exchange(playerid, params[]) {
 	if(!IsPlayerInRangeOfPoint(playerid, 4.0, 1949.3138, 1041.4014, 992.8594)) return SendClientMessage(playerid, COLOR_GREY, "Ban khong o casino.");
     new str[300];
@@ -304,6 +305,18 @@ CMD:togbida(playerid, params[]) {
 	else {
 		BidaOn=1;
 		SendClientMessageToAll(COLOR_ORANGE, "[INFO] Bida da mo, nhanh tay lam vai co nao cac dan choi!");
+	}
+	return 1;
+}
+CMD:togxidach(playerid, params[]) {
+	if(PlayerInfo[playerid][pAdmin] < 2) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
+	if(XiDachOn==1) {
+		XiDachOn=0;
+		SendClientMessageToAll(COLOR_ORANGE, "[INFO] Xi dach da dong");
+	}
+	else {
+		XiDachOn=1;
+		SendClientMessageToAll(COLOR_ORANGE, "[INFO] Xi dach da mo, nhanh tay lam vai co nao cac dan choi!");
 	}
 	return 1;
 }

@@ -159,6 +159,7 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 #include "Source/modules/ls_beachside.pwn"
 #include "Source/modules/dmv.pwn"
 #include "Source/modules/catsung.pwn"
+#include "Source/modules/xidach.pwn"
 
 
 // Map

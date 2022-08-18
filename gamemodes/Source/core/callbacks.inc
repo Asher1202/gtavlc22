@@ -169,7 +169,11 @@ public OnGameModeInit() {
 		}
 		if(tmphour<13||16<tmphour<18||22<tmphour) {
 			CasinoOn=0;
-			SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Tai xiu da dong, se mo tai cac khung gio 13h-16h va 18h-22h.");
+			SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Tai xiu da dong, se mo lai cac khung gio 13h-16h va 18h-22h.");
+		}	
+		if(tmphour<8||15<tmphour<18||5<tmphour) {
+			XiDachOn=0;
+			SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Xi dach da dong, xi dach se mo lai vao cac khung gio 8-15h va 18h-5h.");
 		}	
 		tmphour = FixHour(tmphour);
 		new worldt = tmphour+1;

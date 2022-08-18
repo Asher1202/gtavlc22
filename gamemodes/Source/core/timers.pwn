@@ -4141,13 +4141,20 @@ task PayDay[10000]() {
 			}
 			if(hour == 16 || hour == 22) {
 				CasinoOn=0;
-				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Tai xiu da dong, se mo tai cac khung gio 13h-16h va 18h-22h.");
+				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Tai xiu da dong, se mo lai vao cac khung gio 13h-16h va 18h-22h.");
 			}
 			if(hour == 12 || hour == 3) {
 				BidaOn=0;
 				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Bida da dong, hay nghi ngoi thoi nao (Bida mo vao khung gio 8h-12h va 16h -> 3h ).");
-
 			}
+			if(hour == 15 || hour == 5) {
+				XiDachOn=0;
+				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Xi dach da dong, se mo lai cac khung gio 8-15h va 18h-5h.");
+			}	
+			if(hour == 8 || hour == 18) {
+				XiDachOn=1;
+				SCMTA(COLOR_GOLD, "INFO: {FFFFFF}Xi dach da mo, cac dan choi hay den CNN de choi thoi nao.");
+			}	
 			if(hour == 1)
 			{
 				RestartTime = 5*60;

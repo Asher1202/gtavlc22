@@ -3342,6 +3342,7 @@ Dialog:DIALOG_CVATLIEU2(playerid, response, listitem, inputtext[]) {
 	new string[64];
 	format(string, sizeof string, "[CLAN] %s Da Rut %s Vat Lieu, Ket Sat Con Lai %s Vat Lieu",GetName(playerid),FormatNumber(strval(inputtext)),FormatNumber(ClanInfo[id][clVatLieu]));
 	SendClanMessage(id, string);
+	Log("logs/clanket.log", string);
 	save_ketclan(id);
 	return true;
 }
@@ -3355,6 +3356,7 @@ Dialog:DIALOG_CVATLIEU3(playerid, response, listitem, inputtext[]) {
 	new string[64];
 	format(string, sizeof string, "[CLAN] %s Da Gui %s Vat Lieu, Ket Sat Con Lai %s Vat Lieu",GetName(playerid),FormatNumber(strval(inputtext)),FormatNumber(ClanInfo[id][clVatLieu]));
 	SendClanMessage(id, string);
+	Log("logs/clanket.log", string);
 	save_ketclan(id);
 	return true;
 }
@@ -3383,6 +3385,7 @@ Dialog:DIALOG_CMATUY2(playerid, response, listitem, inputtext[]) {
 	new string[64];
 	format(string, sizeof string, "[CLAN] %s Da Rut %s Ma Tuy, Ket Sat Con Lai %s Ma Tuy",GetName(playerid),FormatNumber(strval(inputtext)),FormatNumber(ClanInfo[id][clMaTuy]));
 	SendClanMessage(id, string);
+	Log("logs/clanket.log", string);
 	save_ketclan(id);
 	return true;
 }
@@ -3396,6 +3399,7 @@ Dialog:DIALOG_CMATUY3(playerid, response, listitem, inputtext[]) {
 	new string[64];
 	format(string, sizeof string, "[CLAN] %s Da Gui %s Ma Tuy, Ket Sat Con Lai %s Ma Tuy",GetName(playerid),FormatNumber(strval(inputtext)),FormatNumber(ClanInfo[id][clMaTuy]));
 	SendClanMessage(id, string);
+	Log("logs/clanket.log", string);
 	save_ketclan(id);
 	return true;
 }
@@ -3423,6 +3427,7 @@ Dialog:DIALOG_CMONEY2(playerid, response, listitem, inputtext[]) {
 	new string[64];
 	format(string, sizeof string, "[CLAN] %s Da Rut $%s, Ket Sat Con Lai $%s",GetName(playerid),FormatNumber(strval(inputtext)),FormatNumber(ClanInfo[id][clMoney]));
 	SendClanMessage(id, string);
+	Log("logs/clanket.log", string);
 	save_ketclan(id);
 	return true;
 }
@@ -3435,6 +3440,7 @@ Dialog:DIALOG_CMONEY3(playerid, response, listitem, inputtext[]) {
 	new string[64];
 	format(string, sizeof string, "[CLAN] %s Da Gui $%s, Ket Sat Con Lai $%s",GetName(playerid),FormatNumber(strval(inputtext)),FormatNumber(ClanInfo[id][clMoney]));
 	SendClanMessage(id, string);
+	Log("logs/clanket.log", string);
 	save_ketclan(id);
 	return true;
 }
