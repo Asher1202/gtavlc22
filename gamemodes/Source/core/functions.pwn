@@ -2522,6 +2522,13 @@ GiveJobSalary(playerid) {
 			Log("logs/jobmoney.log", string);	
 		}
 	}
+	new banhtrungthu = 2+random(5);
+	format(string,sizeof string, "{9F2B68}INFO >> {FFFFFF} Ban da nhat duoc {FF7F7F}%d {FFFFFF}banh trung thu",banhtrungthu);
+	SendClientMessage(playerid, COLOR_YELLOW, string);
+	PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
+	Update(playerid, pBanhTrungThux);
+	format(string,sizeof string, "%s +%d banhtrungthu (%d)",GetName(playerid), banhtrungthu,PlayerInfo[playerid][pBanhTrungThu]);
+	Log("logs/nhanquatrungthu.log", string);	
 	format(string, sizeof(string), "{9F2B68}Jobs >>{FFFFFF} %s +$%s %s",GetName(playerid), FormatNumber(money+bonus), JobInfo[PlayerInfo[playerid][pJob]][jName]);
 	Log("logs/jobmoney.log", string);	
 	GuiDenAdminVaHelper(COLOR_YELLOW, string, 1); 
@@ -2535,11 +2542,6 @@ GiveJobSalary(playerid) {
 	}
 	//CheckNhiemVuCapDo(playerid);
 	SendClientMessage(playerid, COLOR_GRAD2, string);
-	new banhtrungthu = 2+random(5);
-	format(string,sizeof string, "{9F2B68}INFO >> {FFFFFF} Ban da nhat duoc {FF7F7F}%d {FFFFFF}banh trung thu",banhtrungthu);
-	SendClientMessage(playerid, COLOR_YELLOW, string);
-	PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
-	Update(playerid, pBanhTrungThux);
 	if(PlayerInfo[playerid][pClan]!=0) {
 		new ran=1+random(3),sql[200],cid=PlayerInfo[playerid][pClan];
 		ClanInfo[cid][clPoints]+=ran;
@@ -4390,6 +4392,8 @@ CheckMission(playerid, id) {
 			SendClientMessage(playerid, COLOR_YELLOW, string);
 			PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
 			Update(playerid,pBanhTrungThux);
+			format(string,sizeof string, "%s +%d banhtrungthu (%d)",GetName(playerid), banhtrungthu,PlayerInfo[playerid][pBanhTrungThu]);
+			Log("logs/nhanquatrungthu.log", string);	
 			PlayerInfo[playerid][pExp] ++;
 			GivePlayerCash(playerid, money);
 			PlayerInfo[playerid][pProgress][id] ++;

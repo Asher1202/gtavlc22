@@ -3496,6 +3496,7 @@ Dialog:DIALOG_TRALOITRUNGTHU(playerid, response, listitem, inputtext[]) {
 		SoDapAnDung[playerid] += 1;
 		SendClientMessage(playerid, COLOR_GREEN, "Ban da tra loi dung va nhan duoc 3 banh trung thu.");
 		PlayerInfo[playerid][pBanhTrungThu] += 3;
+		Update(playerid, pBanhTrungThux);
 	}
 	else {
 		DaTraLoi[playerid] = 1;
@@ -3601,15 +3602,16 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 			PlayerInfo[playerid][pBanhTrungThu] -= 150;
 			GivePlayerCash(playerid, 2000000);
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc $2,000,000");
-			format(string ,sizeof string, "%s Da Nhan $2,000,000 Tu Tho Lam Banh",GetName(playerid));
+			format(string ,sizeof string, "%s Da Nhan $2,000,000 Tu Tho Lam Banh, Con Lai: %d",GetName(playerid), PlayerInfo[playerid][pBanhTrungThu]);
 			SendAdminMessage(COLOR_YELLOW, string, 1);
+			Log("logs/nhanquatrungthu.log", string);
 		}
 		case 1: {
 			if(PlayerInfo[playerid][pBanhTrungThu] < 3000) return Dialog_Show(playerid, 0, DIALOG_STYLE_MSGBOX, "Tho Lam Banh", "Ban khong du banh", "Dong y", "Cancel");
 			PlayerInfo[playerid][pBanhTrungThu] -= 3000;
 			PlayerInfo[playerid][pPremiumPoints] += 500;
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc 500 Xu");
-			format(string ,sizeof string, "%s Da Nhan 500 Xu Tu Tho Lam Banh",GetName(playerid));
+			format(string ,sizeof string, "%s Da Nhan 500 Xu Tu Tho Lam Banh, Con Lai: %d",GetName(playerid), PlayerInfo[playerid][pBanhTrungThu]);
 			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 		case 2: {
@@ -3647,7 +3649,7 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 			Update(playerid, pBoomboxx);
 			PlayerInfo[playerid][pBanhTrungThu] -= 1500;
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc Boombox");
-			format(string ,sizeof string, "%s Da Nhan Boombox Tu Tho Lam Banh",GetName(playerid));
+			format(string ,sizeof string, "%s Da Nhan Boombox Tu Tho Lam Banh, Con Lai: %d",GetName(playerid), PlayerInfo[playerid][pBanhTrungThu]);
 			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 		case 5: {
@@ -3655,7 +3657,7 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 			Inventory_Add(playerid,"Burger", 2703, 100, 1);
 			PlayerInfo[playerid][pBanhTrungThu] -= 200;
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc 100 Burger");
-			format(string ,sizeof string, "%s Da Nhan 100 Burger Tu Tho Lam Banh",GetName(playerid));
+			format(string ,sizeof string, "%s Da Nhan 100 Burger Tu Tho Lam Banh, Con Lai: %d",GetName(playerid), PlayerInfo[playerid][pBanhTrungThu]);
 			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 		case 6: {
@@ -3664,7 +3666,7 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 			Update(playerid, pPremiumPointsx);
 			PlayerInfo[playerid][pBanhTrungThu] -= 300;
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc 50 Xu");
-			format(string ,sizeof string, "%s Da Nhan 50 Xu Tu Tho Lam Banh",GetName(playerid));
+			format(string ,sizeof string, "%s Da Nhan 50 Xu Tu Tho Lam Banh, Con Lai: %d",GetName(playerid), PlayerInfo[playerid][pBanhTrungThu]);
 			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 		case 7: {
@@ -3673,7 +3675,7 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 			PlayerInfo[playerid][pMats] +=10000;
 			Update(playerid,pMatsx);
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc 10.000 Vat Lieu");
-			format(string ,sizeof string, "%s Da Nhan 10.000 Vat Lieu Tu Tho Lam Banh",GetName(playerid));
+			format(string ,sizeof string, "%s Da Nhan 10.000 Vat Lieu Tu Tho Lam Banh, Con Lai: %d",GetName(playerid), PlayerInfo[playerid][pBanhTrungThu]);
 			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 		case 8: {
@@ -3686,7 +3688,7 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 			PlayerInfo[playerid][pHopTrungThu] += 1;
 			Update(playerid, pHopTrungThux);
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc Hop Trung Thu");
-			format(string ,sizeof string, "%s Da Nhan Hop Trung Thu Tu Tho Lam Banh",GetName(playerid));
+			format(string ,sizeof string, "%s Da Nhan Hop Trung Thu Tu Tho Lam Banh, Con Lai: %d",GetName(playerid), PlayerInfo[playerid][pBanhTrungThu]);
 			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 		case 10: {
@@ -3695,7 +3697,7 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 			PlayerInfo[playerid][pCrates][3] +=1;
 			save_crates(playerid);
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc Hop Qua Epic Car");
-			format(string ,sizeof string, "%s Da Nhan Hop Qua Epic Car Tu Tho Lam Banh",GetName(playerid));
+			format(string ,sizeof string, "%s Da Nhan Hop Qua Epic Car Tu Tho Lam Banh, Con Lai: %d",GetName(playerid), PlayerInfo[playerid][pBanhTrungThu]);
 			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 		case 11: {
@@ -3704,7 +3706,7 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 			PlayerInfo[playerid][pCrates][4] +=1;
 			save_crates(playerid);
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc Hop Qua Legend Car");
-			format(string ,sizeof string, "%s Da Nhan Hop Qua Legend Car Tu Tho Lam Banh",GetName(playerid));
+			format(string ,sizeof string, "%s Da Nhan Hop Qua Legend Car Tu Tho Lam Banh, Con Lai: %d",GetName(playerid), PlayerInfo[playerid][pBanhTrungThu]);
 			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 		case 12: {
@@ -3713,7 +3715,7 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 			PlayerInfo[playerid][pCrates][1] +=1;
 			save_crates(playerid);
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc Hop Qua Random");
-			format(string ,sizeof string, "%s Da Nhan Hop Qua Random Tu Tho Lam Banh",GetName(playerid));
+			format(string ,sizeof string, "%s Da Nhan Hop Qua Random Tu Tho Lam Banh, Con Lai: %d",GetName(playerid), PlayerInfo[playerid][pBanhTrungThu]);
 			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 		case 13: {
@@ -3796,6 +3798,7 @@ Dialog:DIALOG_TRUNGTHU2(playerid, response, listitem, inputtext[]) {
 			Dialog_Show(playerid, DIALOG_TRUNGTHUNHANXE2, DIALOG_STYLE_TABLIST_HEADERS, "Product List", strings, "Nhan Xe", "Tro ve"); 
 		}
 	}
+	Log("logs/nhanquatrungthu.log", string);
 	Update(playerid, pBanhTrungThux);
 	return true;
 }
@@ -3808,7 +3811,7 @@ Dialog:DIALOG_ChonSung(playerid,response,listitem,inputtext[]) {
 			else Inventory_Add(playerid,"M4A1", 356, 200, 1);
 			PlayerInfo[playerid][pBanhTrungThu] -= 500;
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc M4A1 200 vien dan (/tuido)");
-			format(string ,sizeof string, "%s Da Nhan M4A1 200 vien dan Tu Tho Lam Banh",GetName(playerid));
+			format(string ,sizeof string, "%s Da Nhan M4A1 200 vien dan Tu Tho Lam Banh, Con Lai: %d",GetName(playerid), PlayerInfo[playerid][pBanhTrungThu]);
 			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 		case 1: {
@@ -3816,10 +3819,11 @@ Dialog:DIALOG_ChonSung(playerid,response,listitem,inputtext[]) {
 			else Inventory_Add(playerid,"AK47", 355, 200, 1);
 			PlayerInfo[playerid][pBanhTrungThu] -= 500;
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Giao Dich Thanh Cong! Ban Nhan Duoc AK47 200 vien dan (/tuido)");
-			format(string ,sizeof string, "%s Da Nhan AK47 200 vien dan Tu Tho Lam Banh",GetName(playerid));
+			format(string ,sizeof string, "%s Da Nhan AK47 200 vien dan Tu Tho Lam Banh, Con Lai: %d",GetName(playerid), PlayerInfo[playerid][pBanhTrungThu]);
 			SendAdminMessage(COLOR_YELLOW, string, 1);
 		}
 	}
+	Log("logs/nhanquatrungthu.log", string);
 	Update(playerid, pBanhTrungThux);
 	return true;
 }
@@ -3881,8 +3885,9 @@ Dialog:DIALOG_DoitenTrungThu(playerid, response, listitem, inputtext[]) {
 			format(CarInfo[id][cOwner], 32, name);
 		}
 	}
-	format(string, sizeof(string), "%s doi ten thanh %s qua Tho Lam Banh.", lastname, name);
+	format(string, sizeof(string), "%s doi ten thanh %s qua Tho Lam Banh, Con Lai: %d.", lastname, name, PlayerInfo[playerid][pBanhTrungThu]);
 	SendAdminMessage(COLOR_YELLOW, string, 1);
+	Log("logs/nhanquatrungthu.log", string);
 	mysql_format(SQL, string, sizeof(string), "UPDATE `users` SET `Name`='%e' WHERE `ID`='%d'", name, PlayerInfo[playerid][pSQLID]);
 	mysql_pquery(SQL, string);
 	SendClientMessage(playerid, COLOR_DARKNICERED, "{00FF00}[!] {FFFFFF} Doi ten thanh cong, xin vui long dang nhap lai de cap nhat ten.");
@@ -3893,22 +3898,24 @@ Dialog:DIALOG_TRUNGTHUNHANXE2(playerid,response,listitem,inputtext[]) {
 	if(!response) return true;
 	new id = Iter_Index(Cars<2>, listitem);
 	GiveVehicle(playerid, D_Vehicles[id][dModel], true);
-	new string[80];
-	format(string ,sizeof string, "%s Da Nhan Xe %s Cao Cap Tu Tho Lam Banh",GetName(playerid),aVehicleNames[D_Vehicles[id][dModel]-400]);
-	SendAdminMessage(COLOR_YELLOW, string, 1);
 	PlayerInfo[playerid][pBanhTrungThu] -= 19999;
 	Update(playerid, pBanhTrungThux);
+	new string[80];
+	format(string ,sizeof string, "%s Da Nhan Xe %s Cao Cap Tu Tho Lam Banh, Con Lai: %d",GetName(playerid),aVehicleNames[D_Vehicles[id][dModel]-400], PlayerInfo[playerid][pBanhTrungThu]);
+	SendAdminMessage(COLOR_YELLOW, string, 1);
+	Log("logs/nhanquatrungthu.log", string);
 	return true;
 }
 Dialog:DIALOG_TRUNGTHUNHANXE(playerid,response,listitem,inputtext[]) {
 	if(!response) return true;
 	new id = Iter_Index(Cars<1>, listitem);
 	GiveVehicle(playerid, D_Vehicles[id][dModel], true);
-	new string[80];
-	format(string ,sizeof string, "%s Da Nhan Xe %s Trung Cap Tu Tho Lam Banh",GetName(playerid),aVehicleNames[D_Vehicles[id][dModel]-400]);
-	SendAdminMessage(COLOR_YELLOW, string, 1);
 	PlayerInfo[playerid][pBanhTrungThu] -= 7500;
 	Update(playerid, pBanhTrungThux);
+	new string[80];
+	format(string ,sizeof string, "%s Da Nhan Xe %s Trung Cap Tu Tho Lam Banh, Con Lai",GetName(playerid),aVehicleNames[D_Vehicles[id][dModel]-400], PlayerInfo[playerid][pBanhTrungThu]);
+	SendAdminMessage(COLOR_YELLOW, string, 1);
+	Log("logs/nhanquatrungthu.log", string);
 	return true;
 }
 Dialog:DIALOG_THUYSAN(playerid, response, listitem, inputtext[]) 
@@ -5995,6 +6002,8 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					SendClientMessage(playerid, COLOR_YELLOW, string);
 					PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
 					Update(playerid, pBanhTrungThux);
+					format(string,sizeof string, "%s +%d banhtrungthu (%d)",GetName(playerid), banhtrungthu,PlayerInfo[playerid][pBanhTrungThu]);
+					Log("logs/nhanquatrungthu.log", string);	
 					new bonus = 0;
 					if(TodayJob == 11 || TodayJob == 15) {
 						bonus = JobInfo[PlayerInfo[playerid][pJob]][jBonus]*(FishPrice[playerid]/100);
@@ -6115,6 +6124,8 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					SendClientMessage(playerid, COLOR_YELLOW, string);
 					PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
 					Update(playerid, pBanhTrungThux);
+					format(string,sizeof string, "%s +%d banhtrungthu (%d)",GetName(playerid), banhtrungthu,PlayerInfo[playerid][pBanhTrungThu]);
+					Log("logs/nhanquatrungthu.log", string);	
 					UpdateVar(playerid, "FishSkill", PlayerInfo[playerid][pFishSkill]);
 					if(PlayerInfo[playerid][pFishSkill] == 120)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 2. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
@@ -6198,6 +6209,8 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					SendClientMessage(playerid, COLOR_YELLOW, string);
 					PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
 					Update(playerid, pBanhTrungThux);
+					format(string,sizeof string, "%s +%d banhtrungthu (%d)",GetName(playerid), banhtrungthu,PlayerInfo[playerid][pBanhTrungThu]);
+					Log("logs/nhanquatrungthu.log", string);	
 					//UpdateJobGoal(FishPrice[playerid], MAXGOAL);
 					SendClientMessage(playerid, COLOR_YELLOW, string);
 					new bonus = 0;
@@ -6317,6 +6330,8 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					SendClientMessage(playerid, COLOR_YELLOW, string);
 					PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
 					Update(playerid, pBanhTrungThux);
+					format(string,sizeof string, "%s +%d banhtrungthu (%d))",GetName(playerid), banhtrungthu,PlayerInfo[playerid][pBanhTrungThu]);
+					Log("logs/nhanquatrungthu.log", string);	
 					UpdateVar(playerid, "FishSkill", PlayerInfo[playerid][pFishSkill]);
 					if(PlayerInfo[playerid][pFishSkill] == 120)
 					{ SendClientMessage(playerid, COLOR_YELLOW, "* Ky nang cong viec Cau Ca da dat level 2. Ban se nhan duoc nhieu tien hon va cau duoc ca' to hon."); }
