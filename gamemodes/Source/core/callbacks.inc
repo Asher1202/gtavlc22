@@ -375,6 +375,7 @@ public OnPlayerDisconnect(playerid, reason)
 			mysql_tquery(SQL, gQuery, "CheckClassIP", "i", last);
 		}
 	}
+	Update(playerid, pBanhTrungThux);
 	DaTraLoi[playerid] = 0;
 	SoDapAnDung[playerid] = 0;
 	InLeTrungThu[playerid] = 0;
