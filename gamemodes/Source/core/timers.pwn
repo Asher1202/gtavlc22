@@ -1342,7 +1342,14 @@ task Timers[1000]() {
 				PlayerTextDrawSetString(i, CpTD, string);
 				PlayerTextDrawShow(i, CpTD);		
 			}
-			
+			if(PlayerInfo[i][pDelayXiDach] != 0 && PlayerInfo[i][pCountXiDach] != 0 )
+				PlayerInfo[i][pDelayXiDach]--;
+			else if(PlayerInfo[i][pDelayXiDach] <= 0 && PlayerInfo[i][pCountXiDach] != 0) {
+				PlayerInfo[i][pCountXiDach] = 0;
+				PlayerInfo[i][pDelayXiDach] = 0;
+
+				SendClientMessage(i, COLOR_YELLOW, "Ban da co the choi xi dach");
+			}
 			if(CP[i] != 0 && PlayerInfo[i][pShowCP] == 1) {
 				new str[64], Float: fDistance = GetPlayerDistanceFromPoint(i, CheckpointPos[i][0], CheckpointPos[i][1], CheckpointPos[i][2]);
 				format(str, sizeof(str), "Khoang cach: %0.1fm", fDistance);
@@ -4330,19 +4337,7 @@ task RentCar[20000]() {
 // 	#endif
 // 	return 1;
 // }
-task NhipDapServer[60000]()
-{
-	foreach(new i : Player) {
-		if(PlayerInfo[i][pDelayXiDach] != 0)
-			PlayerInfo[i][pDelayXiDach]--;
-		if(PlayerInfo[i][pDelayXiDach] <= 0 && CheckXiDach[i] == 1) {
-			PlayerInfo[i][pCountXiDach] = 0;
-			PlayerInfo[i][pDelayXiDach] = 0;
 
-			SendClientMessage(i, COLOR_YELLOW, "Ban da co the choi xi dach");
-		}
-	}
-}
 task SaveImportantData[3600000]() {
     new query[300];
 	

@@ -389,7 +389,6 @@ function BatDauXiDach(tableid)
                 SendError(gamerid, "Ban da rut 20 luot xi dach, ban co the choi lai sau 10 phut.");
                 DuoiNguoiChoiKhoiBan(gamerid, .reset_cam = 1);
                 PlayerInfo[gamerid][pDelayXiDach] = 600;
-                CheckXiDach [gamerid] = 1;
                 if (blackjack_players - 1 <= 0) return; // Neu k co ai thi reset ban
                 continue;
             }
@@ -583,7 +582,7 @@ stock KiemTraXiDach(tableid)
             else if (player_score == 21) {
                 g_xidachtrangthai[tableid][player_index] = TRANG_THAI_THANG;
                 if (KiemTraXemCo21Khong(tableid, player_index, player_score)) {
-	                payout = floatround( float( g_xidachthongtin[ tableid ] [ E_TIEN ] ) * 2.5 );
+	                payout = floatround( float( g_xidachthongtin[ tableid ] [ E_TIEN ] ) * 2.0 );
 	                SendClientMessageToXiD(tableid, COLOR_GREY, "[XI DACH] >"COL_WHITE" Xi dach! %s(%d) da thang %s!", GetName(playerid), playerid, FormatNumber(payout));
                 } else {
 	                SendClientMessageToXiD(tableid, COLOR_GREY, "[XI DACH] >"COL_WHITE" %s(%d) da thang %s vi duoc 21 diem!", GetName(playerid), playerid, FormatNumber(payout));
