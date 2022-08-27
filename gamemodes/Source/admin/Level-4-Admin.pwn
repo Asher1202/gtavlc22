@@ -9,6 +9,17 @@ CMD:audio(playerid, params[]) {
 	}
 	return true;
 }
+CMD:trollhacker(playerid, params[]) {
+	if(PlayerInfo[playerid][pAdmin] < 4) return SendClientMessage(playerid, COLOR_LIGHTRED, AdminOnly);
+	new id,string[94];
+	if(sscanf(params, "u",id)) return SendClientMessage(playerid, COLOR_GREY, "Cu phap: {FFFFFF}/trollhacker <playerid/name>");
+	format(string, sizeof string, "{FFFFFF}PHAT HIEN NGHI VAN HACK (%d.%d)", random(5),random(9));
+	Dialog_Show(id, 0,DIALOG_STYLE_MSGBOX,"He Thong Chong Sobeit & Cleo",string,"Ok","");
+	format(string, sizeof string, "{FFFFFF}Ban da troll hacker %s", GetName(id));
+	SendClientMessage(playerid,COLOR_WHITE,string);
+	KickEx(id);
+	return true;
+}
 CMD:gotoxyz(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 4) return SendClientMessage(playerid, COLOR_WHITE, AdminOnly);
 	new string[128],interior,vw;
