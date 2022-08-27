@@ -479,7 +479,8 @@ public OnPlayerDisconnect(playerid, reason)
 		Update(playerid,pWantedLevelx);
 		Update(playerid,pJailedx);
 		Update(playerid,pJailTimex);
-		ClearCrime(playerid);					
+		ClearCrime(playerid);			
+		checkbpquest(playerid, 1, 3);		
 	}
 	new playerID = GetPVarInt(playerid, "OfferBy");
 	foreach(new i: Player) {
@@ -1821,7 +1822,8 @@ public OnPlayerDeathEx(playerid, killerid, reason) {
 			Update(playerid,pWantedLevelx);
 			Update(playerid,pJailedx);
 			Update(playerid,pJailTimex);
-			ClearCrime(playerid);					
+			ClearCrime(playerid);				
+			checkbpquest(playerid, 1, 3);	
 		}
 	}
 	TextDrawHideForPlayer(playerid, EventCS);
@@ -1884,6 +1886,12 @@ public OnPlayerDeathEx(playerid, killerid, reason) {
 				PaintballWinner[PaintType[playerid]-1]  = killerid;
 				PaintballWinnerScore[PaintType[playerid]-1] = PKills[killerid];
 			}
+		}
+		if(ClanDuty[playerid] == 1 && ClanDuty[killerid] == 1) {
+			checkbpquest(killerid, 0,6);
+		}
+		if(OnDuty[playerid] == 1) {
+			checkbpquest(killerid, 3,0);
 		}
 		if(PaintType[killerid] == 0 && PaintType[playerid] == 0 && InEvent[playerid] == 0 && InEvent[killerid] == 0) {
 			if(OnDuty[playerid] == 1 && IsACop(playerid) && !IsACop(killerid) && killerid != INVALID_PLAYER_ID && GetPVarInt(playerid, "Undercover") == 0) {
@@ -2008,7 +2016,8 @@ public OnPlayerDeathEx(playerid, killerid, reason) {
 						format(string,sizeof string, "War: Ban Nhan Duoc %d Banh Trung Thu", banhtrungthu);
 						SendClientMessage(killerid,0x00E5FFFF, string);
 						PlayerInfo[killerid][pBanhTrungThu] += banhtrungthu;
-						Update(playerid,pBanhTrungThux);
+						Update(killerid,pBanhTrungThux);
+						checkbpquest(killerid,2,6);
 						format(string, sizeof(string), "War: Ban da bi giet boi %s voi %s tu khoang cach %0.1fm.", GetName(killerid), wname, disc);
 						SendClientMessage(playerid, 0x00E5FFFF, string);
 						if(PaintType[playerid] == 0 && PaintType[killerid] == 0) {	
@@ -2944,6 +2953,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	        ClearCrime(playerid);
 	        Update(playerid,pWantedLevelx);
 	        // finishAchievement(playerid, 16);
+			checkbpquest(playerid, 2, 3);
 		}
 		case 177: {
 			DisablePlayerCheckpoint(playerid);
@@ -4618,6 +4628,8 @@ public OnPlayerText(playerid, text[]) {
 						GivePlayerCash(playerid, TEventReward);
 						SCMTA(0xADD63CFF, string);
 						FastEventText[0] = '\0', TEventReward = 0, TEvent = 0;
+						checkbpquest(playerid, 2, 5);
+						checkbpquest(playerid, 3, 3);
 					}
 				}
 				case 3:
@@ -4637,6 +4649,7 @@ public OnPlayerText(playerid, text[]) {
 						GivePlayerCash(playerid, TEventReward);
 						format(string,sizeof(string),"Trivia Event: {FFA200}%s {ADD63C}da chien thang event cau hoi va nhan duoc %s$, cau tra loi la ''{FFA200}%s{ADD63C}''.", GetName(playerid), FormatNumber(TEventReward), FastEventText);
 						SCMTA(0xADD63CFF, string);
+						checkbpquest(playerid, 1, 4);
 						TriviaText[0] = '\0', FastEventText[0] = '\0', TEventReward = 0, TEvent = 0;
 					}
 				}

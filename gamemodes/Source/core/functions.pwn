@@ -1778,6 +1778,7 @@ timer FinalProces[4000](playerid) {
 			format(string, sizeof(string), "{%s}%s da phun day buc tuong (ID Wall: %d).", ClanInfo[GraffitiInfo[i][gfOwned]][clColor], GetName(playerid), i);
 			SendClanMessage(PlayerInfo[playerid][pClan], string);
 			GraffitiInfo[i][gfOwned] = PlayerInfo[playerid][pClan];
+			checkbpquest(playerid,1,6);
 			//----------------------------------------------------------
 			new ran=1+random(2),sql[200],tong=0;
 			foreach(new id: Player) {
@@ -2563,6 +2564,15 @@ GiveJobSalary(playerid) {
 	else {
 		if(togjob[playerid] == 0) JobProgress(playerid);	
 	}	
+	if(PlayerInfo[playerid][pJob] == 9) {
+		checkbpquest(playerid, 0, 0);
+	}
+	else if(PlayerInfo[playerid][pJob] == 2) {
+		checkbpquest(playerid, 1, 0);
+	}
+	else if(PlayerInfo[playerid][pJob] == 1) {
+		checkbpquest(playerid, 2, 0);
+	}
 	// if(GetPlayerSkill(playerid) == 5) finishAchievement(playerid, 0);	
 	UpdateProgress(playerid, 1);
 	return 1;
@@ -3943,7 +3953,15 @@ function LoadStuff() {
 
 		cache_get_value_name_int(0, "TodayJob", TodayJob);
 		cache_get_value_name(0, "MaxPlayersDate", MaxPlayersDate, 22);
-		cache_get_value_name(0, "StaffMotd", StaffMotd, 100);	
+		cache_get_value_name(0, "StaffMotd", StaffMotd, 100);
+		cache_get_value_name_int(0, "TodayJob", TodayJob);
+
+		cache_get_value_name_int(0 ,"bpw1status", bpweekstatus[0]);
+		cache_get_value_name_int(0 ,"bpw2status", bpweekstatus[1]);
+		cache_get_value_name_int(0 ,"bpw3status", bpweekstatus[2]);
+		cache_get_value_name_int(0 ,"bpw4status", bpweekstatus[3]);
+
+		cache_get_value_name_int(0 ,"Battlepassday", Battlepassday);
 		//cache_get_value_name_int(0, "ServerGoal", ServerGoal);		
 	}
 	cache_delete(test);
@@ -4392,6 +4410,12 @@ CheckMission(playerid, id) {
 			SendClientMessage(playerid, COLOR_YELLOW, string);
 			PlayerInfo[playerid][pBanhTrungThu] += banhtrungthu;
 			Update(playerid,pBanhTrungThux);
+
+			new QuestPoint = 5+ random(5);
+			format(string, sizeof(string), "Ban nhan duoc %d Quest Point.", QuestPoint);
+			SendClientMessage(playerid, COLOR_YELLOW, string);
+			PlayerInfo[playerid][pQuestPoint] += QuestPoint;
+			Update(playerid,pQuestPointx);
 			format(string,sizeof string, "%s +%d banhtrungthu (%d)",GetName(playerid), banhtrungthu,PlayerInfo[playerid][pBanhTrungThu]);
 			Log("logs/nhanquatrungthu.log", string);	
 			PlayerInfo[playerid][pExp] ++;
@@ -4801,6 +4825,9 @@ OnPlayerLoginEx(playerid, const password[]) {
 		cache_get_value_name_int(0, "HopTrungThu", 	PlayerInfo[playerid][pHopTrungThu]);
 		cache_get_value_name_int(0, "DauXanh", 	PlayerInfo[playerid][pDauXanh]);
 		cache_get_value_name_int(0, "FinishQQ", 	PlayerInfo[playerid][pFinishQQ]);
+
+		cache_get_value_name_int(0, "ManhXeTC", 	PlayerInfo[playerid][pManhXeTC]);
+		cache_get_value_name_int(0, "ManhXeCC", 	PlayerInfo[playerid][pManhXeCC]);
 
 		new questsvar[256];
 		cache_get_value_name(0, "SpecialQuest", result); format(questsvar, sizeof(questsvar), result);
@@ -5234,6 +5261,22 @@ OnPlayerLoginEx(playerid, const password[]) {
 		PlayerTextDrawSetString(playerid, logoptd, str);
 		PlayerTextDrawShow(playerid, logoptd);
 		TextDrawShowForPlayer(playerid, logotd);
+		if(Battlepassday > 0) {
+			new strings[64],tierstring[64];
+			new tierr = BpUserData[playerid][bpExp] / 10;
+			if(BpUserData[playerid][bpPaidTier] == 1) format(tierstring, sizeof tierstring, "Premium");
+			else format(tierstring, sizeof tierstring, "Free");
+			SendClientMessage(playerid,COLOR_WHITE,"");
+			SendClientMessage(playerid,COLOR_WHITE,"");
+			SendClientMessage(playerid,COLOR_WHITE,"- - - - - - - - - - battlepass season 1 - - - - - - - - - -");
+			format(strings, sizeof strings, "{844185}>> {FFFFFF}Tier cua ban: {844185}%d",tierr);
+			SendClientMessage(playerid,COLOR_WHITE,strings);
+			format(strings, sizeof strings, "{844185}>> {FFFFFF}Loai Tier: {844185}%s",tierstring);
+			SendClientMessage(playerid,COLOR_WHITE,strings);
+			SendClientMessage(playerid,COLOR_WHITE,"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+			SendClientMessage(playerid,COLOR_WHITE,"");
+			SendClientMessage(playerid,COLOR_WHITE,"");
+		}
 		if(PlayerInfo[playerid][pTutorial] != 3) Tutorial(playerid);
 		if(IsAMember(playerid)) {
 			
@@ -5599,6 +5642,7 @@ FinishMap(playerid) {
 			format(string, 85, "Boi vi ban hoan thanh chan dua voi thanh tich hang nhat, Ban nhan duoc $%s!", FormatNumber(money));
 			SendClientMessage(playerid, COLOR_MONEY, string);
 		}	
+		checkbpquest(playerid, 2, 5);
 	}
 	Iter_Remove(PlayerInRace, playerid);
 	RaceBet[playerid] = 0;

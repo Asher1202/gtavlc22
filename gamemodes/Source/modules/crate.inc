@@ -177,6 +177,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
 		CrateTime[playerid] = 15;
 		CrateModel[playerid] = 1;
 		PlayerInfo[playerid][pCrates][1] -= 1;
+		checkbpquest(playerid, 0, 1);
 		startcrates(playerid);
 	}
 	if(playertextid == MoGuong[playerid][13])
@@ -207,6 +208,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
 		CrateTime[playerid] = 15;
 		CrateModel[playerid] = 1;
 		PlayerInfo[playerid][pCrates][4] -= 1;
+		checkbpquest(playerid, 1, 1);
 		startcrates(playerid);
 	}
     if(playertextid == MoGuong[playerid][15])

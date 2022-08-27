@@ -37,7 +37,8 @@ new const KimCuongShop[][e_SHOP_INFO] = {
 	{"Crate Car Mythical", 				600, 	TYPE_KC},
 	{"VIP GOLD", 				100, 	TYPE_KC},
 	{"VIP PLATIUM", 				300, 	TYPE_KC},
-	{"VIP DIAMOND", 				550, 	TYPE_KC}
+	{"VIP DIAMOND", 				550, 	TYPE_KC},
+	{"Premium Battlepass", 			400, 	TYPE_KC}
 };
 
 CMD:shop(playerid, params[]) {
@@ -47,11 +48,13 @@ CMD:shop(playerid, params[]) {
 		return 1;
 	}
 	//va_SendClientMessage(playerid, -1, "{ccffcc}SHOP: Ban co %d "DIEMCAOCAP".",PlayerInfo[playerid][pPremiumPoints]);
-	new string[64], sstring[128];
+	new string[64], sstring[200];
 	strcat(sstring, "Type\tExtra\n");
 	format(string ,sizeof string, "1.Regular shop\t{FCD482}ban co %d "DIEMCAOCAP"{FFFFFF}\n",PlayerInfo[playerid][pPremiumPoints]);
 	strcat(sstring,string);
-	format(string ,sizeof string, "2.Kim cuong shop\t{FCD482}ban co %d kim cuong{FFFFFF}",PlayerInfo[playerid][pKC]);
+	format(string ,sizeof string, "2.Kim cuong shop\t{FCD482}ban co %d kim cuong{FFFFFF}\n",PlayerInfo[playerid][pKC]);
+	strcat(sstring,string);
+	format(string ,sizeof string, "3.Quest shop\t{FCD482}ban co %d Quest Point{FFFFFF}",PlayerInfo[playerid][pQuestPoint]);
 	strcat(sstring,string);
 	/*Dialog_Show(playerid, DIALOG_SHOPMENU, DIALOG_STYLE_TABLIST_HEADERS, "Shop Menu", 
 		"Shop Type\tItem\n\
@@ -160,7 +163,7 @@ ShowKCShop(playerid) {
 	
 	for(new i; i < sizeof(KimCuongShop); i++) {
 		if(KimCuongShop[i][SHOP_ITEM_UNIT] == TYPE_KC) {
-			format(string, sizeof(string), "%d.\t%s\t{FCD482}%s{FFFFFF}"#DIEMCAOCAP"\n",i, KimCuongShop[i][SHOP_ITEM_NAME], FormatNumber(KimCuongShop[i][SHOP_ITEM_PRICE]));
+			format(string, sizeof(string), "%d.\t%s\t{FCD482}%s{FFFFFF}Kim Cuong\n",i, KimCuongShop[i][SHOP_ITEM_NAME], FormatNumber(KimCuongShop[i][SHOP_ITEM_PRICE]));
 			strcat(szDialog, string);	
 		}
 		else if(KimCuongShop[i][SHOP_ITEM_UNIT] == TYPE_MONEY) {
@@ -614,9 +617,13 @@ Dialog:DIALOG_SHOPKC(playerid, response, listitem, inputtext[])
 			SetPVarInt(playerid, "KC", 300);
 		}					
 		case 8: {
-			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua VIP DIAMOND\nDe mua no, ban can phai tra 100 "#DIEMCAOCAP".\n\n\
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua VIP DIAMOND\nDe mua no, ban can phai tra 550 "#DIEMCAOCAP".\n\n\
 			Vat pham\n-Danh hieu [GAME, DISCORD] : VIP DIAMOND\n-Tang them 4 SLOT xe [0/6]\n- Nang muc dat chip tu 700 -> 1000\n-Mo khoa tinh nang /vcar\n- Mo khoa tinh nang /vchat\n- Thanh doi 100% -> 200%\n- Moi ngay dang nhap nhan 2 Rob Point,10 xu, 1 Respect pointn- Free giay phep thuyen, may bay, sung 30 ngay\n- Mien tien vao biz\n- Bonus 20% tien tat ca cong viec\n- Giam 15% thue khi choi tai xiu\n- Vehicle box\n- Tang them 3 lan lam nhiem vu hang ngay [0/4] -> [0/7]\n- Mo khoa chuc nang chat mau, dung lenh /pcolor de thay doi mau chat\n- Rainbow tren tat ca cac xe, dung lenh /rainbowveh de doi mau\n- Create Car rare x1\n Ho tro GIFTCODE hang tuan tu may chu thong qua BLACK");
 			SetPVarInt(playerid, "KC", 550);
+		}
+		case 9: {
+			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua Premium BattlePass\nBan can phai tra 400 Kim Cuong.\n\n\nNhan Duoc Uu Dai Premium Cua Battlepass");
+			SetPVarInt(playerid, "KC", 400);
 		}					
 	}
 	SelectedItem[playerid] = listitem;
@@ -706,6 +713,16 @@ Dialog:DIALOG_SHOPKC1(playerid, response, listitem, inputtext[])
 			new query[128];
 			format(query, sizeof(query), "UPDATE `users` SET `Vip`='3' WHERE `id`='%d'", PlayerInfo[playerid][pSQLID]);
 			mysql_query(SQL, query);
+			Update(playerid, pKCx);
+		}
+		case 9: {
+			if(BpUserData[playerid][bpPaidTier] == 1) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da co premium battlepass");
+			BpUserData[playerid][bpPaidTier] = 1;
+			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua Premium Battlepass Thanh Cong");
+			PlayerInfo[playerid][pKC] -= 400;
+			new query[128];
+			format(query, sizeof(query), "UPDATE `battlepass` SET `bpPaidTier`='1' WHERE `player_sqlid`='%d'", PlayerInfo[playerid][pSQLID]);
+			mysql_tquery(SQL, query);
 			Update(playerid, pKCx);
 		}
 	}

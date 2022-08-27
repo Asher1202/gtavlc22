@@ -3718,6 +3718,20 @@ task SyncUp[60000]() {
 				ServerSystem[22] = 1;
 				SCMTA(COLOR_GOLD, "CUA HANG PIZZA: {FFFFFF}Chung toi da dong cua cho nen ban se khong the lam viec. Ban co the lam viec vao 7 gio sang hom nay.");
 			}
+			if(Battlepassday <= 0) Battlepassday = 0;
+			else Battlepassday -= 1;
+			format(query, sizeof(query), "UPDATE `stuff` SET `Battlepassday`='%d'", Battlepassday);
+			mysql_pquery(SQL, query);	
+			new dayz[180];
+			format(dayz, sizeof(dayz), GetWeekDay(Day, Month, Year));
+			if(strcmp(dayz,"Monday",true) == 0) {
+				for(new sex; sex < 4; sex++) {
+					if(bpweekstatus[sex] == 1) {
+						bpweekstatus[sex+1] = 1;
+						break;
+					}
+				}
+			}
 			// ResetDailyBonus();
 			ResetQuest();
 			if(Day == 1) {

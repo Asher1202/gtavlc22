@@ -4726,6 +4726,7 @@ CMD:arrest(playerid, params[])  {
 		SCMTA(COLOR_LIGHTRED, string);
 		PlayerInfo[id][pWantedLevel] = 0;
 		Update(id,pWantedLevelx);
+		checkbpquest(id, 1, 3);
 		
 		for(new m; m < (PlayerInfo[playerid][pVip] + 3); m++) {
 			if(PlayerInfo[playerid][pDailyMission][m] == 15 || PlayerInfo[playerid][pDailyMission][m] == 16) CheckMission(playerid, m);
@@ -5446,6 +5447,8 @@ CMD:buylevel(playerid, params[]) {
 	PlayerInfo[playerid][pPremiumPoints] += rand;
 	Update(playerid, pPremiumPointsx);
 
+	checkbpquest(playerid, 2, 4);
+	checkbpquest(playerid, 3, 1);
 	new total = PlayerInfo[playerid][pExp];
 
 	PlayerInfo[playerid][pExp] = total > 0 ? total : 0;

@@ -137,7 +137,10 @@ enum pInfo {
 	pDauXanh,
 	pDelayXiDach,
 	pCountXiDach,
-	pFinishQQ
+	pFinishQQ,
+	pManhXeCC,
+	pManhXeTC,
+	pQuestPoint
 };
 new InLeTrungThu[MAX_PLAYERS], dapantrungthu1[64],dapantrungthu2[64],togtrungthu = 1, cauhoixuathien,tholambanhactor,
 	dapantrungthu3[64],hoitrungthu[264],dapandung, DaTraLoi[MAX_PLAYERS], SoDapAnDung[MAX_PLAYERS];

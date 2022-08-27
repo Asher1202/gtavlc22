@@ -89,7 +89,7 @@ DEFINE_HOOK_REPLACEMENT(KeyState, KState);
 #include "Source/modules/progress.inc" //for jobs
 #include "Source/modules/update.pwn"
 #include "Source/modules/jobs/Garden.pwn"
-// #include <battlepass>
+#include <battlepass>
 #include "Source/modules/crate.inc"
 #include "Source/core/foodsystem.inc"
 #include <core/timers.pwn>

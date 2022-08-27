@@ -195,6 +195,7 @@ timer PlayDice[1000](playerid, id) {
 				ProxDetector(30.0,playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);					
 				format(szMessage, 35,"(+) Ban nhan duoc %s chip.", FormatNumber(DiceMoney[playerid]));
 				SendClientMessage(playerid, COLOR_MONEY, szMessage);
+				checkbpquest(playerid, 3, 6);
 				format(szMessage, 35,"(-) Ban thua %s chip.", FormatNumber(DiceMoney[playerid]));
 				SendClientMessage(DiceID[playerid], COLOR_MONEY, szMessage);
 
@@ -209,6 +210,7 @@ timer PlayDice[1000](playerid, id) {
 				ProxDetector(30.0,playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);				
 				format(szMessage, 35,"(+) Ban nhan duoc %s chip.", FormatNumber(DiceMoney[playerid]));
 				SendClientMessage(DiceID[playerid], COLOR_MONEY, szMessage);
+				checkbpquest(DiceID[playerid], 3, 6);
 				format(szMessage, 35,"(-) Ban thua %s chip.", FormatNumber(DiceMoney[playerid]));
 				SendClientMessage(playerid, COLOR_MONEY, szMessage);
 
@@ -229,6 +231,8 @@ timer PlayDice[1000](playerid, id) {
 			}
 			DiceID[playerid] = -1;
 			DiceMoney[playerid] = 0;
+			checkbpquest(playerid, 0, 5);
+			checkbpquest(id, 0, 5);
 		}
 		else SendClientMessage(playerid, COLOR_WHITE, "Nguoi choi nay khong moi ban choi voi anh ay.");
 	}

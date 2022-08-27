@@ -1974,6 +1974,7 @@ new Float:TruckTrungThuPos[][] = {
 #define pHopTrungThux		105
 #define pDauXanhx			106
 #define pFinishQQx			107
+#define pQuestPointx		108
 //HOUSE
 #define hExitxx             1
 #define hExityx             2

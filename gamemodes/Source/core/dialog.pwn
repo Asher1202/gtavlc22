@@ -3443,6 +3443,8 @@ Dialog:DIALOG_CMONEY3(playerid, response, listitem, inputtext[]) {
 	SendClanMessage(id, string);
 	Log("logs/clanket.log", string);
 	save_ketclan(id);
+	if(strval(inputtext) >= 5000000) checkbpquest(playerid, 0, 3);
+	if(strval(inputtext) >= 10000000) checkbpquest(playerid, 3, 2);
 	return true;
 }
 Dialog:DIALOG_CLANTAG(playerid, response, listitem, inputtext[]) 
@@ -6079,6 +6081,8 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 						format(sql, sizeof(sql), "UPDATE clans SET `ActivePoints`='%d' WHERE `ID`='%d'", ClanInfo[cid][clPoints], cid);
 						mysql_tquery(SQL, sql, "", "");
 					}
+					checkbpquest(playerid, 0, 2);
+					checkbpquest(playerid, 3, 4);
 					//type = 1;
 				}
 				else SendClientMessage(playerid, COLOR_YELLOW, "Ban khong o tai 24/7");
@@ -6186,6 +6190,9 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 						format(sql, sizeof(sql), "UPDATE clans SET `ActivePoints`='%d' WHERE `ID`='%d'", ClanInfo[cid][clPoints], cid);
 						mysql_tquery(SQL, sql, "", "");
 					}
+					checkbpquest(playerid, 0, 2);
+					checkbpquest(playerid, 1, 2);
+					checkbpquest(playerid, 3, 4);
 				}
 				else SendClientMessage(playerid, COLOR_YELLOW, "Ban khong o tai 24/7");
 			}
@@ -6290,6 +6297,9 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 						format(sql, sizeof(sql), "UPDATE clans SET `ActivePoints`='%d' WHERE `ID`='%d'", ClanInfo[cid][clPoints], cid);
 						mysql_tquery(SQL, sql, "", "");
 					}	
+					checkbpquest(playerid, 0, 2);
+					checkbpquest(playerid, 2, 2);
+					checkbpquest(playerid, 3, 4);
 					//type = 1;
 				}
 				else SendClientMessage(playerid, COLOR_YELLOW, "Ban khong o tai 24/7");
@@ -6391,6 +6401,8 @@ Dialog:DIALOG_INVENTORY(playerid, response, listitem, inputtext[]) {
 					for(new m; m < (PlayerInfo[playerid][pVip] + 3); m++) {
 						if(PlayerInfo[playerid][pDailyMission][m] == 2) CheckMission(playerid, m);
 					}				
+					checkbpquest(playerid, 0, 2);
+					checkbpquest(playerid, 3, 4);
 					//type = 1;
 				}
 				else SendClientMessage(playerid, COLOR_YELLOW, "Ban khong o tai 24/7");
@@ -6585,6 +6597,7 @@ Dialog:DIALOG_USENUM(playerid, response, listitem, inputtext[])
 	ApplyAnimation(playerid,"FOOD","EAT_Burger", 3.0, 0, 0, 0, 0, 0);
 	if(health < 85 && InWar[PlayerInfo[playerid][pMember]] == 1) {
 	SetPlayerHealthEx(playerid, health + 15);
+	checkbpquest(playerid, 2, 1);
 	}
 	return 1;
 }

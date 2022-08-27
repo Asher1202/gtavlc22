@@ -16,7 +16,7 @@ Bp_LoadPlayerTextDraw(playerid) {
 	PlayerTextDrawSetProportional(playerid, BpPTD[0], 1);
 	PlayerTextDrawSetSelectable(playerid, BpPTD[0], 0);
 	PlayerTextDrawSetPreviewModel(playerid, BpPTD[0], 4524);
-	PlayerTextDrawSetPreviewRot(playerid, BpPTD[0], 0.000000, 0.000000, 0.000000, 0.319997);
+	PlayerTextDrawSetPreviewRot(playerid, BpPTD[0], 0.000000, 0.000000, 0.000000, 0.819998);
 	PlayerTextDrawSetPreviewVehCol(playerid, BpPTD[0], 1, 1);
 
 	BpPTD[1] = CreatePlayerTextDraw(playerid, 253.000000, 180.000000, "Preview_Model");
@@ -101,7 +101,7 @@ Bp_LoadPlayerTextDraw(playerid) {
 	PlayerTextDrawSetProportional(playerid, BpPTD[5], 1);
 	PlayerTextDrawSetSelectable(playerid, BpPTD[5], 0);
 	PlayerTextDrawSetPreviewModel(playerid, BpPTD[5], 4524);
-	PlayerTextDrawSetPreviewRot(playerid, BpPTD[5], 0.000000, 0.000000, 0.000000, 0.000000);
+	PlayerTextDrawSetPreviewRot(playerid, BpPTD[5], 0.000000, 0.000000, 0.000000, 0.819998);
 	PlayerTextDrawSetPreviewVehCol(playerid, BpPTD[5], 1, 1);
 
 	BpPTD[6] = CreatePlayerTextDraw(playerid, 253.000000, 252.000000, "Preview_Model");

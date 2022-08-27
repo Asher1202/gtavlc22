@@ -82,6 +82,7 @@ Dialog:DIALOG_CUOCTAI(playerid, response, listitem, inputtext[]) {
         Iter_Add(ChonTai, playerid);
         tongtai++;
         tongcuoctai+=chipcuoc;
+		checkbpquest(playerid, 3, 5);
     }
     return 1;
 }
@@ -107,6 +108,7 @@ Dialog:DIALOG_CUOCXIU(playerid, response, listitem, inputtext[]) {
         Iter_Add(ChonXiu, playerid);
         tongxiu++;
         tongcuocxiu+=chipcuoc;
+		checkbpquest(playerid, 3, 5);
     }
     return 1;
 }
@@ -159,6 +161,8 @@ TaixiuTime() {
         foreach(i: ChonTai) {
         	format(string,sizeof(string),"[Tai xiu]: Ban da chien thang, nhan duoc %s chip!",FormatNumber(cuoctai[i]*2));
 		    SendClientMessage(i, COLOR_LIGHTBLUE, string);
+
+			checkbpquest(i, 0, 4);
 		
 			new chipLeft = payTaxTaiXiu(i, cuoctai[i] * 2);
 			PlayerInfo[i][pCasinoChip] += chipLeft;
