@@ -5273,6 +5273,8 @@ OnPlayerLoginEx(playerid, const password[]) {
 			SendClientMessage(playerid,COLOR_WHITE,strings);
 			format(strings, sizeof strings, "{844185}>> {FFFFFF}Loai Tier: {844185}%s",tierstring);
 			SendClientMessage(playerid,COLOR_WHITE,strings);
+			format(strings, sizeof strings, "{844185}>> {FFFFFF}Season Con: {844185}%d {FFFFFF}Ngay",Battlepassday);
+			SendClientMessage(playerid,COLOR_WHITE,strings);
 			SendClientMessage(playerid,COLOR_WHITE,"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
 			SendClientMessage(playerid,COLOR_WHITE,"");
 			SendClientMessage(playerid,COLOR_WHITE,"");
