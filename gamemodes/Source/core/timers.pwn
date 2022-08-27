@@ -3726,7 +3726,7 @@ task SyncUp[60000]() {
 			format(dayz, sizeof(dayz), GetWeekDay(Day, Month, Year));
 			if(strcmp(dayz,"Monday",true) == 0) {
 				for(new sex; sex < 4; sex++) {
-					if(bpweekstatus[sex] == 1) {
+					if(bpweekstatus[sex] == 1 && bpweekstatus[sex+1] == 0) {
 						bpweekstatus[sex+1] = 1;
 						break;
 					}
