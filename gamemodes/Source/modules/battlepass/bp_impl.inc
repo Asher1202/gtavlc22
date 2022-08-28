@@ -312,25 +312,25 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid) {
 		}
 		if(bpweekstatus[0] == 0) format(qf2, sizeof qf2,"chua mo");
 		else if(qf[0] == 7) format(qf2, sizeof qf2,"{3BBF0B}completed");
-		else format(qf2, sizeof qf2,"%d/6 quest da hoan thanh",qf[0]);
+		else format(qf2, sizeof qf2,"%d/7 quest da hoan thanh",qf[0]);
 		format(szDialog2, sizeof szDialog2, "Week 1\t%s\t%s\n",bpweekstatus[0] != 1 ? "{FF0000}locked" : "{3BBF0B}unlocked", qf2);
 		strcat(szDialog, szDialog2);
 
 		if(bpweekstatus[1] == 0) format(qf2, sizeof qf2,"chua mo");
 		else if(qf[1] == 7) format(qf2, sizeof qf2,"{3BBF0B}completed");
-		else format(qf2, sizeof qf2,"%d/6 quest da hoan thanh",qf[1]);
+		else format(qf2, sizeof qf2,"%d/7 quest da hoan thanh",qf[1]);
 		format(szDialog2, sizeof szDialog2, "Week 2\t%s\t%s\n",bpweekstatus[1] != 1 ? "{FF0000}locked" : "{3BBF0B}unlocked", qf2);
 		strcat(szDialog, szDialog2);
 
 		if(bpweekstatus[2] == 0) format(qf2, sizeof qf2,"chua mo");
 		else if(qf[2] == 7) format(qf2, sizeof qf2,"{3BBF0B}completed");
-		else format(qf2, sizeof qf2,"%d/6 quest da hoan thanh",qf[2]);
+		else format(qf2, sizeof qf2,"%d/7 quest da hoan thanh",qf[2]);
 		format(szDialog2, sizeof szDialog2, "Week 3\t%s\t%s\n",bpweekstatus[2] != 1 ? "{FF0000}locked" : "{3BBF0B}unlocked", qf2);
 		strcat(szDialog, szDialog2);
 
 		if(bpweekstatus[3] == 0) format(qf2, sizeof qf2,"chua mo");
 		else if(qf[3] == 7) format(qf2, sizeof qf2,"{3BBF0B}completed");
-		else format(qf2, sizeof qf2,"%d/6 quest da hoan thanh",qf[2]);
+		else format(qf2, sizeof qf2,"%d/7 quest da hoan thanh",qf[2]);
 		format(szDialog2, sizeof szDialog2, "Week 4\t%s\t%s",bpweekstatus[3] != 1 ? "{FF0000}locked" : "{3BBF0B}unlocked", qf2);
 		strcat(szDialog, szDialog2);
 		
