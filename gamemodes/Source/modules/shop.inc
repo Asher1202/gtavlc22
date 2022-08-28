@@ -38,7 +38,7 @@ new const KimCuongShop[][e_SHOP_INFO] = {
 	{"VIP GOLD", 				100, 	TYPE_KC},
 	{"VIP PLATIUM", 				300, 	TYPE_KC},
 	{"VIP DIAMOND", 				550, 	TYPE_KC},
-	{"Premium Battlepass", 			400, 	TYPE_KC}
+	{"Premium Battlepass", 			600, 	TYPE_KC}
 };
 
 CMD:shop(playerid, params[]) {
@@ -623,7 +623,7 @@ Dialog:DIALOG_SHOPKC(playerid, response, listitem, inputtext[])
 		}
 		case 9: {
 			format(szDialog, sizeof(szDialog), "Ban co chac chan muon mua Premium BattlePass\nBan can phai tra 400 Kim Cuong.\n\n\nNhan Duoc Uu Dai Premium Cua Battlepass");
-			SetPVarInt(playerid, "KC", 400);
+			SetPVarInt(playerid, "KC", 600);
 		}					
 	}
 	SelectedItem[playerid] = listitem;
@@ -719,7 +719,7 @@ Dialog:DIALOG_SHOPKC1(playerid, response, listitem, inputtext[])
 			if(BpUserData[playerid][bpPaidTier] == 1) return SendClientMessage(playerid, COLOR_YELLOW, "Ban da co premium battlepass");
 			BpUserData[playerid][bpPaidTier] = 1;
 			SendClientMessage(playerid, COLOR_YELLOW, "Ban da mua Premium Battlepass Thanh Cong");
-			PlayerInfo[playerid][pKC] -= 400;
+			PlayerInfo[playerid][pKC] -= 600;
 			new query[128];
 			format(query, sizeof(query), "UPDATE `battlepass` SET `bpPaidTier`='1' WHERE `player_sqlid`='%d'", PlayerInfo[playerid][pSQLID]);
 			mysql_tquery(SQL, query);
