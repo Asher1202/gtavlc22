@@ -10,6 +10,21 @@ hook OnPlayerConnect(playerid) {
 hook OnGameModeInit() {
     Bp_LoadTextDraw();
 }
+CMD:givebppre(playerid, params[]) {
+    if(PlayerInfo[playerid][pAdmin] < 4) return SendClientMessage(playerid, COLOR_LIGHTRED, AdminOnly);
+	new id,string[94],query[124];
+	if(sscanf(params, "u",id)) return SendClientMessage(playerid, COLOR_GREY, "Cu phap: {FFFFFF}/trollhacker <playerid/name>");
+	format(string, sizeof string, "Ban da nhan duoc battlepass premium tu admin %s", GetName(playerid));
+	SendClientMessage(id,COLOR_WHITE,string);
+	format(string, sizeof string, "{FFFFFF}Ban da give battlepass premium cho %s", GetName(id));
+	SendClientMessage(playerid,COLOR_WHITE,string);
+    format(string, sizeof string, "ADMIN >> {FFFFFF}%s da give battlepass premium cho %s", GetName(playerid),GetName(id));
+	SendAdminMessage(COLOR_YELLOW,string,7);
+    BpUserData[id][bpPaidTier] = 1;
+    format(query, sizeof(query), "UPDATE `battlepass` SET `bpPaidTier`='1' WHERE `player_sqlid`='%d'", PlayerInfo[id][pSQLID]);
+	mysql_tquery(SQL, query);
+	return true;
+}
 CMD:ghepxe(playerid, params[]) {
     new szDialog[200];
     format(szDialog, sizeof szDialog,"Manh\tSoLuong\nManh Xe Trung Cap\t%d/2\nManh Xe Cao Cap\t%d/4",PlayerInfo[playerid][pManhXeTC],PlayerInfo[playerid][pManhXeCC]);

@@ -3443,7 +3443,7 @@ Dialog:DIALOG_CMONEY3(playerid, response, listitem, inputtext[]) {
 	SendClanMessage(id, string);
 	Log("logs/clanket.log", string);
 	save_ketclan(id);
-	if(strval(inputtext) >= 5000000) checkbpquest(playerid, 0, 3);
+	if(strval(inputtext) >= 2000000) checkbpquest(playerid, 0, 3);
 	if(strval(inputtext) >= 10000000) checkbpquest(playerid, 3, 2);
 	return true;
 }
