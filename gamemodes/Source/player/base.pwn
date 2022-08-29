@@ -1500,6 +1500,8 @@ CMD:radio(playerid, params[]) {
 CMD:duty(playerid, params[]) {
 	if(PlayerInfo[playerid][pGunLic] == 0) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000}[!]{FFFFFF} Ban khong co giay phep su dung sung. Hay tim mot giao vien de nho ho cap giay phep hoac mua o City Hall.");
 	new string[200],sendername[MAX_PLAYER_NAME];
+	if(gettime() < GetPVarInt(playerid, "ChoDoi")) return SCMf(playerid, COLOR_LGREEN, ">> Vui long doi %d giay!", GetPVarInt(playerid, "ChoDoi") - gettime());
+
 	GetPlayerName(playerid, sendername, sizeof(sendername));
 	if(!IsACop(playerid)) return SendClientMessage(playerid, COLOR_GREY, "Ban khong phai la canh sat.");
 	if(PlayerInfo[playerid][pSleeping] == 1) return SendClientMessage(playerid, COLOR_LGREEN, "{FF0000}[!]{FFFFFF} Khong the su dung lenh nay khi dang ngu!");
@@ -1519,6 +1521,8 @@ CMD:duty(playerid, params[]) {
 				OnDuty[playerid] = 1;
 				SetPlayerSkinEx(playerid, PlayerInfo[playerid][pChar]);
 				SendClientMessage(playerid, -1, "Ban dang onduty lam viec nhu mot canh sat!");
+				SetPVarInt(playerid, "ChoDoi", gettime() + 10);
+				
 			}
 			else if(OnDuty[playerid]==1) {
 				SendClientMessage(playerid, -1, "Ban da offduty!");
@@ -2281,6 +2285,7 @@ CMD:youtubers(playerid, params[]) {
 }
 CMD:find(playerid, params[]) {
 	if(JobWorking[playerid] == 1) return 1;
+	if(gettime() < GetPVarInt(playerid, "ChoDoi")) return SCMf(playerid, COLOR_LGREEN, ">> Vui long doi %d giay!", GetPVarInt(playerid, "ChoDoi") - gettime());
 	if(CP[playerid] != 0 || targetfind[playerid] != -1) return Dialog_Show(playerid, DIALOG_CHECKPOINT, DIALOG_STYLE_MSGBOX, "Checkpoint", "Mot cham do dang hoat dong.\nBan co muon xoa no khong? Neu muon, hay chon 'Ok'.", "Ok", "Exit");
 	new id,giveplayer[30],string[100];
 	if(PlayerInfo[playerid][pJob] != 8 && PlayerInfo[playerid][pMember] != 11 && !IsACop(playerid)) return SendClientMessage(playerid, COLOR_GREY, "Cong viec cua ban khong phai la Tham Tu.");
@@ -2303,7 +2308,7 @@ CMD:find(playerid, params[]) {
 	CP[playerid] = 53;
 	format(string, sizeof(string), "* Cham do duoc dat tai vi tri cua %s (ID %d), khu vuc %s.",giveplayer, id,GetPlayerZone(id));
 	SendClientMessage(playerid,COLOR_YELLOW,string);
-	
+	SetPVarInt(playerid, "ChoDoi", gettime() + 10);
  	return 1;
 }
 CMD:id(playerid, params[]) {

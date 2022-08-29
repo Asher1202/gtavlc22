@@ -454,7 +454,7 @@ Dialog:DIALOG_POOL_WAGER(playerid, response, listitem, inputtext[])
 		return SendClientMessage( playerid, COLOR_RED, "Loi khong the xac thuc ban hay thu lai." );
 	}
 	new wager_amount = strval(inputtext);
-	if ( response && wager_amount > 0 && wager_amount < 1000000 )
+	if ( response && wager_amount > 0 && wager_amount < 500000 )
 	{
 		if ( wager_amount > GetPlayerCash( playerid ) ) {
 			Dialog_Show( playerid, DIALOG_POOL_WAGER, DIALOG_STYLE_INPUT, "{FFFFFF}Ban bida", "{FFFFFF}Hay nhap so tien cuoc ban muon cho ban nay:\n\n"COL_RED"Ban khong co du tien!", "Dong y", "Huy" );
