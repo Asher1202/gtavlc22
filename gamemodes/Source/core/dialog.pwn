@@ -1257,8 +1257,7 @@ Dialog:DIALOG_BUYGUN2(playerid, response, listitem, inputtext[])
 		case 1: ServerWeapon(playerid, 31, 200);			
 		case 2: ServerWeapon(playerid, 30, 200);	
 		case 3: ServerWeapon(playerid, 28, 200);			
-		case 4: ServerWeapon(playerid, 25, 20);			
-		case 5: ServerWeapon(playerid, 5, 20);			
+		case 4: ServerWeapon(playerid, 25, 20);				
 	}
 	Update(playerid, pCashx);	
 	return 1;
@@ -1923,18 +1922,6 @@ Dialog:DIALOG_BUYGUN(playerid, response, listitem, inputtext[])
 			format(query, sizeof(query),"UPDATE `bizz` SET `Till`='%d',`Products`='%d' WHERE `ID`='%d'",BizzInfo[InBussines[playerid]][bTill],BizzInfo[InBussines[playerid]][bProducts],InBussines[playerid]);
 			mysql_query(SQL,query);				
 		}	
-		case 5: {
-			if(GetPlayerCash(playerid) < 50000) return SendClientMessage(playerid, COLOR_GREY, "Ban khong du $50,000 de mua vu khi nay!");
-			//ServerWeapon(playerid, 5, 20);
-			if(checkslotinv(playerid) == 24) return SendClientMessage(playerid, -1, "Tui do cua ban da day.");
-			if(Inventory_GetFreeID(playerid, 1) == -1) Inventory_Add(playerid,"Baseball Bat", 336, 1, 2);
-			else Inventory_Add(playerid,"Baseball Bat", 336, 1, 1);
-			SendClientMessage(playerid, COLOR_MONEY, "Ban da mua mot Baseball Bat voi gia $50,000 vu khi da duoc bo vao [/tuido].");
-			GivePlayerCash(playerid, -50000);
-			BizzInfo[InBussines[playerid]][bTill] += 50000;
-			format(query, sizeof(query),"UPDATE `bizz` SET `Till`='%d',`Products`='%d' WHERE `ID`='%d'",BizzInfo[InBussines[playerid]][bTill],BizzInfo[InBussines[playerid]][bProducts],InBussines[playerid]);
-			mysql_query(SQL,query);				
-		}
 	}
 	Update(playerid, pCashx);
 	return 1;

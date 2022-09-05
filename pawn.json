@@ -15,8 +15,9 @@
 		"PatrickGTR/MySQL-Prepared-Statements",
 		"NexiusTailer/Nex-AC",
 		"pawn-lang/YSI-Includes@5.x",
-		"Southclaws/pawn-requests:0.8.7",
-		"ziggi/FCNPC:v2.0.4",
+		"Southclaws/pawn-requests",
+		"IllidanS4/PawnPlus",
+		"ziggi/FCNPC",
 		"kristoisberg/samp-td-streamer"
 	],
 	"local": true,
